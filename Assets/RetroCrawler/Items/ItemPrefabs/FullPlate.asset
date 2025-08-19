@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830199137178dfd4c92369ded1b83b63, type: 3}
+  m_Name: FullPlate
+  m_EditorClassIdentifier: 
+  itemType: 2
+  itemName: Full Plate
+  texture2DMouse: {fileID: 2800000, guid: d0051690104f113458c82cef9c311c54, type: 3}
+  InventorySprite: {fileID: 21300000, guid: ace9fb3d7a24e4f4dbfbeef5fac91646, type: 3}
+  worldSprite: {fileID: 21300000, guid: ace9fb3d7a24e4f4dbfbeef5fac91646, type: 3}
+  prefab: {fileID: 2885720944578253258, guid: e5dd30dee5940e047b0c0c706e3ed317, type: 3}
+  weight: 10
+  spellContainer: {fileID: 11400000, guid: c44aed06ff9e61948b307d19469b5351, type: 2}
+  weaponType: 0
+  twoHanded: 0
+  price: 500

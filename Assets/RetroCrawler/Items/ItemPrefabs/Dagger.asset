@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830199137178dfd4c92369ded1b83b63, type: 3}
+  m_Name: Dagger
+  m_EditorClassIdentifier: 
+  itemType: 0
+  itemName: Dagger
+  texture2DMouse: {fileID: 2800000, guid: 5aa8c87a3d17f5a4d89b1b0fa527d49e, type: 3}
+  InventorySprite: {fileID: 21300000, guid: 8f08503dd37a79745bac08c06c29943b, type: 3}
+  worldSprite: {fileID: 21300000, guid: c3b0f3a7fc8ffd54d87186afb79b5ba0, type: 3}
+  prefab: {fileID: 2885720944578253258, guid: 254563aa93ceeb2499243fbd9551639a, type: 3}
+  weight: 1
+  spellContainer: {fileID: 11400000, guid: 762575d8b11fb4e47baeda5a580936b8, type: 2}
+  weaponType: 2
+  twoHanded: 0
+  price: 1
