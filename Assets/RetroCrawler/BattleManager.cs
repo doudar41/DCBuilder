@@ -152,6 +152,7 @@ public class BattleManager : MonoBehaviour
     void EnemyAutoAttack()
     {
         IEnemy attacker = quarrySorted[quarrySortedKey].GetComponent<IEnemy>();
+        if (attacker.GetEnemyStatus().Contains(GameplayStatus.Petrified)) AttackEnding();
         GameInstance.battleManager.BattleEffect = true;
         // Choosing hero to attack
         int biggestAgro = -1;
@@ -302,20 +303,29 @@ public class BattleManager : MonoBehaviour
     {
         int enemyHealth = 0;
         int heroesHealth = 0;
+        int petrifiedEnemies = 0, petrifiedHeroes = 0;
+        int enemyCount = 0;
         foreach (GameObject g in allOpponents)
         { 
             if (g.GetComponent<IHero>() != null)
             {
-            heroesHealth += g.GetComponent<IHero>().GetHeroHealth();
+                heroesHealth += g.GetComponent<IHero>().GetHeroHealth();
+                if (g.GetComponent<IHero>().GetHeroStatus().Contains(GameplayStatus.Petrified)) petrifiedHeroes++;
             }
             else if(g.GetComponent<IEnemy>() != null)
             {
                 enemyHealth += g.GetComponent<IEnemy>().GetEnemyHealth();
+                if (g.GetComponent<IEnemy>().GetEnemyStatus().Contains(GameplayStatus.Petrified)) petrifiedEnemies++;
+                enemyCount++;
             }
         }
 
         if (enemyHealth <= 0) return 1;
         if (heroesHealth <= 0) return 2;
+        if(petrifiedHeroes == 4) return 2;
+        if(petrifiedEnemies == enemyCount) return 1;
+
+
         return 0;
     }
 

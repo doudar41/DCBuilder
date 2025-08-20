@@ -11,6 +11,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
     [SerializeField] List<int> placeIndexes;
     [SerializeField] int health =100;
     [SerializeField] SpriteRenderer enemyFace, outlineRenderer;
+    [SerializeField] PortraitContainer enemySprites;
 
     [SerializeField] List<SpellContainer> attackSpells = new List<SpellContainer>();
     [SerializeField] Collider col;
@@ -20,6 +21,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
 
     [SerializeField] Sprite EffectSprite;
 
+    List<GameplayStatus> gameplayStatuses = new List<GameplayStatus>();
 
     int healthStarted;
     bool isDead = false;
@@ -142,7 +144,13 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                     break;
                 case SpellEffects.Mark:
                     break;
-                case SpellEffects.Paralize:
+                case SpellEffects.Petrify:
+                    if (!gameplayStatuses.Contains(GameplayStatus.Petrified))
+                    {
+                        gameplayStatuses.Add(GameplayStatus.Petrified);
+                        if (enemySprites.GetStatePortrait(GameplayStatus.Petrified, out Sprite stateSpritePetrified)) enemyFace.sprite = stateSpritePetrified;
+                    }
+
                     break;
                 case SpellEffects.Restoration:
                     break;
@@ -284,6 +292,11 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
     {
         return accuracy;
     }
+
+    public List<GameplayStatus> GetEnemyStatus()
+    {
+        return gameplayStatuses;
+    }
 }
 
 
@@ -303,4 +316,5 @@ public interface IEnemy
     public int GetEnemyHealth();
     public void SetTransform(GameObject spawnPlace);
     public int GetEnemyAccuracy();
+    public List<GameplayStatus> GetEnemyStatus();
 }

@@ -553,6 +553,7 @@ MonoBehaviour:
   health: 25
   enemyFace: {fileID: 7130214995937945575}
   outlineRenderer: {fileID: 6342218375271230064}
+  enemySprites: {fileID: 11400000, guid: 61c78265b290fe640856635130eda682, type: 2}
   attackSpells:
   - {fileID: 11400000, guid: 8f4e4410528b0a5449719e5d0eb32ae2, type: 2}
   col: {fileID: 5121128967280637355}

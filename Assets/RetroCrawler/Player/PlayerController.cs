@@ -445,7 +445,12 @@ public class PlayerController : MonoBehaviour
         float currentpoint = 0;
         float startY = transform.rotation.eulerAngles.y;
         busyWalking = true;
-
+        if (Mathf.Abs(angle) == 90)
+        {
+            if (angle > 0) currentforwardDirection = CardinalDir.SetDirectionRight(currentforwardDirection);
+            else currentforwardDirection = CardinalDir.GetOpposite(CardinalDir.SetDirectionRight(currentforwardDirection));
+        }
+        cardinalDirectionToUI.Invoke(currentforwardDirection);
         while (currentpoint < 1 && playerState == PlayerState.Explore)
         {
             transform.rotation = Quaternion.Euler(0, startY + angle * rotationCurve.Evaluate(currentpoint), 0);
@@ -453,15 +458,11 @@ public class PlayerController : MonoBehaviour
             currentpoint += rotationSpeed * Time.deltaTime;
         }
 
-        if (Mathf.Abs(angle) == 90)
-        {
-            if (angle > 0) currentforwardDirection = CardinalDir.SetDirectionRight(currentforwardDirection);
-            else currentforwardDirection = CardinalDir.GetOpposite(CardinalDir.SetDirectionRight(currentforwardDirection));
-        }
+
 
         transform.rotation = Quaternion.Euler(0, startY + angle, 0);
 
-        cardinalDirectionToUI.Invoke(currentforwardDirection);
+
         busyWalking = false;
         if (_input.CrawlerStandart.Turn.ReadValue<float>() != 0)
         {

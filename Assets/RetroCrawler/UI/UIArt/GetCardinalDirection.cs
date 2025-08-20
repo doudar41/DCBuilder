@@ -23,7 +23,7 @@ public class GetCardinalDirection : MonoBehaviour
         foreach(Sprite s in compasSprites)
         {
             compassImage.sprite = s;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.2f);
         }
         switch (dir)
         {
