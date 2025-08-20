@@ -39,7 +39,8 @@ public enum SpellEffects
     Heal,
     ElementalResistance,
     ElementalWeapon,
-    LavaWalk
+    LavaWalk,
+    Petrify
 }
 
 public enum MagicType

@@ -99,11 +99,27 @@ public class Spellbook : MonoBehaviour
                         massSpellIcons[1].color = Color.white;
                         break;
                     case SpellEffects.Waterwalk:
-                        if (spellTimeActive.ContainsKey(s)) break;
+                        if (spellTimeActive.ContainsKey(s)) 
+                        {
+                            spellTimeActive[s] = s.numberOfTurns;
+                            break; 
+                        }
                         spellTimeActive.Add(s, s.numberOfTurns);
                         massSpellIcons[3].color = Color.white;
                         GameInstance.playerController.waterWalk = true;
                         //blocks returned water ground become walkable changes in player controller
+                        break;
+                    case SpellEffects.LavaWalk:
+                        if (spellTimeActive.ContainsKey(s))
+                        {
+                            spellTimeActive[s] = s.numberOfTurns;
+                            break;
+                        }
+                        spellTimeActive.Add(s, s.numberOfTurns);
+                        massSpellIcons[4].color = Color.white;
+                        GameInstance.playerController.lavaWalk = true;
+
+
                         break;
                     case SpellEffects.Restoration:
                         break;
@@ -180,6 +196,7 @@ public class Spellbook : MonoBehaviour
         //print("weapon spell hero check" + target);
         if (target.GetComponent<IHero>() != null) 
         {
+            //print("cast to target");
             IHero ihero =  target.GetComponent<IHero>();
             ihero.ApplySpellToHero(spellWaitToRelease, GameInstance.party.activeHero.GetThisHero().gameObject);
         }
@@ -372,6 +389,9 @@ public class Spellbook : MonoBehaviour
                 case SpellEffects.Waterwalk:
                     massSpellIcons[3].color = new Color32(255, 255, 255, (byte)(((float)spellTimeActive[s] / (float)s.numberOfTurns) * 255));
                     break;
+                case SpellEffects.LavaWalk:
+                    massSpellIcons[3].color = new Color32(255, 255, 255, (byte)(((float)spellTimeActive[s] / (float)s.numberOfTurns) * 255));
+                    break;
             }
         }
 
@@ -390,6 +410,10 @@ public class Spellbook : MonoBehaviour
                     break;
                 case SpellEffects.Waterwalk:
                     massSpellIcons[3].color = Color.clear;
+                    GameInstance.playerController.waterWalk = false;
+                    break;
+                case SpellEffects.LavaWalk:
+                    massSpellIcons[4].color = Color.clear;
                     GameInstance.playerController.waterWalk = false;
                     break;
             }

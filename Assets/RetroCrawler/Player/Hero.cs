@@ -10,8 +10,9 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     
     [SerializeField] string heroName = "";
     [SerializeField] Image portrait;
-    [SerializeField] Sprite deadSprite, portraitSprite;
-    //[SerializeField] List<Sprite> portraitSprite;
+    [SerializeField] Sprite deadSprite, portraitSprite, petrifiedSprite;
+    [SerializeField] PortraitContainer portraits;
+    [SerializeField] SpellContainer petrifySpell;
     [SerializeField] HealthImage healthSlider, manaSlider;
     [SerializeField] List<SpellContainer> heroSpellbook = new List<SpellContainer>();
     [SerializeField]  int rowIndex = 1;
@@ -36,6 +37,9 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     int currentTimeSnap;
     [SerializeField] BuffPanels buffPanels;
 
+    List<GameplayStatus> gameplayStatuses = new List<GameplayStatus>();
+
+
     private void Start()
     {
         FillMainStats(null);
@@ -56,11 +60,10 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (GameInstance.playerController.playerState != PlayerState.Battle)
-        {
+
             GameInstance.party.SetActiveHero(this);
             GameInstance.spellbook.spellTargetEvent.Invoke(this.gameObject);
-        }
+
     }
 
     public void MakeHeroActive(bool active)
@@ -86,15 +89,31 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 case SpellEffects.PhysicalDamage:
 
                     int attackRoll = GameInstance.DiceRollingBiggestNumber(1, 20);
-                    if (GetDependedStat(DependedStat.defense) <= attackRoll) 
+                    if (GetDependedStat(DependedStat.evasion) <= attackRoll) 
                     {
                         int amount = GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides);
+                        //amount of damage - 
                         healthDecrease(amount); 
                     }
                     
                     break;
                 case SpellEffects.MagicDamage:
-
+                    switch (s.magicType)
+                    {
+                        case MagicType.Fire:
+                            print(" fire resistence " + GetDependedStat(DependedStat.FireResistance));
+                            break;
+                        case MagicType.Water:
+                            break;
+                        case MagicType.Air:
+                            break;
+                        case MagicType.Earth:
+                            break;
+                        case MagicType.Light:
+                            break;
+                        case MagicType.Dark:
+                            break;
+                    }
 
                     break;
                 case SpellEffects.MainStatModify:
@@ -110,25 +129,27 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                     if (buffPanels != null) buffPanels.AddBuffToList(spellToApply);
 
                     break;
-                case SpellEffects.Paralize:
-
-                    break;
                 case SpellEffects.Restoration:
+                    if (gameplayStatuses.Contains(GameplayStatus.Petrified))
+                    {
+                        if (buffPanels != null) buffPanels.RemoveBuffFromList(petrifySpell.spells[0]);
+                    }
+
+                    foreach (GameplayStatus st in System.Enum.GetValues(typeof(GameplayStatus)))
+                    {
+                        if(st != GameplayStatus.Dead)
+                        {
+                            gameplayStatuses.Remove(st);
+
+                        }
+                    }
+                    if (portraits.GetStatePortrait(GameplayStatus.None, out Sprite stateSpriteWell)) portrait.sprite = stateSpriteWell;
                     break;
-                case SpellEffects.Stone:
-                    break;
-                case SpellEffects.Death:
-                    break;
-                case SpellEffects.WizardEye:
-                    break;
-                case SpellEffects.Waterwalk:
-                    break;
+
+
                 case SpellEffects.Identify:
                     break;
-                case SpellEffects.ReadPortal:
-                    break;
-                case SpellEffects.LightARoom:
-                    break;
+
                 case SpellEffects.Heal:
                     if (currentHealth <= 0) break;
                     int healroll = GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides);
@@ -138,7 +159,22 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 case SpellEffects.ElementalWeapon:
                     break;
                 case SpellEffects.ElementalResistance:
+
+                    if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, s.numberOfTurns);
+                    else spellsAttached[s] = s.numberOfTurns;
+                    if (buffPanels != null) buffPanels.AddBuffToList(spellToApply);
+
                     break;
+                case SpellEffects.Petrify:
+                    if (!gameplayStatuses.Contains(GameplayStatus.Petrified)) 
+                    { 
+                        gameplayStatuses.Add(GameplayStatus.Petrified); 
+                        if(portraits.GetStatePortrait(GameplayStatus.Petrified, out Sprite stateSpritePetrified)) portrait.sprite = stateSpritePetrified; 
+                    }
+
+                    if (buffPanels != null) buffPanels.AddBuffToList(spellToApply);
+                    break;
+
             }
         }
         if (GameInstance.playerController.playerState == PlayerState.Battle && !spellToApply.AOE) StartCoroutine(AttackDelay());
@@ -569,6 +605,10 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         return null;
     }
 
+    public List<GameplayStatus> GetHeroStatus()
+    {
+        return gameplayStatuses;
+    }
 
     private void OnDestroy()
     {
@@ -602,6 +642,7 @@ public interface IHero
     public SpellContainer GetInfusedWeaponSpell();
     public string HeroName();
     public int GetDependedStat(DependedStat dependedStat);
+    public List<GameplayStatus> GetHeroStatus(); 
 }
 
 public enum MainStat
@@ -653,13 +694,14 @@ public enum SkillsStat
 }
 
 
-public enum GameplayStatuses
+public enum GameplayStatus
 {
     None,
     Frozen,
     Burning,
     Poisoned,
-    Stunned, 
+    Stunned,
+    Petrified,
     Dead
 }
 

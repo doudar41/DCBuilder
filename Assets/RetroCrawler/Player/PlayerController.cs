@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
     float intensivity = 0.1f;
     bool lightBusy =false;
 
-    public bool waterWalk = false;
+    public bool waterWalk = false, lavaWalk = false;
 
     private void OnEnable()
     {
@@ -825,7 +825,16 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-
+        if (currentGroundType == GroundType.Fire)
+        {
+            if (!lavaWalk)
+            {
+                foreach(Hero h in GameInstance.party.GetPartyMembers())
+                {
+                    h.healthDecrease((int)(h.GetDependedStat(DependedStat.maxHealth)*0.3f));
+                }
+            }
+        }
     }
 
 

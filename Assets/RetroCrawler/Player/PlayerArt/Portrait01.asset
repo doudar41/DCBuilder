@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddfd44122e30510459500a9821657727, type: 3}
+  m_Name: Portrait01
+  m_EditorClassIdentifier: 
+  portraits:
+  - state: 0
+    sprite: {fileID: 21300000, guid: a3501128d464da34cb9b04781a3ac26b, type: 3}
+  - state: 5
+    sprite: {fileID: 21300000, guid: ec391ce4c5b13164eada2b1be5f738e4, type: 3}

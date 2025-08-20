@@ -34,4 +34,4 @@ MonoBehaviour:
   battleSpell: 0
   equipableSpell: 0
   minDistanceToEnemy: 2
-  spellName: 
+  spellName: Water Walk

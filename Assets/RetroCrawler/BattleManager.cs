@@ -231,9 +231,12 @@ public class BattleManager : MonoBehaviour
                 {
 
                     if (g.GetComponent<IHero>() != null)
-                    {
-                        GameInstance.party.BattleHeroSwitch(g.GetComponent<IHero>().GetThisHero());
-                        if (g.GetComponent<IHero>().GetHeroHealth() <= 0) AttackEnding();
+                    { 
+                        IHero newactivehero = g.GetComponent<IHero>();
+                        GameInstance.party.BattleHeroSwitch(newactivehero.GetThisHero());
+                        if (newactivehero.GetHeroHealth() <= 0 || 
+                            newactivehero.GetHeroStatus().Contains(GameplayStatus.Petrified) ||
+                            newactivehero.GetHeroStatus().Contains(GameplayStatus.Stunned) ) AttackEnding();
                     }
                 }
             }

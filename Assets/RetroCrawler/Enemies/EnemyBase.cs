@@ -109,6 +109,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                             if (evaderoll <= attackRoll || dice == 20)
                             {
                                 int amount = CalculateIncomingDamage(s, dice);
+
                                 HealthDamage(amount);
                                 results.Add(amount.ToString());
                             }
