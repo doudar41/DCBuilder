@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 952abe7f1dd111d4980f1c198ca3b4ce, type: 3}
-  m_Name: Power
+  m_Name: Strengthen
   m_EditorClassIdentifier: 
   spells:
   - spellEffect: 2
@@ -34,4 +34,4 @@ MonoBehaviour:
   battleSpell: 0
   equipableSpell: 0
   minDistanceToEnemy: 2
-  spellName: Power Up
+  spellName: Strengthen

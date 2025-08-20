@@ -135,6 +135,10 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                     healroll += GetSkillsStat(SkillsStat.LightMagic) + GetMainStat(MainStat.Mind)+s.diceBonus+s.amount;
                     HealHero(healroll);
                     break;
+                case SpellEffects.ElementalWeapon:
+                    break;
+                case SpellEffects.ElementalResistance:
+                    break;
             }
         }
         if (GameInstance.playerController.playerState == PlayerState.Battle && !spellToApply.AOE) StartCoroutine(AttackDelay());

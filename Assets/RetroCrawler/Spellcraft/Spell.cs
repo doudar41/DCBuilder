@@ -36,7 +36,10 @@ public enum SpellEffects
     Identify, // Dictionary of items which describtion are opened
     ReadPortal, //Map modification
     LightARoom,
-    Heal
+    Heal,
+    ElementalResistance,
+    ElementalWeapon,
+    LavaWalk
 }
 
 public enum MagicType
