@@ -657,7 +657,7 @@ public class PlayerController : MonoBehaviour
         RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
         //LayerMask layerMask = LayerMask.GetMask("Blocks");
-        if (Physics.Raycast(transform.position, transform.TransformDirection(dir), out hit, 1.2f))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(dir), out hit, 5f))
 
         {
             IInteractables inter = hit.collider.GetComponent<IInteractables>();
@@ -669,42 +669,13 @@ public class PlayerController : MonoBehaviour
                     switch (i)
                     {
                         case InteractablesEnum.ENEMY:
-                            //print(CardinalDir.GetDirectionFromNormVector(dir, currentforwardDirection) + " - "+currentforwardDirection);
-                          /*  if (dir != Vector3.forward)
-                            {
-                                //print("rotate to "+ CardinalDir.GetDirectionFromNormVector(dir, currentforwardDirection)+" "+ dir);
+                            // Custom Enemy Spawn
 
-                                transform.rotation = Quaternion.Euler(0, CardinalDir.GetRotationYForCardinal(CardinalDir.GetDirectionFromNormVector(dir, currentforwardDirection)), 0);
-                                RotateToCardinalLocation();
-                            }
-                            if (cursorBusy)
-                            {
-                                ThrowToTheWorld(dropItemPosition, 0);
-                                cursorBusy = false;
-                                cursorItemScriptable = null;
-                                Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
-                            }
-                            playerState = PlayerState.Battle;
-                            *//*                            IEnemy iEnemy = hit.collider.GetComponent<IEnemy>();
-                                                        iEnemy.SetPlayerInterface(this.gameObject);*//*
-                            IBattle iBattle = hit.collider.GetComponent<IBattle>();
-                            List<GameObject> opponents = new List<GameObject>();
-                            opponents = iBattle.GetOpponents();
-                            //print("enemy opponents " + iBattle.GetOpponents().Count);
-                            foreach (GameObject g in GameInstance.party.GetComponent<IBattle>().GetOpponents())
-                            {
-                                opponents.Add(g);
-                            }
-                            GameInstance.battleManager.GetOpponnentsFromPlayer(opponents);
-                            GameInstance.battleManager.BattleStart();
-                            return false;
-
-*/
                         case InteractablesEnum.DOOR:
-                            //IDoor door = hit.collider.GetComponent<IDoor>();
-                            //print("Door is " + door.isOpen());door.isOpen()
+                            IDoor door = hit.collider.GetComponent<IDoor>();
+                            print("Door is " + door.isOpen());
+                            return door.isOpen();
 
-                            break;
                         case InteractablesEnum.SWITCH:
                             break;
                         case InteractablesEnum.LEVEL_EXIT:
