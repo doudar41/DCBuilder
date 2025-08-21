@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine;using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -39,7 +39,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     List<GameplayStatus> gameplayStatuses = new List<GameplayStatus>();
 
-
+    public UnityEvent<SpellContainer> hitTargetEffecct;
     private void Start()
     {
         FillMainStats(null);
@@ -95,13 +95,13 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                         //amount of damage - 
                         healthDecrease(amount); 
                     }
-                    
+
                     break;
                 case SpellEffects.MagicDamage:
                     switch (s.magicType)
                     {
                         case MagicType.Fire:
-                            print(" fire resistence " + GetDependedStat(DependedStat.FireResistance));
+                            //print(" fire resistence " + GetDependedStat(DependedStat.FireResistance));
                             break;
                         case MagicType.Water:
                             break;
@@ -177,6 +177,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
             }
         }
+        hitTargetEffecct.Invoke(spellToApply);
         if (GameInstance.playerController.playerState == PlayerState.Battle && !spellToApply.AOE) StartCoroutine(AttackDelay());
     }
 
@@ -319,7 +320,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
             if (s.Key.changedDependedStat == dependedStat)
             {
-                print(s.Key.changedDependedStat + " "+ s.Key.amount);
+                //print(s.Key.changedDependedStat + " "+ s.Key.amount);
                 statInt += s.Key.amount;
             }
         }

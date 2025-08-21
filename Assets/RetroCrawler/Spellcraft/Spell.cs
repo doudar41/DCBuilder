@@ -40,7 +40,8 @@ public enum SpellEffects
     ElementalResistance,
     ElementalWeapon,
     LavaWalk,
-    Petrify
+    Petrify,
+    Immunity
 }
 
 public enum MagicType
@@ -51,7 +52,8 @@ public enum MagicType
     Air,
     Earth,
     Light,
-    Dark
+    Dark,
+    Ice
 }
 
 

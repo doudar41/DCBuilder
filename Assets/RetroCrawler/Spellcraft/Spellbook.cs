@@ -28,6 +28,8 @@ public class Spellbook : MonoBehaviour
     [SerializeField] GameObject stateIconPanel;
     List<Image> massSpellIcons = new List<Image>();
 
+    public UnityEvent<SpellContainer> hitTargetEffecct; 
+
     private void OnEnable()
     {
         GameInstance.spellbook = this;
@@ -199,6 +201,11 @@ public class Spellbook : MonoBehaviour
             //print("cast to target");
             IHero ihero =  target.GetComponent<IHero>();
             ihero.ApplySpellToHero(spellWaitToRelease, GameInstance.party.activeHero.GetThisHero().gameObject);
+            foreach(Spell s in spellWaitToRelease.spells)
+            {
+                hitTargetEffecct.Invoke(spellWaitToRelease);
+            }
+
         }
         if (target.GetComponent<IEnemy>() != null)
         {

@@ -27,7 +27,9 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
     bool isDead = false;
 
     public UnityEvent<float> healthNormalized;
-
+    public UnityEvent<SpellContainer> hitTargetEffecct;
+    [SerializeField] SpellContainer immunityspell;
+    
     private void Start()
     {
         outlineRenderer.color = Color.clear;
@@ -87,6 +89,12 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
             attackRoll = dice + attackrollbonus;
             evaderoll = GameInstance.DiceRollingBiggestNumber(1, 20) + evasion;
             results.Add(attackRoll.ToString()); results.Add(evaderoll.ToString());
+            if (immunityList.Contains(s.magicType)) 
+            {
+                hitTargetEffecct.Invoke(immunityspell);
+                continue; 
+            }
+
 
             switch (s.spellEffect)
             {
@@ -120,6 +128,16 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                             if (evaderoll <= attackRoll || dice == 20)
                             {
                                 int amount = CalculateIncomingDamage(s, dice);
+                                HealthDamage(amount);
+                                results.Add(amount.ToString());
+                            }
+                            break;
+
+                        case MagicType.Ice:
+                            if (evaderoll <= attackRoll || dice == 20)
+                            {
+                                int amount = CalculateIncomingDamage(s, dice);
+
                                 HealthDamage(amount);
                                 results.Add(amount.ToString());
                             }
@@ -170,7 +188,9 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                     break;
             }
             results.Add("-1");
+            if (evaderoll <= attackRoll || dice == 20) hitTargetEffecct.Invoke(spellToApply);
         }
+
         StartCoroutine(AttackDelay());
         return results;
     }
@@ -220,7 +240,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
         if (health <= 0) return;
         if (outlineRenderer != null)
         {
-            outlineRenderer.color = Color.red;
+            outlineRenderer.color = Color.white;
         }
 
     }

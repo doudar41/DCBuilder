@@ -27,6 +27,8 @@ public class BattleManager : MonoBehaviour
     int quarrySortedKey = 0;
 
     int actionCounter = 0;
+
+
     //Turn event 
     //Quarry of heroes and enemies
     [SerializeField] Transform playerBattlePlace;
@@ -181,6 +183,7 @@ public class BattleManager : MonoBehaviour
         {
             IHero targetHero = allOpponents[targetIndexInOpponents].GetComponent<IHero>();
             targetHero.ApplySpellToHero(attacker.enemyAttack(), allOpponents[targetIndexInOpponents]);
+
         }
 
     }
