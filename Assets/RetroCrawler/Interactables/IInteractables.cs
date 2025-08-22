@@ -23,5 +23,6 @@ public enum InteractablesEnum
     PICKABLE,
     WEIGHTPLATE,
     PLAYER,
-    HERO
+    HERO,
+    WALL
 }

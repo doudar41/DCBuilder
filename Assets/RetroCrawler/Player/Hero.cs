@@ -40,6 +40,8 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     List<GameplayStatus> gameplayStatuses = new List<GameplayStatus>();
 
     public UnityEvent<SpellContainer> hitTargetEffecct;
+
+    MagicType weaponEnchanced = MagicType.None;
     private void Start()
     {
         FillMainStats(null);
@@ -157,6 +159,14 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                     HealHero(healroll);
                     break;
                 case SpellEffects.ElementalWeapon:
+                    weaponEnchanced = s.magicType;
+                    if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, s.numberOfTurns);
+                    else spellsAttached[s] = s.numberOfTurns;
+                    if (buffPanels != null) buffPanels.AddBuffToList(spellToApply);
+
+                    break;
+                case SpellEffects.Poison:
+
                     break;
                 case SpellEffects.ElementalResistance:
 
@@ -592,7 +602,55 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
         foreach (Spell s in listToDelete)
         {
-            if(buffPanels != null)buffPanels.RemoveBuffFromList(s);
+            switch (s.spellEffect)
+            {
+                case SpellEffects.PhysicalDamage:
+                    break;
+                case SpellEffects.MagicDamage:
+                    break;
+                case SpellEffects.MainStatModify:
+                    break;
+                case SpellEffects.DependedStatModify:
+                    break;
+                case SpellEffects.Recall:
+                    break;
+                case SpellEffects.Mark:
+                    break;
+                case SpellEffects.Paralize:
+                    break;
+                case SpellEffects.Restoration:
+                    break;
+                case SpellEffects.Stone:
+                    break;
+                case SpellEffects.Death:
+                    break;
+                case SpellEffects.WizardEye:
+                    break;
+                case SpellEffects.Waterwalk:
+                    break;
+                case SpellEffects.Identify:
+                    break;
+                case SpellEffects.ReadPortal:
+                    break;
+                case SpellEffects.LightARoom:
+                    break;
+                case SpellEffects.Heal:
+                    break;
+                case SpellEffects.ElementalResistance:
+                    break;
+                case SpellEffects.ElementalWeapon:
+                    weaponEnchanced = MagicType.None;
+                    break;
+                case SpellEffects.LavaWalk:
+                    break;
+                case SpellEffects.Petrify:
+                    break;
+                case SpellEffects.Immunity:
+                    break;
+                case SpellEffects.Poison:
+                    break;
+            }
+            if (buffPanels != null)buffPanels.RemoveBuffFromList(s);
             spellsAttached.Remove(s);
         }
     }
@@ -616,6 +674,11 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         GameInstance.progress -= TimePassBy;
         StopCoroutine(GameInstance.TimeStep());
         GameInstance.battleManager.battlePassTime -= BattleTimeChanges;
+    }
+
+    public MagicType GetWeaponMagicType()
+    {
+        return weaponEnchanced;
     }
 }
 
@@ -643,7 +706,9 @@ public interface IHero
     public SpellContainer GetInfusedWeaponSpell();
     public string HeroName();
     public int GetDependedStat(DependedStat dependedStat);
-    public List<GameplayStatus> GetHeroStatus(); 
+    public List<GameplayStatus> GetHeroStatus();
+
+    public MagicType GetWeaponMagicType();
 }
 
 public enum MainStat

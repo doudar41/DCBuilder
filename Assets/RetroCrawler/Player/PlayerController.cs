@@ -688,6 +688,8 @@ public class PlayerController : MonoBehaviour
                             break;
                         case InteractablesEnum.STORY:
                             break;
+                        case InteractablesEnum.WALL:
+                            return false;
                     }
                 }
             }
@@ -715,6 +717,8 @@ public class PlayerController : MonoBehaviour
                 // check for door interface, action accordinly 
 
                 case InteractablesEnum.LEVEL_EXIT:
+
+                    //Autosave, read location and rotation of destination from IBlock save it to gameinstance 
                     // check for level exit interface, save tranfer point on another level to save file  load target level
                     break;
                 case InteractablesEnum.PORTAL:
@@ -731,6 +735,9 @@ public class PlayerController : MonoBehaviour
                 case InteractablesEnum.STORY:
                     // get story interface getting a text of a message, delete story from interactablesEnum list
                     break;
+                case InteractablesEnum.WALL:
+                    return false;
+
             }
         }
         return true;

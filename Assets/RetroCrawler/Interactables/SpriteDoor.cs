@@ -20,7 +20,10 @@ public class SpriteDoor : MonoBehaviour, IDoor, IInteractables
         clampXMaxR = blockLenght + clampXMinR;
         clampXMaxL = transform.position.x;
         clampXMinL = blockLenght - clampXMinR;
-
+        if (isOpened)
+        {
+            OpenDoor();
+        }
 
     }  
     

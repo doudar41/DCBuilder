@@ -1076,7 +1076,7 @@ MonoBehaviour:
   col: {fileID: 5121128967280637355}
   enemySize: 1
   initiative: 2
-  defense: 1
+  defence: 1
   magicDefence: 0
   accuracy: 0
   evasion: 0
@@ -1113,6 +1113,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   immunityspell: {fileID: 11400000, guid: 8c6f05a430779f44d901a97e4ead5242, type: 2}
+  spellResistance: 0000000000000000f6ffffff0000000000000000000000000000000000000000
 --- !u!65 &5121128967280637355
 BoxCollider:
   m_ObjectHideFlags: 0

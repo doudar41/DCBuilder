@@ -25,6 +25,9 @@ public static class GameInstance
 
     static bool loadingLevel;
 
+    static Vector3 nextLevelPlayerPosition;
+    static CardinalDirections nextLevelDirection;
+
     // Heroes data
     public static Dictionary<int, Dictionary<MainStat, int>> mainHeroesStatsSaved = new Dictionary<int, Dictionary<MainStat, int>>();
     public static Dictionary<int, Dictionary<SkillsStat, int>> skillBonusHeroesStatsSaved = new Dictionary<int, Dictionary<SkillsStat, int>>();

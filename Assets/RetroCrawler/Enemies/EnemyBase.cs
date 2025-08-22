@@ -16,7 +16,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
     [SerializeField] List<SpellContainer> attackSpells = new List<SpellContainer>();
     [SerializeField] Collider col;
     [SerializeField] int enemySize;
-    [SerializeField] int initiative = 1, defense = 1, magicDefence = 0, accuracy = 0, evasion =0;
+    [SerializeField] int initiative = 1, defence = 1, magicDefence = 0, accuracy = 0, evasion =0;
     [SerializeField] List<MagicType> immunityList = new List<MagicType>();
 
     [SerializeField] Sprite EffectSprite;
@@ -29,7 +29,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
     public UnityEvent<float> healthNormalized;
     public UnityEvent<SpellContainer> hitTargetEffecct;
     [SerializeField] SpellContainer immunityspell;
-    
+    [SerializeField] List<int> spellResistance = new List<int>();
     private void Start()
     {
         outlineRenderer.color = Color.clear;
@@ -95,18 +95,89 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                 continue; 
             }
 
-
             switch (s.spellEffect)
             {
                 case SpellEffects.PhysicalDamage:
                     if (evaderoll <= attackRoll || dice == 20)
                     {
                         int amount = CalculateIncomingDamage(s, dice);
-                        //print("before add melee " + amount);
+
                         if (spellToApply.minDistanceToEnemy>2) amount += hero.GetDependedStat(DependedStat.rangeDamage);
                         else amount += hero.GetDependedStat(DependedStat.meleeDamage);
-                        //print("after add melee " + hero.GetDependedStat(DependedStat.meleeDamage));
-                        amount -= defense;
+
+                        if (immunityList.Contains(spellcaster.GetComponent<IHero>().GetWeaponMagicType()))
+                        {
+                            hitTargetEffecct.Invoke(immunityspell);
+                            continue;
+                        }
+                        switch (spellcaster.GetComponent<IHero>().GetWeaponMagicType())
+                        {
+
+                            case MagicType.None:
+                                amount -= defence;
+                                HealthDamage(amount);
+                                break;
+
+                            case MagicType.Fire:
+                                if (evaderoll <= attackRoll || dice == 20)
+                                {
+                                    amount -= spellResistance[1];
+                                    HealthDamage(amount);
+                                    results.Add(amount.ToString());
+                                }
+                                break;
+                            case MagicType.Water:
+                                if (evaderoll <= attackRoll || dice == 20)
+                                {
+                                    amount -= spellResistance[2];
+                                    HealthDamage(amount);
+                                    results.Add(amount.ToString());
+                                }
+                                break;
+
+                            case MagicType.Ice:
+                                if (evaderoll <= attackRoll || dice == 20)
+                                {
+                                    amount -= spellResistance[3];
+                                    HealthDamage(amount);
+                                    results.Add(amount.ToString());
+                                }
+                                break;
+                            case MagicType.Air:
+                                if (evaderoll <= attackRoll || dice == 20)
+                                {
+                                    amount -= spellResistance[4];
+                                    HealthDamage(amount);
+                                    results.Add(amount.ToString());
+                                }
+                                break;
+                            case MagicType.Earth:
+                                if (evaderoll <= attackRoll || dice == 20)
+                                {
+                                    amount -= spellResistance[5];
+                                    HealthDamage(amount);
+                                    results.Add(amount.ToString());
+                                }
+                                break;
+                            case MagicType.Light:
+                                if (evaderoll <= attackRoll || dice == 20)
+                                {
+                                    amount -= spellResistance[6];
+                                    HealthDamage(amount);
+                                    results.Add(amount.ToString());
+                                }
+                                break;
+                            case MagicType.Dark:
+                                if (evaderoll <= attackRoll || dice == 20)
+                                {
+                                    amount -= spellResistance[7];
+                                    HealthDamage(amount);
+                                    results.Add(amount.ToString());
+                                }
+                                break;
+                        }
+                        amount -= defence;
+
                         HealthDamage(amount);
                         results.Add(amount.ToString());
                     }
@@ -152,16 +223,12 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                             break;
                     }
 
-                    HealthDamage(s.amount);
                     break;
                 case SpellEffects.MainStatModify:
                     break;
                 case SpellEffects.DependedStatModify:
                     break;
-                case SpellEffects.Recall:
-                    break;
-                case SpellEffects.Mark:
-                    break;
+
                 case SpellEffects.Petrify:
                     if (!gameplayStatuses.Contains(GameplayStatus.Petrified))
                     {
@@ -170,22 +237,8 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                     }
 
                     break;
-                case SpellEffects.Restoration:
-                    break;
-                case SpellEffects.Stone:
-                    break;
-                case SpellEffects.Death:
-                    break;
-                case SpellEffects.WizardEye:
-                    break;
-                case SpellEffects.Waterwalk:
-                    break;
-                case SpellEffects.Identify:
-                    break;
-                case SpellEffects.ReadPortal:
-                    break;
-                case SpellEffects.LightARoom:
-                    break;
+
+
             }
             results.Add("-1");
             if (evaderoll <= attackRoll || dice == 20) hitTargetEffecct.Invoke(spellToApply);

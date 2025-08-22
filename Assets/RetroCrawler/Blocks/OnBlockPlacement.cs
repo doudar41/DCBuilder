@@ -19,6 +19,7 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables
 
     [SerializeField] GameObject mapGraphics;
     [SerializeField] GroundType groundType;
+    [SerializeField] Vector3 nextLevelPosition;
 
     private void Start()
     {
