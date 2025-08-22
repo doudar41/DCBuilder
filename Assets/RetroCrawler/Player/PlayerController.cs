@@ -684,8 +684,6 @@ public class PlayerController : MonoBehaviour
                             _input.Disable();
                             SceneManager.LoadScene("Level02", LoadSceneMode.Single);
                             break;
-                        case InteractablesEnum.PORTAL:
-                            break;
                         case InteractablesEnum.TRAP:
                             break;
                         case InteractablesEnum.STORY:
@@ -720,8 +718,10 @@ public class PlayerController : MonoBehaviour
                     // check for level exit interface, save tranfer point on another level to save file  load target level
                     break;
                 case InteractablesEnum.PORTAL:
-                    //check for portal interface get Transform point on map and move player there
-                    break;
+                    OnBlockPlacement portalDest =  wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<IBlock>().GetPortalPoint();
+                    transform.position = portalDest.gameObject.transform.position;
+                    currentposition = portalDest.GetBlockCoordinate(); return false;
+
                 case InteractablesEnum.LADDER:
                     // move player to another level of a tilemap
                     break;
