@@ -19,7 +19,9 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables
 
     [SerializeField] GameObject mapGraphics;
     [SerializeField] GroundType groundType;
-    [SerializeField] Vector3 nextLevelPosition;
+    [SerializeField] Vector3Int nextLevelPosition;
+    [SerializeField] CardinalDirections nextLevelDirection;
+    [SerializeField] string nextLevelName;
 
     private void Start()
     {
@@ -164,6 +166,13 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables
     public GroundType GetGroundType()
     {
         return groundType;
+    }
+
+    public void GetNextLevelInfo(out Vector3Int position, out CardinalDirections dir, out string levelName)
+    {
+        position = nextLevelPosition;
+        dir = nextLevelDirection;
+        levelName = nextLevelName;
     }
 }
 

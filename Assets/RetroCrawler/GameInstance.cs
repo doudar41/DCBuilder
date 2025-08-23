@@ -23,10 +23,7 @@ public static class GameInstance
     public static TimeProgress progress;
     static int timeProgress = 0;
 
-    static bool loadingLevel;
-
-    static Vector3 nextLevelPlayerPosition;
-    static CardinalDirections nextLevelDirection;
+    public static bool loadingLevel = false, levelEnter = false;
 
     // Heroes data
     public static Dictionary<int, Dictionary<MainStat, int>> mainHeroesStatsSaved = new Dictionary<int, Dictionary<MainStat, int>>();
@@ -122,6 +119,10 @@ public static class GameInstance
         SceneManager.LoadScene("Spellbook", LoadSceneMode.Single);
     }
 
+    public static void LoadNextLevel(string levelName)
+    {
+        SceneManager.LoadScene(levelName, LoadSceneMode.Single);
+    }
 
 
 

@@ -16,6 +16,7 @@ public class MinimapCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameInstance.playerController == null) return;
         if (GameInstance.playerController.playerState != PlayerState.Battle)
         {
             transform.position = new Vector3(player.position.x, transform.position.y, player.position.z);

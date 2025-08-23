@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
-        NewGamePlayerStruct();
+
         _input = new DungeonInputs();
         _input.Enable();
 
@@ -96,13 +96,34 @@ public class PlayerController : MonoBehaviour
         _input.CrawlerStandart.Cancel.started += ReleaseSpellWithoutCasting;
         leftMouse.action.started += MouseRaycast;
         countdownToEncounter = Random.Range(rangeOfEnCounter.x, rangeOfEnCounter.y);
-        currentWallBlock.ShowOnMap(true);
+
         GameInstance.progress += TimeEvents;
 
+        if (GameInstance.levelEnter)
+        {
+            var walls = moveTilemap.GetComponentsInChildren<OnBlockPlacement>();
+            currentMouse = Mouse.current;
+
+            foreach (OnBlockPlacement w in walls)
+            {
+                if (!wallsAccess.ContainsKey(w.position))
+                    wallsAccess.Add(w.position, w);
+            }
+            transform.position = new Vector3( moveTilemap.GetCellCenterWorld(GameInstance.nextLevelPosition).x, 3, moveTilemap.GetCellCenterWorld(GameInstance.nextLevelPosition).z) ;
+            transform.rotation = Quaternion.Euler(0, CardinalDir.GetRotationYForCardinal(GameInstance.nextLevelRotation), 0);
+            currentforwardDirection = GameInstance.nextLevelRotation;
+            cardinalDirectionToUI.Invoke(currentforwardDirection);
+            currentposition =  wallsAccess[moveTilemap.WorldToCell(transform.position)].GetBlockCoordinate();
+            GameInstance.levelEnter = false;
+            currentWallBlock = wallsAccess[moveTilemap.WorldToCell(transform.position)];
+        }
+        else
+        {
+            NewGamePlayerStruct();
+        }
+        currentWallBlock.ShowOnMap(true);
 
     }
-
-
     private void OnDestroy()
     {
         _input.CrawlerStandart.Move.performed -= MovementUpdate;
@@ -679,10 +700,7 @@ public class PlayerController : MonoBehaviour
                         case InteractablesEnum.SWITCH:
                             break;
                         case InteractablesEnum.LEVEL_EXIT:
-                            GameInstance.playerController = null;
-                            //GameInstance.inventory = null;
-                            _input.Disable();
-                            SceneManager.LoadScene("Level02", LoadSceneMode.Single);
+
                             break;
                         case InteractablesEnum.TRAP:
                             break;
@@ -718,6 +736,15 @@ public class PlayerController : MonoBehaviour
 
                 case InteractablesEnum.LEVEL_EXIT:
 
+                    GameInstance.playerController = null;
+                    //GameInstance.inventory = null;
+                    OnBlockPlacement leveldestination = wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<OnBlockPlacement>();
+                    _input.Disable();
+                    GameInstance.levelEnter = true;
+                    leveldestination.GetNextLevelInfo(out Vector3Int pos, out CardinalDirections dir, out string levelName);
+                    GameInstance.nextLevelPosition = pos;
+                    GameInstance.nextLevelRotation = dir;
+                    GameInstance.LoadNextLevel(levelName);
                     //Autosave, read location and rotation of destination from IBlock save it to gameinstance 
                     // check for level exit interface, save tranfer point on another level to save file  load target level
                     break;
