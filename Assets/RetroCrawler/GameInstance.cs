@@ -116,7 +116,7 @@ public static class GameInstance
     }
     public static void LoadGameFromStart()
     {
-        SceneManager.LoadScene("Spellbook", LoadSceneMode.Single);
+        SceneManager.LoadScene("Level01", LoadSceneMode.Single);
     }
 
     public static void LoadNextLevel(string levelName)
