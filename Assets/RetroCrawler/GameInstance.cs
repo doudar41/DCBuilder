@@ -140,7 +140,8 @@ public static class GameInstance
 
     public static void SaveItemState(string _guid, SavedState _state)
     {
-        savedItemsState.Add(_guid, _state);
+        if (savedItemsState.ContainsKey(_guid)) savedItemsState[_guid] = _state;
+        else  savedItemsState.Add(_guid, _state);
     }
     
 }
