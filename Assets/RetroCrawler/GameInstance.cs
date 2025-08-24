@@ -36,7 +36,7 @@ public static class GameInstance
     public static Vector3Int playerPositionSaved, nextLevelPosition;
     public static CardinalDirections playerRotationSaved, nextLevelRotation;
 
-
+    public static Dictionary<string, SavedState> savedItemsState = new Dictionary<string, SavedState>();
     
 
     public static void LoadOrder()
@@ -121,6 +121,7 @@ public static class GameInstance
 
     public static void LoadNextLevel(string levelName)
     {
+        party.SaveEquipment();
         SceneManager.LoadScene(levelName, LoadSceneMode.Single);
     }
 
@@ -137,6 +138,19 @@ public static class GameInstance
         yield return null;
     }
 
-
+    public static void SaveItemState(string _guid, SavedState _state)
+    {
+        savedItemsState.Add(_guid, _state);
+    }
     
+}
+
+
+public enum SavedState
+{
+    None,
+    Opened,
+    Closed,
+    Taken,
+    Solved
 }

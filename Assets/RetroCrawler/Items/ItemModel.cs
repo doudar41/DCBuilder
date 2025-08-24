@@ -9,14 +9,13 @@ using UnityEngine.Splines;
 
 [RequireComponent(typeof(SplineAnimate))]
 
-public class ItemModel : MonoBehaviour, IItem , IInteractables
+public class ItemModel : MonoBehaviour, IItem, IInteractables
 {
-    [SerializeField]
-    private System.Guid _guid;
-    [SerializeField]
-    string itemName;
-    [SerializeField]
-    int stackAmount = 1;
+
+    System.Guid _guid;
+    [SerializeField] string GUIDString = "";
+    [SerializeField] string itemName;
+    [SerializeField] int stackAmount = 1;
 
     [SerializeField]
     ItemScriptableContainer itemScriptableLocal;
@@ -29,25 +28,38 @@ public class ItemModel : MonoBehaviour, IItem , IInteractables
     public UnityEvent AnimComplete;
 
     [SerializeField] PhysicMaterial frictionMaterial;
-[ExecuteInEditMode]
+
+    public void OnValidate()
+    {
+        if (GUIDString == "")
+        {
+            _guid = System.Guid.NewGuid();
+            GUIDString = _guid.ToString();
+        }
+    }
+
+    private void OnEnable()
+    {
+        if (GUIDString == "")
+        {
+            _guid = System.Guid.NewGuid();
+            GUIDString = _guid.ToString();
+        }
+    }
+
     private void Awake()
 
     {
 
-#if (UNITY_EDITOR)
 
-        if (_guid == null)
-        {
-            _guid= System.Guid.NewGuid();
-        }
-
-#endif
     }
 
     private void Start()
     {
         Init();
-        //print ("method "+Complete.Method.Name);
+
+
+        //print ("guid "+ _guid);
        // Complete += EmptyMethod;
     }
 
@@ -55,6 +67,11 @@ public class ItemModel : MonoBehaviour, IItem , IInteractables
     
     void Init()
     {
+        if (GameInstance.savedItemsState.ContainsKey(GUIDString)) 
+        {
+           if( GameInstance.savedItemsState[GUIDString] == SavedState.Taken) return; 
+        }
+
         GameObject item = Instantiate(itemScriptableLocal.prefab, transform);
         IItemHolder itemHolder = itemScriptableLocal.prefab.GetComponent<IItemHolder>();
         SphereCollider[] b = gameObject.GetComponents<SphereCollider>();
@@ -85,6 +102,7 @@ public class ItemModel : MonoBehaviour, IItem , IInteractables
 
     public void RemoveFromTheWorld()
     {
+        GameInstance.SaveItemState(GUIDString, SavedState.Taken);
         OnDestoryedByCursor.Invoke(itemScriptableLocal.weight*stackAmount, this.gameObject);
         DestroyImmediate(gameObject);
     }

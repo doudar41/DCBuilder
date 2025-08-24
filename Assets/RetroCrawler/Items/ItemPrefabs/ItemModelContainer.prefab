@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f67a64e5cf9cba49bb9ed2f679099aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GUIDString: 921f8153-d89e-4c3c-9f6d-8a73568927b1
   itemName: 
   stackAmount: 1
   itemScriptableLocal: {fileID: 0}
