@@ -116,6 +116,7 @@ public class PlayerController : MonoBehaviour
             currentposition =  wallsAccess[moveTilemap.WorldToCell(transform.position)].GetBlockCoordinate();
             GameInstance.levelEnter = false;
             currentWallBlock = wallsAccess[moveTilemap.WorldToCell(transform.position)];
+            GameInstance.party.LoadEquipment();
         }
         else
         {
@@ -561,11 +562,11 @@ public class PlayerController : MonoBehaviour
             cursorBusy = false;
             cursorItemScriptable = null;
             Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
+            return;
         }
 
         if (Physics.Raycast(ray, out hit))
         {
-
             if (hit.distance > blockSize) return;
             IInteractables inter = hit.collider.GetComponent<IInteractables>();
 

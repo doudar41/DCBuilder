@@ -97,5 +97,24 @@ public class Party : MonoBehaviour
         }
     }
 
+    public void SaveEquipment()
+    {
+        for(int i=0; i < heroes.Count; i++)
+        {
+            //print("saved");
+            GameInstance.equipmentHeroesSaved[i] = heroes[i].equipment;
+        }
+    }
 
+    public void LoadEquipment()
+    {
+        for (int i = 0; i < heroes.Count; i++)
+        {
+            foreach(ItemType itype in System.Enum.GetValues(typeof(ItemType)))
+            { 
+                if (GameInstance.equipmentHeroesSaved.ContainsKey(i)) heroes[i].AddEquipmentToCharacter(itype, GameInstance.equipmentHeroesSaved[i][itype]);
+            }
+
+        }
+    }
 }

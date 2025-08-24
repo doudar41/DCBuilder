@@ -51,7 +51,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
         foreach(ItemType sk in System.Enum.GetValues(typeof(ItemType)))
         {
-            equipment.Add(sk, null);
+           if(!equipment.ContainsKey(sk)) equipment.Add(sk, null);
         }
         foreach(SkillsStat s in System.Enum.GetValues(typeof(SkillsStat)))
         {
@@ -468,6 +468,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     public bool AddEquipmentToCharacter(ItemType itemType, ItemScriptableContainer item)
     {
+        if (item == null) return false;
         if (!equipment.TryAdd(itemType, item))
         {
             equipment[itemType] = item;
