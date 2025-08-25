@@ -167,6 +167,7 @@ public static class GameInstance
         saveData.playercardinalDirection = playerController.GetCurrentDirection();
         saveData.listOfItemsStates = new List<ItemDataSave>();
         saveData.heroesEquipment = HeroEquipmentConvertToSave();
+        Debug.Log (" compare equipment "+HeroEquipmentConvertToSave().Count + " " + saveData.heroesEquipment.Count);
         saveData.listOfItemsStates = ItemsConvertToSave();
         string path = Application.persistentDataPath + "/" + fileName;
         Gley.AllPlatformsSave.API.Save(saveData, path, DataWasSaved, false);
@@ -187,8 +188,16 @@ public static class GameInstance
             Debug.Log("No Data File Found -> Creating new data...");
             saveData = new SaveData();
         }
+
+        equipmentHeroesSaved.Clear();
+        equipmentHeroesSaved.Add(0, new Dictionary<ItemType, ItemScriptableContainer>());
+        equipmentHeroesSaved.Add(1, new Dictionary<ItemType, ItemScriptableContainer>());
+        equipmentHeroesSaved.Add(2, new Dictionary<ItemType, ItemScriptableContainer>());
+        equipmentHeroesSaved.Add(3, new Dictionary<ItemType, ItemScriptableContainer>());
         if (result == SaveResult.Success)
         {
+
+            Debug.Log(" load equipment "+saveData.heroesEquipment.Count);
             foreach(HeroEquipment he in saveData.heroesEquipment)
             {
                 switch (he.heroIndex)
@@ -302,6 +311,7 @@ public static class GameInstance
         {
             foreach(KeyValuePair < ItemType, ItemScriptableContainer > e in equipmentLoop.Value)
             {
+                if (e.Value == null) continue;
                 HeroEquipment newItem = new HeroEquipment();
                 newItem.heroIndex = equipmentLoop.Key;
                 newItem.itemType = e.Key;
@@ -372,7 +382,7 @@ public class GameFileSaveNames
 {
     public List<string> fileNames = new List<string>();
 }
-
+[System.Serializable]
 public class HeroEquipment
 {
     public int heroIndex = 0;

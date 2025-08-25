@@ -111,8 +111,15 @@ public class Party : MonoBehaviour
         for (int i = 0; i < heroes.Count; i++)
         {
             foreach(ItemType itype in System.Enum.GetValues(typeof(ItemType)))
-            { 
-                if (GameInstance.equipmentHeroesSaved.ContainsKey(i)) heroes[i].AddEquipmentToCharacter(itype, GameInstance.equipmentHeroesSaved[i][itype]);
+            {
+                if (GameInstance.equipmentHeroesSaved.ContainsKey(i)) 
+                {
+                    if (GameInstance.equipmentHeroesSaved[i].ContainsKey(itype))
+                    {
+                        heroes[i].AddEquipmentToCharacter(itype, GameInstance.equipmentHeroesSaved[i][itype]);
+                    }
+
+                }
             }
 
         }
