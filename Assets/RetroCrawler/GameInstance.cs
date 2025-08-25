@@ -1,3 +1,4 @@
+using Gley.AllPlatformsSave;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +38,9 @@ public static class GameInstance
     public static CardinalDirections playerRotationSaved, nextLevelRotation;
 
     public static Dictionary<string, SavedState> savedItemsState = new Dictionary<string, SavedState>();
-    
+
+    public static List<string> fileNamesList = new List<string>();
+    static string currentLevelName = "";
 
     public static void LoadOrder()
     {
@@ -116,12 +119,14 @@ public static class GameInstance
     }
     public static void LoadGameFromStart()
     {
+        currentLevelName = "Level01";
         SceneManager.LoadScene("Level01", LoadSceneMode.Single);
     }
 
     public static void LoadNextLevel(string levelName)
     {
-        party.SaveEquipment();
+        currentLevelName = levelName;       
+        if (party != null) party.SaveEquipment();
         SceneManager.LoadScene(levelName, LoadSceneMode.Single);
     }
 
@@ -144,9 +149,194 @@ public static class GameInstance
         else  savedItemsState.Add(_guid, _state);
     }
     
+    public static void ClearAllSaves()
+    {
+        fileNamesList.Clear();
+        Gley.AllPlatformsSave.API.ClearAllData(Application.persistentDataPath + "/");
+    }
+
+    public static void SaveFile(string fileName)
+    {
+        party.SaveEquipment();
+
+        SaveData saveData = new SaveData();
+        if (currentLevelName == "") saveData.levelName = SceneManager.GetActiveScene().name;
+        else saveData.levelName = currentLevelName;
+        
+        saveData.playerPosition = playerController.GetcurrentPosition();
+        saveData.playercardinalDirection = playerController.GetCurrentDirection();
+        saveData.listOfItemsStates = new List<ItemDataSave>();
+        saveData.heroesEquipment = HeroEquipmentConvertToSave();
+        saveData.listOfItemsStates = ItemsConvertToSave();
+        string path = Application.persistentDataPath + "/" + fileName;
+        Gley.AllPlatformsSave.API.Save(saveData, path, DataWasSaved, false);
+    }
+
+    public static void LoadFile(string fileName)
+    {
+        SaveData saveData = new SaveData();
+        string path = Application.persistentDataPath + "/" + fileName;
+        Gley.AllPlatformsSave.API.Load<SaveData>(path, DataWasLoaded, false);
+    }
+
+
+    private static void DataWasLoaded(SaveData saveData, SaveResult result, string message)
+    {
+        if (result == SaveResult.EmptyData || result == SaveResult.Error)
+        {
+            Debug.Log("No Data File Found -> Creating new data...");
+            saveData = new SaveData();
+        }
+        if (result == SaveResult.Success)
+        {
+            foreach(HeroEquipment he in saveData.heroesEquipment)
+            {
+                switch (he.heroIndex)
+                {
+                    case 0:
+                        if (!equipmentHeroesSaved[0].ContainsKey(he.itemType)) equipmentHeroesSaved[0].Add(he.itemType, he.container);
+                        else
+                        {
+                            equipmentHeroesSaved[0].Remove(he.itemType);
+                            equipmentHeroesSaved[0].Add(he.itemType, he.container);
+                        }
+                        break;
+                    case 1:
+                        if(!equipmentHeroesSaved[1].ContainsKey(he.itemType)) equipmentHeroesSaved[1].Add(he.itemType, he.container);
+                        else
+                        {
+                            equipmentHeroesSaved[1].Remove(he.itemType);
+                            equipmentHeroesSaved[1].Add(he.itemType, he.container);
+                        }
+                        break;
+                    case 2:
+                        if (!equipmentHeroesSaved[2].ContainsKey(he.itemType)) equipmentHeroesSaved[2].Add(he.itemType, he.container);
+                        else
+                        {
+                            equipmentHeroesSaved[2].Remove(he.itemType);
+                            equipmentHeroesSaved[2].Add(he.itemType, he.container);
+                        }
+                        break;
+                    case 3:
+                        if (!equipmentHeroesSaved[3].ContainsKey(he.itemType)) equipmentHeroesSaved[3].Add(he.itemType, he.container);
+                        else
+                        {
+                            equipmentHeroesSaved[3].Remove(he.itemType);
+                            equipmentHeroesSaved[3].Add(he.itemType, he.container);
+                        }
+                        break;
+
+                }
+            }
+            savedItemsState.Clear();
+            foreach (ItemDataSave idata in saveData.listOfItemsStates)
+            {
+                savedItemsState.Add(idata.GUID, idata.states[0]);
+            }
+
+            nextLevelPosition = saveData.playerPosition;
+            nextLevelRotation = saveData.playercardinalDirection;
+            levelEnter = true;
+
+
+            LoadNextLevel(saveData.levelName);
+        }
+    }
+
+
+
+
+    private static void DataWasSaved(SaveResult result, string message)
+    {
+        if (result == SaveResult.Error)
+        {
+            Debug.Log("Error saving data");
+        }
+    }
+
+    public static void AddNewFileName(string fileName)
+    {
+        LoadFileNames();
+        GameFileSaveNames saveNames = new GameFileSaveNames();
+        string path = Application.persistentDataPath + "/" + "LocalFileNames";
+        fileNamesList.Add(fileName);
+        saveNames.fileNames = fileNamesList; 
+        Gley.AllPlatformsSave.API.Save(saveNames, path, DataWasSaved, false);
+    }
+
+    public static void RemoveFileName( string fileName)
+    {
+        LoadFileNames();
+        GameFileSaveNames saveNames = new GameFileSaveNames();
+        string path = Application.persistentDataPath + "/" + "LocalFileNames";
+        fileNamesList.Remove(fileName);
+        Gley.AllPlatformsSave.API.Save(saveNames, path, DataWasSaved, false);
+        Gley.AllPlatformsSave.API.ClearFile(Application.persistentDataPath + "/" + fileName);
+    }
+
+
+    public static void LoadFileNames()
+    {
+        GameFileSaveNames saveNames = new GameFileSaveNames();
+        string path = Application.persistentDataPath + "/" + "LocalFileNames";
+        Gley.AllPlatformsSave.API.Load<GameFileSaveNames>(path, FileNamesLoaded, false);
+    }
+
+
+    private static void FileNamesLoaded(GameFileSaveNames data, SaveResult result, string arg2)
+    {
+        if (result == SaveResult.EmptyData || result == SaveResult.Error)
+        {
+            Debug.Log("No Data File Found -> No Files Saved");
+        }
+        if (result == SaveResult.Success)
+        {
+            fileNamesList = data.fileNames;
+        }
+    }
+
+    private static List<HeroEquipment> HeroEquipmentConvertToSave()
+    {
+        List<HeroEquipment> equipment = new List<HeroEquipment>();
+        foreach(KeyValuePair<int,Dictionary <ItemType, ItemScriptableContainer>> equipmentLoop in equipmentHeroesSaved )
+        {
+            foreach(KeyValuePair < ItemType, ItemScriptableContainer > e in equipmentLoop.Value)
+            {
+                HeroEquipment newItem = new HeroEquipment();
+                newItem.heroIndex = equipmentLoop.Key;
+                newItem.itemType = e.Key;
+                newItem.container = e.Value;
+                equipment.Add(newItem);
+            }
+        }
+        return equipment;
+    }
+    private static List<ItemDataSave> ItemsConvertToSave()
+    {
+        List<ItemDataSave> items = new List<ItemDataSave>();
+        foreach (KeyValuePair<string, SavedState > e in savedItemsState)
+        {
+                ItemDataSave newItem = new ItemDataSave();
+                newItem.GUID = e.Key;
+                newItem.states[0] = e.Value;
+                items.Add(newItem);
+        }
+        return items;
+    }
+
+    public static List<string> GetFileNameList()
+    {
+        LoadFileNames();
+        return fileNamesList;
+    } 
+        
+
+
+
+
 }
 
-
+[System.Serializable]
 public enum SavedState
 {
     None,
@@ -154,4 +344,38 @@ public enum SavedState
     Closed,
     Taken,
     Solved
+}
+
+[System.Serializable]
+public class SaveData
+{
+    public string levelName = "Level01";
+    public Vector3Int playerPosition;
+    public CardinalDirections playercardinalDirection;
+    //heroes stats
+    // current heroes stats
+    //heroes equipment
+    public List<HeroEquipment> heroesEquipment = new List<HeroEquipment>();
+    //inventory items
+    public List<ItemDataSave> listOfItemsStates = new List<ItemDataSave>();
+}
+
+[System.Serializable]
+public class ItemDataSave
+{
+    public string GUID = "";
+    public List<SavedState> states = new List<SavedState>() { SavedState.None};
+}
+
+[System.Serializable] 
+public class GameFileSaveNames
+{
+    public List<string> fileNames = new List<string>();
+}
+
+public class HeroEquipment
+{
+    public int heroIndex = 0;
+    public ItemType itemType;
+    public ItemScriptableContainer container;
 }

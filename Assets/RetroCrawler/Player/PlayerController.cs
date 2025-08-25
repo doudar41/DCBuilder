@@ -157,7 +157,7 @@ public class PlayerController : MonoBehaviour
 
     public void ReceiveLastSpellInput(InputAction.CallbackContext context)
     {
-        GameInstance.battleManager.ReceiveLastSpellInput();
+        //GameInstance.battleManager.ReceiveLastSpellInput();
     }
 
     public void ReleaseSpellWithoutCasting(InputAction.CallbackContext context)
@@ -395,9 +395,9 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public Vector2 GetcurrentPosition()
+    public Vector3Int GetcurrentPosition()
     {
-        return new Vector2(currentposition.x, currentposition.y);
+        return currentposition;
     }
 
     public CardinalDirections GetCurrentDirection()
