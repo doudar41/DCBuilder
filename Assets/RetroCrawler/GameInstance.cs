@@ -38,6 +38,7 @@ public static class GameInstance
     public static CardinalDirections playerRotationSaved, nextLevelRotation;
 
     public static Dictionary<string, SavedState> savedItemsState = new Dictionary<string, SavedState>();
+    public static Dictionary<string, Vector3> savedItemsReplaced = new Dictionary<string, Vector3>();
 
     public static List<string> fileNamesList = new List<string>();
     static string currentLevelName = "";
@@ -143,10 +144,18 @@ public static class GameInstance
         yield return null;
     }
 
-    public static void SaveItemState(string _guid, SavedState _state)
+    public static void SaveItemState(string _guid, SavedState _state, Vector3 position)
     {
         if (savedItemsState.ContainsKey(_guid)) savedItemsState[_guid] = _state;
         else  savedItemsState.Add(_guid, _state);
+
+        if (_state == SavedState.Replaced)
+        {
+            Debug.Log(" state replace " + _guid+ " "+ position);
+            if (savedItemsReplaced.ContainsKey(_guid)) savedItemsReplaced[_guid] = position;
+            else savedItemsReplaced.Add(_guid, position);
+        }
+
     }
     
     public static void ClearAllSaves()
@@ -238,9 +247,11 @@ public static class GameInstance
                 }
             }
             savedItemsState.Clear();
+            savedItemsReplaced.Clear();
             foreach (ItemDataSave idata in saveData.listOfItemsStates)
             {
                 savedItemsState.Add(idata.GUID, idata.states[0]);
+                if (idata.states[0] == SavedState.Replaced) savedItemsReplaced.Add(idata.GUID, idata.position);
             }
 
             nextLevelPosition = saveData.playerPosition;
@@ -329,6 +340,11 @@ public static class GameInstance
                 ItemDataSave newItem = new ItemDataSave();
                 newItem.GUID = e.Key;
                 newItem.states[0] = e.Value;
+            if (e.Value == SavedState.Replaced) 
+            {
+                Debug.Log( " item replaced ");
+                newItem.position = savedItemsReplaced[e.Key]; 
+            }
                 items.Add(newItem);
         }
         return items;
@@ -353,7 +369,8 @@ public enum SavedState
     Opened,
     Closed,
     Taken,
-    Solved
+    Solved,
+    Replaced
 }
 
 [System.Serializable]
@@ -375,6 +392,7 @@ public class ItemDataSave
 {
     public string GUID = "";
     public List<SavedState> states = new List<SavedState>() { SavedState.None};
+    public Vector3 position;
 }
 
 [System.Serializable] 
@@ -382,6 +400,7 @@ public class GameFileSaveNames
 {
     public List<string> fileNames = new List<string>();
 }
+
 [System.Serializable]
 public class HeroEquipment
 {

@@ -22,6 +22,9 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
 
     SplineAnimate anim;
     SphereCollider col;
+
+    public Vector3 itemPosition;
+
     public bool stackable = true;
 
     public UnityEvent<int, GameObject> OnDestoryedByCursor;
@@ -42,34 +45,30 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
     {
         if (GUIDString == "")
         {
-            _guid = System.Guid.NewGuid();
-            GUIDString = _guid.ToString();
+            ChangeGUID();
         }
     }
 
-    private void Awake()
 
-    {
-
-
-    }
 
     private void Start()
     {
         Init();
-
-
-        //print ("guid "+ _guid);
-       // Complete += EmptyMethod;
     }
 
 
-    
+    public void ChangeGUID()
+    {
+        _guid = System.Guid.NewGuid();
+        GUIDString = _guid.ToString();
+    }
     void Init()
     {
         if (GameInstance.savedItemsState.ContainsKey(GUIDString)) 
         {
-           if( GameInstance.savedItemsState[GUIDString] == SavedState.Taken) return; 
+            if (GameInstance.savedItemsState[GUIDString] == SavedState.Replaced) transform.position = GameInstance.savedItemsReplaced[GUIDString];
+           if ( GameInstance.savedItemsState[GUIDString] == SavedState.Taken) return; 
+           
         }
 
         GameObject item = Instantiate(itemScriptableLocal.prefab, transform);
@@ -102,7 +101,7 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
 
     public void RemoveFromTheWorld()
     {
-        GameInstance.SaveItemState(GUIDString, SavedState.Taken);
+        GameInstance.SaveItemState(GUIDString, SavedState.Taken, Vector3.zero);
         OnDestoryedByCursor.Invoke(itemScriptableLocal.weight*stackAmount, this.gameObject);
         DestroyImmediate(gameObject);
     }
@@ -155,7 +154,6 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
     private void OnDestroy()
     {
         OnDestoryedByCursor.RemoveAllListeners();
-        //Complete -= EmptyMethod;
     }
 
     public int itemsAmount()
@@ -172,5 +170,16 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
     {
         capacity = 0;
         return itemScriptableLocal.weight*stackAmount;
+    }
+
+    public string GetGUID()
+    {
+        return GUIDString;
+    }
+
+    public void SetGUIDPosition(string _GUID, Vector3 pos)
+    {
+        GUIDString = _GUID;
+
     }
 }

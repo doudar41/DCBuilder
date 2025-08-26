@@ -12,10 +12,20 @@ public class LoadFileNames : MonoBehaviour
     [SerializeField] GameObject saveLoadTransform;
     [SerializeField] GameObject saveFilePrefab;
     List<SaveFileToggleContainer> listOfFiles = new List<SaveFileToggleContainer>();
+    [SerializeField] GameObject SaveGamePanel;
 
-    private void OnEnable()
+    public void EnableSavePanel()
     {
+        GameInstance.playerController.EnterHover(HoverUIElementEnum.INVENTORY, SaveGamePanel);
+        SaveGamePanel.SetActive(true);
         RefreshFileToggles();
+    }
+
+
+    public void DisableSavePanel()
+    {
+        SaveGamePanel.SetActive(false);
+        GameInstance.playerController.ExitHover();
     }
 
     private void Start()
@@ -54,7 +64,7 @@ public class LoadFileNames : MonoBehaviour
     {
         List<string> list  = GameInstance.GetFileNameList();
         print(" list of files " + list.Count);
-        for (int i = 1; i< list.Count;i++)
+        for (int i = 0; i< list.Count;i++)
         {
             if (i < (listOfFiles.Count - 1))
             {
@@ -64,6 +74,7 @@ public class LoadFileNames : MonoBehaviour
             {
                 GameObject newToggle = Instantiate(saveFilePrefab, saveLoadTransform.transform);
                 newToggle.GetComponent<SaveFileToggleContainer>().SetFileName(list[i]);
+                newToggle.GetComponent<Toggle>().group = toggleGroup;
                 listOfFiles.Add(newToggle.GetComponent<SaveFileToggleContainer>());
             }
         }

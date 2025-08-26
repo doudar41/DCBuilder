@@ -51,13 +51,13 @@ public class SingleSwitch : MonoBehaviour, IInteractables, IPointerClickHandler
         {
             idoor.OpenDoor();
             renderer.sprite = openSprite;
-            GameInstance.SaveItemState(GUIDString, SavedState.Opened);
+            GameInstance.SaveItemState(GUIDString, SavedState.Opened, Vector3.zero);
         }
         else
         {
             idoor.CloseDoor();
             renderer.sprite = closeSprite;
-            GameInstance.SaveItemState(GUIDString, SavedState.Closed);
+            GameInstance.SaveItemState(GUIDString, SavedState.Closed, Vector3.zero);
         }
 
     }

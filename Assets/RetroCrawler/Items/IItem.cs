@@ -13,6 +13,9 @@ public interface IItem
 
     public int itemsAmount();
     public void SetItemsAmount(int amount);
+    public void ChangeGUID();
+    public string GetGUID();
+    public void SetGUIDPosition(string _GUID, Vector3 pos);
 }
 
 

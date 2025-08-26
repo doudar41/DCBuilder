@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
     Transform dropItemPosition, throwItemPosition;
     int hoverPortraitIndex = -1;
     bool cursorHoveringUI = false;
-
+    string currentCursorGUID = "";
 
     int countdownToEncounter = 22;
     public Vector2Int rangeOfEnCounter = new Vector2Int(15,25);
@@ -147,6 +147,7 @@ public class PlayerController : MonoBehaviour
 
     void ReceiveAttackInput(InputAction.CallbackContext context)
     {
+        if (cursorHoveringUI) return;
         if (GameInstance.battleManager.BattleEffect) return;
         if (playerState == PlayerState.Battle && !GameInstance.spellbook.SpellCharged) 
         { 
@@ -157,11 +158,13 @@ public class PlayerController : MonoBehaviour
 
     public void ReceiveLastSpellInput(InputAction.CallbackContext context)
     {
+        if (cursorHoveringUI) return;
         //GameInstance.battleManager.ReceiveLastSpellInput();
     }
 
     public void ReleaseSpellWithoutCasting(InputAction.CallbackContext context)
     {
+        if (cursorHoveringUI) return;
         GameInstance.spellbook.ReleaseSpellWithoutCasting();
     }
 
@@ -185,7 +188,7 @@ public class PlayerController : MonoBehaviour
     }
     void OpenCloseInventory(InputAction.CallbackContext context)
     {
-
+        if (cursorHoveringUI) return;
         if (GameInstance.inventory.IsOpen())
         {
             GameInstance.inventory.EnableInventory(false);
@@ -233,7 +236,7 @@ public class PlayerController : MonoBehaviour
 
     void MovementUpdate(InputAction.CallbackContext context)
     {
-
+        if (cursorHoveringUI) return;
         if (playerState == PlayerState.Battle) { /*print("battle state");*/ return; }
         //GameInstance.savedInt++;
         MovementUpdateFuther(context.ReadValue<Vector2>());
@@ -242,6 +245,7 @@ public class PlayerController : MonoBehaviour
 
     void TurnAround(InputAction.CallbackContext context)
     {
+        if (cursorHoveringUI) return;
         if (playerState == PlayerState.Battle) { /*print("battle state");*/ return; }
         TurnAroundFloat(context.ReadValue<float>());
     }
@@ -554,11 +558,19 @@ public class PlayerController : MonoBehaviour
         }
         if (cursorBusy)
         {
-            //print("cursor busy "+ cursorBusy+ " cursorHoveringUI "+ cursorHoveringUI);
+            /*            if (!GameInstance.savedItemsReplaced.ContainsKey(currentCursorGUID)) 
+                        {
+                            print("change replace position");
+                            GameInstance.savedItemsReplaced.Add(currentCursorGUID, throwItemPosition.position); 
+                        }
+                        else
+                        {
+                            print("change replace position");
+                            GameInstance.savedItemsReplaced[currentCursorGUID] = throwItemPosition.position;
+                        }
+                        GameInstance.savedItemsState[currentCursorGUID] = SavedState.Replaced;*/
+            GameInstance.SaveItemState(currentCursorGUID, SavedState.Replaced, throwItemPosition.position);
             ThrowToTheWorld(throwItemPosition, currentMouse.position.ReadValue().y);
-
-            // print("mouse throw "+currentMouse.position.ReadValue().y);
-
             cursorBusy = false;
             cursorItemScriptable = null;
             Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
@@ -611,7 +623,7 @@ public class PlayerController : MonoBehaviour
                         case InteractablesEnum.PICKABLE:
                             IItem iItem = hit.collider.GetComponent<IItem>();
                             cursorItemScriptable = iItem.WhatItem();
-                            SetPlayerCursorBusy(cursorItemScriptable, iItem.itemsAmount());
+                            SetPlayerCursorBusy(cursorItemScriptable, iItem.itemsAmount(), iItem.GetGUID());
                             iItem.RemoveFromTheWorld();
                             //print(" cursor busy on picking " + cursorBusy + " item " + cursorItemScriptable.itemName);
                             break;
@@ -628,6 +640,8 @@ public class PlayerController : MonoBehaviour
         iItem.SetPrefab(cursorItemScriptable);
         iItem.InitializeItem();
         iItem.SetItemsAmount(stackAmountCursor);
+
+        iItem.SetGUIDPosition(currentCursorGUID, spawnPoint.position);
 
         //iItem.SetTransformPosition(Vector3.zero);
         iItem.RemoveFromParent();
@@ -665,11 +679,11 @@ public class PlayerController : MonoBehaviour
         return structNew;
     }
 
-    public void SetPlayerCursorBusy(ItemScriptableContainer tempItem, int stackAmount)
+    public void SetPlayerCursorBusy(ItemScriptableContainer tempItem, int stackAmount, string GUID)
     {
         cursorItemScriptable = tempItem;
         stackAmountCursor = stackAmount;
-        //print("stack " + stackAmount);
+        currentCursorGUID = GUID;
         Cursor.SetCursor(cursorItemScriptable.texture2DMouse, hotSpot, cursorMode);
         cursorBusy = true;
     }

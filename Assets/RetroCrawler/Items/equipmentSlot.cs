@@ -12,6 +12,7 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     public ItemType itemType;
 
     ItemScriptableContainer ItemScriptable;
+    string _GUID;
     [SerializeField]
     Image itemAvatar;
     [SerializeField]
@@ -55,6 +56,7 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
                 {
                     ItemScriptable = slotStruct.item;
                     itemAvatar.sprite = ItemScriptable.InventorySprite;
+                    _GUID =  slotStruct._GUID;
                     sendItemToParty.Invoke(itemType, ItemScriptable);
                     if(itemType == ItemType.WEAPON)
                     {
@@ -68,10 +70,10 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
                 else
                 {
 
-                    if (slotStruct.stackAmount == 1) GameInstance.playerController.SetPlayerCursorBusy(slotStruct.item, 1);
+                    if (slotStruct.stackAmount == 1) GameInstance.playerController.SetPlayerCursorBusy(slotStruct.item, 1, slotStruct._GUID);
                 }
 
-                if (slotStruct.stackAmount > 1) GameInstance.playerController.SetPlayerCursorBusy(slotStruct.item, slotStruct.stackAmount - 1);
+                if (slotStruct.stackAmount > 1) GameInstance.playerController.SetPlayerCursorBusy(slotStruct.item, slotStruct.stackAmount - 1, slotStruct._GUID);
             }
 
         }
@@ -84,7 +86,7 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
             {
                 if (itemTemp.itemType == itemType)
                 {
-                    GameInstance.playerController.SetPlayerCursorBusy(ItemScriptable, 1);
+                    GameInstance.playerController.SetPlayerCursorBusy(ItemScriptable, 1, _GUID);
                     ItemScriptable = itemTemp;
                     itemAvatar.sprite = ItemScriptable.InventorySprite;
                     sendItemToParty.Invoke(itemType, ItemScriptable);
@@ -92,14 +94,14 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
                 }
                 else
                 {
-                    if (slotStruct.stackAmount == 1) GameInstance.playerController.SetPlayerCursorBusy(itemTemp, 1);
-                    if (slotStruct.stackAmount > 1) GameInstance.playerController.SetPlayerCursorBusy(itemTemp, slotStruct.stackAmount);
+                    if (slotStruct.stackAmount == 1) GameInstance.playerController.SetPlayerCursorBusy(itemTemp, 1, _GUID);
+                    if (slotStruct.stackAmount > 1) GameInstance.playerController.SetPlayerCursorBusy(itemTemp, slotStruct.stackAmount, _GUID);
                 }
             }
             else
             {
                 if (ItemScriptable == null) return;
-                GameInstance.playerController.SetPlayerCursorBusy(ItemScriptable, 1);
+                GameInstance.playerController.SetPlayerCursorBusy(ItemScriptable, 1, _GUID);
                 ItemScriptable = null;
                 itemAvatar.sprite = emptySlotSprite;
                 sendItemToParty.Invoke(itemType, null);

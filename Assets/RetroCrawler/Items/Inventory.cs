@@ -105,5 +105,6 @@ public struct ItemSlotStruct
 {
     public ItemScriptableContainer item;
     public int stackAmount;
+    public string _GUID;
     //special effect
 }

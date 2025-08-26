@@ -11,7 +11,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
 
     int stackAmount = 1;
-
+    string _GUID;
     ItemScriptableContainer ItemScriptable;
     [SerializeField] Image itemAvatar;
     [SerializeField]
@@ -40,6 +40,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
                 else stackAmount = 1;
                 itemAvatar.sprite = ItemScriptable.InventorySprite;
                 amountText.text = stackAmount.ToString();
+                _GUID = slotStruct._GUID;
             }
         }
         else
@@ -53,7 +54,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
                 }
                 else
                 {
-                    GameInstance.playerController.SetPlayerCursorBusy(ItemScriptable, stackAmount);
+                    GameInstance.playerController.SetPlayerCursorBusy(ItemScriptable, stackAmount, _GUID);
                     if (slotStruct.stackAmount > 1)
                     {
                         stackAmount = slotStruct.stackAmount;
@@ -70,7 +71,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             if (stackAmount >= 1 && !GameInstance.playerController.IsCursorBusy())
             {
                // print("one item left");
-            GameInstance.playerController.SetPlayerCursorBusy(ItemScriptable, stackAmount);
+            GameInstance.playerController.SetPlayerCursorBusy(ItemScriptable, stackAmount, _GUID);
             stackAmount = 0;
             ItemScriptable = null;
             itemAvatar.sprite = emptySlotSprite;
