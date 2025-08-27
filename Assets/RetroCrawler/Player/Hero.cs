@@ -48,9 +48,9 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     {
         FillMainStats(null);
         FillDependedStatsInit();
-        for(int i = 0; i < GameInstance.party.GetHeroList().Count; i++)
+        for (int i = 0; i < GameInstance.party.GetHeroList().Count; i++)
         {
-            if (GameInstance.party.GetHeroList()[i] = this) heroID = i;
+            if (GameInstance.party.GetHeroList()[i] == this) heroID = i;
         }
         currentHealth = GetDependedStatFromList(DependedStat.maxHealth, dependedStatsInitList);
         currentMana = GetDependedStatFromList(DependedStat.maxMana, dependedStatsInitList);
@@ -68,9 +68,8 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     public void OnPointerClick(PointerEventData eventData)
     {
-
-            GameInstance.party.SetActiveHero(this);
-            GameInstance.spellbook.spellTargetEvent.Invoke(this.gameObject);
+        GameInstance.party.SetActiveHero(this);
+        GameInstance.spellbook.spellTargetEvent.Invoke(this.gameObject);
 
     }
 
@@ -700,17 +699,14 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         return weaponEnchanced;
     }
 
-    public bool AddEquipmentToCharacter(ItemType itemType, ItemScriptableContainer item)
-    {
-        return false;
-    }
+
 }
 
 
 public interface IHero
 {
     public List<SpellContainer> GetActiveHeroSpellbook();
-    public bool AddEquipmentToCharacter(ItemType itemType, ItemScriptableContainer item);
+    public bool AddEquipmentToCharacter(ItemType itemType, ItemScriptableContainer item, string _guid);
     public void RemoveItemFromEquipment(ItemType itemType);
     public void MakeHeroActive(bool active);
     public void ApplySpellToHero(SpellContainer spellToApply, GameObject spellcaster);

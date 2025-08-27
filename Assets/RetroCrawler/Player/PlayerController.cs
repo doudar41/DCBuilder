@@ -553,7 +553,7 @@ public class PlayerController : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(currentMouse.position.ReadValue().x, currentMouse.position.ReadValue().y, 0));
         if (cursorHoveringUI)
         {
-
+            
             return;
         }
         if (cursorBusy)
@@ -579,12 +579,13 @@ public class PlayerController : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
+            //print("raycast");
             if (hit.distance > blockSize) return;
             IInteractables inter = hit.collider.GetComponent<IInteractables>();
 
             if (inter != null)
             {
-               // print(hit.distance + " " + hit.collider + " " + inter);
+               //print(hit.distance + " " + hit.collider + " " + inter);
                 List<InteractablesEnum> list = inter.WhatIsIt();
                 foreach (InteractablesEnum i in list)
                 {

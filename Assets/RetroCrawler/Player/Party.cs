@@ -45,9 +45,10 @@ public class Party : MonoBehaviour
     public void SetActiveHero(Hero hero)
     {
         if (GameInstance.spellbook.SpellWaiting()) return;
+
         foreach(Hero h in heroes)
         {
-            if (hero == h) { 
+            if (hero == h) {
                 h.MakeHeroActive(true);
                 activeHero = h.GetComponent<IHero>();
                 GameInstance.spellbook.GetPagesReady();
@@ -57,11 +58,11 @@ public class Party : MonoBehaviour
             else h.MakeHeroActive(false);
         }
     }
-    public void GetItemFromEquipmentSlot(ItemType itemType, ItemScriptableContainer item)
+    public void GetItemFromEquipmentSlot(ItemType itemType, ItemScriptableContainer item, string _guid)
     {
         if (item != null)
         {
-            activeHero.AddEquipmentToCharacter(item.itemType, item);
+            activeHero.AddEquipmentToCharacter(item.itemType, item, _guid);
         }
         else
         {

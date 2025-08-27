@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1210473466017819175}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: NorthWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 2066145517803863566}
   - component: {fileID: 8830532593720054571}
   - component: {fileID: 7314359643008550759}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,7 +214,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8377272488787779356}
   - component: {fileID: 6610500126401201919}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 7661767082513113897}
   - component: {fileID: 7443934456798674445}
   - component: {fileID: 4328374572812783430}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -350,7 +350,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8368270249406423374}
   - component: {fileID: 6741690295604164715}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -402,7 +402,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6458551908960332728}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ceilling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -437,7 +437,7 @@ GameObject:
   - component: {fileID: 9053661198756053540}
   - component: {fileID: 4693532990228485891}
   - component: {fileID: 2164700321673142320}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -518,7 +518,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6832443179180943927}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: WestWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -551,7 +551,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3256278491305414192}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: EastWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -586,7 +586,7 @@ GameObject:
   - component: {fileID: 4902059117935573992}
   - component: {fileID: 6141999801143112274}
   - component: {fileID: 6875325805706186874}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Mesh (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -668,7 +668,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2875371487526957569}
   - component: {fileID: 5091677007092804717}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -722,7 +722,7 @@ GameObject:
   - component: {fileID: 8502735920948795794}
   - component: {fileID: 1791087682620088849}
   - component: {fileID: 9016044864559163896}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Mesh (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -805,7 +805,7 @@ GameObject:
   - component: {fileID: 2292739653980212568}
   - component: {fileID: 4142383589212388023}
   - component: {fileID: 787678396235966058}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Mesh (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -887,7 +887,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2986438725382965199}
   - component: {fileID: 3355378780988503997}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1023,7 +1023,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4937114926852727942}
   - component: {fileID: 2147255815302183749}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1077,7 +1077,7 @@ GameObject:
   - component: {fileID: 4287710605814955168}
   - component: {fileID: 2864891326028290341}
   - component: {fileID: 4321541753380318203}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Mesh (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1158,7 +1158,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7778163487038257466}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SouthWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1191,7 +1191,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4676855573127279098}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1225,7 +1225,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2949894613474181378}
   - component: {fileID: 3935599587236745352}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: WhiteStoneDungeonBlocks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1278,3 +1278,6 @@ MonoBehaviour:
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 6875184470371475370}
   groundType: 0
+  nextLevelPosition: {x: 0, y: 0, z: 0}
+  nextLevelDirection: 0
+  nextLevelName: 

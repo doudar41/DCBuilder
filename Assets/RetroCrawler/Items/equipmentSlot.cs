@@ -18,7 +18,7 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     [SerializeField]
     Sprite emptySlotSprite;
 
-    public UnityEvent<ItemType,ItemScriptableContainer> sendItemToParty;
+    public UnityEvent<ItemType,ItemScriptableContainer, string> sendItemToParty;
 
 
     private void Start()
@@ -57,7 +57,7 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
                     ItemScriptable = slotStruct.item;
                     itemAvatar.sprite = ItemScriptable.InventorySprite;
                     _GUID =  slotStruct._GUID;
-                    sendItemToParty.Invoke(itemType, ItemScriptable);
+                    sendItemToParty.Invoke(itemType, ItemScriptable, _GUID);
                     if(itemType == ItemType.WEAPON)
                     {
                         if (ItemScriptable.twoHanded) 
@@ -89,7 +89,7 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
                     GameInstance.playerController.SetPlayerCursorBusy(ItemScriptable, 1, _GUID);
                     ItemScriptable = itemTemp;
                     itemAvatar.sprite = ItemScriptable.InventorySprite;
-                    sendItemToParty.Invoke(itemType, ItemScriptable);
+                    sendItemToParty.Invoke(itemType, ItemScriptable, _GUID);
                     if (slotStruct.stackAmount > 1) GameInstance.inventory.FindEmptySlotAndPutItem(slotStruct.item, slotStruct.stackAmount - 1);
                 }
                 else
@@ -104,7 +104,7 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
                 GameInstance.playerController.SetPlayerCursorBusy(ItemScriptable, 1, _GUID);
                 ItemScriptable = null;
                 itemAvatar.sprite = emptySlotSprite;
-                sendItemToParty.Invoke(itemType, null);
+                sendItemToParty.Invoke(itemType, null, "");
                 
             }
         }
