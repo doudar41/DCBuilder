@@ -18,6 +18,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     [SerializeField]  int rowIndex = 1;
     [SerializeField] SpellContainer unarmedSpell;
     int currentHealth = 100, currentMana = 100;
+    int heroID = 0;
 
     Dictionary<MainStat, int> mainStatContainer = new Dictionary<MainStat, int>();
     Dictionary<DependedStat, int> dependedStatsCurrent = new Dictionary<DependedStat, int>();
@@ -33,6 +34,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     int currentInitiativeReduction = 0;
 
     public Dictionary<ItemType, ItemScriptableContainer> equipment = new Dictionary<ItemType, ItemScriptableContainer>();
+    public Dictionary<ItemType, HeroEquipment> equipmentWithGUID = new Dictionary<ItemType, HeroEquipment>();
 
     int currentTimeSnap;
     [SerializeField] BuffPanels buffPanels;
@@ -46,6 +48,10 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     {
         FillMainStats(null);
         FillDependedStatsInit();
+        for(int i = 0; i < GameInstance.party.GetHeroList().Count; i++)
+        {
+            if (GameInstance.party.GetHeroList()[i] = this) heroID = i;
+        }
         currentHealth = GetDependedStatFromList(DependedStat.maxHealth, dependedStatsInitList);
         currentMana = GetDependedStatFromList(DependedStat.maxMana, dependedStatsInitList);
 
@@ -466,9 +472,21 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     }
 
-    public bool AddEquipmentToCharacter(ItemType itemType, ItemScriptableContainer item)
+    public bool AddEquipmentToCharacter(ItemType itemType, ItemScriptableContainer item, string _guid)
     {
         if (item == null) return false;
+        HeroEquipment heroItem = new HeroEquipment();
+        heroItem.container = item;
+        heroItem.heroIndex = heroID;
+        heroItem.itemType = itemType;
+        heroItem._GUID = _guid;
+
+        if (!equipmentWithGUID.TryAdd(itemType, heroItem))
+        {
+
+        }
+
+
         if (!equipment.TryAdd(itemType, item))
         {
             equipment[itemType] = item;
@@ -680,6 +698,11 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     public MagicType GetWeaponMagicType()
     {
         return weaponEnchanced;
+    }
+
+    public bool AddEquipmentToCharacter(ItemType itemType, ItemScriptableContainer item)
+    {
+        return false;
     }
 }
 

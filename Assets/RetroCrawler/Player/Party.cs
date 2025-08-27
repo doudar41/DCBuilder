@@ -116,7 +116,7 @@ public class Party : MonoBehaviour
                 {
                     if (GameInstance.equipmentHeroesSaved[i].ContainsKey(itype))
                     {
-                        heroes[i].AddEquipmentToCharacter(itype, GameInstance.equipmentHeroesSaved[i][itype]);
+                        heroes[i].AddEquipmentToCharacter(itype, GameInstance.equipmentHeroesSaved[i][itype],"" );
                     }
 
                 }

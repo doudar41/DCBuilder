@@ -39,6 +39,7 @@ public static class GameInstance
 
     public static Dictionary<string, SavedState> savedItemsState = new Dictionary<string, SavedState>();
     public static Dictionary<string, Vector3> savedItemsReplaced = new Dictionary<string, Vector3>();
+    public static List<string> itemsTaken = new List<string>();
 
     public static List<string> fileNamesList = new List<string>();
     static string currentLevelName = "";
@@ -407,4 +408,5 @@ public class HeroEquipment
     public int heroIndex = 0;
     public ItemType itemType;
     public ItemScriptableContainer container;
+    public string _GUID;
 }

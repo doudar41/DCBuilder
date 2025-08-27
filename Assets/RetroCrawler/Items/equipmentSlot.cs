@@ -131,5 +131,12 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     {
         return ItemScriptable == null;
     }
+
+    public void SetGUID(string _guid)
+    {
+        _GUID = _guid;
+    }
+
+
 }
 
