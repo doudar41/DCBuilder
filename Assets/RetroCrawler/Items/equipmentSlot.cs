@@ -20,7 +20,6 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
     public UnityEvent<ItemType,ItemScriptableContainer, string> sendItemToParty;
 
-
     private void Start()
     {
         sendItemToParty.AddListener(GameInstance.party.GetItemFromEquipmentSlot);
@@ -105,7 +104,6 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
                 ItemScriptable = null;
                 itemAvatar.sprite = emptySlotSprite;
                 sendItemToParty.Invoke(itemType, null, "");
-                
             }
         }
 
