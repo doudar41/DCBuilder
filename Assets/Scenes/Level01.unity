@@ -127739,7 +127739,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &940442172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127752,8 +127752,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 0}
-  isGlobal: 0
+  sharedProfile: {fileID: 11400000, guid: 4c3083636cb3f2442ad490fc662675e3, type: 2}
+  isGlobal: 1
   blendDistance: 0
   weight: 1
   priority: 0
@@ -299442,6 +299442,7 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 940442174}
   - {fileID: 151195781}
   - {fileID: 1049798367}
   - {fileID: 1708618411}
@@ -299465,5 +299466,4 @@ SceneRoots:
   - {fileID: 1618010389}
   - {fileID: 1723586297}
   - {fileID: 1671269928}
-  - {fileID: 940442174}
   - {fileID: 758686300}
