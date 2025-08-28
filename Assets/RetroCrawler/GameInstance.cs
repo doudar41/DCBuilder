@@ -40,6 +40,7 @@ public static class GameInstance
     public static Dictionary<string, SavedState> savedItemsState = new Dictionary<string, SavedState>();
     public static Dictionary<string, ItemDataSave> savedItemsReplaced = new Dictionary<string, ItemDataSave>();
     public static List<string> itemsTaken = new List<string>();
+    public static List<string> itemsFound = new List<string>();
 
     public static List<string> fileNamesList = new List<string>();
     static string currentLevelName = "";
@@ -321,6 +322,19 @@ public static class GameInstance
     public static bool CheckItemLevelInReplaced( string _guid)
     {
         return savedItemsReplaced[_guid].level == SceneManager.GetActiveScene().name;
+    }
+
+    public static HeroInventoryItem GetItemFromSaved(string _guid)
+    {
+        foreach(HeroInventoryItem hii in equipmentHeroesSavedWithGUID)
+        {
+            if(hii._GUID == _guid)
+            {
+                return hii;
+            }
+        }
+
+        return null;
     }
 }
 

@@ -89,6 +89,7 @@ public class LoadFileNames : MonoBehaviour
 
     public void LoadFile()
     {
+        if(toggleGroup.GetFirstActiveToggle() == null) { print("no files to load"); return; }
         GameInstance.LoadFile(toggleGroup.GetFirstActiveToggle().gameObject.GetComponent<SaveFileToggleContainer>().fileNameToggle);
     }
 

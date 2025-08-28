@@ -116,6 +116,27 @@ public class PlayerController : MonoBehaviour
             GameInstance.levelEnter = false;
             currentWallBlock = wallsAccess[moveTilemap.WorldToCell(transform.position)];
             GameInstance.party.LoadEquipment();
+            foreach(KeyValuePair<string, ItemDataSave> si in GameInstance.savedItemsReplaced)
+            {
+                print(si.Value._GUID +" - "+si.Value.level);
+                if(!GameInstance.itemsFound.Contains( si.Key) && GameInstance.CheckItemLevelInReplaced(si.Key))
+                {
+                    if (GameInstance.GetItemFromSaved(si.Key) == null) continue;
+                    HeroInventoryItem hII =  GameInstance.GetItemFromSaved(si.Key);
+                    GameObject item = Instantiate(itemModelPrefab);
+
+                    IItem iItem = item.GetComponent<IItem>();
+                     
+                    iItem.SetPrefab(hII.container);
+                    iItem.InitializeItem(si.Value.position);
+                    iItem.SetItemsAmount(hII.amount);
+
+                    iItem.SetGUIDPosition(si.Key, si.Value.position);
+
+                    //iItem.SetTransformPosition(Vector3.zero);
+                    iItem.RemoveFromParent();
+                }
+            }
         }
         else
         {
@@ -584,7 +605,7 @@ public class PlayerController : MonoBehaviour
 
         IItem iItem = item.GetComponent<IItem>();
         iItem.SetPrefab(cursorItemScriptable);
-        iItem.InitializeItem();
+        iItem.InitializeItem(spawnPoint.position);
         iItem.SetItemsAmount(stackAmountCursor);
 
         iItem.SetGUIDPosition(currentCursorGUID, spawnPoint.position);

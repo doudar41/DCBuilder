@@ -17,4 +17,8 @@ public class GameMenuToggle : MonoBehaviour
     }
 
 
+    public void MoveCamUpFront()
+    {
+        cam.depth = 1;
+    }
 }

@@ -6,7 +6,7 @@ public interface IItem
     public void RemoveFromTheWorld();
 
     public ItemScriptableContainer WhatItem();
-    public void InitializeItem();
+    public void InitializeItem(Vector3 pos);
     public void SetPrefab(ItemScriptableContainer itemScriptable);
     public void SetTransformPosition(Vector3 pos);
     public void RemoveFromParent();

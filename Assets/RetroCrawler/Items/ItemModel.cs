@@ -49,7 +49,10 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
         }
     }
 
-
+    private void Awake()
+    {
+        GameInstance.itemsFound.Add(GUIDString);
+    }
 
     private void Start()
     {
@@ -70,7 +73,11 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
         if (GameInstance.savedItemsState[GUIDString] == SavedState.Replaced) 
         {
                 if (GameInstance.CheckItemLevelInReplaced(GUIDString)) transform.position = GameInstance.savedItemsReplaced[GUIDString].position;
-                else return;
+                else 
+                { 
+
+                    return; 
+                }
         }
            if ( GameInstance.savedItemsState[GUIDString] == SavedState.Taken) return; 
            
@@ -93,6 +100,28 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
         {
             col = b[0];
         }
+    }
+
+    public void InitLater(Vector3 position)
+    {
+        GameObject item = Instantiate(itemScriptableLocal.prefab, transform);
+        IItemHolder itemHolder = itemScriptableLocal.prefab.GetComponent<IItemHolder>();
+        SphereCollider[] b = gameObject.GetComponents<SphereCollider>();
+        if (b.Length < 1)
+        {
+            col = gameObject.AddComponent<SphereCollider>();
+            col.radius = 1f;
+            Rigidbody rb = gameObject.AddComponent<Rigidbody>();
+            col.material = frictionMaterial;
+            rb.freezeRotation = true;
+            rb.constraints = RigidbodyConstraints.FreezePositionX;
+            rb.constraints = RigidbodyConstraints.FreezePositionZ;
+        }
+        else
+        {
+            col = b[0];
+        }
+        transform.position = position;
     }
 
     private void OnCollisionEnter(Collision other)
@@ -128,7 +157,7 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
         return itemScriptableLocal.texture2DMouse;
     }
 
-    public void InitializeItem()
+    public void InitializeItem(Vector3 pos)
     {
         IItemHolder itemHolder = itemScriptableLocal.prefab.GetComponent<IItemHolder>();
         SphereCollider[] b = gameObject.GetComponents<SphereCollider>();
@@ -139,6 +168,7 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
             Rigidbody r = gameObject.AddComponent<Rigidbody>();
             r.drag = 1;
         }
+        transform.position = pos;
     }
 
     public void SetPrefab(ItemScriptableContainer itemScriptable)
