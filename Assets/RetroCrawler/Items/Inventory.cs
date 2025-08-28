@@ -47,7 +47,7 @@ public class Inventory : MonoBehaviour
         inventorySwitcher.SetActive(false);
     }
 
-    public void GetEquipmentFromHero(Dictionary<ItemType,ItemScriptableContainer> equipmentList)
+    public void GetEquipmentFromHero(Dictionary<ItemType,HeroInventoryItem> equipmentList)
     {
         //print("roll through equipment "+ equipmentList.Count);
         if (true)
@@ -55,7 +55,7 @@ public class Inventory : MonoBehaviour
             foreach (equipmentSlot e in equipmentSlotsList)
             {
 
-                if (equipmentList.TryGetValue(e.itemType, out ItemScriptableContainer outItem))
+                if (equipmentList.TryGetValue(e.itemType, out HeroInventoryItem outItem))
                 {
                     e.SetEquipmentSlot(outItem);
                 }

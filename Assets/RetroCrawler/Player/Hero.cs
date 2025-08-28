@@ -33,8 +33,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     int currentInitiativeReduction = 0;
 
-    public Dictionary<ItemType, ItemScriptableContainer> equipment = new Dictionary<ItemType, ItemScriptableContainer>();
-    public Dictionary<ItemType, HeroEquipment> equipmentWithGUID = new Dictionary<ItemType, HeroEquipment>();
+    public Dictionary<ItemType, HeroInventoryItem> equipmentWithGUID = new Dictionary<ItemType, HeroInventoryItem>();
 
     int currentTimeSnap;
     [SerializeField] BuffPanels buffPanels;
@@ -44,6 +43,18 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     public UnityEvent<SpellContainer> hitTargetEffecct;
 
     MagicType weaponEnchanced = MagicType.None;
+    private void Awake()
+    {
+        if (!GameInstance.levelEnter)
+        {
+
+            foreach (ItemType sk in System.Enum.GetValues(typeof(ItemType)))
+            {
+
+                if (!equipmentWithGUID.ContainsKey(sk)) equipmentWithGUID.Add(sk, null);
+            }
+        }
+    }
     private void Start()
     {
         FillMainStats(null);
@@ -55,14 +66,12 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         currentHealth = GetDependedStatFromList(DependedStat.maxHealth, dependedStatsInitList);
         currentMana = GetDependedStatFromList(DependedStat.maxMana, dependedStatsInitList);
 
-        foreach(ItemType sk in System.Enum.GetValues(typeof(ItemType)))
-        {
-           if(!equipment.ContainsKey(sk)) equipment.Add(sk, null);
-        }
         foreach(SkillsStat s in System.Enum.GetValues(typeof(SkillsStat)))
         {
             if(s != SkillsStat.None) skillsStatsCurrent.Add(s, 0);
         }
+
+
         
     }
 
@@ -473,8 +482,9 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     public bool AddEquipmentToCharacter(ItemType itemType, ItemScriptableContainer item, string _guid)
     {
+
         if (item == null) return false;
-        HeroEquipment heroItem = new HeroEquipment();
+        HeroInventoryItem heroItem = new HeroInventoryItem();
         heroItem.container = item;
         heroItem.heroIndex = heroID;
         heroItem.itemType = itemType;
@@ -482,14 +492,9 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
         if (!equipmentWithGUID.TryAdd(itemType, heroItem))
         {
-
+            equipmentWithGUID[itemType] = heroItem;
         }
 
-
-        if (!equipment.TryAdd(itemType, item))
-        {
-            equipment[itemType] = item;
-        }
         if (!equipmentSpells.TryAdd(itemType, item.spellContainer))
         {
             equipmentSpells[itemType] = item.spellContainer;
@@ -501,12 +506,12 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     public void RemoveItemFromEquipment(ItemType itemType)
     {
         equipmentSpells.Remove(itemType);
-        equipment.Remove(itemType);
+        equipmentWithGUID.Remove(itemType);
     }
 
-    public Dictionary<ItemType, ItemScriptableContainer> GetHeroEquipment()
+    public Dictionary<ItemType, HeroInventoryItem> GetHeroEquipment()
     {
-        return equipment;
+        return equipmentWithGUID;
     }
 
     public int GetHeroHealth()
@@ -552,7 +557,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     public SkillsStat GetWeaponType()
     {
-        if (equipment[ItemType.WEAPON] != null) return equipment[ItemType.WEAPON].weaponType;
+        if (equipmentWithGUID[ItemType.WEAPON] != null) return equipmentWithGUID[ItemType.WEAPON].container.weaponType;
         return SkillsStat.None;
     }
 
@@ -715,7 +720,7 @@ public interface IHero
     public Dictionary<MainStat, int> GetMainStatsForUI();
     public Dictionary<DependedStat, int> GetDependedStatsForUI();
     public Dictionary<SkillsStat, int> GetSkillStatsForUI();
-    public Dictionary<ItemType, ItemScriptableContainer> GetHeroEquipment();
+    public Dictionary<ItemType, HeroInventoryItem> GetHeroEquipment();
 
     public int GetHeroHealth();
     public Hero GetThisHero();

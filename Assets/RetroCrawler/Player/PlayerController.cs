@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
 using UnityEngine.Tilemaps;
-using UnityEngine.Splines;
-using UnityEngine.SceneManagement;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -200,10 +199,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void ReadPlayerStructFromSaveFile()
-    {
-
-    }
 
     void NewGamePlayerStruct()
     {
@@ -538,13 +533,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void RotateSmoothToCardinal(CardinalDirections cardinalTarget)
-    {
-        RotateToCardinalLocation();
-        float y = CardinalDir.GetRotationYForCardinal(cardinalTarget) - transform.rotation.eulerAngles.y;
-        StartCoroutine(SmoothRotation(y));
-    }
-
 
     void MouseRaycast(InputAction.CallbackContext obj)
     {
@@ -558,17 +546,6 @@ public class PlayerController : MonoBehaviour
         }
         if (cursorBusy)
         {
-            /*            if (!GameInstance.savedItemsReplaced.ContainsKey(currentCursorGUID)) 
-                        {
-                            print("change replace position");
-                            GameInstance.savedItemsReplaced.Add(currentCursorGUID, throwItemPosition.position); 
-                        }
-                        else
-                        {
-                            print("change replace position");
-                            GameInstance.savedItemsReplaced[currentCursorGUID] = throwItemPosition.position;
-                        }
-                        GameInstance.savedItemsState[currentCursorGUID] = SavedState.Replaced;*/
             GameInstance.SaveItemState(currentCursorGUID, SavedState.Replaced, throwItemPosition.position);
             ThrowToTheWorld(throwItemPosition, currentMouse.position.ReadValue().y);
             cursorBusy = false;
@@ -579,7 +556,6 @@ public class PlayerController : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            //print("raycast");
             if (hit.distance > blockSize) return;
             IInteractables inter = hit.collider.GetComponent<IInteractables>();
 
@@ -591,42 +567,11 @@ public class PlayerController : MonoBehaviour
                 {
                     switch (i)
                     {
-                        case InteractablesEnum.ENEMY:  //get collader off on bigger enemy container?
-                            //print("enemy");
-/*                            IEnemy iEnemy = hit.collider.GetComponent<IEnemy>();
-                            print(iEnemy.GetEnemyName());
-                            if (GameInstance.party.spellReady)
-                            {
-                                GameInstance.party.ManaCost();
-                                GameInstance.battleManager.ChooseTargetForSpell(iEnemy.GetEnemyObject(), GameInstance.party.GetPreparedSpellOfHero());
-                                Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
-
-                            }
-
-                            *//*
-                           if(playerState == PlayerState.BATTLE)
-                           {
-                               IEnemy iEnemy = hit.collider.GetComponent<IEnemy>();
-                               iEnemy.Damage(20);
-                               return;
-                           }*/
-                            break;
-                        case InteractablesEnum.DOOR:
-
-                            //IDoor door = hit.collider.GetComponent<IDoor>(); // Highlight?
-
-                            break;
-                        case InteractablesEnum.SWITCH:
-                            //ISwitch switchThing = hit.collider.GetComponent<ISwitch>();
-                            //switchThing.ToggleSwitch();
-
-                            break;
                         case InteractablesEnum.PICKABLE:
                             IItem iItem = hit.collider.GetComponent<IItem>();
                             cursorItemScriptable = iItem.WhatItem();
                             SetPlayerCursorBusy(cursorItemScriptable, iItem.itemsAmount(), iItem.GetGUID());
                             iItem.RemoveFromTheWorld();
-                            //print(" cursor busy on picking " + cursorBusy + " item " + cursorItemScriptable.itemName);
                             break;
                     }
                 }
@@ -676,12 +621,14 @@ public class PlayerController : MonoBehaviour
         ItemSlotStruct structNew = new ItemSlotStruct();
         structNew.item = tempItem;
         structNew.stackAmount = stackAmountCursor;
+        structNew._GUID = currentCursorGUID;
         stackAmountCursor = 0;
         return structNew;
     }
 
     public void SetPlayerCursorBusy(ItemScriptableContainer tempItem, int stackAmount, string GUID)
     {
+        print(GUID+ " guid from IItem");
         cursorItemScriptable = tempItem;
         stackAmountCursor = stackAmount;
         currentCursorGUID = GUID;

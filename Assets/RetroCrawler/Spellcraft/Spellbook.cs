@@ -130,7 +130,7 @@ public class Spellbook : MonoBehaviour
                         break;
                     case SpellEffects.LightARoom:
                         if (spellTimeActive.ContainsKey(s)) { spellTimeActive[s] = s.numberOfTurns; break; }
-                        GameInstance.playerController.LightARoom(2);
+                        GameInstance.playerController.LightARoom(1);
                         spellTimeActive.Add(s, s.numberOfTurns);
                         massSpellIcons[2].color = Color.white;
                         break;
@@ -390,7 +390,7 @@ public class Spellbook : MonoBehaviour
                     massSpellIcons[1].color = new Color32(255, 255, 255, (byte)(((float)spellTimeActive[s] / (float)s.numberOfTurns) * 255));
                     break;
                 case SpellEffects.LightARoom:
-                    GameInstance.playerController.LightARoom(((float)spellTimeActive[s] / (float)s.numberOfTurns) * 2);
+                    GameInstance.playerController.LightARoom(((float)spellTimeActive[s] / (float)s.numberOfTurns) * 1);
                     massSpellIcons[2].color = new Color32(255, 255, 255, (byte)(((float)spellTimeActive[s] / (float)s.numberOfTurns) * 255));
                     break;
                 case SpellEffects.Waterwalk:

@@ -100,29 +100,30 @@ public class Party : MonoBehaviour
 
     public void SaveEquipment()
     {
-        for(int i=0; i < heroes.Count; i++)
+        GameInstance.equipmentHeroesSavedWithGUID.Clear();
+        for (int i=0; i < heroes.Count; i++)
         {
-            //print("saved");
-            GameInstance.equipmentHeroesSaved[i] = heroes[i].equipment;
+            foreach(KeyValuePair<ItemType, HeroInventoryItem> he in heroes[i].equipmentWithGUID)
+            {
+                //print(" save equipment " + he.Key +" "+ he.Value.container + " " + he.Value._GUID);
+                GameInstance.equipmentHeroesSavedWithGUID.Add(he.Value);
+            }
         }
     }
 
     public void LoadEquipment()
     {
-        for (int i = 0; i < heroes.Count; i++)
+        //print(" equipment storage = " + GameInstance.equipmentHeroesSavedWithGUID.Count);
+        foreach(HeroInventoryItem he in GameInstance.equipmentHeroesSavedWithGUID)
         {
-            foreach(ItemType itype in System.Enum.GetValues(typeof(ItemType)))
+            if (he == null) continue;
+            if (he.container != null) 
             {
-                if (GameInstance.equipmentHeroesSaved.ContainsKey(i)) 
-                {
-                    if (GameInstance.equipmentHeroesSaved[i].ContainsKey(itype))
-                    {
-                        heroes[i].AddEquipmentToCharacter(itype, GameInstance.equipmentHeroesSaved[i][itype],"" );
-                    }
-
-                }
+                print(he.container + " "+ he._GUID);
+                heroes[he.heroIndex].AddEquipmentToCharacter(he.itemType, he.container, he._GUID); 
             }
-
         }
+
+        
     }
 }

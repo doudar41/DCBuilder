@@ -66,7 +66,12 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
     {
         if (GameInstance.savedItemsState.ContainsKey(GUIDString)) 
         {
-            if (GameInstance.savedItemsState[GUIDString] == SavedState.Replaced) transform.position = GameInstance.savedItemsReplaced[GUIDString];
+
+        if (GameInstance.savedItemsState[GUIDString] == SavedState.Replaced) 
+        {
+                if (GameInstance.CheckItemLevelInReplaced(GUIDString)) transform.position = GameInstance.savedItemsReplaced[GUIDString].position;
+                else return;
+        }
            if ( GameInstance.savedItemsState[GUIDString] == SavedState.Taken) return; 
            
         }

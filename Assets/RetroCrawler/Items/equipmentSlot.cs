@@ -25,12 +25,13 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         sendItemToParty.AddListener(GameInstance.party.GetItemFromEquipmentSlot);
     }
 
-    public void SetEquipmentSlot(ItemScriptableContainer item)
+    public void SetEquipmentSlot(HeroInventoryItem item)
     {
         if(item != null)
         {
-            ItemScriptable = item;
+            ItemScriptable = item.container;
             itemAvatar.sprite = ItemScriptable.InventorySprite;
+            _GUID = item._GUID;
             //sendItemToParty.Invoke(itemType,item);
         }
         else
@@ -48,6 +49,8 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         if (IsEmpty())
         {  
             ItemSlotStruct slotStruct = GameInstance.playerController.GetItemFromCursor();
+
+            print(" guid from cursor "+slotStruct._GUID);
 
             if (slotStruct.item != null)
             {

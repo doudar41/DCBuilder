@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2935605257187390693}
   - component: {fileID: 6671564477364425370}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Square (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3309082000723297873}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7617889391552224066}
   - component: {fileID: 6894791883595468715}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -209,7 +209,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3955171652436983021}
   - component: {fileID: 6304240010646972883}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Square (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,7 +293,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4324180269884246583}
   - component: {fileID: 1252334683691508662}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Outline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -377,7 +377,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7084896604592678141}
   - component: {fileID: 6257452397639865259}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HealthRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -462,7 +462,7 @@ GameObject:
   - component: {fileID: 8478472243399578373}
   - component: {fileID: 2536588682714848473}
   - component: {fileID: 1712126238167303992}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GoboArcher
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -505,11 +505,18 @@ MonoBehaviour:
   health: 30
   enemyFace: {fileID: 6894791883595468715}
   outlineRenderer: {fileID: 1252334683691508662}
+  enemySprites: {fileID: 0}
   attackSpells:
   - {fileID: 11400000, guid: f4fa4b7b38e93f1479ee66a0623916e9, type: 2}
   col: {fileID: 1712126238167303992}
   enemySize: 3
   initiative: 1
+  defence: 1
+  magicDefence: 0
+  accuracy: 0
+  evasion: 0
+  immunityList: 
+  EffectSprite: {fileID: 0}
   healthNormalized:
     m_PersistentCalls:
       m_Calls:
@@ -525,6 +532,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  hitTargetEffecct:
+    m_PersistentCalls:
+      m_Calls: []
+  immunityspell: {fileID: 0}
+  spellResistance: 
 --- !u!65 &1712126238167303992
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -556,7 +568,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5000195329644802178}
   - component: {fileID: 3686750809027137277}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}

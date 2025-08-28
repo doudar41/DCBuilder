@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2842598916790630607}
   - component: {fileID: 7985625490466121422}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Square (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7147073541648343599}
   - component: {fileID: 1783914969908482019}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8989809456480426497}
   - component: {fileID: 3856611033299353248}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HealthRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262,7 +262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 457441723862562156}
   - component: {fileID: 9017860352730126505}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Outline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,7 +345,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6928518260133045756}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -378,7 +378,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8487791029605743794}
   - component: {fileID: 7552853417248165613}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -427,7 +427,7 @@ GameObject:
   - component: {fileID: 5789834699258129373}
   - component: {fileID: 8145468628648580451}
   - component: {fileID: 3969115660850817174}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SmallGiant
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -470,12 +470,13 @@ MonoBehaviour:
   health: 100
   enemyFace: {fileID: 1783914969908482019}
   outlineRenderer: {fileID: 9017860352730126505}
+  enemySprites: {fileID: 0}
   attackSpells:
   - {fileID: 11400000, guid: f4fa4b7b38e93f1479ee66a0623916e9, type: 2}
   col: {fileID: 3969115660850817174}
   enemySize: 5
   initiative: 1
-  defense: 1
+  defence: 1
   magicDefence: 0
   accuracy: 0
   evasion: 0
@@ -484,6 +485,11 @@ MonoBehaviour:
   healthNormalized:
     m_PersistentCalls:
       m_Calls: []
+  hitTargetEffecct:
+    m_PersistentCalls:
+      m_Calls: []
+  immunityspell: {fileID: 0}
+  spellResistance: 
 --- !u!65 &3969115660850817174
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -515,7 +521,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7022640010294530678}
   - component: {fileID: 432155562481945690}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Square (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

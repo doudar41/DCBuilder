@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5631367264909181132}
   - component: {fileID: 6342218375271230064}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Square (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2796050779904942557}
   - component: {fileID: 8920957771414827381}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Square (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3393637804296528703}
   - component: {fileID: 7130214995937945575}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262,7 +262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1102541231428254147}
   - component: {fileID: 6283440517004799005}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Square (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -346,7 +346,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1538485710095688468}
   - component: {fileID: 1711738823661797233}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -394,7 +394,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5646572485017281524}
   - component: {fileID: 973427990599227041}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HealthRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -478,7 +478,7 @@ GameObject:
   m_Component:
   - component: {fileID: 41449349309807494}
   - component: {fileID: 1976956951634749511}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -562,7 +562,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4496886977619484932}
   - component: {fileID: 6207003596012768153}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Square (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -647,7 +647,7 @@ GameObject:
   - component: {fileID: 3022290993663594331}
   - component: {fileID: 1907540620975975541}
   - component: {fileID: 2362539298528849404}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DamageEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -777,7 +777,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3531452437236920208}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: EnemyStates
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -813,7 +813,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7057323482777454427}
   - component: {fileID: 8048791390979800478}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Square (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -895,7 +895,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6245390522290304524}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -928,7 +928,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7264531604435446094}
   - component: {fileID: 1729460543403291672}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Square (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1013,7 +1013,7 @@ GameObject:
   - component: {fileID: 3513055057959963386}
   - component: {fileID: 5898686441724145155}
   - component: {fileID: 5121128967280637355}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Snake
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -1064,7 +1064,7 @@ MonoBehaviour:
   col: {fileID: 5121128967280637355}
   enemySize: 1
   initiative: 2
-  defense: 1
+  defence: 1
   magicDefence: 0
   accuracy: 0
   evasion: 0
@@ -1101,6 +1101,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   immunityspell: {fileID: 0}
+  spellResistance: 
 --- !u!65 &5121128967280637355
 BoxCollider:
   m_ObjectHideFlags: 0
