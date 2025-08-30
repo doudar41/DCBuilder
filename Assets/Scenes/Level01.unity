@@ -56148,37 +56148,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 837293845}
   m_CullTransparentMesh: 1
---- !u!1 &838406580
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 838406581}
-  m_Layer: 0
-  m_Name: Environment
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &838406581
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 838406580}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &838964970
 GameObject:
   m_ObjectHideFlags: 0
@@ -58756,7 +58725,7 @@ GameObject:
   m_Component:
   - component: {fileID: 868302427}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: StairsUP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134775,6 +134744,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1936674765}
   m_CullTransparentMesh: 1
+--- !u!1 &1936751433
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1936751434}
+  m_Layer: 0
+  m_Name: DONTDELETE
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1936751434
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1936751433}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.845852, y: 1.5385889, z: 34.05786}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1937342550
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -145457,25 +145457,10 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 151195781}
-  - {fileID: 1049798367}
-  - {fileID: 1708618411}
-  - {fileID: 1316119077}
-  - {fileID: 1223590644}
-  - {fileID: 1885609861}
   - {fileID: 753585383}
-  - {fileID: 1127878760}
-  - {fileID: 1816740677}
-  - {fileID: 1338786997}
-  - {fileID: 474504096}
-  - {fileID: 553237808}
-  - {fileID: 1613633859}
-  - {fileID: 838406581}
-  - {fileID: 1632131016}
   - {fileID: 3236157441727637742}
   - {fileID: 1141932283}
   - {fileID: 1625140164}
-  - {fileID: 261126561}
   - {fileID: 674776723}
   - {fileID: 726794480}
   - {fileID: 1618010389}
@@ -145483,4 +145468,19 @@ SceneRoots:
   - {fileID: 1671269928}
   - {fileID: 758686300}
   - {fileID: 868302427}
+  - {fileID: 1936751434}
   - {fileID: 643588014}
+  - {fileID: 1632131016}
+  - {fileID: 151195781}
+  - {fileID: 1816740677}
+  - {fileID: 1127878760}
+  - {fileID: 1049798367}
+  - {fileID: 1708618411}
+  - {fileID: 1316119077}
+  - {fileID: 1223590644}
+  - {fileID: 1885609861}
+  - {fileID: 1338786997}
+  - {fileID: 474504096}
+  - {fileID: 553237808}
+  - {fileID: 1613633859}
+  - {fileID: 261126561}

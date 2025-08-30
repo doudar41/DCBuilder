@@ -135,10 +135,11 @@ public static class GameInstance
 
         if (_state == SavedState.Replaced)
         {
-            if (savedItemsReplaced.ContainsKey(_guid)) savedItemsReplaced[_guid] = heroInventoryItem;
-            else savedItemsReplaced.Add(_guid, heroInventoryItem);
             heroInventoryItem.heroIndex = -1;
             heroInventoryItem.level = GetLevelName();
+            if (savedItemsReplaced.ContainsKey(_guid)) savedItemsReplaced[_guid] = heroInventoryItem;
+            else savedItemsReplaced.Add(_guid, heroInventoryItem);
+
         }
         if(_state == SavedState.Equipment || _state == SavedState.Inventory || _state == SavedState.Cursor)
         {
@@ -149,29 +150,45 @@ public static class GameInstance
     public static void AddReplacedInventory()
     {
         List<int> itemsToChange = new List<int>();
-        List<HeroInventoryItem> itemsToAdd = new List<HeroInventoryItem>();       
+        List<HeroInventoryItem> itemsToAdd = new List<HeroInventoryItem>();
+        Debug.Log( "items in replaced "+savedItemsReplaced.Count);
         foreach (KeyValuePair<string, HeroInventoryItem> sh in savedItemsReplaced)
         {
             for(int i=0; i<equipmentHeroesSavedWithGUID.Count;i++)
             {
-                if (equipmentHeroesSavedWithGUID[i] == null) continue;
-                if(equipmentHeroesSavedWithGUID[i]._GUID == sh.Key)
+                if (equipmentHeroesSavedWithGUID[i] != null)
                 {
-                    itemsToChange.Add(i);
-
+                    if (equipmentHeroesSavedWithGUID[i]._GUID == sh.Key)
+                    {
+                        Debug.Log("add to change "+ sh.Value.container);
+                        itemsToChange.Add(i);
+                    }
+                    else
+                    {
+                        Debug.Log(sh.Value.container);
+                        itemsToAdd.Add(sh.Value);
+                    }
                 }
                 else
                 {
+                    Debug.Log(" add item to list "+sh.Value.container);
                     itemsToAdd.Add(sh.Value);
                 }
+            }
+            if(equipmentHeroesSavedWithGUID.Count == 0)
+            {
+                    Debug.Log(" add item to list "+sh.Value.container);
+                    itemsToAdd.Add(sh.Value);
             }
         }
         foreach(HeroInventoryItem hii in itemsToAdd)
         {
+            Debug.Log(" adding item " + hii.container);
             equipmentHeroesSavedWithGUID.Add(hii);
         }
         foreach(int index in itemsToChange)
         {
+            Debug.Log("  changing " + equipmentHeroesSavedWithGUID[index].container);
             equipmentHeroesSavedWithGUID[index].savedState = SavedState.Replaced;
             equipmentHeroesSavedWithGUID[index].heroIndex = -1;
         }
