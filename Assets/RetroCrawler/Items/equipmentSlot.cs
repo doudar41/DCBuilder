@@ -122,7 +122,7 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
                 GameInstance.playerController.SetPlayerCursorBusy(ItemScriptable);
                 ItemScriptable = null;
                 itemAvatar.sprite = emptySlotSprite;
-                sendItemToParty.Invoke(ItemScriptable, itemType);
+                sendItemToParty.Invoke(null, itemType);
             }
         }
     }

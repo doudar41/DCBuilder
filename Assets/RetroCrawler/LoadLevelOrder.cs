@@ -9,13 +9,14 @@ public class LoadLevelOrder : MonoBehaviour
 
     void Start()
     {
+        print("start loading ");
         GameInstance.initItems();
         GameInstance.party.LoadEquipment();
         foreach(KeyValuePair< string, SavedState > s in GameInstance.savedItemsState)
         {
             print(s.Key +" "+ s.Value );
 
-            //if (GameInstance.GetItemFromSaved(s.Key) != null) print(GameInstance.GetItemFromSaved(s.Key));
+            if (GameInstance.GetItemFromSaved(s.Key) != null) print(GameInstance.GetItemFromSaved(s.Key));
             if(s.Value == SavedState.Replaced)
             {
                 if (!GameInstance.savedItemsReplaced.ContainsKey(s.Key)) continue ;

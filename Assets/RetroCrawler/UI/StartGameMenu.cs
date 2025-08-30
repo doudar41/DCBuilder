@@ -8,4 +8,14 @@ public class StartGameMenu : MonoBehaviour
     {
         GameInstance.LoadGameFromStart();
     }
+
+    public void EndGame()
+    {
+        Application.Quit();
+    }
+
+    public void LoadMainGameMenu()
+    {
+        GameInstance.LoadGameMainMenu();
+    }
 }

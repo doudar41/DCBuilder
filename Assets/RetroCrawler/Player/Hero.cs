@@ -486,6 +486,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
         if (!equipmentWithGUID.TryAdd(heroInventoryItem.container.itemType, heroInventoryItem))
         {
+            heroInventoryItem.heroIndex = heroID;
             equipmentWithGUID[heroInventoryItem.container.itemType] = heroInventoryItem;
             
         }

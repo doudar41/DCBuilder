@@ -60,13 +60,14 @@ public class Party : MonoBehaviour
     }
     public void GetItemFromEquipmentSlot(HeroInventoryItem heroInventoryItem, ItemType itemType)
     {
-        if (heroInventoryItem == null) 
-        { 
-            activeHero.RemoveItemFromEquipment(itemType); 
+        if (heroInventoryItem == null)
+        {
+            activeHero.RemoveItemFromEquipment(itemType);
             GameInstance.inventory.UpdatePartyWeight();
             RefreshUI.Invoke();
-            return; 
+            return;
         }
+
         if (heroInventoryItem.container != null)
         {
             activeHero.AddEquipmentToCharacter(heroInventoryItem);
@@ -74,7 +75,7 @@ public class Party : MonoBehaviour
         }
         else
         {
-            activeHero.RemoveItemFromEquipment(heroInventoryItem.itemType);
+            activeHero.RemoveItemFromEquipment(itemType);
         }
 
         GameInstance.inventory.UpdatePartyWeight();
@@ -113,7 +114,11 @@ public class Party : MonoBehaviour
         {
             foreach(KeyValuePair<ItemType, HeroInventoryItem> he in heroes[i].equipmentWithGUID)
             {
-                GameInstance.equipmentHeroesSavedWithGUID.Add(he.Value);
+                if (he.Value != null)
+                { 
+                    GameInstance.equipmentHeroesSavedWithGUID.Add(he.Value);
+                    print("preloaded items "+ he.Value.container+" hero "+ he.Value.heroIndex);
+                }
             }
         }
         GameInstance.AddReplacedInventory();
@@ -121,10 +126,10 @@ public class Party : MonoBehaviour
 
     public void LoadEquipment()
     {
-        //print(" equipment storage = " + GameInstance.equipmentHeroesSavedWithGUID.Count);
+        print(" equipment storage = " + GameInstance.equipmentHeroesSavedWithGUID.Count);
         foreach(HeroInventoryItem he in GameInstance.equipmentHeroesSavedWithGUID)
         {
-/*            print(" loading equipment " + he.container + " " + he._GUID + " " + he.heroIndex);*/
+            print(" loading equipment " + he.container + " " + he._GUID + " " + he.heroIndex);
             if (he == null) continue;
             if (he.container != null) 
             {

@@ -45,6 +45,7 @@ public static class GameInstance
     static string currentLevelName = "";
 
 
+    
 
     public static int DiceRollingBiggestNumber(int diceNumber, int diceSides)
     {
@@ -96,9 +97,10 @@ public static class GameInstance
 
     public static void LoadNextLevel(string levelName)
     {
+        if (party != null) party.SaveEquipment();
         currentLevelName = levelName;
         levelChange = true;
-        if (party != null) party.SaveEquipment();
+
         SceneManager.LoadScene(levelName, LoadSceneMode.Single);
     }
 
@@ -138,7 +140,7 @@ public static class GameInstance
             heroInventoryItem.heroIndex = -1;
             heroInventoryItem.level = GetLevelName();
         }
-        if(_state == SavedState.Equipment || _state == SavedState.Inventory)
+        if(_state == SavedState.Equipment || _state == SavedState.Inventory || _state == SavedState.Cursor)
         {
             if (savedItemsReplaced.ContainsKey(_guid)) savedItemsReplaced.Remove(_guid);
         }
@@ -333,12 +335,15 @@ public static class GameInstance
     {
         foreach(HeroInventoryItem hii in equipmentHeroesSavedWithGUID)
         {
-            if (hii == null) continue;
-            Debug.Log(hii.container);
-            if(hii._GUID == _guid)
+            if (hii != null)
             {
-                return hii;
-            }
+                Debug.Log(hii.container);
+                if (hii._GUID == _guid)
+                {
+                    return hii;
+                }
+            } 
+
         }
 
         return null;

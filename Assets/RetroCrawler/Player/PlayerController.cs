@@ -137,6 +137,7 @@ public class PlayerController : MonoBehaviour
         _input.CrawlerStandart.Cancel.started -= ReleaseSpellWithoutCasting;
         leftMouse.action.started -= MouseRaycast;
         GameInstance.progress -= TimeEvents;
+        _input.Disable();
     }
 
 
@@ -629,10 +630,11 @@ public class PlayerController : MonoBehaviour
     public void SetPlayerCursorBusy(HeroInventoryItem heroInventoryItem)
     {
         print(heroInventoryItem._GUID + " guid from IItem");
+        heroInventoryItem.heroIndex = -1;
         cursorItemScriptable = heroInventoryItem;
         stackAmountCursor = heroInventoryItem.stackAmount;
         currentCursorGUID = heroInventoryItem._GUID;
-        GameInstance.party.activeHero.RemoveItemFromEquipment(heroInventoryItem.itemType);
+        GameInstance.SaveItemState(heroInventoryItem._GUID, SavedState.Cursor, heroInventoryItem);
         Cursor.SetCursor(heroInventoryItem.container.texture2DMouse, hotSpot, cursorMode);
         cursorBusy = true;
     }
