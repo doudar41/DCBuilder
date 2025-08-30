@@ -82,7 +82,7 @@ public class Inventory : MonoBehaviour
        // weightCapacity.text = capacity.ToString() + "/" + weightCarried.ToString();
     }
 
-    public void FindEmptySlotAndPutItem(ItemScriptableContainer itemScriptableTemp, int stackamount)
+    public void FindEmptySlotAndPutItem(HeroInventoryItem itemScriptableTemp, int stackamount)
     {
         ItemSlot[] slots = slotsParent.GetComponentsInChildren<ItemSlot>();
         foreach(ItemSlot i in slots)

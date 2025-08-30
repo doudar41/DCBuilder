@@ -58,15 +58,23 @@ public class Party : MonoBehaviour
             else h.MakeHeroActive(false);
         }
     }
-    public void GetItemFromEquipmentSlot(ItemType itemType, ItemScriptableContainer item, string _guid)
+    public void GetItemFromEquipmentSlot(HeroInventoryItem heroInventoryItem, ItemType itemType)
     {
-        if (item != null)
+        if (heroInventoryItem == null) 
+        { 
+            activeHero.RemoveItemFromEquipment(itemType); 
+            GameInstance.inventory.UpdatePartyWeight();
+            RefreshUI.Invoke();
+            return; 
+        }
+        if (heroInventoryItem.container != null)
         {
-            activeHero.AddEquipmentToCharacter(item.itemType, item, _guid);
+            activeHero.AddEquipmentToCharacter(heroInventoryItem);
+            GameInstance.SaveItemState(heroInventoryItem._GUID, SavedState.Equipment, heroInventoryItem);
         }
         else
         {
-            activeHero.RemoveItemFromEquipment(itemType);
+            activeHero.RemoveItemFromEquipment(heroInventoryItem.itemType);
         }
 
         GameInstance.inventory.UpdatePartyWeight();
@@ -105,10 +113,10 @@ public class Party : MonoBehaviour
         {
             foreach(KeyValuePair<ItemType, HeroInventoryItem> he in heroes[i].equipmentWithGUID)
             {
-                //print(" save equipment " + he.Key +" "+ he.Value.container + " " + he.Value._GUID);
                 GameInstance.equipmentHeroesSavedWithGUID.Add(he.Value);
             }
         }
+        GameInstance.AddReplacedInventory();
     }
 
     public void LoadEquipment()
@@ -116,11 +124,12 @@ public class Party : MonoBehaviour
         //print(" equipment storage = " + GameInstance.equipmentHeroesSavedWithGUID.Count);
         foreach(HeroInventoryItem he in GameInstance.equipmentHeroesSavedWithGUID)
         {
+/*            print(" loading equipment " + he.container + " " + he._GUID + " " + he.heroIndex);*/
             if (he == null) continue;
             if (he.container != null) 
             {
-                print(he.container + " "+ he._GUID);
-                heroes[he.heroIndex].AddEquipmentToCharacter(he.itemType, he.container, he._GUID); 
+                print(" loading equipment "+ he.container + " "+ he._GUID+" "+ he.heroIndex);
+                if (he.heroIndex >=0 ) heroes[he.heroIndex].AddEquipmentToCharacter(he); 
             }
         }
 

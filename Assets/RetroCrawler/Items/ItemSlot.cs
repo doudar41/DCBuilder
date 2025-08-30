@@ -12,7 +12,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
     int stackAmount = 1;
     string _GUID;
-    ItemScriptableContainer ItemScriptable;
+    HeroInventoryItem ItemScriptable;
     [SerializeField] Image itemAvatar;
     [SerializeField]
     Sprite emptySlotSprite;
@@ -28,8 +28,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     {
         if (IsEmpty())
         {
-            ItemSlotStruct slotStruct = GameInstance.playerController.GetItemFromCursor();
-            ItemScriptable = slotStruct.item;
+            HeroInventoryItem slotStruct = GameInstance.playerController.GetItemFromCursor();
+            ItemScriptable = slotStruct;
 
             if (ItemScriptable != null)
             {
@@ -38,7 +38,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
                     stackAmount = slotStruct.stackAmount; 
                 }
                 else stackAmount = 1;
-                itemAvatar.sprite = ItemScriptable.InventorySprite;
+                itemAvatar.sprite = ItemScriptable.container.InventorySprite;
                 amountText.text = stackAmount.ToString();
                 _GUID = slotStruct._GUID;
             }
@@ -47,21 +47,21 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         {
             if (stackAmount >= 1 && GameInstance.playerController.IsCursorBusy())
             {
-                ItemSlotStruct slotStruct =  GameInstance.playerController.GetItemFromCursor();
-                if (slotStruct.item == ItemScriptable) 
+                HeroInventoryItem slotStruct =  GameInstance.playerController.GetItemFromCursor();
+                if (slotStruct == ItemScriptable) 
                 {
                     stackAmount += slotStruct.stackAmount;
                 }
                 else
                 {
-                    GameInstance.playerController.SetPlayerCursorBusy(ItemScriptable, stackAmount, _GUID);
+                    GameInstance.playerController.SetPlayerCursorBusy(ItemScriptable);
                     if (slotStruct.stackAmount > 1)
                     {
                         stackAmount = slotStruct.stackAmount;
                     }
                     else stackAmount = 1;
-                    ItemScriptable = slotStruct.item;
-                    itemAvatar.sprite = ItemScriptable.InventorySprite;
+                    ItemScriptable = slotStruct;
+                    itemAvatar.sprite = ItemScriptable.container.InventorySprite;
                     amountText.text = stackAmount.ToString();
                     //exchange items in a slot
                 }
@@ -71,7 +71,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             if (stackAmount >= 1 && !GameInstance.playerController.IsCursorBusy())
             {
                // print("one item left");
-            GameInstance.playerController.SetPlayerCursorBusy(ItemScriptable, stackAmount, _GUID);
+            GameInstance.playerController.SetPlayerCursorBusy(ItemScriptable);
             stackAmount = 0;
             ItemScriptable = null;
             itemAvatar.sprite = emptySlotSprite;
@@ -82,7 +82,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     }
 
 
-    public bool AddItemInSlot(ItemScriptableContainer itemTemp, int amount)
+    public bool AddItemInSlot(HeroInventoryItem itemTemp, int amount)
     {
         if (itemTemp != null)
         {
@@ -96,7 +96,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             {
                 ItemScriptable = itemTemp;
                 stackAmount = amount;
-                itemAvatar.sprite = ItemScriptable.InventorySprite;
+                itemAvatar.sprite = ItemScriptable.container.InventorySprite;
                 amountText.text = stackAmount.ToString();
                 return true;
             }

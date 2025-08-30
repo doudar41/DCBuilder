@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
 
     bool cursorBusy = false;
     int stackAmountCursor;
-    ItemScriptableContainer cursorItemScriptable;
+    HeroInventoryItem cursorItemScriptable;
     [SerializeField]
     GameObject itemModelPrefab;
     [SerializeField]
@@ -79,7 +79,10 @@ public class PlayerController : MonoBehaviour
     {
         GameInstance.playerController = this;
     }
-
+    private void Awake()
+    {
+        GameInstance.itemsFound.Clear();
+    }
     void Start()
     {
         Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
@@ -98,7 +101,7 @@ public class PlayerController : MonoBehaviour
 
         GameInstance.progress += TimeEvents;
 
-        if (GameInstance.levelEnter)
+        if (GameInstance.levelChange)
         {
             var walls = moveTilemap.GetComponentsInChildren<OnBlockPlacement>();
             currentMouse = Mouse.current;
@@ -113,30 +116,9 @@ public class PlayerController : MonoBehaviour
             currentforwardDirection = GameInstance.nextLevelRotation;
             cardinalDirectionToUI.Invoke(currentforwardDirection);
             currentposition =  wallsAccess[moveTilemap.WorldToCell(transform.position)].GetBlockCoordinate();
-            GameInstance.levelEnter = false;
+            GameInstance.levelChange = false;
             currentWallBlock = wallsAccess[moveTilemap.WorldToCell(transform.position)];
-            GameInstance.party.LoadEquipment();
-            foreach(KeyValuePair<string, ItemDataSave> si in GameInstance.savedItemsReplaced)
-            {
-                print(si.Value._GUID +" - "+si.Value.level);
-                if(!GameInstance.itemsFound.Contains( si.Key) && GameInstance.CheckItemLevelInReplaced(si.Key))
-                {
-                    if (GameInstance.GetItemFromSaved(si.Key) == null) continue;
-                    HeroInventoryItem hII =  GameInstance.GetItemFromSaved(si.Key);
-                    GameObject item = Instantiate(itemModelPrefab);
 
-                    IItem iItem = item.GetComponent<IItem>();
-                     
-                    iItem.SetPrefab(hII.container);
-                    iItem.InitializeItem(si.Value.position);
-                    iItem.SetItemsAmount(hII.amount);
-
-                    iItem.SetGUIDPosition(si.Key, si.Value.position);
-
-                    //iItem.SetTransformPosition(Vector3.zero);
-                    iItem.RemoveFromParent();
-                }
-            }
         }
         else
         {
@@ -415,7 +397,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public Vector3Int GetcurrentPosition()
+    public Vector3Int GetCurrentPosition()
     {
         return currentposition;
     }
@@ -567,7 +549,8 @@ public class PlayerController : MonoBehaviour
         }
         if (cursorBusy)
         {
-            GameInstance.SaveItemState(currentCursorGUID, SavedState.Replaced, throwItemPosition.position);
+            cursorItemScriptable.positionReplaced = throwItemPosition.position;
+            GameInstance.SaveItemState(currentCursorGUID, SavedState.Replaced, cursorItemScriptable);
             ThrowToTheWorld(throwItemPosition, currentMouse.position.ReadValue().y);
             cursorBusy = false;
             cursorItemScriptable = null;
@@ -591,7 +574,7 @@ public class PlayerController : MonoBehaviour
                         case InteractablesEnum.PICKABLE:
                             IItem iItem = hit.collider.GetComponent<IItem>();
                             cursorItemScriptable = iItem.WhatItem();
-                            SetPlayerCursorBusy(cursorItemScriptable, iItem.itemsAmount(), iItem.GetGUID());
+                            SetPlayerCursorBusy(cursorItemScriptable);
                             iItem.RemoveFromTheWorld();
                             break;
                     }
@@ -604,11 +587,11 @@ public class PlayerController : MonoBehaviour
         GameObject item = Instantiate(itemModelPrefab, spawnPoint);
 
         IItem iItem = item.GetComponent<IItem>();
-        iItem.SetPrefab(cursorItemScriptable);
+        iItem.SetPrefab(cursorItemScriptable.container);
         iItem.InitializeItem(spawnPoint.position);
         iItem.SetItemsAmount(stackAmountCursor);
 
-        iItem.SetGUIDPosition(currentCursorGUID, spawnPoint.position);
+        iItem.SetGUID(currentCursorGUID);
 
         //iItem.SetTransformPosition(Vector3.zero);
         iItem.RemoveFromParent();
@@ -633,27 +616,24 @@ public class PlayerController : MonoBehaviour
         playerState = PlayerState.Explore;
     }
 
-    public ItemSlotStruct GetItemFromCursor()
+    public HeroInventoryItem GetItemFromCursor()
     {
-        ItemScriptableContainer tempItem = cursorItemScriptable;
+        HeroInventoryItem tempItem = new HeroInventoryItem();
+        tempItem =  cursorItemScriptable;
         cursorBusy = false;
         cursorItemScriptable = null;
         Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
-        ItemSlotStruct structNew = new ItemSlotStruct();
-        structNew.item = tempItem;
-        structNew.stackAmount = stackAmountCursor;
-        structNew._GUID = currentCursorGUID;
-        stackAmountCursor = 0;
-        return structNew;
+        return tempItem;
     }
 
-    public void SetPlayerCursorBusy(ItemScriptableContainer tempItem, int stackAmount, string GUID)
+    public void SetPlayerCursorBusy(HeroInventoryItem heroInventoryItem)
     {
-        print(GUID+ " guid from IItem");
-        cursorItemScriptable = tempItem;
-        stackAmountCursor = stackAmount;
-        currentCursorGUID = GUID;
-        Cursor.SetCursor(cursorItemScriptable.texture2DMouse, hotSpot, cursorMode);
+        print(heroInventoryItem._GUID + " guid from IItem");
+        cursorItemScriptable = heroInventoryItem;
+        stackAmountCursor = heroInventoryItem.stackAmount;
+        currentCursorGUID = heroInventoryItem._GUID;
+        GameInstance.party.activeHero.RemoveItemFromEquipment(heroInventoryItem.itemType);
+        Cursor.SetCursor(heroInventoryItem.container.texture2DMouse, hotSpot, cursorMode);
         cursorBusy = true;
     }
 
@@ -724,7 +704,6 @@ public class PlayerController : MonoBehaviour
                     //GameInstance.inventory = null;
                     OnBlockPlacement leveldestination = wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<OnBlockPlacement>();
                     _input.Disable();
-                    GameInstance.levelEnter = true;
                     leveldestination.GetNextLevelInfo(out Vector3Int pos, out CardinalDirections dir, out string levelName);
                     GameInstance.nextLevelPosition = pos;
                     GameInstance.nextLevelRotation = dir;

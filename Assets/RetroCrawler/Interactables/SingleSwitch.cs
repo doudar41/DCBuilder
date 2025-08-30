@@ -20,8 +20,20 @@ public class SingleSwitch : MonoBehaviour, IInteractables, IPointerClickHandler
             GUIDString = _guid.ToString();
         }
     }
-
+    private void Awake()
+    {
+        GameInstance.initItems += Init;
+    }
+    private void OnDestroy()
+    {
+        GameInstance.initItems -= Init;
+    }
     private void Start()
+    {
+
+    }
+
+    void Init()
     {
         if (GameInstance.savedItemsState.ContainsKey(GUIDString))
         {
@@ -51,13 +63,13 @@ public class SingleSwitch : MonoBehaviour, IInteractables, IPointerClickHandler
         {
             idoor.OpenDoor();
             renderer.sprite = openSprite;
-            GameInstance.SaveItemState(GUIDString, SavedState.Opened, Vector3.zero);
+            GameInstance.SaveItemState(GUIDString, SavedState.Opened, null);
         }
         else
         {
             idoor.CloseDoor();
             renderer.sprite = closeSprite;
-            GameInstance.SaveItemState(GUIDString, SavedState.Closed, Vector3.zero);
+            GameInstance.SaveItemState(GUIDString, SavedState.Closed,  null);
         }
 
     }

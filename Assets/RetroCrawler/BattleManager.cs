@@ -473,6 +473,7 @@ public class BattleManager : MonoBehaviour
 
     public void BattleSpellAgro(int amount)
     {
+        if (!quarrySorted.ContainsKey(quarrySortedKey)) return;
         if (quarrySorted[quarrySortedKey].GetComponent<IHero>() != null)
         {
             quarrySorted[quarrySortedKey].GetComponent<IHero>().ChangeArgo(amount);

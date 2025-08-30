@@ -14,6 +14,7 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
 
     System.Guid _guid;
     [SerializeField] string GUIDString = "";
+    string currentLevel;
     [SerializeField] string itemName;
     [SerializeField] int stackAmount = 1;
 
@@ -52,37 +53,47 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
     private void Awake()
     {
         GameInstance.itemsFound.Add(GUIDString);
+        GameInstance.initItems += Init;
     }
-
-    private void Start()
+    private void OnDestroy()
     {
-        Init();
+        OnDestoryedByCursor.RemoveAllListeners();
+        GameInstance.initItems -= Init;
     }
-
 
     public void ChangeGUID()
     {
         _guid = System.Guid.NewGuid();
         GUIDString = _guid.ToString();
     }
+
     void Init()
     {
-        if (GameInstance.savedItemsState.ContainsKey(GUIDString)) 
+        if (itemScriptableLocal == null) return;
+        if (GameInstance.levelChange || GameInstance.loadingLevel)
         {
-
-        if (GameInstance.savedItemsState[GUIDString] == SavedState.Replaced) 
-        {
-                if (GameInstance.CheckItemLevelInReplaced(GUIDString)) transform.position = GameInstance.savedItemsReplaced[GUIDString].position;
-                else 
-                { 
-
-                    return; 
+            if (GameInstance.savedItemsState.ContainsKey(GUIDString))
+            {
+                if (GameInstance.savedItemsState[GUIDString] == SavedState.Replaced)
+                {
+                    if (GameInstance.CheckItemLevelInReplaced(GUIDString)) 
+                    { 
+                        transform.position = GameInstance.savedItemsReplaced[GUIDString].positionReplaced; 
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
-        }
-           if ( GameInstance.savedItemsState[GUIDString] == SavedState.Taken) return; 
-           
+                if (GameInstance.savedItemsState[GUIDString] == SavedState.Equipment || GameInstance.savedItemsState[GUIDString] == SavedState.Inventory)
+                {
+                    return;
+                }
+                if (GameInstance.savedItemsState[GUIDString] == SavedState.Cursor) return;
+            }
         }
 
+        currentLevel = GameInstance.GetLevelName();
         GameObject item = Instantiate(itemScriptableLocal.prefab, transform);
         IItemHolder itemHolder = itemScriptableLocal.prefab.GetComponent<IItemHolder>();
         SphereCollider[] b = gameObject.GetComponents<SphereCollider>();
@@ -102,27 +113,7 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
         }
     }
 
-    public void InitLater(Vector3 position)
-    {
-        GameObject item = Instantiate(itemScriptableLocal.prefab, transform);
-        IItemHolder itemHolder = itemScriptableLocal.prefab.GetComponent<IItemHolder>();
-        SphereCollider[] b = gameObject.GetComponents<SphereCollider>();
-        if (b.Length < 1)
-        {
-            col = gameObject.AddComponent<SphereCollider>();
-            col.radius = 1f;
-            Rigidbody rb = gameObject.AddComponent<Rigidbody>();
-            col.material = frictionMaterial;
-            rb.freezeRotation = true;
-            rb.constraints = RigidbodyConstraints.FreezePositionX;
-            rb.constraints = RigidbodyConstraints.FreezePositionZ;
-        }
-        else
-        {
-            col = b[0];
-        }
-        transform.position = position;
-    }
+
 
     private void OnCollisionEnter(Collision other)
     {
@@ -135,10 +126,24 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
 
     public void RemoveFromTheWorld()
     {
-        GameInstance.SaveItemState(GUIDString, SavedState.Taken, Vector3.zero);
+        HeroInventoryItem takenItem = new HeroInventoryItem();
+        takenItem.positionReplaced = Vector3.zero;
+        takenItem.savedState = SavedState.Cursor; //inventoryEquipment ?   SavedState.Equipment: SavedState.Inventory;
+        takenItem._GUID = GUIDString;
+        takenItem.heroIndex = GameInstance.party.activeHero.GetHeroIndex() ;
+        takenItem.stackAmount = stackAmount;
+        takenItem.itemType = itemScriptableLocal.itemType;
+        takenItem.container = itemScriptableLocal;
+        takenItem.level = GameInstance.GetLevelName();
+        
+        GameInstance.SaveItemState(GUIDString, SavedState.Cursor, takenItem);
         OnDestoryedByCursor.Invoke(itemScriptableLocal.weight*stackAmount, this.gameObject);
         DestroyImmediate(gameObject);
     }
+
+    
+
+
 
     public List<InteractablesEnum> WhatIsIt()
     {
@@ -147,9 +152,19 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
         return interactablesEnums;
     }
 
-    public ItemScriptableContainer WhatItem()
+    public HeroInventoryItem WhatItem()
     {
-        return itemScriptableLocal;
+        HeroInventoryItem takenItem = new HeroInventoryItem();
+        takenItem.positionReplaced = Vector3.zero;
+        takenItem.savedState = SavedState.Cursor;
+        takenItem._GUID = GUIDString;
+        takenItem.heroIndex = GameInstance.party.activeHero.GetHeroIndex();
+        takenItem.stackAmount = stackAmount;
+        takenItem.itemType = itemScriptableLocal.itemType;
+        takenItem.container = itemScriptableLocal;
+        takenItem.level = GameInstance.GetLevelName();
+
+        return takenItem;
     }
 
     public Texture2D GetCursorTexture()
@@ -159,14 +174,21 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
 
     public void InitializeItem(Vector3 pos)
     {
+        currentLevel = GameInstance.GetLevelName();
+        GameObject item = Instantiate(itemScriptableLocal.prefab, transform);
         IItemHolder itemHolder = itemScriptableLocal.prefab.GetComponent<IItemHolder>();
         SphereCollider[] b = gameObject.GetComponents<SphereCollider>();
         if (b.Length < 1)
         {
             col = gameObject.AddComponent<SphereCollider>();
             col.radius = 1f;
-            Rigidbody r = gameObject.AddComponent<Rigidbody>();
-            r.drag = 1;
+            Rigidbody rb = gameObject.AddComponent<Rigidbody>();
+            rb.drag = 1;
+            col.material = frictionMaterial;
+            rb.freezeRotation = true;
+            rb.constraints = RigidbodyConstraints.FreezePositionX;
+            rb.constraints = RigidbodyConstraints.FreezePositionZ;
+            //rb.useGravity = false;
         }
         transform.position = pos;
     }
@@ -186,10 +208,7 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
         gameObject.transform.parent = null;
     }
 
-    private void OnDestroy()
-    {
-        OnDestoryedByCursor.RemoveAllListeners();
-    }
+
 
     public int itemsAmount()
     {
@@ -212,9 +231,50 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
         return GUIDString;
     }
 
-    public void SetGUIDPosition(string _GUID, Vector3 pos)
+    public void SetGUID(string _GUID)
     {
         GUIDString = _GUID;
 
     }
+}
+
+
+
+
+public interface IItem
+{
+    public void RemoveFromTheWorld();
+
+    public HeroInventoryItem WhatItem();
+    public void InitializeItem(Vector3 pos);
+    public void SetPrefab(ItemScriptableContainer itemScriptable);
+    public void SetTransformPosition(Vector3 pos);
+    public void RemoveFromParent();
+
+    public int itemsAmount();
+    public void SetItemsAmount(int amount);
+    public void ChangeGUID();
+    public string GetGUID();
+    public void SetGUID(string _GUID);
+}
+
+
+public interface IItemHolder
+{
+    public MeshFilter GetMeshFilter();
+    public MeshRenderer GetMeshRenderer();
+    public Vector3 GetMeshSizeBounds();
+
+}
+
+
+
+
+public enum WeaponType
+{
+    None,
+    Blades,
+    Polyarm,
+    Blunt,
+    Range
 }

@@ -45,7 +45,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     MagicType weaponEnchanced = MagicType.None;
     private void Awake()
     {
-        if (!GameInstance.levelEnter)
+        if (!GameInstance.levelChange)
         {
 
             foreach (ItemType sk in System.Enum.GetValues(typeof(ItemType)))
@@ -70,9 +70,6 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         {
             if(s != SkillsStat.None) skillsStatsCurrent.Add(s, 0);
         }
-
-
-        
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -480,24 +477,26 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     }
 
-    public bool AddEquipmentToCharacter(ItemType itemType, ItemScriptableContainer item, string _guid)
+    public bool AddEquipmentToCharacter(HeroInventoryItem heroInventoryItem)
     {
 
-        if (item == null) return false;
-        HeroInventoryItem heroItem = new HeroInventoryItem();
-        heroItem.container = item;
-        heroItem.heroIndex = heroID;
-        heroItem.itemType = itemType;
-        heroItem._GUID = _guid;
+        if (heroInventoryItem == null) return false;
 
-        if (!equipmentWithGUID.TryAdd(itemType, heroItem))
+        heroInventoryItem.savedState = SavedState.Equipment;
+
+        if (!equipmentWithGUID.TryAdd(heroInventoryItem.container.itemType, heroInventoryItem))
         {
-            equipmentWithGUID[itemType] = heroItem;
+            equipmentWithGUID[heroInventoryItem.container.itemType] = heroInventoryItem;
+            
+        }
+        else
+        {
+            return false;
         }
 
-        if (!equipmentSpells.TryAdd(itemType, item.spellContainer))
+        if (!equipmentSpells.TryAdd(heroInventoryItem.container.itemType, heroInventoryItem.container.spellContainer))
         {
-            equipmentSpells[itemType] = item.spellContainer;
+            equipmentSpells[heroInventoryItem.container.itemType] = heroInventoryItem.container.spellContainer;
             return true;
         }
         else return false;
@@ -557,6 +556,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     public SkillsStat GetWeaponType()
     {
+        if(!equipmentWithGUID.ContainsKey(ItemType.WEAPON)) return SkillsStat.None;
         if (equipmentWithGUID[ItemType.WEAPON] != null) return equipmentWithGUID[ItemType.WEAPON].container.weaponType;
         return SkillsStat.None;
     }
@@ -704,14 +704,17 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         return weaponEnchanced;
     }
 
-
+    public int GetHeroIndex()
+    {
+        return heroID;
+    }
 }
 
 
 public interface IHero
 {
     public List<SpellContainer> GetActiveHeroSpellbook();
-    public bool AddEquipmentToCharacter(ItemType itemType, ItemScriptableContainer item, string _guid);
+    public bool AddEquipmentToCharacter(HeroInventoryItem heroInventoryItem);
     public void RemoveItemFromEquipment(ItemType itemType);
     public void MakeHeroActive(bool active);
     public void ApplySpellToHero(SpellContainer spellToApply, GameObject spellcaster);
@@ -734,6 +737,8 @@ public interface IHero
     public List<GameplayStatus> GetHeroStatus();
 
     public MagicType GetWeaponMagicType();
+
+    public int GetHeroIndex();
 }
 
 public enum MainStat

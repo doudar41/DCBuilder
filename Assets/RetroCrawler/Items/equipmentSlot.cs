@@ -11,14 +11,14 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
     public ItemType itemType;
 
-    ItemScriptableContainer ItemScriptable;
+    HeroInventoryItem ItemScriptable;
     string _GUID;
     [SerializeField]
     Image itemAvatar;
     [SerializeField]
     Sprite emptySlotSprite;
 
-    public UnityEvent<ItemType,ItemScriptableContainer, string> sendItemToParty;
+    public UnityEvent<HeroInventoryItem, ItemType> sendItemToParty;
 
     private void Start()
     {
@@ -29,40 +29,40 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     {
         if(item != null)
         {
-            ItemScriptable = item.container;
-            itemAvatar.sprite = ItemScriptable.InventorySprite;
+            ItemScriptable = item;
+            itemAvatar.sprite = ItemScriptable.container.InventorySprite;
             _GUID = item._GUID;
-            //sendItemToParty.Invoke(itemType,item);
+            sendItemToParty.Invoke(item, itemType);
         }
         else
         {
             itemAvatar.sprite = emptySlotSprite;
             ItemScriptable = null;
-            //sendItemToParty.Invoke(itemType,null);
+            sendItemToParty.Invoke(null, itemType);
         }
     }
 
 
     public void OnPointerClick(PointerEventData eventData)
     {
-
         if (IsEmpty())
         {  
-            ItemSlotStruct slotStruct = GameInstance.playerController.GetItemFromCursor();
+            HeroInventoryItem slotStruct = GameInstance.playerController.GetItemFromCursor();
 
-            print(" guid from cursor "+slotStruct._GUID);
-
-            if (slotStruct.item != null)
+            if (slotStruct != null)
             {
-                if (slotStruct.item.itemType == itemType)
+                
+                print(" guid from cursor " + slotStruct._GUID);
+                if (slotStruct.container.itemType == itemType)
                 {
-                    ItemScriptable = slotStruct.item;
-                    itemAvatar.sprite = ItemScriptable.InventorySprite;
+                    slotStruct.heroIndex = GameInstance.party.activeHero.GetHeroIndex();
+                    ItemScriptable = slotStruct;
+                    itemAvatar.sprite = ItemScriptable.container.InventorySprite;
                     _GUID =  slotStruct._GUID;
-                    sendItemToParty.Invoke(itemType, ItemScriptable, _GUID);
+                    sendItemToParty.Invoke(ItemScriptable, itemType);
                     if(itemType == ItemType.WEAPON)
                     {
-                        if (ItemScriptable.twoHanded) 
+                        if (ItemScriptable.container.twoHanded) 
                         {
                             //Shield diabled
                         }
@@ -71,46 +71,60 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
                 }
                 else
                 {
-
-                    if (slotStruct.stackAmount == 1) GameInstance.playerController.SetPlayerCursorBusy(slotStruct.item, 1, slotStruct._GUID);
+                    if (slotStruct.stackAmount == 1) 
+                    {
+                        slotStruct.stackAmount = 1;
+                        GameInstance.playerController.SetPlayerCursorBusy(slotStruct); 
+                    }
                 }
 
-                if (slotStruct.stackAmount > 1) GameInstance.playerController.SetPlayerCursorBusy(slotStruct.item, slotStruct.stackAmount - 1, slotStruct._GUID);
+                if (slotStruct.stackAmount > 1) 
+                { 
+                    slotStruct.stackAmount = slotStruct.stackAmount - 1;
+                    GameInstance.playerController.SetPlayerCursorBusy(slotStruct); 
+                }
             }
 
         }
         else
         {
-            ItemSlotStruct slotStruct = GameInstance.playerController.GetItemFromCursor();
+            HeroInventoryItem slotStruct = GameInstance.playerController.GetItemFromCursor();
             //if (slotStruct.stackAmount > 1) return; // it's not possible to exchange multiple items to one, possible to take 1 rest return to inventory
-            ItemScriptableContainer itemTemp = slotStruct.item;
+            HeroInventoryItem itemTemp = slotStruct;
+            print("item is full "+ slotStruct);
             if (itemTemp != null)
             {
+
                 if (itemTemp.itemType == itemType)
                 {
-                    GameInstance.playerController.SetPlayerCursorBusy(ItemScriptable, 1, _GUID);
+                    slotStruct.stackAmount = 1;
+                    GameInstance.playerController.SetPlayerCursorBusy(slotStruct);
                     ItemScriptable = itemTemp;
-                    itemAvatar.sprite = ItemScriptable.InventorySprite;
-                    sendItemToParty.Invoke(itemType, ItemScriptable, _GUID);
-                    if (slotStruct.stackAmount > 1) GameInstance.inventory.FindEmptySlotAndPutItem(slotStruct.item, slotStruct.stackAmount - 1);
+                    itemAvatar.sprite = ItemScriptable.container.InventorySprite;
+                    sendItemToParty.Invoke(ItemScriptable, itemType);
+                    if (slotStruct.stackAmount > 1) GameInstance.inventory.FindEmptySlotAndPutItem(slotStruct, slotStruct.stackAmount - 1);
                 }
                 else
                 {
-                    if (slotStruct.stackAmount == 1) GameInstance.playerController.SetPlayerCursorBusy(itemTemp, 1, _GUID);
-                    if (slotStruct.stackAmount > 1) GameInstance.playerController.SetPlayerCursorBusy(itemTemp, slotStruct.stackAmount, _GUID);
+                    if (slotStruct.stackAmount == 1) 
+                    {
+
+                        GameInstance.playerController.SetPlayerCursorBusy(slotStruct); 
+                    }
+                    if (slotStruct.stackAmount > 1) 
+                    { GameInstance.playerController.SetPlayerCursorBusy(slotStruct); 
+                    }
                 }
             }
             else
             {
                 if (ItemScriptable == null) return;
-                GameInstance.playerController.SetPlayerCursorBusy(ItemScriptable, 1, _GUID);
+                GameInstance.playerController.SetPlayerCursorBusy(ItemScriptable);
                 ItemScriptable = null;
                 itemAvatar.sprite = emptySlotSprite;
-                sendItemToParty.Invoke(itemType, null, "");
+                sendItemToParty.Invoke(ItemScriptable, itemType);
             }
         }
-
-        
     }
 
     public void OnPointerEnter(PointerEventData eventData)
