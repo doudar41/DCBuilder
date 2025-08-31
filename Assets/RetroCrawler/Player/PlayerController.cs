@@ -551,7 +551,7 @@ public class PlayerController : MonoBehaviour
         if (cursorBusy)
         {
             cursorItemScriptable.positionReplaced = throwItemPosition.position;
-            GameInstance.SaveItemState(currentCursorGUID, SavedState.Replaced, cursorItemScriptable);
+            //GameInstance.SaveItemState(currentCursorGUID, SavedState.Replaced, cursorItemScriptable);
             ThrowToTheWorld(throwItemPosition, currentMouse.position.ReadValue().y);
             cursorBusy = false;
             cursorItemScriptable = null;
@@ -588,11 +588,12 @@ public class PlayerController : MonoBehaviour
         GameObject item = Instantiate(itemModelPrefab, spawnPoint);
 
         IItem iItem = item.GetComponent<IItem>();
-        iItem.SetPrefab(cursorItemScriptable.container);
-        iItem.InitializeItem(spawnPoint.position);
+        iItem.ChangeGUID();
+        iItem.SetPrefab(GameInstance.dataBase.GetItemFromBaseByIndex(cursorItemScriptable.container));
         iItem.SetItemsAmount(stackAmountCursor);
+        //iItem.SetGUID(currentCursorGUID);
+        iItem.PlaceCreatedItem(spawnPoint.position);
 
-        iItem.SetGUID(currentCursorGUID);
 
         //iItem.SetTransformPosition(Vector3.zero);
         iItem.RemoveFromParent();
@@ -629,13 +630,13 @@ public class PlayerController : MonoBehaviour
 
     public void SetPlayerCursorBusy(HeroInventoryItem heroInventoryItem)
     {
-        print(heroInventoryItem._GUID + " guid from IItem");
+        
         heroInventoryItem.heroIndex = -1;
         cursorItemScriptable = heroInventoryItem;
         stackAmountCursor = heroInventoryItem.stackAmount;
-        currentCursorGUID = heroInventoryItem._GUID;
-        GameInstance.SaveItemState(heroInventoryItem._GUID, SavedState.Cursor, heroInventoryItem);
-        Cursor.SetCursor(heroInventoryItem.container.texture2DMouse, hotSpot, cursorMode);
+        //currentCursorGUID = heroInventoryItem._GUID;
+        //GameInstance.SaveItemState(heroInventoryItem._GUID, SavedState.Cursor, heroInventoryItem);
+        Cursor.SetCursor(GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).texture2DMouse, hotSpot, cursorMode);
         cursorBusy = true;
     }
 

@@ -11,32 +11,37 @@ public class LoadLevelOrder : MonoBehaviour
     {
         print("start loading ");
         GameInstance.initItems();
-        GameInstance.party.LoadEquipment();
-        foreach(KeyValuePair< string, SavedState > s in GameInstance.savedItemsState)
+        if (GameInstance.levelsVisited.Contains(GameInstance.GetLevelName()))
         {
-            print(s.Key +" "+ s.Value );
-
-            if (GameInstance.GetItemFromSaved(s.Key) != null) print(GameInstance.GetItemFromSaved(s.Key));
-            if(s.Value == SavedState.Replaced)
+            Dictionary<string, HeroInventoryItem> listToMake = new Dictionary<string, HeroInventoryItem>();
+            foreach(KeyValuePair<string, HeroInventoryItem> h in GameInstance.itemsOnLevelSavedWithGUID)
             {
-                if (!GameInstance.savedItemsReplaced.ContainsKey(s.Key)) continue ;
-                if (GameInstance.savedItemsReplaced[s.Key].level == GameInstance.GetLevelName())
-                {
-                    print(" continue to execute placement " + GameInstance.savedItemsReplaced[s.Key].container);
-                    HeroInventoryItem hII = GameInstance.savedItemsReplaced[s.Key];
-                    GameObject item = Instantiate(itemModelPrefab);
+                Debug.Log(" items on level containers "+ GameInstance.dataBase.GetItemFromBaseByIndex(h.Value.container).itemName);
+                if(h.Value.level == GameInstance.GetLevelName())
+                {                    
+                    listToMake.Add(h.Key,h.Value); 
 
-                    IItem iItem = item.GetComponent<IItem>();
-
-                    iItem.SetPrefab(hII.container);
-                    iItem.InitializeItem(hII.positionReplaced);
-                    iItem.SetItemsAmount(hII.stackAmount);
-
-                    iItem.SetGUID(hII._GUID);
-                    iItem.RemoveFromParent();
                 }
             }
+            foreach(KeyValuePair<string, HeroInventoryItem> h in listToMake)
+            {
+                GameObject item = Instantiate(itemModelPrefab);
+
+                IItem iItem = item.GetComponent<IItem>();
+                iItem.SetGUID(h.Key);
+                iItem.SetPrefab(GameInstance.dataBase.GetItemFromBaseByIndex(h.Value.container));
+                iItem.SetItemsAmount(h.Value.stackAmount);
+                iItem.PlaceCreatedItem(h.Value.positionReplaced);
+                iItem.RemoveFromParent();
+            }
+
         }
+        else
+        {
+            GameInstance.levelsVisited.Add(GameInstance.GetLevelName());
+        }
+        GameInstance.party.LoadEquipment();
+
 
     }
 

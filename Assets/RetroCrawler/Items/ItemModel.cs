@@ -21,6 +21,8 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
     [SerializeField]
     ItemScriptableContainer itemScriptableLocal;
 
+    HeroInventoryItem heroInventoryLocalItem;
+
     SplineAnimate anim;
     SphereCollider col;
 
@@ -53,12 +55,12 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
     private void Awake()
     {
         GameInstance.itemsFound.Add(GUIDString);
-        GameInstance.initItems += Init;
+        GameInstance.initItems += LevelEnterInit;
     }
     private void OnDestroy()
     {
         OnDestoryedByCursor.RemoveAllListeners();
-        GameInstance.initItems -= Init;
+        GameInstance.initItems -= LevelEnterInit;
     }
 
     public void ChangeGUID()
@@ -67,32 +69,19 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
         GUIDString = _guid.ToString();
     }
 
-    void Init()
+    void LevelEnterInit()
     {
         if (itemScriptableLocal == null) return;
-        if (GameInstance.levelChange || GameInstance.loadingLevel)
-        {
-            if (GameInstance.savedItemsState.ContainsKey(GUIDString))
-            {
-                if (GameInstance.savedItemsState[GUIDString] == SavedState.Replaced)
-                {
-                    if (GameInstance.CheckItemLevelInReplaced(GUIDString)) 
-                    { 
-                        transform.position = GameInstance.savedItemsReplaced[GUIDString].positionReplaced; 
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-                if (GameInstance.savedItemsState[GUIDString] == SavedState.Equipment || GameInstance.savedItemsState[GUIDString] == SavedState.Inventory)
-                {
-                    return;
-                }
-                if (GameInstance.savedItemsState[GUIDString] == SavedState.Cursor) return;
-            }
-        }
 
+        if (!GameInstance.levelsVisited.Contains(GameInstance.GetLevelName()))
+        {
+            heroInventoryLocalItem = CreateNewHeroInventoryItem();
+            GameInstance.AddItemFromLevel(GUIDString, heroInventoryLocalItem);
+        }
+        else
+        {
+            return ;
+        }
         currentLevel = GameInstance.GetLevelName();
         GameObject item = Instantiate(itemScriptableLocal.prefab, transform);
         IItemHolder itemHolder = itemScriptableLocal.prefab.GetComponent<IItemHolder>();
@@ -124,20 +113,24 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
         AnimComplete.RemoveAllListeners();
     }
 
+    public HeroInventoryItem CreateNewHeroInventoryItem()
+    {
+        HeroInventoryItem createdItem = new HeroInventoryItem();
+        createdItem.positionReplaced = transform.position;
+        createdItem.heroIndex =-1;
+        createdItem.stackAmount = stackAmount;
+        createdItem.itemType = itemScriptableLocal.itemType;
+        createdItem.container = GameInstance.dataBase.GetItemIndexFromDataBase(itemScriptableLocal);
+        createdItem.level = GameInstance.GetLevelName();
+
+        return createdItem;
+    }
+
+
     public void RemoveFromTheWorld()
     {
-        HeroInventoryItem takenItem = new HeroInventoryItem();
-        takenItem.positionReplaced = Vector3.zero;
-        takenItem.savedState = SavedState.Cursor; //inventoryEquipment ?   SavedState.Equipment: SavedState.Inventory;
-        takenItem._GUID = GUIDString;
-        takenItem.heroIndex = GameInstance.party.activeHero.GetHeroIndex() ;
-        takenItem.stackAmount = stackAmount;
-        takenItem.itemType = itemScriptableLocal.itemType;
-        takenItem.container = itemScriptableLocal;
-        takenItem.level = GameInstance.GetLevelName();
-        
-        GameInstance.SaveItemState(GUIDString, SavedState.Cursor, takenItem);
-        OnDestoryedByCursor.Invoke(itemScriptableLocal.weight*stackAmount, this.gameObject);
+
+        GameInstance.RemoveItemFromLevel(GUIDString, heroInventoryLocalItem);
         DestroyImmediate(gameObject);
     }
 
@@ -154,17 +147,8 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
 
     public HeroInventoryItem WhatItem()
     {
-        HeroInventoryItem takenItem = new HeroInventoryItem();
-        takenItem.positionReplaced = Vector3.zero;
-        takenItem.savedState = SavedState.Cursor;
-        takenItem._GUID = GUIDString;
-        takenItem.heroIndex = GameInstance.party.activeHero.GetHeroIndex();
-        takenItem.stackAmount = stackAmount;
-        takenItem.itemType = itemScriptableLocal.itemType;
-        takenItem.container = itemScriptableLocal;
-        takenItem.level = GameInstance.GetLevelName();
 
-        return takenItem;
+        return heroInventoryLocalItem;
     }
 
     public Texture2D GetCursorTexture()
@@ -172,7 +156,7 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
         return itemScriptableLocal.texture2DMouse;
     }
 
-    public void InitializeItem(Vector3 pos)
+    public void PlaceCreatedItem(Vector3 pos)
     {
         currentLevel = GameInstance.GetLevelName();
         GameObject item = Instantiate(itemScriptableLocal.prefab, transform);
@@ -191,6 +175,8 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
             //rb.useGravity = false;
         }
         transform.position = pos;
+        heroInventoryLocalItem = CreateNewHeroInventoryItem();
+        GameInstance.AddItemFromLevel(GUIDString, heroInventoryLocalItem);
     }
 
     public void SetPrefab(ItemScriptableContainer itemScriptable)
@@ -234,7 +220,6 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
     public void SetGUID(string _GUID)
     {
         GUIDString = _GUID;
-
     }
 }
 
@@ -246,7 +231,7 @@ public interface IItem
     public void RemoveFromTheWorld();
 
     public HeroInventoryItem WhatItem();
-    public void InitializeItem(Vector3 pos);
+    public void PlaceCreatedItem(Vector3 pos);
     public void SetPrefab(ItemScriptableContainer itemScriptable);
     public void SetTransformPosition(Vector3 pos);
     public void RemoveFromParent();
@@ -267,8 +252,29 @@ public interface IItemHolder
 
 }
 
-
-
+[System.Serializable]
+public enum ItemType
+{
+    WEAPON,
+    AMMUNITION,
+    TORSO_ARMOR,
+    HELM,
+    GLOVES,
+    AMULET,
+    BOOT,
+    BELT,
+    SHIELD,
+    RING,
+    RING2,
+    RING3,
+    RING4,
+    RING5,
+    RING6,
+    CONSUMABLE,
+    QUEST,
+    LOOT,
+    InfusedWeapon
+}
 
 public enum WeaponType
 {

@@ -38,9 +38,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
                     stackAmount = slotStruct.stackAmount; 
                 }
                 else stackAmount = 1;
-                itemAvatar.sprite = ItemScriptable.container.InventorySprite;
+                itemAvatar.sprite = GameInstance.dataBase.GetItemFromBaseByIndex(ItemScriptable.container).InventorySprite;
                 amountText.text = stackAmount.ToString();
-                _GUID = slotStruct._GUID;
+                //_GUID = slotStruct._GUID;
             }
         }
         else
@@ -61,7 +61,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
                     }
                     else stackAmount = 1;
                     ItemScriptable = slotStruct;
-                    itemAvatar.sprite = ItemScriptable.container.InventorySprite;
+                    itemAvatar.sprite = GameInstance.dataBase.GetItemFromBaseByIndex(ItemScriptable.container).InventorySprite;
                     amountText.text = stackAmount.ToString();
                     //exchange items in a slot
                 }
@@ -96,7 +96,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             {
                 ItemScriptable = itemTemp;
                 stackAmount = amount;
-                itemAvatar.sprite = ItemScriptable.container.InventorySprite;
+                itemAvatar.sprite = GameInstance.dataBase.GetItemFromBaseByIndex(ItemScriptable.container).InventorySprite;
                 amountText.text = stackAmount.ToString();
                 return true;
             }

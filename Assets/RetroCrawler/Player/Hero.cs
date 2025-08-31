@@ -482,12 +482,12 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
         if (heroInventoryItem == null) return false;
 
-        heroInventoryItem.savedState = SavedState.Equipment;
+        //heroInventoryItem.savedState = SavedState.Equipment;
 
-        if (!equipmentWithGUID.TryAdd(heroInventoryItem.container.itemType, heroInventoryItem))
+        if (!equipmentWithGUID.TryAdd(GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).itemType, heroInventoryItem))
         {
             heroInventoryItem.heroIndex = heroID;
-            equipmentWithGUID[heroInventoryItem.container.itemType] = heroInventoryItem;
+            equipmentWithGUID[GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).itemType] = heroInventoryItem;
             
         }
         else
@@ -495,9 +495,9 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
             return false;
         }
 
-        if (!equipmentSpells.TryAdd(heroInventoryItem.container.itemType, heroInventoryItem.container.spellContainer))
+        if (!equipmentSpells.TryAdd(GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).itemType, GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).spellContainer))
         {
-            equipmentSpells[heroInventoryItem.container.itemType] = heroInventoryItem.container.spellContainer;
+            equipmentSpells[GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).itemType] = GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).spellContainer;
             return true;
         }
         else return false;
@@ -558,7 +558,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     public SkillsStat GetWeaponType()
     {
         if(!equipmentWithGUID.ContainsKey(ItemType.WEAPON)) return SkillsStat.None;
-        if (equipmentWithGUID[ItemType.WEAPON] != null) return equipmentWithGUID[ItemType.WEAPON].container.weaponType;
+        if (equipmentWithGUID[ItemType.WEAPON] != null) return GameInstance.dataBase.GetItemFromBaseByIndex(equipmentWithGUID[ItemType.WEAPON].container).weaponType;
         return SkillsStat.None;
     }
 

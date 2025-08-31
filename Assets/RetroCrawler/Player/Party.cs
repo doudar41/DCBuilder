@@ -71,7 +71,7 @@ public class Party : MonoBehaviour
         if (heroInventoryItem.container != null)
         {
             activeHero.AddEquipmentToCharacter(heroInventoryItem);
-            GameInstance.SaveItemState(heroInventoryItem._GUID, SavedState.Equipment, heroInventoryItem);
+           // GameInstance.SaveItemState(heroInventoryItem._GUID, SavedState.Equipment, heroInventoryItem);
         }
         else
         {
@@ -121,7 +121,7 @@ public class Party : MonoBehaviour
                 }
             }
         }
-        GameInstance.AddReplacedInventory();
+        //GameInstance.AddReplacedInventory();
     }
 
     public void LoadEquipment()
@@ -129,11 +129,11 @@ public class Party : MonoBehaviour
         print(" equipment storage = " + GameInstance.equipmentHeroesSavedWithGUID.Count);
         foreach(HeroInventoryItem he in GameInstance.equipmentHeroesSavedWithGUID)
         {
-            print(" loading equipment " + he.container + " " + he._GUID + " " + he.heroIndex);
+            print(" loading equipment " + he.container + " " +  " " + he.heroIndex);
             if (he == null) continue;
             if (he.container != null) 
             {
-                print(" loading equipment "+ he.container + " "+ he._GUID+" "+ he.heroIndex);
+                print(" loading equipment "+ he.container + " "+" "+ he.heroIndex);
                 if (he.heroIndex >=0 ) heroes[he.heroIndex].AddEquipmentToCharacter(he); 
             }
         }

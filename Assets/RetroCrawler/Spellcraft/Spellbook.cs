@@ -276,11 +276,11 @@ public class Spellbook : MonoBehaviour
         }
 
 
-        if (target.GetComponent<IInteractable>() != null)
+/*        if (target.GetComponent<IInteractable>() != null)
         {
             IInteractable interactable = target.GetComponent<IInteractable>();
             interactable.ApplySpellToItem(spellWaitToRelease);
-        }
+        }*/
         foreach (Spell s in spellWaitToRelease.spells)
         {
             GameInstance.party.activeHero.ManaDecrease(s.manaCost);
