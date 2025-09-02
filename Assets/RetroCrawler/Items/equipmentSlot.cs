@@ -7,16 +7,11 @@ using TMPro;
 
 public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
-
-
     public ItemType itemType;
 
     HeroInventoryItem ItemScriptable;
-    string _GUID;
-    [SerializeField]
-    Image itemAvatar;
-    [SerializeField]
-    Sprite emptySlotSprite;
+    [SerializeField] Image itemAvatar;
+    [SerializeField] Sprite emptySlotSprite;
 
     public UnityEvent<HeroInventoryItem, ItemType> sendItemToParty;
 
@@ -31,7 +26,6 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         {
             ItemScriptable = item;
             itemAvatar.sprite = GameInstance.dataBase.GetItemFromBaseByIndex( ItemScriptable.container).InventorySprite;
-            //_GUID = item._GUID;
             sendItemToParty.Invoke(item, itemType);
         }
         else
@@ -51,14 +45,11 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
             if (slotStruct != null)
             {
-                
-               // print(" guid from cursor " + slotStruct._GUID);
                 if (GameInstance.dataBase.GetItemFromBaseByIndex(slotStruct.container).itemType == itemType)
                 {
                     slotStruct.heroIndex = GameInstance.party.activeHero.GetHeroIndex();
                     ItemScriptable = slotStruct;
                     itemAvatar.sprite = GameInstance.dataBase.GetItemFromBaseByIndex(ItemScriptable.container).InventorySprite;
-                   // _GUID =  slotStruct._GUID;
                     sendItemToParty.Invoke(ItemScriptable, itemType);
                     if(itemType == ItemType.WEAPON)
                     {
@@ -147,10 +138,6 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         return ItemScriptable == null;
     }
 
-    public void SetGUID(string _guid)
-    {
-        _GUID = _guid;
-    }
 
 
 }

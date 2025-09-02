@@ -11,12 +11,14 @@ public class Database : MonoBehaviour
     [SerializeField] List<ItemScriptableContainer> gameItemsBase = new List<ItemScriptableContainer>();
     private void Awake()
     {
+
+        //if (GameInstance.dataBase != null) Destroy(gameObject);
         GameInstance.dataBase = this;
     }
     // Start is called before the first frame update
     void Start()
     {
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     public int GetItemIndexFromDataBase(ItemScriptableContainer container)

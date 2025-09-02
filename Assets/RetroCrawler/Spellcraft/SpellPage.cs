@@ -88,6 +88,7 @@ public class SpellPage : MonoBehaviour
         if(currentSpellContainer == SpellContainerFromButton)
         {
             GameInstance.spellbook.CastSpell(SpellContainerFromButton);
+            GameInstance.party.activeHero.GetThisHero().SetDefaultSpell(SpellContainerFromButton);
             //print("cast spell " + SpellContainerFromButton);
         }
         else

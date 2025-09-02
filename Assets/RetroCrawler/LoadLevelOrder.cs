@@ -10,6 +10,8 @@ public class LoadLevelOrder : MonoBehaviour
     void Start()
     {
         print("start loading ");
+
+        
         GameInstance.initItems();
         if (GameInstance.levelsVisited.Contains(GameInstance.GetLevelName()))
         {
@@ -34,7 +36,6 @@ public class LoadLevelOrder : MonoBehaviour
                 iItem.PlaceCreatedItem(h.Value.positionReplaced);
                 iItem.RemoveFromParent();
             }
-
         }
         else
         {
@@ -42,7 +43,26 @@ public class LoadLevelOrder : MonoBehaviour
         }
         GameInstance.party.LoadEquipment();
 
+        foreach(HeroInventoryItem h in GameInstance.inventoryItemsSaved)
+        {
+            print(GameInstance.inventoryItemsSaved.Count);
+            GameInstance.inventory.FindEmptySlotAndPutItem(h, h.stackAmount);
+        }
 
+        GameInstance.playerController.InitWallAccess();
+
+        foreach (visitedBlock v in GameInstance.visitedBlocks)
+        {
+            if(v.level == GameInstance.GetLevelName())
+            {
+                if (GameInstance.playerController.GetBlockByCoordinatesOnStart(v.coordinates) != null) 
+                { 
+                    GameInstance.playerController.GetBlockByCoordinatesOnStart(v.coordinates).ShowOnMap(true); 
+                }
+            }
+
+        }
+        GameInstance.playerController.CheckIfLevelLoaded();
     }
 
 

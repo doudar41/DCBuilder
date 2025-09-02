@@ -15,8 +15,9 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     [SerializeField] SpellContainer petrifySpell;
     [SerializeField] HealthImage healthSlider, manaSlider;
     [SerializeField] List<SpellContainer> heroSpellbook = new List<SpellContainer>();
-    [SerializeField]  int rowIndex = 1;
+    [SerializeField] int rowIndex = 1;
     [SerializeField] SpellContainer unarmedSpell;
+    SpellContainer defaultSpell;
     int currentHealth = 100, currentMana = 100;
     int heroID = 0;
 
@@ -709,6 +710,18 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     {
         return heroID;
     }
+
+    public void SetDefaultSpell(SpellContainer spellContainer)
+    {
+        defaultSpell = spellContainer;
+    }
+
+    public SpellContainer GetDefaultSpell()
+    {
+
+        return defaultSpell;
+    }
+
 }
 
 

@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     public UnityEvent noWay, stepSound, turnAround, portalTransfer;
     public UnityEvent<CardinalDirections> cardinalDirectionToUI;
 
-    List<Vector3Int> visitedBlocks = new List<Vector3Int>();
+    List<visitedBlock> visitedBlocks = new  List<visitedBlock>();
 
     [SerializeField] Light torchlight;
 
@@ -81,9 +81,15 @@ public class PlayerController : MonoBehaviour
     }
     private void Awake()
     {
-        GameInstance.itemsFound.Clear();
+        //GameInstance.itemsFound.Clear();
     }
     void Start()
+    {
+
+
+    }
+
+    private void RegisteringKeys()
     {
         Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
 
@@ -100,33 +106,8 @@ public class PlayerController : MonoBehaviour
         countdownToEncounter = Random.Range(rangeOfEnCounter.x, rangeOfEnCounter.y);
 
         GameInstance.progress += TimeEvents;
-
-        if (GameInstance.levelChange)
-        {
-            var walls = moveTilemap.GetComponentsInChildren<OnBlockPlacement>();
-            currentMouse = Mouse.current;
-
-            foreach (OnBlockPlacement w in walls)
-            {
-                if (!wallsAccess.ContainsKey(w.position))
-                    wallsAccess.Add(w.position, w);
-            }
-            transform.position = new Vector3( moveTilemap.GetCellCenterWorld(GameInstance.nextLevelPosition).x, 3, moveTilemap.GetCellCenterWorld(GameInstance.nextLevelPosition).z) ;
-            transform.rotation = Quaternion.Euler(0, CardinalDir.GetRotationYForCardinal(GameInstance.nextLevelRotation), 0);
-            currentforwardDirection = GameInstance.nextLevelRotation;
-            cardinalDirectionToUI.Invoke(currentforwardDirection);
-            currentposition =  wallsAccess[moveTilemap.WorldToCell(transform.position)].GetBlockCoordinate();
-            GameInstance.levelChange = false;
-            currentWallBlock = wallsAccess[moveTilemap.WorldToCell(transform.position)];
-
-        }
-        else
-        {
-            NewGamePlayerStruct();
-        }
-        currentWallBlock.ShowOnMap(true);
-
     }
+
     private void OnDestroy()
     {
         _input.CrawlerStandart.Move.performed -= MovementUpdate;
@@ -140,6 +121,51 @@ public class PlayerController : MonoBehaviour
         _input.Disable();
     }
 
+    public void InitWallAccess()
+    {
+        var walls = moveTilemap.GetComponentsInChildren<OnBlockPlacement>();
+        currentMouse = Mouse.current;
+
+        foreach (OnBlockPlacement w in walls)
+        {
+            if (!wallsAccess.ContainsKey(w.position)) { wallsAccess.Add(w.position, w); }
+        }
+    }
+
+    public OnBlockPlacement GetBlockByCoordinatesOnStart(Vector3Int coords)
+    {
+
+        if (wallsAccess.TryGetValue(coords, out OnBlockPlacement block)) { return block; }
+        return null;
+    }
+
+    public void CheckIfLevelLoaded()
+    {
+        print("wallaccess count "+wallsAccess.Count);
+        if (GameInstance.levelChange)
+        {
+            transform.position = new Vector3(moveTilemap.GetCellCenterWorld(GameInstance.nextLevelPosition).x, 3, moveTilemap.GetCellCenterWorld(GameInstance.nextLevelPosition).z);
+            transform.rotation = Quaternion.Euler(0, CardinalDir.GetRotationYForCardinal(GameInstance.nextLevelRotation), 0);
+            currentforwardDirection = GameInstance.nextLevelRotation;
+            cardinalDirectionToUI.Invoke(currentforwardDirection);
+            currentposition = wallsAccess[moveTilemap.WorldToCell(transform.position)].GetBlockCoordinate();
+            GameInstance.levelChange = false;
+            currentWallBlock = wallsAccess[moveTilemap.WorldToCell(transform.position)];
+        }
+        else
+        {
+            NewGamePlayerStruct();
+        }
+        currentWallBlock.ShowOnMap(true);
+        RegisteringKeys();
+    }
+
+
+
+    public List<visitedBlock> GetVisitedBlocksCooordinates()
+    {
+        return visitedBlocks;
+    }
 
     public void LightARoom(float amount)
     {
@@ -161,8 +187,10 @@ public class PlayerController : MonoBehaviour
 
     public void ReceiveLastSpellInput(InputAction.CallbackContext context)
     {
-        if (cursorHoveringUI) return;
-        //GameInstance.battleManager.ReceiveLastSpellInput();
+        if(GameInstance.party.activeHero.GetThisHero().GetDefaultSpell() != null)
+        {
+            GameInstance.spellbook.CastSpell(GameInstance.party.activeHero.GetThisHero().GetDefaultSpell());
+        }
     }
 
     public void ReleaseSpellWithoutCasting(InputAction.CallbackContext context)
@@ -175,7 +203,6 @@ public class PlayerController : MonoBehaviour
     {
         return cursorBusy;
     }
-
 
     public void OpenInventoryWithUIButton()
     {
@@ -458,11 +485,19 @@ public class PlayerController : MonoBehaviour
         {
             if (block == null) continue;
             block.ShowOnMap(true);
-            if (!visitedBlocks.Contains(block.GetBlockCoordinate())) visitedBlocks.Add( block.GetBlockCoordinate());
+            visitedBlock newblock = new visitedBlock();
+            newblock.coordinates = block.GetBlockCoordinate();
+            newblock.level = GameInstance.GetLevelName();
+            if (!visitedBlocks.Contains(newblock)) visitedBlocks.Add(newblock);
+            print(newblock.level + " " + newblock.coordinates);
         }
-        if (!visitedBlocks.Contains(currentWallBlock.GetBlockCoordinate())) visitedBlocks.Add(currentWallBlock.GetBlockCoordinate()); 
+        visitedBlock newblock2;
+        newblock2.coordinates = currentWallBlock.GetBlockCoordinate();
+        newblock2.level = GameInstance.GetLevelName();
         currentWallBlock.ShowOnMap(true);
     }
+
+
 
 
     IEnumerator SmoothRotation(float angle)
@@ -553,9 +588,10 @@ public class PlayerController : MonoBehaviour
             cursorItemScriptable.positionReplaced = throwItemPosition.position;
             //GameInstance.SaveItemState(currentCursorGUID, SavedState.Replaced, cursorItemScriptable);
             ThrowToTheWorld(throwItemPosition, currentMouse.position.ReadValue().y);
-            cursorBusy = false;
-            cursorItemScriptable = null;
             Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
+            /*            cursorBusy = false;
+                        cursorItemScriptable = null;*/
+            StartCoroutine(WaitToSetCursorFree());
             return;
         }
 
@@ -573,16 +609,31 @@ public class PlayerController : MonoBehaviour
                     switch (i)
                     {
                         case InteractablesEnum.PICKABLE:
-                            IItem iItem = hit.collider.GetComponent<IItem>();
-                            cursorItemScriptable = iItem.WhatItem();
-                            SetPlayerCursorBusy(cursorItemScriptable);
-                            iItem.RemoveFromTheWorld();
+                            //GetInterfaceFromItem(hit.collider.gameObject);
                             break;
                     }
                 }
             }
         }
     }
+    IEnumerator WaitToSetCursorFree()
+    {
+        yield return new WaitForSeconds(0.1f);
+        cursorBusy = false;
+        cursorItemScriptable = null;
+    }
+
+    public  void  GetInterfaceFromItem(GameObject hitObject)
+    {
+        if (cursorBusy || cursorHoveringUI) return;
+        if (Vector3.Distance(transform.position, hitObject.transform.position) > blockSize) return;
+        IItem iItem = hitObject.GetComponent<IItem>();
+        cursorItemScriptable = iItem.WhatItem();
+        SetPlayerCursorBusy(cursorItemScriptable);
+        iItem.RemoveFromTheWorld();
+
+    }
+
     public void ThrowToTheWorld(Transform spawnPoint, float screenPosition)
     {
         GameObject item = Instantiate(itemModelPrefab, spawnPoint);
@@ -703,7 +754,7 @@ public class PlayerController : MonoBehaviour
 
                 case InteractablesEnum.LEVEL_EXIT:
 
-                    GameInstance.playerController = null;
+
                     //GameInstance.inventory = null;
                     OnBlockPlacement leveldestination = wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<OnBlockPlacement>();
                     _input.Disable();

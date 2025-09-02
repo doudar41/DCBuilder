@@ -15,10 +15,11 @@ public class BattleLogLine : MonoBehaviour, IPointerClickHandler
  
     private void Start()
     {
-/*        foreach(TextMeshProUGUI t in textsParent.GetComponentsInChildren<TextMeshProUGUI>())
-        {
-            textPlaces.Add(t);
-        }*/
+        /*        foreach(TextMeshProUGUI t in textsParent.GetComponentsInChildren<TextMeshProUGUI>())
+                {
+                    textPlaces.Add(t);
+                }*/
+        BackToBottom();
     }
 
 
@@ -60,6 +61,6 @@ public class BattleLogLine : MonoBehaviour, IPointerClickHandler
 
     public void BackToBottom()
     {
-        gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(gameObject.GetComponent<RectTransform>().anchoredPosition.x, -660);
+        gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(gameObject.GetComponent<RectTransform>().anchoredPosition.x, -590);
     }
 }

@@ -9,7 +9,7 @@ using UnityEngine.Splines;
 
 [RequireComponent(typeof(SplineAnimate))]
 
-public class ItemModel : MonoBehaviour, IItem, IInteractables
+public class ItemModel : MonoBehaviour, IItem, IInteractables, IPointerClickHandler
 {
 
     System.Guid _guid;
@@ -54,7 +54,7 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
 
     private void Awake()
     {
-        GameInstance.itemsFound.Add(GUIDString);
+        //GameInstance.itemsFound.Add(GUIDString);
         GameInstance.initItems += LevelEnterInit;
     }
     private void OnDestroy()
@@ -90,11 +90,11 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
         {
             col = gameObject.AddComponent<SphereCollider>();
             col.radius = 1f;
-            Rigidbody rb = gameObject.AddComponent<Rigidbody>();
+/*            Rigidbody rb = gameObject.AddComponent<Rigidbody>();
             col.material = frictionMaterial;
             rb.freezeRotation = true;
             rb.constraints = RigidbodyConstraints.FreezePositionX;
-            rb.constraints = RigidbodyConstraints.FreezePositionZ;
+            rb.constraints = RigidbodyConstraints.FreezePositionZ;*/
         }
         else
         {
@@ -166,12 +166,12 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
         {
             col = gameObject.AddComponent<SphereCollider>();
             col.radius = 1f;
-            Rigidbody rb = gameObject.AddComponent<Rigidbody>();
+/*            Rigidbody rb = gameObject.AddComponent<Rigidbody>();
             rb.drag = 1;
             col.material = frictionMaterial;
             rb.freezeRotation = true;
             rb.constraints = RigidbodyConstraints.FreezePositionX;
-            rb.constraints = RigidbodyConstraints.FreezePositionZ;
+            rb.constraints = RigidbodyConstraints.FreezePositionZ;*/
             //rb.useGravity = false;
         }
         transform.position = pos;
@@ -220,6 +220,11 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables
     public void SetGUID(string _GUID)
     {
         GUIDString = _GUID;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        GameInstance.playerController.GetInterfaceFromItem(gameObject);
     }
 }
 

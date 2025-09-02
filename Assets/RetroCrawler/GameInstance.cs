@@ -25,6 +25,9 @@ public static class GameInstance
     public delegate void InitItems();
     public static InitItems initItems;
 
+    public delegate bool GetInventoryItem();
+    public static GetInventoryItem getInventoryItem;
+
     public static bool loadingLevel = false, levelChange = false;
 
     // Heroes data
@@ -32,8 +35,11 @@ public static class GameInstance
     public static Dictionary<int, Dictionary<SkillsStat, int>> skillBonusHeroesStatsSaved = new Dictionary<int, Dictionary<SkillsStat, int>>();
     
     public static List<HeroInventoryItem> equipmentHeroesSavedWithGUID = new List<HeroInventoryItem>();
+    public static List<HeroInventoryItem> inventoryItemsSaved = new List<HeroInventoryItem>();
     public static Dictionary<string, HeroInventoryItem> itemsOnLevelSavedWithGUID = new Dictionary<string,HeroInventoryItem>();
+
     public static List<string> levelsVisited = new List<string>();
+    public static List<visitedBlock> visitedBlocks = new List<visitedBlock>();
     //SpellAttachedSaved 
 
     public static Vector3Int playerPositionSaved, nextLevelPosition;
@@ -41,7 +47,7 @@ public static class GameInstance
 
     public static Dictionary<string, SavedState> savedItemsState = new Dictionary<string, SavedState>();
 
-    public static List<string> itemsFound = new List<string>();
+    //public static List<string> itemsFound = new List<string>();
 
     public static List<string> fileNamesList = new List<string>();
     static string currentLevelName = "";
@@ -100,6 +106,13 @@ public static class GameInstance
     public static void LoadNextLevel(string levelName)
     {
         if (party != null) party.SaveEquipment();
+        inventoryItemsSaved.Clear();
+        getInventoryItem();
+        foreach(visitedBlock v in playerController.GetVisitedBlocksCooordinates())
+        {
+            if(!visitedBlocks.Contains(v)) visitedBlocks.Add(v);
+        }
+
         currentLevelName = levelName;
         levelChange = true;
 
@@ -145,7 +158,6 @@ public static class GameInstance
 
     public static void SaveItemState(string _guid, SavedState _state, HeroInventoryItem heroInventoryItem)
     {
-        //if(heroInventoryItem !=null) heroInventoryItem.savedState = _state;
 
         if (savedItemsState.ContainsKey(_guid)) 
         {
@@ -154,67 +166,8 @@ public static class GameInstance
         }
         else savedItemsState.Add(_guid, _state);
 
-/*        if (_state == SavedState.Replaced)
-        {
-            heroInventoryItem.heroIndex = -1;
-            heroInventoryItem.level = GetLevelName();
-            if (savedItemsReplaced.ContainsKey(_guid)) savedItemsReplaced[_guid] = heroInventoryItem;
-            else savedItemsReplaced.Add(_guid, heroInventoryItem);
-
-        }
-        if(_state == SavedState.Equipment || _state == SavedState.Inventory || _state == SavedState.Cursor)
-        {
-            if (savedItemsReplaced.ContainsKey(_guid)) savedItemsReplaced.Remove(_guid);
-        }*/
     }
     
- /*   public static void AddReplacedInventory()
-    {
-        List<int> itemsToChange = new List<int>();
-        List<HeroInventoryItem> itemsToAdd = new List<HeroInventoryItem>();
-        Debug.Log( "items in replaced "+savedItemsReplaced.Count);
-        foreach (KeyValuePair<string, HeroInventoryItem> sh in savedItemsReplaced)
-        {
-            for(int i=0; i<equipmentHeroesSavedWithGUID.Count;i++)
-            {
-                if (equipmentHeroesSavedWithGUID[i] != null)
-                {
-                    if (equipmentHeroesSavedWithGUID[i]._GUID == sh.Key)
-                    {
-                        Debug.Log("add to change "+ sh.Value.container);
-                        itemsToChange.Add(i);
-                    }
-                    else
-                    {
-                        Debug.Log(sh.Value.container);
-                        itemsToAdd.Add(sh.Value);
-                    }
-                }
-                else
-                {
-                    Debug.Log(" add item to list "+sh.Value.container);
-                    itemsToAdd.Add(sh.Value);
-                }
-            }
-            if(equipmentHeroesSavedWithGUID.Count == 0)
-            {
-                    Debug.Log(" add item to list "+sh.Value.container);
-                    itemsToAdd.Add(sh.Value);
-            }
-        }
-        foreach(HeroInventoryItem hii in itemsToAdd)
-        {
-            Debug.Log(" adding item " + hii.container);
-            equipmentHeroesSavedWithGUID.Add(hii);
-        }
-        foreach(int index in itemsToChange)
-        {
-            Debug.Log("  changing " + equipmentHeroesSavedWithGUID[index].container);
-            //equipmentHeroesSavedWithGUID[index].savedState = SavedState.Replaced;
-            equipmentHeroesSavedWithGUID[index].heroIndex = -1;
-        }
-    }*/
-
 
     public static void ClearAllSaves()
     {
@@ -247,7 +200,8 @@ public static class GameInstance
         saveData.playerPosition = playerController.GetCurrentPosition();
         saveData.playercardinalDirection = playerController.GetCurrentDirection();
         saveData.heroesEquipment = equipmentHeroesSavedWithGUID;
-
+        saveData.inventoryItemsSaved = inventoryItemsSaved;
+        saveData.visitedBlocks = visitedBlocks;
         string path = Application.persistentDataPath + "/" + fileName;
         Gley.AllPlatformsSave.API.Save(saveData, path, DataWasSaved, false);
     }
@@ -274,8 +228,6 @@ public static class GameInstance
             equipmentHeroesSavedWithGUID = saveData.heroesEquipment;
             savedItemsState.Clear();
 
-            Debug.Log(" equipment count before reload level " + equipmentHeroesSavedWithGUID.Count);
-
             foreach(InteractablesStates i in saveData.interactablesStates)
             {
                 savedItemsState.Add(i._guid, i._state);
@@ -285,6 +237,8 @@ public static class GameInstance
             levelsVisited = saveData.visitedLevels;
             nextLevelPosition = saveData.playerPosition;
             nextLevelRotation = saveData.playercardinalDirection;
+            inventoryItemsSaved = saveData.inventoryItemsSaved;
+            visitedBlocks = saveData.visitedBlocks ;
             levelChange = true;
             SceneManager.LoadScene(saveData.levelName, LoadSceneMode.Single); 
         }
@@ -379,6 +333,25 @@ public static class GameInstance
         return itemsToConvert;
     }
 
+
+    public static void AddInventoryItem(HeroInventoryItem heroInventoryItem)
+    {
+        if(heroInventoryItem !=null) inventoryItemsSaved.Add(heroInventoryItem);
+    }
+
+
+    public static List<visitedBlock> ConvertVisitedBlocks(List<Vector3Int> vBlocks)
+    {
+        //List<visitedBlock> tempBlocks = new List<visitedBlock>();
+        foreach (Vector3Int v in vBlocks)
+        {
+            visitedBlock block;
+            block.level = GetLevelName();
+            block.coordinates = v;
+            if(!visitedBlocks.Contains(block)) visitedBlocks.Add(block);
+        }
+        return visitedBlocks;
+    }
 }
 
 [System.Serializable]
@@ -402,9 +375,19 @@ public class SaveData
     public CardinalDirections playercardinalDirection;
     public List<InteractablesStates> interactablesStates = new List<InteractablesStates>();
     public List<HeroInventoryItem> heroesEquipment = new List<HeroInventoryItem>();
+    public List<HeroInventoryItem> inventoryItemsSaved = new List<HeroInventoryItem>();
     public List<ItemOnLevel> itemsOnLevel = new List<ItemOnLevel>();
     public List<string> visitedLevels = new List<string>();
+    public List<visitedBlock> visitedBlocks = new List<visitedBlock>();
 }
+
+[System.Serializable]
+public struct visitedBlock
+{
+    public string level;
+    public Vector3Int coordinates;
+}
+
 
 [System.Serializable] 
 public class GameFileSaveNames

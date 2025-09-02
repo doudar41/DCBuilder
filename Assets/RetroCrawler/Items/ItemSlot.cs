@@ -11,17 +11,22 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
 
     int stackAmount = 1;
-    string _GUID;
-    HeroInventoryItem ItemScriptable;
+    HeroInventoryItem inventoryItem;
     [SerializeField] Image itemAvatar;
     [SerializeField]
     Sprite emptySlotSprite;
     [SerializeField]
     TextMeshProUGUI amountText;
-
+    
     private void Awake()
     {
         //itemAvatar = GetComponent<Image>();
+        GameInstance.getInventoryItem += SaveInventoryItemsToGameInstance;
+    }
+
+    private void OnDestroy()
+    {
+        GameInstance.getInventoryItem -= SaveInventoryItemsToGameInstance;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -29,17 +34,18 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         if (IsEmpty())
         {
             HeroInventoryItem slotStruct = GameInstance.playerController.GetItemFromCursor();
-            ItemScriptable = slotStruct;
+            inventoryItem = slotStruct;
 
-            if (ItemScriptable != null)
+            if (inventoryItem != null)
             {
                 if (slotStruct.stackAmount > 1)
                 { 
                     stackAmount = slotStruct.stackAmount; 
                 }
                 else stackAmount = 1;
-                itemAvatar.sprite = GameInstance.dataBase.GetItemFromBaseByIndex(ItemScriptable.container).InventorySprite;
+                itemAvatar.sprite = GameInstance.dataBase.GetItemFromBaseByIndex(inventoryItem.container).InventorySprite;
                 amountText.text = stackAmount.ToString();
+
                 //_GUID = slotStruct._GUID;
             }
         }
@@ -48,20 +54,20 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             if (stackAmount >= 1 && GameInstance.playerController.IsCursorBusy())
             {
                 HeroInventoryItem slotStruct =  GameInstance.playerController.GetItemFromCursor();
-                if (slotStruct == ItemScriptable) 
+                if (GameInstance.dataBase.GetItemFromBaseByIndex(slotStruct.container) == GameInstance.dataBase.GetItemFromBaseByIndex(inventoryItem.container)) 
                 {
                     stackAmount += slotStruct.stackAmount;
                 }
                 else
                 {
-                    GameInstance.playerController.SetPlayerCursorBusy(ItemScriptable);
+                    GameInstance.playerController.SetPlayerCursorBusy(inventoryItem);
                     if (slotStruct.stackAmount > 1)
                     {
                         stackAmount = slotStruct.stackAmount;
                     }
                     else stackAmount = 1;
-                    ItemScriptable = slotStruct;
-                    itemAvatar.sprite = GameInstance.dataBase.GetItemFromBaseByIndex(ItemScriptable.container).InventorySprite;
+                    inventoryItem = slotStruct;
+                    itemAvatar.sprite = GameInstance.dataBase.GetItemFromBaseByIndex(inventoryItem.container).InventorySprite;
                     amountText.text = stackAmount.ToString();
                     //exchange items in a slot
                 }
@@ -71,11 +77,12 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             if (stackAmount >= 1 && !GameInstance.playerController.IsCursorBusy())
             {
                // print("one item left");
-            GameInstance.playerController.SetPlayerCursorBusy(ItemScriptable);
+            GameInstance.playerController.SetPlayerCursorBusy(inventoryItem);
             stackAmount = 0;
-            ItemScriptable = null;
+            inventoryItem = null;
             itemAvatar.sprite = emptySlotSprite;
             amountText.text = stackAmount.ToString();
+            //GameInstance.getInventoryItem -= SaveInventoryItemsToGameInstance;
                 //GameInstance.inventory.RemoveItemFromInventory(slotIndex);
             }
         }
@@ -86,7 +93,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     {
         if (itemTemp != null)
         {
-            if (itemTemp== ItemScriptable)
+            if (itemTemp== inventoryItem)
             {
                 stackAmount += amount;
                 return true;
@@ -94,9 +101,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
             if (IsEmpty())
             {
-                ItemScriptable = itemTemp;
+                inventoryItem = itemTemp;
                 stackAmount = amount;
-                itemAvatar.sprite = GameInstance.dataBase.GetItemFromBaseByIndex(ItemScriptable.container).InventorySprite;
+                itemAvatar.sprite = GameInstance.dataBase.GetItemFromBaseByIndex(inventoryItem.container).InventorySprite;
                 amountText.text = stackAmount.ToString();
                 return true;
             }
@@ -106,6 +113,24 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
     public bool IsEmpty()
     {
-        return ItemScriptable==null;
+        return inventoryItem==null;
     }
+
+    bool SaveInventoryItemsToGameInstance()
+    {
+        print("no invetory");
+        if (inventoryItem != null)
+        {
+            inventoryItem.stackAmount = stackAmount;
+            GameInstance.AddInventoryItem(inventoryItem);
+            return true;
+        }
+        else
+        {
+            GameInstance.AddInventoryItem(inventoryItem);
+            return false;
+        }
+
+    }
+
 }
