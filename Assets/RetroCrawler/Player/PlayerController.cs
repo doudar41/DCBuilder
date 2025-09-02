@@ -160,8 +160,6 @@ public class PlayerController : MonoBehaviour
         RegisteringKeys();
     }
 
-
-
     public List<visitedBlock> GetVisitedBlocksCooordinates()
     {
         return visitedBlocks;
@@ -188,6 +186,14 @@ public class PlayerController : MonoBehaviour
     public void ReceiveLastSpellInput(InputAction.CallbackContext context)
     {
         if(GameInstance.party.activeHero.GetThisHero().GetDefaultSpell() != null)
+        {
+            GameInstance.spellbook.CastSpell(GameInstance.party.activeHero.GetThisHero().GetDefaultSpell());
+        }
+    }
+
+    public void ReceiveLastSpellInputFromUI()
+    {
+        if (GameInstance.party.activeHero.GetThisHero().GetDefaultSpell() != null)
         {
             GameInstance.spellbook.CastSpell(GameInstance.party.activeHero.GetThisHero().GetDefaultSpell());
         }

@@ -2117,7 +2117,7 @@ GameObject:
   - component: {fileID: 25786644}
   - component: {fileID: 25786643}
   m_Layer: 5
-  m_Name: Button
+  m_Name: AttackButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19129,7 +19129,7 @@ GameObject:
   - component: {fileID: 275023618}
   - component: {fileID: 275023617}
   m_Layer: 5
-  m_Name: Button (2)
+  m_Name: SkipButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95944,7 +95944,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1727159241}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.9999996
+  m_Size: 0.9999998
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -140687,7 +140687,7 @@ GameObject:
   - component: {fileID: 2062163313}
   - component: {fileID: 2062163312}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: CastLast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -140756,7 +140756,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2062163313}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1338786998}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: ReceiveLastSpellInputFromUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2062163313
 MonoBehaviour:
   m_ObjectHideFlags: 0

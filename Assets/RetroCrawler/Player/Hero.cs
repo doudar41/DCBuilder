@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 {
-    
     [SerializeField] string heroName = "";
     [SerializeField] Image portrait;
     [SerializeField] Sprite deadSprite, portraitSprite, petrifiedSprite;
@@ -295,7 +294,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
             case DependedStat.accuracy:
                 statInt += (GetMainStat(MainStat.Agility) / 5) + (GetMainStat(MainStat.Endurance) / 5);
                 break;
-            case DependedStat.defense:
+            case DependedStat.defence:
                 statInt += 10 + (GetMainStat(MainStat.Endurance) / 5);
                 break;
             case DependedStat.FireResistance:
@@ -774,7 +773,7 @@ public enum DependedStat
     heroLevel,
     initiative,
     accuracy,
-    defense,
+    defence,
     evasion,
     FireResistance,
     WaterResistance,
