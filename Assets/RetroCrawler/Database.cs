@@ -9,10 +9,11 @@ public class Database : MonoBehaviour
 {
 
     [SerializeField] List<ItemScriptableContainer> gameItemsBase = new List<ItemScriptableContainer>();
+    [SerializeField] List<PortraitContainer> portraits = new List<PortraitContainer>();
     private void Awake()
     {
 
-        //if (GameInstance.dataBase != null) Destroy(gameObject);
+        //DontDestroyOnLoad(this);
         GameInstance.dataBase = this;
     }
     // Start is called before the first frame update
@@ -30,4 +31,10 @@ public class Database : MonoBehaviour
     {
         return gameItemsBase[i];
     }
+
+    public PortraitContainer GetPortraitFromDatabase(int index)
+    {
+        return portraits[index];
+    }
+
 }

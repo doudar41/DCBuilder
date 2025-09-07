@@ -5,9 +5,9 @@ using TMPro;
 
 public class PlayerStats : MonoBehaviour
 {
-    [SerializeField] MainStatStruct mainStatsUITexts;
-    [SerializeField] DependedStatStruct dependedStatsUIText;
-    [SerializeField] SkillsStatStruct skillsStatsUIText;
+    [SerializeField] MainStatTextUI mainStatsUITexts;
+    [SerializeField] DependedStatTextUI dependedStatsUIText;
+    [SerializeField] SkillsStatTextUI skillsStatsUIText;
     [SerializeField] GameObject panelStats;
 
     private void Start()
@@ -15,14 +15,7 @@ public class PlayerStats : MonoBehaviour
         mainStatsUITexts.KeyPairFill();
         dependedStatsUIText.KeyPairFill();
         skillsStatsUIText.KeyPairFill();
-/*        foreach(MainStat m in mainStatsUITexts.key)
-        {
-            mainStatsUITexts.GetValue(m).fontSize = 10;
-        }
-        foreach (SkillsStat m in mainStatsUITexts.key)
-        {
-            skillsStatsUIText.GetValue(m).fontSize = 10;
-        }*/
+
     }
 
     public void EnableStatPanel(bool active)
@@ -57,7 +50,7 @@ public class PlayerStats : MonoBehaviour
 
 
 [System.Serializable]
-public class MainStatStruct
+public class MainStatTextUI
 {
     public List<MainStat> key;
     public List<TextMeshProUGUI> textUI;
@@ -93,7 +86,7 @@ public class MainStatStruct
 }
 
 [System.Serializable]
-public class DependedStatStruct
+public class DependedStatTextUI
 {
     public List<DependedStat> key;
     public List<TextMeshProUGUI> textUI;
@@ -129,7 +122,7 @@ public class DependedStatStruct
 }
 
 [System.Serializable]
-public class SkillsStatStruct
+public class SkillsStatTextUI
 {
     public List<SkillsStat> key;
     public List<TextMeshProUGUI> textUI;

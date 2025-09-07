@@ -10,10 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ddfd44122e30510459500a9821657727, type: 3}
-  m_Name: Portrait01
+  m_Name: Portrait12
   m_EditorClassIdentifier: 
   portraits:
   - state: 0
-    sprite: {fileID: 21300000, guid: a3501128d464da34cb9b04781a3ac26b, type: 3}
-  - state: 5
-    sprite: {fileID: 21300000, guid: ec391ce4c5b13164eada2b1be5f738e4, type: 3}
+    sprite: {fileID: 21300000, guid: 499c211661d268c4d8317df9ac6d907e, type: 3}

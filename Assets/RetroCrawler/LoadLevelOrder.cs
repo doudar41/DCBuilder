@@ -45,7 +45,7 @@ public class LoadLevelOrder : MonoBehaviour
 
         foreach(HeroInventoryItem h in GameInstance.inventoryItemsSaved)
         {
-            print(GameInstance.inventoryItemsSaved.Count);
+            //print(GameInstance.inventoryItemsSaved.Count);
             GameInstance.inventory.FindEmptySlotAndPutItem(h, h.stackAmount);
         }
 
@@ -63,7 +63,18 @@ public class LoadLevelOrder : MonoBehaviour
 
         }
         GameInstance.playerController.CheckIfLevelLoaded();
+
+
+        foreach (Hero h in GameInstance.party.GetHeroList())
+        {
+            h.HeroInit();
+        }
+
+
+
     }
+
+
 
 
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 
 [CreateAssetMenu(fileName ="Portraits")]
+[System.Serializable]
 public class PortraitContainer : ScriptableObject
 {
     public List<Portrait> portraits = new List<Portrait>();

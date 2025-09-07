@@ -495,7 +495,7 @@ public class PlayerController : MonoBehaviour
             newblock.coordinates = block.GetBlockCoordinate();
             newblock.level = GameInstance.GetLevelName();
             if (!visitedBlocks.Contains(newblock)) visitedBlocks.Add(newblock);
-            print(newblock.level + " " + newblock.coordinates);
+            //print(newblock.level + " " + newblock.coordinates);
         }
         visitedBlock newblock2;
         newblock2.coordinates = currentWallBlock.GetBlockCoordinate();

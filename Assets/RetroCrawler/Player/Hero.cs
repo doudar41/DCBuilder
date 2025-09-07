@@ -26,7 +26,6 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     Dictionary<ItemType, SpellContainer> equipmentSpells = new Dictionary<ItemType, SpellContainer>();
     Dictionary<Spell,int> spellsAttached = new Dictionary<Spell, int>();
 
-    [SerializeField] List<DependedStatClass> dependedStatsInitList = new List<DependedStatClass>();
 
     //Battle manager var
     [SerializeField] int agroLevel = 1;  // recalculates Depend on damage and heal spell( spells can have an agro? ) 
@@ -57,20 +56,42 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     }
     private void Start()
     {
-        FillMainStats(null);
-        FillDependedStatsInit();
+
+    }
+
+    public void HeroInit()
+    {
+        
+        foreach (KeyValuePair<DependedStat,int > dstat in HeroStatsDefault.GetFullDependedStats())
+        {
+            dependedStatsCurrent.Add(dstat.Key,dstat.Value);
+        }
+
         for (int i = 0; i < GameInstance.party.GetHeroList().Count; i++)
         {
             if (GameInstance.party.GetHeroList()[i] == this) heroID = i;
         }
-        currentHealth = GetDependedStatFromList(DependedStat.maxHealth, dependedStatsInitList);
-        currentMana = GetDependedStatFromList(DependedStat.maxMana, dependedStatsInitList);
 
-        foreach(SkillsStat s in System.Enum.GetValues(typeof(SkillsStat)))
+        mainStatContainer = GameInstance.ConvertSavedMainStats(heroID);
+        currentHealth = GetDependedStat(DependedStat.maxHealth);
+        currentMana = GetDependedStat(DependedStat.maxMana);
+
+        foreach (SkillsStat s in System.Enum.GetValues(typeof(SkillsStat)))
         {
-            if(s != SkillsStat.None) skillsStatsCurrent.Add(s, 0);
+            if (s != SkillsStat.None) skillsStatsCurrent.Add(s, 0);
+        }
+
+        portrait.sprite = GameInstance.dataBase.GetPortraitFromDatabase(GameInstance.heroesPortraits[heroID]).portraits[0].sprite ;
+
+        foreach (SkillStatSave savedskill in GameInstance.skillStatSaves)
+        {
+            if(savedskill.heroIndex == heroID)
+            {
+                skillsStatsCurrent[savedskill.skill] = savedskill.amount;
+            }
         }
     }
+
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -404,8 +425,6 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         return Mathf.Clamp(statInt, 0, int.MaxValue);
     }
 
-
-
     public void SetDependedStat(DependedStat dependedStat, int amount)
     {
         if (!dependedStatsCurrent.TryAdd(dependedStat, amount))
@@ -452,31 +471,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     }
 
 
-    void FillMainStats(List<int> mainStatsInit)
-    {
-        if (mainStatsInit == null)
-        {
-            mainStatContainer.Add(MainStat.Strength, 4);
-            mainStatContainer.Add(MainStat.Agility, 4);
-            mainStatContainer.Add(MainStat.Mind, 4);
-            mainStatContainer.Add(MainStat.Endurance, 4);
-            mainStatContainer.Add(MainStat.Willpower, 4);
-            mainStatContainer.Add(MainStat.Survival, 4);
-        }
-
-    }
-
-
-    //Fill with numbers which need to be start 
-    void FillDependedStatsInit()
-    {
-        foreach(DependedStat d in System.Enum.GetValues(typeof(DependedStat)))
-        {
-         dependedStatsCurrent.Add(d,GetDependedStatFromList(d,dependedStatsInitList));
-        }
-
-    }
-
+  
     public bool AddEquipmentToCharacter(HeroInventoryItem heroInventoryItem)
     {
 
@@ -565,15 +560,6 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     public string HeroName()
     {
         return heroName;
-    }
-
-    int GetDependedStatFromList(DependedStat ds ,List<DependedStatClass> list)
-    {
-        foreach(DependedStatClass d in list)
-        {
-            if (d.dependedStat == ds) return d.amount;
-        }
-        return 0;
     }
 
 

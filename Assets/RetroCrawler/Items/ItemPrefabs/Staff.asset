@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830199137178dfd4c92369ded1b83b63, type: 3}
+  m_Name: Staff
+  m_EditorClassIdentifier: 
+  itemType: 0
+  itemName: Staff
+  texture2DMouse: {fileID: 2800000, guid: 98707db8ec715764cb7dccd328cb7557, type: 3}
+  InventorySprite: {fileID: 21300000, guid: 2f4bca14b83cdef46b1a8c8ee65f408b, type: 3}
+  worldSprite: {fileID: 21300000, guid: 2f4bca14b83cdef46b1a8c8ee65f408b, type: 3}
+  prefab: {fileID: 2885720944578253258, guid: 6ef701849012dd347948da2d7020accf, type: 3}
+  weight: 0
+  spellContainer: {fileID: 11400000, guid: 7fc89317aa5d7e54a9c6639250062bc9, type: 2}
+  weaponType: 3
+  twoHanded: 1
+  price: 500

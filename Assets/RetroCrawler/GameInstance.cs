@@ -31,9 +31,9 @@ public static class GameInstance
     public static bool loadingLevel = false, levelChange = false;
 
     // Heroes data
-    public static Dictionary<int, Dictionary<MainStat, int>> mainHeroesStatsSaved = new Dictionary<int, Dictionary<MainStat, int>>();
-    public static Dictionary<int, Dictionary<SkillsStat, int>> skillBonusHeroesStatsSaved = new Dictionary<int, Dictionary<SkillsStat, int>>();
-    
+
+
+
     public static List<HeroInventoryItem> equipmentHeroesSavedWithGUID = new List<HeroInventoryItem>();
     public static List<HeroInventoryItem> inventoryItemsSaved = new List<HeroInventoryItem>();
     public static Dictionary<string, HeroInventoryItem> itemsOnLevelSavedWithGUID = new Dictionary<string,HeroInventoryItem>();
@@ -52,8 +52,13 @@ public static class GameInstance
     public static List<string> fileNamesList = new List<string>();
     static string currentLevelName = "";
 
+    //Heroes stats
 
-    
+    public static List<MainStatsSave> mainStatsAdded = new List<MainStatsSave>();
+    public static List<SkillStatSave> skillStatSaves = new List<SkillStatSave>();
+    public static List<int> heroesPortraits = new List<int>();
+
+
 
     public static int DiceRollingBiggestNumber(int diceNumber, int diceSides)
     {
@@ -352,6 +357,60 @@ public static class GameInstance
         }
         return visitedBlocks;
     }
+
+    public static Dictionary<MainStat,int> ConvertSavedMainStats(int heroIndex)
+    {
+        Dictionary<MainStat, int> heroMainStats = new Dictionary<MainStat, int>();
+
+
+        foreach(MainStat m in System.Enum.GetValues(typeof(MainStat)))
+        {
+            if (m == MainStat.None) continue;
+            foreach (MainStatsSave ms in mainStatsAdded)
+            {
+                if (m == ms.mainStat && ms.heroIndex == heroIndex)
+                {
+                    heroMainStats.Add(ms.mainStat, HeroStatsDefault.GetFullMinStats()[ms.mainStat] + ms.amount);
+                }
+            }
+            if(!heroMainStats.ContainsKey(m)) heroMainStats.Add(m, HeroStatsDefault.GetFullMinStats()[m]);
+        }
+        return heroMainStats;
+    }
+
+    public static List<MainStatsSave> ConvertMainStatsToSave(Dictionary<int, Dictionary<MainStat, int>> mainStatToConvert)
+    {
+        List<MainStatsSave> newmainsave = new List<MainStatsSave>();
+
+        foreach(KeyValuePair<int, Dictionary<MainStat, int>> keypairMain in mainStatToConvert)
+        {
+            foreach(KeyValuePair<MainStat, int> mainStat in keypairMain.Value)
+            {
+                MainStatsSave savemaintemp = new MainStatsSave();
+                savemaintemp.heroIndex = keypairMain.Key;
+                savemaintemp.mainStat = mainStat.Key;
+                savemaintemp.amount = mainStat.Value;
+                newmainsave.Add(savemaintemp);
+            }
+        }
+        Debug.Log("main stat check " +newmainsave[0].mainStat +" "+ newmainsave[0].amount);
+        return newmainsave;
+    }
+
+    public static List<MainStatsSave> ConvertMainStatsToSave(Dictionary<MainStat, int> mainStatToConvert, int heroIndex)
+    {
+        List<MainStatsSave> newmainsave = new List<MainStatsSave>();
+
+        foreach (KeyValuePair<MainStat, int> mainStat in mainStatToConvert)
+        {
+            MainStatsSave savemaintemp = new MainStatsSave();
+            savemaintemp.heroIndex = heroIndex;
+            savemaintemp.mainStat = mainStat.Key;
+            savemaintemp.amount = mainStat.Value;
+            newmainsave.Add(savemaintemp);
+        }
+        return newmainsave;
+    }
 }
 
 [System.Serializable]
@@ -421,3 +480,19 @@ public class HeroInventoryItem
     public string level = "Level01";
 }
 
+
+[System.Serializable]
+public class MainStatsSave
+{
+    public int heroIndex;
+    public MainStat mainStat;
+    public int amount;
+}
+
+[System.Serializable]
+public class SkillStatSave
+{
+    public int heroIndex;
+    public SkillsStat skill;
+    public int amount;
+}

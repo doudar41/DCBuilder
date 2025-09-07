@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class HeroStatsDefault
 {
-    static Dictionary<MainStat, int> defaultMainStats = new Dictionary<MainStat, int>() 
+    static  Dictionary<MainStat, int> defaultMainStats = new Dictionary<MainStat, int>() 
     { 
         { MainStat.Strength, 4 },
         { MainStat.Agility, 4 },
