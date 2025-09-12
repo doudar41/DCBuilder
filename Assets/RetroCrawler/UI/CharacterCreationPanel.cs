@@ -389,6 +389,17 @@ public class CharacterCreationPanel : MonoBehaviour
             GameInstance.AddInventoryItem(heroInventoryItem);
         }
 
+        GameInstance.heroesNames = new List<string>() { heroesNames[0], heroesNames[1], heroesNames[2], heroesNames[3] };
+
+        foreach(KeyValuePair<int,List<SpellContainer>> sbs in spellsChosen)
+        {
+            HeroSpellbookSaved heroSpellbookSaved = new HeroSpellbookSaved();
+            heroSpellbookSaved.heroIndex = sbs.Key;
+            heroSpellbookSaved.spells = sbs.Value;
+
+            GameInstance.spellbooksSaved.Add(heroSpellbookSaved);
+        }
+
     }
 
 }

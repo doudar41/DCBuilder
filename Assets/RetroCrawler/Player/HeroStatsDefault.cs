@@ -17,6 +17,7 @@ public static class HeroStatsDefault
 
     static Dictionary<DependedStat, int> defaultDependedStats = new Dictionary<DependedStat, int>()
     {
+        { DependedStat.heroLevel, 1},
         { DependedStat.maxHealth, 100}, 
         { DependedStat.maxMana, 100},
 

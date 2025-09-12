@@ -57,8 +57,8 @@ public static class GameInstance
     public static List<MainStatsSave> mainStatsAdded = new List<MainStatsSave>();
     public static List<SkillStatSave> skillStatSaves = new List<SkillStatSave>();
     public static List<int> heroesPortraits = new List<int>();
-
-
+    public static List<string> heroesNames = new List<string>();
+    public static List<HeroSpellbookSaved> spellbooksSaved = new List<HeroSpellbookSaved>(); 
 
     public static int DiceRollingBiggestNumber(int diceNumber, int diceSides)
     {
@@ -117,7 +117,8 @@ public static class GameInstance
         {
             if(!visitedBlocks.Contains(v)) visitedBlocks.Add(v);
         }
-
+        spellbooksSaved.Clear();
+        party.SaveHeroesSpells();
         currentLevelName = levelName;
         levelChange = true;
 
@@ -207,6 +208,13 @@ public static class GameInstance
         saveData.heroesEquipment = equipmentHeroesSavedWithGUID;
         saveData.inventoryItemsSaved = inventoryItemsSaved;
         saveData.visitedBlocks = visitedBlocks;
+
+        saveData.mainStatsAdded = mainStatsAdded;
+        saveData.skillStatSaves = skillStatSaves;
+        saveData.heroesPortraits = heroesPortraits;
+        saveData.heroesNames = heroesNames;
+        saveData.spellbooksSaved = spellbooksSaved;
+
         string path = Application.persistentDataPath + "/" + fileName;
         Gley.AllPlatformsSave.API.Save(saveData, path, DataWasSaved, false);
     }
@@ -370,7 +378,7 @@ public static class GameInstance
             {
                 if (m == ms.mainStat && ms.heroIndex == heroIndex)
                 {
-                    heroMainStats.Add(ms.mainStat, HeroStatsDefault.GetFullMinStats()[ms.mainStat] + ms.amount);
+                    heroMainStats.Add(ms.mainStat,  ms.amount);
                 }
             }
             if(!heroMainStats.ContainsKey(m)) heroMainStats.Add(m, HeroStatsDefault.GetFullMinStats()[m]);
@@ -411,6 +419,11 @@ public static class GameInstance
         }
         return newmainsave;
     }
+
+
+
+
+
 }
 
 [System.Serializable]
@@ -438,6 +451,12 @@ public class SaveData
     public List<ItemOnLevel> itemsOnLevel = new List<ItemOnLevel>();
     public List<string> visitedLevels = new List<string>();
     public List<visitedBlock> visitedBlocks = new List<visitedBlock>();
+
+    public List<MainStatsSave> mainStatsAdded = new List<MainStatsSave>();
+    public List<SkillStatSave> skillStatSaves = new List<SkillStatSave>();
+    public List<int> heroesPortraits = new List<int>();
+    public List<string> heroesNames = new List<string>();
+    public List<HeroSpellbookSaved> spellbooksSaved = new List<HeroSpellbookSaved>();
 }
 
 [System.Serializable]
@@ -475,7 +494,6 @@ public class HeroInventoryItem
     public ItemType itemType = ItemType.LOOT;
     public int container = -1;
     public int stackAmount = 1;
-    //public SavedState savedState = SavedState.None;
     public Vector3 positionReplaced = Vector3.zero;
     public string level = "Level01";
 }
@@ -495,4 +513,12 @@ public class SkillStatSave
     public int heroIndex;
     public SkillsStat skill;
     public int amount;
+}
+
+
+[System.Serializable]
+public class HeroSpellbookSaved
+{
+    public int heroIndex;
+    public List<SpellContainer> spells = new List<SpellContainer>();
 }

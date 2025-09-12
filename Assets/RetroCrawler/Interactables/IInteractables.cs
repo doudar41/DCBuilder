@@ -24,5 +24,6 @@ public enum InteractablesEnum
     WEIGHTPLATE,
     PLAYER,
     HERO,
-    WALL
+    WALL,
+    STORE
 }

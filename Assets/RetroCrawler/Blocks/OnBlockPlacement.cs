@@ -11,7 +11,7 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables
     public GameObject[] walls = new GameObject[4]; //filled while placing on tilemap
     public Vector3Int position; //given when placing on a Tilemap
     public OnBlockPlacement blockParent; //temporary parent for pathfinding
-
+    public bool walkable = true;
 
     public List<InteractablesEnum> blockInteractables = new List<InteractablesEnum>();
 
@@ -22,6 +22,7 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables
     [SerializeField] Vector3Int nextLevelPosition;
     [SerializeField] CardinalDirections nextLevelDirection;
     [SerializeField] string nextLevelName;
+    [SerializeField] int shopIndex;
 
     private void Start()
     {
@@ -174,6 +175,16 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables
         dir = nextLevelDirection;
         levelName = nextLevelName;
     }
+
+    public OnBlockPlacement GetOnBlock()
+    {
+        return this;
+    }
+
+    public int GetShopIndex()
+    {
+        return shopIndex;
+    }
 }
 
 
@@ -193,3 +204,19 @@ public enum GroundType
 
 
 
+public interface IBlock
+{
+
+    public Vector3Int GetBlockCoordinate();
+
+    public OnBlockPlacement GetPortalPoint();
+
+    public GameObject[] GatWalls();
+
+    public Vector3 GetLocation();
+
+    public void ShowOnMap(bool active);
+
+
+    public OnBlockPlacement GetOnBlock();
+}

@@ -68,7 +68,7 @@ public class Party : MonoBehaviour
             return;
         }
 
-        if (heroInventoryItem.container != null)
+        if (heroInventoryItem.container != -1)
         {
             activeHero.AddEquipmentToCharacter(heroInventoryItem);
            // GameInstance.SaveItemState(heroInventoryItem._GUID, SavedState.Equipment, heroInventoryItem);
@@ -131,11 +131,25 @@ public class Party : MonoBehaviour
         {
             print(" loading equipment " + he.container + " " +  " " + he.heroIndex);
             if (he == null) continue;
-            if (he.container != null) 
+            if (he.container != -1) 
             {
                 print(" loading equipment "+ he.container + " "+" "+ he.heroIndex);
                 if (he.heroIndex >=0 ) heroes[he.heroIndex].AddEquipmentToCharacter(he); 
             }
+        }
+
+        
+    }
+
+
+    public void SaveHeroesSpells()
+    {
+        foreach(Hero h in heroes)
+        {
+            HeroSpellbookSaved heroSpellbookSaved = new HeroSpellbookSaved();
+            heroSpellbookSaved.heroIndex = h.GetHeroIndex();
+            heroSpellbookSaved.spells = h.GetActiveHeroSpellbook();
+            GameInstance.spellbooksSaved.Add(heroSpellbookSaved);
         }
 
         

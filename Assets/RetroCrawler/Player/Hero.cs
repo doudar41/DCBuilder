@@ -81,7 +81,13 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
             if (s != SkillsStat.None) skillsStatsCurrent.Add(s, 0);
         }
 
-        portrait.sprite = GameInstance.dataBase.GetPortraitFromDatabase(GameInstance.heroesPortraits[heroID]).portraits[0].sprite ;
+
+        if (GameInstance.heroesPortraits.Contains(heroID))
+        {
+            portraits = GameInstance.dataBase.GetPortraitFromDatabase(GameInstance.heroesPortraits[heroID]);
+            portrait.sprite = portraits.portraits[0].sprite;
+        }
+
 
         foreach (SkillStatSave savedskill in GameInstance.skillStatSaves)
         {
@@ -90,6 +96,17 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 skillsStatsCurrent[savedskill.skill] = savedskill.amount;
             }
         }
+        if (GameInstance.heroesNames.Count> heroID)  heroName = GameInstance.heroesNames[heroID];
+
+        heroSpellbook.Clear();
+        foreach(HeroSpellbookSaved hsb in GameInstance.spellbooksSaved)
+        {
+            if(hsb.heroIndex == heroID)
+            {
+                heroSpellbook = hsb.spells;
+            }
+        }
+
     }
 
 
@@ -297,16 +314,17 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     public int GetDependedStat(DependedStat dependedStat)
     {
         if (dependedStatsCurrent.Count == 0) return 0;
+        if (!dependedStatsCurrent.ContainsKey(dependedStat)) return 0;
         int statInt = dependedStatsCurrent[dependedStat];
         switch (dependedStat)
         {
             case DependedStat.heroLevel:
                 break;
             case DependedStat.maxHealth:
-                statInt += (GetMainStat(MainStat.Strength) / 5);
+                statInt += (GetMainStat(MainStat.Strength) / 5)*10;
                 break;
             case DependedStat.maxMana:
-                statInt += (GetMainStat(MainStat.Mind) / 5);
+                statInt += (GetMainStat(MainStat.Mind) / 5)*10;
                 break;
             case DependedStat.initiative:
                 statInt += Mathf.Clamp(statInt - currentInitiativeReduction, 0, int.MaxValue);
@@ -706,6 +724,9 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
         return defaultSpell;
     }
+
+
+
 
 }
 

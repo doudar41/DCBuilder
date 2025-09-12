@@ -118,7 +118,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
     bool SaveInventoryItemsToGameInstance()
     {
-        print("no invetory");
+        
         if (inventoryItem != null)
         {
             inventoryItem.stackAmount = stackAmount;

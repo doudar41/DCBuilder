@@ -62,6 +62,7 @@ public class PlayerController : MonoBehaviour
     bool cursorHoveringUI = false;
     string currentCursorGUID = "";
 
+    [SerializeField]bool noEncounter = false;
     int countdownToEncounter = 22;
     public Vector2Int rangeOfEnCounter = new Vector2Int(15,25);
     public UnityEvent<int> EnCounter;
@@ -74,6 +75,12 @@ public class PlayerController : MonoBehaviour
     bool lightBusy =false;
 
     public bool waterWalk = false, lavaWalk = false;
+
+    //Shops
+    [SerializeField] ChooseShop chooseShop;
+    public bool shopIsOpened = false;
+
+
 
     private void OnEnable()
     {
@@ -316,20 +323,24 @@ public class PlayerController : MonoBehaviour
 
     void MovementUpdateFuther(Vector2 moveInput)
     {
-        if (playerState != PlayerState.Battle) EnCounter.Invoke(countdownToEncounter);
-        countdownToEncounter--;
-
-        if (countdownToEncounter == 0)
+        if (!noEncounter)
         {
-            beforeBattleTransformPos = gameObject.transform.position;
-            beforeBattleTransformRot = gameObject.transform.rotation;
-            //Look for free block near 
-            playerState = PlayerState.Battle;
-            busyWalking = false;
-            GameInstance.battleManager.BattleStart();
-            countdownToEncounter = Random.Range(rangeOfEnCounter.x, rangeOfEnCounter.y);
+            if (playerState != PlayerState.Battle) EnCounter.Invoke(countdownToEncounter);
+            countdownToEncounter--;
 
+            if (countdownToEncounter == 0)
+            {
+                beforeBattleTransformPos = gameObject.transform.position;
+                beforeBattleTransformRot = gameObject.transform.rotation;
+                //Look for free block near 
+                playerState = PlayerState.Battle;
+                busyWalking = false;
+                GameInstance.battleManager.BattleStart();
+                countdownToEncounter = Random.Range(rangeOfEnCounter.x, rangeOfEnCounter.y);
+
+            }
         }
+
 
         if (playerState == PlayerState.Battle) { /*print("battle state");*/ return; }
         if (!lightBusy) StartCoroutine(LightFlickering());
@@ -375,6 +386,7 @@ public class PlayerController : MonoBehaviour
         if (!RaycastOnMovement(Vector3.forward)) return;
         //print(transform.rotation.eulerAngles);
         if (busyWalking) return;
+        if (shopIsOpened) return;
         Vector3 v = CardinalDir.GetNewPoint(currentforwardDirection, currentposition, moveTilemap);
         if (!CheckBlockInterfaces(v)) return;
         stepSound.Invoke();
@@ -386,6 +398,7 @@ public class PlayerController : MonoBehaviour
         if (!currentWallBlock.IfWallOpened(CardinalDir.GetOpposite(currentforwardDirection))) return;
         if (!RaycastOnMovement(Vector3.back)) return;
         if (busyWalking) return;
+        if (shopIsOpened) return;
         var v = CardinalDir.GetNewPoint(CardinalDir.GetOpposite(currentforwardDirection), currentposition, moveTilemap);
         if (!CheckBlockInterfaces(v)) return;
         stepSound.Invoke();
@@ -397,6 +410,7 @@ public class PlayerController : MonoBehaviour
         if (!currentWallBlock.IfWallOpened(CardinalDir.GetRightDir(currentforwardDirection))) return;
         if (!RaycastOnMovement(Vector3.right)) return;
         if (busyWalking) return;
+        if (shopIsOpened) return;
         var v = CardinalDir.GetNewPoint(CardinalDir.GetRightDir(currentforwardDirection), currentposition, moveTilemap);
         if (!CheckBlockInterfaces(v)) return;
         stepSound.Invoke();
@@ -409,6 +423,7 @@ public class PlayerController : MonoBehaviour
         if (!currentWallBlock.IfWallOpened(CardinalDir.GetOpposite(CardinalDir.GetRightDir(currentforwardDirection)))) return;
         if (!RaycastOnMovement(Vector3.left)) return;
         if (busyWalking) return;
+        if (shopIsOpened) return;
         var v = CardinalDir.GetNewPoint(CardinalDir.GetOpposite(CardinalDir.GetRightDir(currentforwardDirection)), currentposition, moveTilemap);
         if (!CheckBlockInterfaces(v)) return;
         stepSound.Invoke();
@@ -419,6 +434,7 @@ public class PlayerController : MonoBehaviour
     {
         if (playerState == PlayerState.Battle) { /*print("battle state");*/ return; }
         if (busyWalking) return;
+        if (shopIsOpened) return;
         turnAround.Invoke();
         StartCoroutine(SmoothRotation(90));
     }
@@ -426,6 +442,7 @@ public class PlayerController : MonoBehaviour
     {
         if (playerState == PlayerState.Battle) { /*print("battle state");*/ return; }
         if (busyWalking) return;
+        if (shopIsOpened) return;
         turnAround.Invoke();
         StartCoroutine(SmoothRotation(-90));
     }
@@ -743,7 +760,10 @@ public class PlayerController : MonoBehaviour
 
     bool CheckBlockInterfaces(Vector3 v)
     {
-        IInteractables iblock = wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<IInteractables>();
+        IInteractables iblock;
+        if (wallsAccess.ContainsKey(moveTilemap.WorldToCell(v)))
+        { iblock = wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<IInteractables>(); }
+        else return false;
         List<InteractablesEnum> interactableList = iblock.WhatIsIt();
 
         foreach (InteractablesEnum i in interactableList)
@@ -786,6 +806,12 @@ public class PlayerController : MonoBehaviour
                     // get story interface getting a text of a message, delete story from interactablesEnum list
                     break;
                 case InteractablesEnum.WALL:
+                    return false;
+                case InteractablesEnum.STORE:
+                    //print("open a store");
+                    chooseShop.ChooseShopOfType( wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<OnBlockPlacement>().GetShopIndex());
+                    shopIsOpened = true;
+                    
                     return false;
 
             }

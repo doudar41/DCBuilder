@@ -278,7 +278,8 @@ public enum ItemType
     CONSUMABLE,
     QUEST,
     LOOT,
-    InfusedWeapon
+    Upgrades
+
 }
 
 public enum WeaponType

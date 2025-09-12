@@ -3,6 +3,7 @@ Shader "Unlit/StandardBillboard"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _UVRemap("Sprite UV Rect", Vector) = (0, 0, 1, 1)
     }
     SubShader
     {
@@ -17,7 +18,7 @@ Shader "Unlit/StandardBillboard"
             #pragma fragment frag
             // make fog work
             #pragma multi_compile_fog
-
+            
             #include "UnityCG.cginc"
 
             struct appdata
@@ -35,6 +36,7 @@ Shader "Unlit/StandardBillboard"
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
+            float4 _UVRemap;
 
             v2f vert (appdata v)
             {
@@ -42,7 +44,7 @@ Shader "Unlit/StandardBillboard"
 
                 // o.vertex = UnityObjectToClipPos(v.vertex);
 
-                float4 origin = float4(0,0,0,1);
+                float4 origin = _UVRemap;
                 float4 world_origin = mul(UNITY_MATRIX_M, origin);
                 float4 view_origin = mul(UNITY_MATRIX_V, world_origin);
                 float4 world_to_view_translation = view_origin - world_origin;

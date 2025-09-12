@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName ="SpellContainer")]
+[System.Serializable]
 public class SpellContainer : ScriptableObject
 {
     public List<Spell> spells;

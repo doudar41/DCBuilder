@@ -45,6 +45,12 @@ public class PlayerStats : MonoBehaviour
         {
             skillsStatsUIText.GetValue(k.Key).text = k.Value.ToString();
         }
+        Dictionary<DependedStat, int> dependstat = GameInstance.party.activeHero.GetDependedStatsForUI();
+        foreach (KeyValuePair<DependedStat, int> k in dependstat)
+        {
+            if(dependedStatsUIText.GetValue(k.Key) != null)
+            dependedStatsUIText.GetValue(k.Key).text = k.Value.ToString();
+        }
     }
 }
 
@@ -116,6 +122,7 @@ public class DependedStatTextUI
 
     public TextMeshProUGUI GetValue(DependedStat m)
     {
+        if (!keyPair.ContainsKey(m)) return null;
         return keyPair[m];
     }
 

@@ -7,34 +7,44 @@ using System.Linq;
 
 public class Database : MonoBehaviour
 {
+    [SerializeField] DatabaseScriptable databaseScriptable;
 
-    [SerializeField] List<ItemScriptableContainer> gameItemsBase = new List<ItemScriptableContainer>();
-    [SerializeField] List<PortraitContainer> portraits = new List<PortraitContainer>();
     private void Awake()
     {
 
         //DontDestroyOnLoad(this);
         GameInstance.dataBase = this;
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        //DontDestroyOnLoad(gameObject);
-    }
 
     public int GetItemIndexFromDataBase(ItemScriptableContainer container)
     {
-        return gameItemsBase.IndexOf(container);
+        return databaseScriptable.gameItemsBase.IndexOf(container);
     }
 
     public ItemScriptableContainer GetItemFromBaseByIndex(int i)
     {
-        return gameItemsBase[i];
+        return databaseScriptable.gameItemsBase[i];
     }
 
     public PortraitContainer GetPortraitFromDatabase(int index)
     {
-        return portraits[index];
+        return databaseScriptable.portraits[index];
+    }
+
+
+    public List<ItemScriptableContainer> GetWholeItemDatabase()
+    {
+        return databaseScriptable.gameItemsBase;
+    }
+
+    public SpellContainer GetSpellByIndex(int index)
+    {
+        return databaseScriptable.allSpells[index];
+    }
+
+    public List<SpellContainer> GetAllSpells()
+    {
+        return databaseScriptable.allSpells;
     }
 
 }
