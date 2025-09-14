@@ -10,7 +10,7 @@ public class Party : MonoBehaviour
     public IHero activeHero;
     public UnityEvent RefreshUI;
 
-
+    int moneyCollected = 1000;
 
     private void OnEnable()
     {
@@ -151,7 +151,25 @@ public class Party : MonoBehaviour
             heroSpellbookSaved.spells = h.GetActiveHeroSpellbook();
             GameInstance.spellbooksSaved.Add(heroSpellbookSaved);
         }
+    }
 
-        
+
+
+    public int SellBuyMoneyCheck(int amount)
+    {
+
+        return moneyCollected - amount;
+    }
+
+    public void MoneyGoes(int amount)
+    {
+        moneyCollected -= amount; 
+    }
+
+
+    public List<int> GetCoinsForUI()
+    {
+        GameMoney gameMoney = new GameMoney();
+        return gameMoney.ConvertCoins(moneyCollected);
     }
 }

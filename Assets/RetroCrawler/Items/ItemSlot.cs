@@ -133,4 +133,19 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
     }
 
+
+
+    public HeroInventoryItem GetItemFromSlot()
+    {
+        return inventoryItem;
+    }
+
+
+    public void RemoveItem()
+    {
+        stackAmount = 0;
+        inventoryItem = null;
+        itemAvatar.sprite = emptySlotSprite;
+        amountText.text = stackAmount.ToString();
+    }
 }

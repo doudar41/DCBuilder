@@ -16,6 +16,7 @@ public class ItemScriptableContainer : ScriptableObject
     public SkillsStat weaponType;
     public bool twoHanded = false;
     public int price;
+    public string itemDescription;
 }
 
 

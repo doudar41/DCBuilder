@@ -23,3 +23,4 @@ MonoBehaviour:
   weaponType: 4
   twoHanded: 1
   price: 10
+  itemDescription: Can you stretch it?

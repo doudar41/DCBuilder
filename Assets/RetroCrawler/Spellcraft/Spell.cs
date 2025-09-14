@@ -15,7 +15,8 @@ public class Spell
     public MainStat changedMainStat = MainStat.None;
     public DependedStat changedDependedStat = DependedStat.None;
     public SkillsStat skillStatAdded = SkillsStat.None;
-    public int restToBeAbleToCastAgainInTurns = 0; 
+    public int restToBeAbleToCastAgainInTurns = 0;
+    public string SpellDescription;
 }
 
 

@@ -419,11 +419,6 @@ public static class GameInstance
         }
         return newmainsave;
     }
-
-
-
-
-
 }
 
 [System.Serializable]
@@ -496,6 +491,8 @@ public class HeroInventoryItem
     public int stackAmount = 1;
     public Vector3 positionReplaced = Vector3.zero;
     public string level = "Level01";
+    public int levelOfIdenifySaved = 0;
+
 }
 
 
@@ -521,4 +518,56 @@ public class HeroSpellbookSaved
 {
     public int heroIndex;
     public List<SpellContainer> spells = new List<SpellContainer>();
+}
+
+
+public struct GameTime
+{
+    public int minute;
+    public int hour;
+    public int day;
+
+    public List<int> ConvertTime(int minutes)
+    {
+        List<int> convertedMinutes = new List<int>();
+
+        convertedMinutes.Add(0);
+        convertedMinutes.Add(0);
+        convertedMinutes.Add(0);
+        convertedMinutes[2] = minutes / 1440;
+        day = convertedMinutes[2];
+        minutes -= convertedMinutes[2] * 1440;
+        convertedMinutes[1] = minutes / 60;
+        hour = convertedMinutes[1];
+        minutes -= convertedMinutes[1] * 60;
+        convertedMinutes[0] = minutes;
+        minute = convertedMinutes[0];
+
+        return convertedMinutes;
+    }
+
+}
+
+
+public class GameMoney
+{
+    public int coin;
+    public int sivercoin;
+    public int goldcoin;
+
+    public List<int> ConvertCoins(int coinamount)
+    {
+        List<int> convertedcoins = new List<int>();
+
+        convertedcoins.Add(0);
+        convertedcoins.Add(0);
+        convertedcoins.Add(0);
+        convertedcoins[2] = coinamount / 1000;
+        coinamount -= convertedcoins[2] * 1000;
+        convertedcoins[1] = coinamount / 100;
+        coinamount -= convertedcoins[1] * 100;
+        convertedcoins[0] = coinamount;
+
+        return convertedcoins;
+    }
 }

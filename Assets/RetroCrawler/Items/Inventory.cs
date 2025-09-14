@@ -49,12 +49,10 @@ public class Inventory : MonoBehaviour
 
     public void GetEquipmentFromHero(Dictionary<ItemType,HeroInventoryItem> equipmentList)
     {
-        //print("roll through equipment "+ equipmentList.Count);
         if (true)
         {
             foreach (equipmentSlot e in equipmentSlotsList)
             {
-
                 if (equipmentList.TryGetValue(e.itemType, out HeroInventoryItem outItem))
                 {
                     e.SetEquipmentSlot(outItem);
@@ -63,7 +61,6 @@ public class Inventory : MonoBehaviour
                 {
                     e.SetEquipmentSlot(null);
                 }
-                
             }
         }
         GameInstance.party.RefreshUI.Invoke();
@@ -91,11 +88,28 @@ public class Inventory : MonoBehaviour
             {
                 if (i.AddItemInSlot(itemScriptableTemp, stackamount))
                 {
-                    
                     break;
                 }
             }
         }
+    }
+
+    public Dictionary<int, HeroInventoryItem> GetItemsFromInventory()
+    {
+        Dictionary<int, HeroInventoryItem> items = new Dictionary<int, HeroInventoryItem>();
+        ItemSlot[] slots = slotsParent.GetComponentsInChildren<ItemSlot>();
+        for(int i=0;i< slots.Length;i++)
+        {
+            items.Add(i, slots[i].GetItemFromSlot());
+        }
+        return items;
+    }
+
+
+    public void RemoveItemFromInventory(int slotIndex)
+    {
+        ItemSlot[] slots = slotsParent.GetComponentsInChildren<ItemSlot>();
+        slots[slotIndex].RemoveItem();
     }
 
 }

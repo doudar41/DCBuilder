@@ -23,3 +23,4 @@ MonoBehaviour:
   weaponType: 3
   twoHanded: 1
   price: 100
+  itemDescription: Very big Axe

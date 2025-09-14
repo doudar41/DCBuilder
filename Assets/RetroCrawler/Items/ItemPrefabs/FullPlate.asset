@@ -23,3 +23,4 @@ MonoBehaviour:
   weaponType: 0
   twoHanded: 0
   price: 500
+  itemDescription: Full plate tank

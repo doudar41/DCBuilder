@@ -26,6 +26,7 @@ MonoBehaviour:
     changedDependedStat: 0
     skillStatAdded: 0
     restToBeAbleToCastAgainInTurns: 0
+    SpellDescription: PhD 1/1 +1
   spellIcon: {fileID: 21300000, guid: 31b7a0ed44d59924398633cb2f3fa0a5, type: 3}
   AOE: 0
   OnlyEnemies: 0

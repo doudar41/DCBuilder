@@ -9,8 +9,6 @@ public class LoadLevelOrder : MonoBehaviour
 
     void Start()
     {
-        print("start loading ");
-
         
         GameInstance.initItems();
         if (GameInstance.levelsVisited.Contains(GameInstance.GetLevelName()))
