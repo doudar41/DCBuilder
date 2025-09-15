@@ -100,8 +100,9 @@ public class Inventory : MonoBehaviour
         ItemSlot[] slots = slotsParent.GetComponentsInChildren<ItemSlot>();
         for(int i=0;i< slots.Length;i++)
         {
-            items.Add(i, slots[i].GetItemFromSlot());
+            if (slots[i].GetItemFromSlot() != null) { items.Add(i, slots[i].GetItemFromSlot()); }
         }
+        print("items count in inventory " + items.Count);
         return items;
     }
 

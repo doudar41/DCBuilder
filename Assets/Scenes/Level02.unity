@@ -134166,7 +134166,7 @@ MonoBehaviour:
   groundType: 0
   nextLevelPosition: {x: 0, y: 3, z: 0}
   nextLevelDirection: 0
-  nextLevelName: Level02
+  nextLevelName: Level03
   shopIndex: 0
 --- !u!1 &1930036689
 GameObject:

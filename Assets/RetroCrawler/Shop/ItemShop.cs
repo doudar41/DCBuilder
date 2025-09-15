@@ -62,6 +62,7 @@ public class ItemShop : MonoBehaviour
         ClearSlots();
         itemsToSell.Clear();
         itemsToSellKeys.Clear();
+        sellItemIndexStart = 0;
         if (GameInstance.inventory.GetItemsFromInventory().Count == 0) return;
         foreach (KeyValuePair<int, HeroInventoryItem> h in GameInstance.inventory.GetItemsFromInventory())
         {
@@ -80,8 +81,10 @@ public class ItemShop : MonoBehaviour
        
         for (int i = 0; i < itemsSlots.Count; i++)
         {
-            if(itemsToSellKeys.Contains(i + sellItemIndexStart))
+            if (i<itemsToSellKeys.Count)
             {
+                 print("index " +i+ " modifier "+ sellItemIndexStart + " all items' keys " +itemsToSellKeys.Count); 
+
                 itemsSlots[i].SetItemToSell(GameInstance.dataBase.GetItemFromBaseByIndex(itemsToSell[itemsToSellKeys[i+sellItemIndexStart]].container));
                 itemsSlots[i].shopState = shopState;
                 itemsSlots[i].inventorySlotForSell = itemsToSellKeys[i + sellItemIndexStart];

@@ -6109,6 +6109,7 @@ MonoBehaviour:
   - {fileID: 40700059}
   position: {x: -1, y: 8, z: 0}
   blockParent: {fileID: 0}
+  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 920872408}
@@ -6116,6 +6117,7 @@ MonoBehaviour:
   nextLevelPosition: {x: 0, y: 0, z: 0}
   nextLevelDirection: 0
   nextLevelName: 
+  shopIndex: 0
 --- !u!1001 &100030019
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9547,6 +9549,7 @@ MonoBehaviour:
   - {fileID: 386156789}
   position: {x: 0, y: 5, z: 0}
   blockParent: {fileID: 0}
+  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1963607079}
@@ -9554,6 +9557,7 @@ MonoBehaviour:
   nextLevelPosition: {x: 0, y: 0, z: 0}
   nextLevelDirection: 0
   nextLevelName: 
+  shopIndex: 0
 --- !u!1 &163237961
 GameObject:
   m_ObjectHideFlags: 0
@@ -24772,6 +24776,7 @@ MonoBehaviour:
   - {fileID: 766000492}
   position: {x: -3, y: 7, z: 0}
   blockParent: {fileID: 0}
+  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 480453768}
@@ -24779,6 +24784,7 @@ MonoBehaviour:
   nextLevelPosition: {x: 0, y: 0, z: 0}
   nextLevelDirection: 0
   nextLevelName: 
+  shopIndex: 0
 --- !u!1 &408402636
 GameObject:
   m_ObjectHideFlags: 0
@@ -37089,6 +37095,7 @@ MonoBehaviour:
   - {fileID: 1265160507}
   position: {x: -1, y: 5, z: 0}
   blockParent: {fileID: 0}
+  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 2000680090}
@@ -37096,6 +37103,7 @@ MonoBehaviour:
   nextLevelPosition: {x: 0, y: 0, z: 0}
   nextLevelDirection: 0
   nextLevelName: 
+  shopIndex: 0
 --- !u!1 &626740231
 GameObject:
   m_ObjectHideFlags: 0
@@ -41648,6 +41656,7 @@ MonoBehaviour:
   - {fileID: 342512270}
   position: {x: -3, y: 5, z: 0}
   blockParent: {fileID: 0}
+  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1002317253}
@@ -41655,6 +41664,7 @@ MonoBehaviour:
   nextLevelPosition: {x: 0, y: 0, z: 0}
   nextLevelDirection: 0
   nextLevelName: 
+  shopIndex: 0
 --- !u!1 &690449779
 GameObject:
   m_ObjectHideFlags: 0
@@ -43382,6 +43392,7 @@ MonoBehaviour:
   - {fileID: 1472715877}
   position: {x: 0, y: 8, z: 0}
   blockParent: {fileID: 0}
+  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1489073017}
@@ -43389,6 +43400,7 @@ MonoBehaviour:
   nextLevelPosition: {x: 0, y: 0, z: 0}
   nextLevelDirection: 0
   nextLevelName: 
+  shopIndex: 0
 --- !u!1 &715662409
 GameObject:
   m_ObjectHideFlags: 0
@@ -52610,6 +52622,7 @@ MonoBehaviour:
   - {fileID: 1383717981}
   position: {x: 0, y: 7, z: 0}
   blockParent: {fileID: 0}
+  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 304044251}
@@ -52617,6 +52630,7 @@ MonoBehaviour:
   nextLevelPosition: {x: 0, y: 0, z: 0}
   nextLevelDirection: 0
   nextLevelName: 
+  shopIndex: 0
 --- !u!1 &881849627
 GameObject:
   m_ObjectHideFlags: 0
@@ -64021,6 +64035,7 @@ MonoBehaviour:
   - {fileID: 500132354}
   position: {x: -14, y: -11, z: 0}
   blockParent: {fileID: 0}
+  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 0}
@@ -64028,6 +64043,7 @@ MonoBehaviour:
   nextLevelPosition: {x: 0, y: 0, z: 0}
   nextLevelDirection: 0
   nextLevelName: 
+  shopIndex: 0
 --- !u!1 &1050008142
 GameObject:
   m_ObjectHideFlags: 0
@@ -73517,6 +73533,7 @@ MonoBehaviour:
   - {fileID: 1513075456}
   position: {x: -14, y: -10, z: 0}
   blockParent: {fileID: 0}
+  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 0}
@@ -73524,6 +73541,7 @@ MonoBehaviour:
   nextLevelPosition: {x: 0, y: 0, z: 0}
   nextLevelDirection: 0
   nextLevelName: 
+  shopIndex: 0
 --- !u!4 &1223590644
 Transform:
   m_ObjectHideFlags: 0
@@ -76311,13 +76329,15 @@ MonoBehaviour:
   - {fileID: 837711927}
   position: {x: 0, y: 9, z: 0}
   blockParent: {fileID: 0}
+  walkable: 1
   blockInteractables: 03000000
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1188909965}
   groundType: 0
-  nextLevelPosition: {x: 0, y: 10, z: 0}
+  nextLevelPosition: {x: 0, y: -1, z: 0}
   nextLevelDirection: 0
-  nextLevelName: Level01
+  nextLevelName: Level02
+  shopIndex: 0
 --- !u!1 &1266448278
 GameObject:
   m_ObjectHideFlags: 0
@@ -79394,6 +79414,7 @@ MonoBehaviour:
   - {fileID: 180306802}
   position: {x: -14, y: -10, z: 0}
   blockParent: {fileID: 0}
+  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 0}
@@ -79401,6 +79422,7 @@ MonoBehaviour:
   nextLevelPosition: {x: 0, y: 0, z: 0}
   nextLevelDirection: 0
   nextLevelName: 
+  shopIndex: 0
 --- !u!4 &1316119077
 Transform:
   m_ObjectHideFlags: 0
@@ -80048,6 +80070,7 @@ MonoBehaviour:
   - {fileID: 725416208}
   position: {x: -2, y: 8, z: 0}
   blockParent: {fileID: 0}
+  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1957129540}
@@ -80055,6 +80078,7 @@ MonoBehaviour:
   nextLevelPosition: {x: 0, y: 0, z: 0}
   nextLevelDirection: 0
   nextLevelName: 
+  shopIndex: 0
 --- !u!1 &1327510105
 GameObject:
   m_ObjectHideFlags: 0
@@ -80807,6 +80831,7 @@ MonoBehaviour:
   itemModelPrefab: {fileID: 8463113305200442390, guid: f2f76c5f05449f2449e877b941024850, type: 3}
   dropItemPosition: {fileID: 1112231552}
   throwItemPosition: {fileID: 1112231552}
+  noEncounter: 0
   rangeOfEnCounter: {x: 15, y: 25}
   EnCounter:
     m_PersistentCalls:
@@ -80826,6 +80851,8 @@ MonoBehaviour:
   beforeBattleTransformRot: {x: 0, y: 0, z: 0, w: 0}
   waterWalk: 0
   lavaWalk: 0
+  chooseShop: {fileID: 0}
+  shopIsOpened: 0
 --- !u!54 &1338786999
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -85241,7 +85268,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 542323036}
   m_HandleRect: {fileID: 542323035}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 1.0000004
   m_Size: 0.5677998
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -85852,6 +85879,7 @@ MonoBehaviour:
   - {fileID: 1725100884}
   position: {x: 0, y: 3, z: 0}
   blockParent: {fileID: 0}
+  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 887790144}
@@ -85859,6 +85887,7 @@ MonoBehaviour:
   nextLevelPosition: {x: 0, y: 0, z: 0}
   nextLevelDirection: 0
   nextLevelName: 
+  shopIndex: 0
 --- !u!1 &1431853177
 GameObject:
   m_ObjectHideFlags: 0
@@ -86588,7 +86617,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1727159241}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.99999964
+  m_Size: 0.99999976
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -105967,6 +105996,7 @@ MonoBehaviour:
   - {fileID: 803625575}
   position: {x: -3, y: 8, z: 0}
   blockParent: {fileID: 0}
+  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1485824224}
@@ -105974,6 +106004,7 @@ MonoBehaviour:
   nextLevelPosition: {x: 0, y: 0, z: 0}
   nextLevelDirection: 0
   nextLevelName: 
+  shopIndex: 0
 --- !u!1 &1675182148
 GameObject:
   m_ObjectHideFlags: 0
@@ -108511,6 +108542,7 @@ MonoBehaviour:
   - {fileID: 1621241766}
   position: {x: -14, y: -10, z: 0}
   blockParent: {fileID: 0}
+  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 0}
@@ -108518,6 +108550,7 @@ MonoBehaviour:
   nextLevelPosition: {x: 0, y: 0, z: 0}
   nextLevelDirection: 0
   nextLevelName: 
+  shopIndex: 0
 --- !u!1 &1708767906
 GameObject:
   m_ObjectHideFlags: 0
@@ -109729,6 +109762,7 @@ MonoBehaviour:
   - {fileID: 987879334}
   position: {x: -2, y: 5, z: 0}
   blockParent: {fileID: 0}
+  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 2090580835}
@@ -109736,6 +109770,7 @@ MonoBehaviour:
   nextLevelPosition: {x: 0, y: 0, z: 0}
   nextLevelDirection: 0
   nextLevelName: 
+  shopIndex: 0
 --- !u!1 &1743468842
 GameObject:
   m_ObjectHideFlags: 0
@@ -112558,6 +112593,7 @@ MonoBehaviour:
   - {fileID: 1285657801}
   position: {x: -1, y: 7, z: 0}
   blockParent: {fileID: 0}
+  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 920859802}
@@ -112565,6 +112601,7 @@ MonoBehaviour:
   nextLevelPosition: {x: 0, y: 0, z: 0}
   nextLevelDirection: 0
   nextLevelName: 
+  shopIndex: 0
 --- !u!1 &1793657762
 GameObject:
   m_ObjectHideFlags: 0
@@ -118119,6 +118156,7 @@ MonoBehaviour:
   - {fileID: 1720318812}
   position: {x: -3, y: 6, z: 0}
   blockParent: {fileID: 0}
+  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1811741854}
@@ -118126,6 +118164,7 @@ MonoBehaviour:
   nextLevelPosition: {x: 0, y: 0, z: 0}
   nextLevelDirection: 0
   nextLevelName: 
+  shopIndex: 0
 --- !u!1 &1879833969
 GameObject:
   m_ObjectHideFlags: 0
@@ -121230,6 +121269,7 @@ MonoBehaviour:
   - {fileID: 1336863972}
   position: {x: 0, y: 4, z: 0}
   blockParent: {fileID: 0}
+  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 749670833}
@@ -121237,6 +121277,7 @@ MonoBehaviour:
   nextLevelPosition: {x: 0, y: 0, z: 0}
   nextLevelDirection: 0
   nextLevelName: 
+  shopIndex: 0
 --- !u!1 &1932288073
 GameObject:
   m_ObjectHideFlags: 0
