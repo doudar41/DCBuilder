@@ -12,12 +12,14 @@ public class ItemShop : MonoBehaviour
     [SerializeField] List<ItemType> itemsTypesToSell = new List<ItemType>();
     [SerializeField] Camera cam;
     [SerializeField] float sellMultiplier = 1;
+    [SerializeField] Vector2Int itemsLevel = new Vector2Int(0,1);
     [SerializeField] List<TextMeshProUGUI> heroesCoinsText;
     [SerializeField] TextMeshProUGUI textOfShopState;
+    [SerializeField] GameObject[] arrowsItems;
     Dictionary<int, HeroInventoryItem> itemsToSell = new Dictionary<int, HeroInventoryItem>();
     List<int> itemsToSellKeys = new List<int>();
     int sellItemIndexStart = 0;
-    ShopState shopState = ShopState.Sell;
+    ShopState shopState = ShopState.SellToPlayer;
 
 
     public UnityEvent closeShopPanel;
@@ -32,7 +34,8 @@ public class ItemShop : MonoBehaviour
 
     private void Start()
     {
-        //NewItems();
+        arrowsItems[0].SetActive(false);
+        arrowsItems[1].SetActive(false);
     }
 
     public void NewItemsToSell()
@@ -40,10 +43,16 @@ public class ItemShop : MonoBehaviour
         ClearSlots();
         for (int i = 0; i < itemsSlots.Count; i++)
         {
-            itemsSlots[i].SetItemToSell(RandomItemsToSell(itemsTypesToSell[Random.Range(0, itemsTypesToSell.Count)]));
-            itemsSlots[i].sellMultiplier = sellMultiplier;
-            itemsSlots[i].shopState = shopState;
+            ItemScriptableContainer itemToSell = RandomItemsToSell(itemsTypesToSell[Random.Range(0, itemsTypesToSell.Count)]);
+            if(itemToSell != null)
+            {
+                itemsSlots[i].SetItemToSell(itemToSell);
+                itemsSlots[i].sellMultiplier = sellMultiplier;
+                itemsSlots[i].shopState = shopState;
+            }
         }
+        arrowsItems[0].SetActive(false);
+        arrowsItems[1].SetActive(false);
     }
 
 
@@ -91,6 +100,12 @@ public class ItemShop : MonoBehaviour
             }
 
         }
+        if(itemsToSell.Count> itemsSlots.Count)
+        {
+            arrowsItems[0].SetActive(true);
+            arrowsItems[1].SetActive(true);
+        }
+
     }
 
 
@@ -112,14 +127,17 @@ public class ItemShop : MonoBehaviour
 
         foreach (ItemScriptableContainer item in GameInstance.dataBase.GetWholeItemDatabase())
         {
-            if (item.itemType == itemType)
+            if (item.itemLevel >= itemsLevel.x && item.itemLevel <= itemsLevel.y)
             {
-                itemsOfType.Add(item);
+                if (item.itemType == itemType)
+                {
+                    itemsOfType.Add(item);
+                }
             }
+
         }
-        List<ItemScriptableContainer> randomItems = new List<ItemScriptableContainer>();
-
-
+        if(itemsOfType.Count == 0) { print("no items"); return null; }
+        //print("item for random choose "+itemsOfType.Count);
         return itemsOfType[Random.Range(0, itemsOfType.Count)];
     }
 
@@ -141,16 +159,16 @@ public class ItemShop : MonoBehaviour
         }
     }
 
-    public void SwitchToSell()
+    public void SwitchToSellToPlayer()
     {
-        shopState = ShopState.Sell;
+        shopState = ShopState.SellToPlayer;
         NewItemsToSell();
         textOfShopState.text = "Buy";
     }
 
-    public void SwitchToBuy()
+    public void SwitchToBuyFromPlayer()
     {
-        shopState = ShopState.Buy;
+        shopState = ShopState.BuyFromPlayer;
         GetItemsFromInventoryToBuy();
         textOfShopState.text = "Sell";
     }
@@ -161,8 +179,8 @@ public class ItemShop : MonoBehaviour
 
 public enum ShopState
 {
-    Buy,
-    Sell,
+    BuyFromPlayer,
+    SellToPlayer,
     Idenify,
     Spell,
     Heal,

@@ -14,4 +14,5 @@ public class SpellContainer : ScriptableObject
     public bool equipableSpell;
     public int minDistanceToEnemy = 2;
     public string spellName;
+    public int spellPrice;
 }

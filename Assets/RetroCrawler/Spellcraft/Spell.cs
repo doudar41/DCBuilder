@@ -43,7 +43,8 @@ public enum SpellEffects
     LavaWalk,
     Petrify,
     Immunity,
-    Poison
+    Poison,
+    LevelUp
 }
 
 public enum MagicType

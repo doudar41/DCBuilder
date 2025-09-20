@@ -24,3 +24,4 @@ MonoBehaviour:
   twoHanded: 0
   price: 500
   itemDescription: Full plate tank
+  itemLevel: 2

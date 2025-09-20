@@ -15,7 +15,7 @@ public class ItemShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     SpellContainer spellToSell;
     public float sellMultiplier =1;
     GameObject desc;
-    public ShopState shopState = ShopState.Sell;
+    public ShopState shopState = ShopState.SellToPlayer;
     public int inventorySlotForSell = -1;
 
 
@@ -31,7 +31,7 @@ public class ItemShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
         switch (shopState)
         {
-            case ShopState.Buy:
+            case ShopState.BuyFromPlayer:
                 if (itemToSell != null)
                 {
                     SellItemFromSlot(itemToSell);
@@ -44,7 +44,7 @@ public class ItemShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 }
 
                 break;
-            case ShopState.Sell:
+            case ShopState.SellToPlayer:
                 if (itemToSell != null)
                 {
                     print("seller price " + GameInstance.party.SellBuyMoneyCheck((int)(itemToSell.price * sellMultiplier)));
@@ -60,11 +60,18 @@ public class ItemShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 }
                 if (spellToSell != null)
                 {
-                    if (!GameInstance.party.activeHero.GetActiveHeroSpellbook().Contains(spellToSell))
+                    if (GameInstance.party.SellBuyMoneyCheck((int)(spellToSell.spellPrice * sellMultiplier)) >= 0)
                     {
-                        GameInstance.party.activeHero.GetActiveHeroSpellbook().Add(spellToSell);
-                        spellToSell = null;
-                        itemPicture.sprite = emptySprite;
+
+                        if (!GameInstance.party.activeHero.GetActiveHeroSpellbook().Contains(spellToSell))
+                        {
+
+                            GameInstance.party.activeHero.GetActiveHeroSpellbook().Add(spellToSell);
+                            GameInstance.party.MoneyGoes(spellToSell.spellPrice);
+                            spellToSell = null;
+                            itemPicture.sprite = emptySprite;
+
+                        }
                     }
                     else
                     {
@@ -76,14 +83,35 @@ public class ItemShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             case ShopState.Idenify:
                 break;
             case ShopState.Spell:
-                break;
+                if (spellToSell != null)
+                {
+                    if (GameInstance.party.SellBuyMoneyCheck((int)(spellToSell.spellPrice * sellMultiplier)) >= 0)
+                    {
+
+                        if (!GameInstance.party.activeHero.GetActiveHeroSpellbook().Contains(spellToSell))
+                        {
+
+                            GameInstance.party.activeHero.GetActiveHeroSpellbook().Add(spellToSell);
+                            GameInstance.party.MoneyGoes(spellToSell.spellPrice);
+                            spellToSell = null;
+                            itemPicture.sprite = emptySprite;
+
+                        }
+                    }
+                    else
+                    {
+                        print("hero already have this spell");
+                    }
+                    desc.SetActive(false);
+                }
+                 break;
             case ShopState.Heal:
                 break;
             case ShopState.Ressurect:
                 break;
         }
 
-
+        refreshCoins.Invoke();
     }
 
     void GetItemFromSlot(ItemScriptableContainer item)
@@ -137,22 +165,22 @@ public class ItemShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 //desc.transform.SetParent(null);
             }
             else desc.SetActive(true);
-            
+
             TextMeshProUGUI textObject = desc.gameObject.GetComponentInChildren<TextMeshProUGUI>();
-            if(textObject != null)
+            if (textObject != null)
             {
-                string  spellTexts = "";
-                foreach(Spell s in itemToSell.spellContainer.spells)
+                string spellTexts = "";
+                foreach (Spell s in itemToSell.spellContainer.spells)
                 {
-                    spellTexts += "\n"+s.SpellDescription;
+                    spellTexts += "\n" + s.SpellDescription;
                 }
                 switch (shopState)
                 {
-                    case ShopState.Buy:
+                    case ShopState.BuyFromPlayer:
                         textObject.text = itemToSell.itemDescription + spellTexts + "\n" + "Price: " + ((int)(itemToSell.price * sellMultiplier)).ToString();
-                         textObject.color = Color.green;
+                        textObject.color = Color.green;
                         break;
-                    case ShopState.Sell:
+                    case ShopState.SellToPlayer:
                         textObject.text = itemToSell.itemDescription + spellTexts + "\n" + "Price: " + ((int)(itemToSell.price * sellMultiplier)).ToString();
                         if (GameInstance.party.SellBuyMoneyCheck((int)(itemToSell.price * sellMultiplier)) >= 0) textObject.color = Color.green;
                         else textObject.color = Color.red;
@@ -169,8 +197,25 @@ public class ItemShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
             }
         }
+        if (spellToSell != null)
+        {
+            if (desc == null)
+            {
+                desc = Instantiate(descriptionPrefab, transform);
+            }
+            else desc.SetActive(true);
 
-        //show UI;
+            TextMeshProUGUI textObject = desc.gameObject.GetComponentInChildren<TextMeshProUGUI>();
+
+            string spellTexts = "";
+            foreach (Spell s in spellToSell.spells)
+            {
+                spellTexts += "\n" + s.SpellDescription;
+            }
+            textObject.text = spellToSell.spellName + "\n" + spellTexts + "\n" + "Price: " + ((int)(spellToSell.spellPrice * sellMultiplier)).ToString();
+            if (GameInstance.party.SellBuyMoneyCheck((int)(spellToSell.spellPrice * sellMultiplier)) >= 0) textObject.color = Color.green;
+            else textObject.color = Color.red;
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -180,6 +225,15 @@ public class ItemShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         desc.SetActive(false);
         //Hide UI;
     }
+
+
+
+    public void LevelUpShop()
+    {
+
+    }
+
+
 
 
     public void ClearSlot()

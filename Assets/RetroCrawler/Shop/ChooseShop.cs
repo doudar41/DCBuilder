@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class ChooseShop : MonoBehaviour
 {
     [SerializeField] List<GameObject> shopToChoose = new List<GameObject>();
+    [SerializeField] List<GameObject> buttonPanels = new List<GameObject>();
 
     public UnityEvent switchOnPanel;
     private void Start()
@@ -21,10 +22,18 @@ public class ChooseShop : MonoBehaviour
             g.SetActive(false);
 
         }
-        switchOnPanel.Invoke();
+        //switchOnPanel.Invoke();
         shopToChoose[index].SetActive(true);
-        if(shopToChoose[index].GetComponent<ItemShop>() != null) shopToChoose[index].GetComponent<ItemShop>().NewItemsToSell();
-        if (shopToChoose[index].GetComponent<SpellShop>() != null) shopToChoose[index].GetComponent<SpellShop>().NewItems();
+        buttonPanels[index].SetActive(true);
+        if (shopToChoose[index].GetComponent<ItemShop>() != null) 
+        { 
+            shopToChoose[index].GetComponent<ItemShop>().NewItemsToSell(); 
+        }
+
+        if (shopToChoose[index].GetComponent<SpellShop>() != null) 
+        { 
+            shopToChoose[index].GetComponent<SpellShop>().RefreshSoldSpells(); 
+        }
 
     }
 

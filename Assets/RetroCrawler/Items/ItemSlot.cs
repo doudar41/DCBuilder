@@ -31,61 +31,91 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (IsEmpty())
+        print(eventData.button + " "+ eventData.clickCount);
+        int clickCount = eventData.clickCount;
+        if (eventData.button == PointerEventData.InputButton.Right)
         {
-            HeroInventoryItem slotStruct = GameInstance.playerController.GetItemFromCursor();
-            inventoryItem = slotStruct;
-
-            if (inventoryItem != null)
+            if (inventoryItem == null) { print("no more clicking"); return; }
+            if (inventoryItem.itemType == ItemType.CONSUMABLE)
             {
-                if (slotStruct.stackAmount > 1)
-                { 
-                    stackAmount = slotStruct.stackAmount; 
-                }
-                else stackAmount = 1;
-                itemAvatar.sprite = GameInstance.dataBase.GetItemFromBaseByIndex(inventoryItem.container).InventorySprite;
-                amountText.text = stackAmount.ToString();
-
-                //_GUID = slotStruct._GUID;
-            }
-        }
-        else
-        {
-            if (stackAmount >= 1 && GameInstance.playerController.IsCursorBusy())
-            {
-                HeroInventoryItem slotStruct =  GameInstance.playerController.GetItemFromCursor();
-                if (GameInstance.dataBase.GetItemFromBaseByIndex(slotStruct.container) == GameInstance.dataBase.GetItemFromBaseByIndex(inventoryItem.container)) 
+                if (stackAmount > 1)
                 {
-                    stackAmount += slotStruct.stackAmount;
+                    stackAmount--;
+                    GameInstance.party.activeHero.ApplySpellToHero(GameInstance.dataBase.GetItemFromBaseByIndex( inventoryItem.container).spellContainer, null);
+                    amountText.text = stackAmount.ToString();
                 }
                 else
                 {
-                    GameInstance.playerController.SetPlayerCursorBusy(inventoryItem);
-                    if (slotStruct.stackAmount > 1)
-                    {
-                        stackAmount = slotStruct.stackAmount;
-                    }
-                    else stackAmount = 1;
-                    inventoryItem = slotStruct;
-                    itemAvatar.sprite = GameInstance.dataBase.GetItemFromBaseByIndex(inventoryItem.container).InventorySprite;
+                    GameInstance.party.activeHero.ApplySpellToHero(GameInstance.dataBase.GetItemFromBaseByIndex(inventoryItem.container).spellContainer, null);
+                    stackAmount = 0;
+                    inventoryItem = null;
+                    itemAvatar.sprite = emptySlotSprite;
                     amountText.text = stackAmount.ToString();
-                    //exchange items in a slot
                 }
-                amountText.text = stackAmount.ToString();
                 return;
             }
-            if (stackAmount >= 1 && !GameInstance.playerController.IsCursorBusy())
+        }
+        if (clickCount == 1)
+        {
+           if (IsEmpty())
             {
-               // print("one item left");
-            GameInstance.playerController.SetPlayerCursorBusy(inventoryItem);
-            stackAmount = 0;
-            inventoryItem = null;
-            itemAvatar.sprite = emptySlotSprite;
-            amountText.text = stackAmount.ToString();
-            //GameInstance.getInventoryItem -= SaveInventoryItemsToGameInstance;
-                //GameInstance.inventory.RemoveItemFromInventory(slotIndex);
+                HeroInventoryItem slotStruct = GameInstance.playerController.GetItemFromCursor();
+                inventoryItem = slotStruct;
+
+                if (inventoryItem != null)
+                {
+                    if (slotStruct.stackAmount > 1)
+                    { 
+                        stackAmount = slotStruct.stackAmount; 
+                    }
+                    else stackAmount = 1;
+                    itemAvatar.sprite = GameInstance.dataBase.GetItemFromBaseByIndex(inventoryItem.container).InventorySprite;
+                    amountText.text = stackAmount.ToString();
+
+                    //_GUID = slotStruct._GUID;
+                }
+            }
+            else
+            {
+                if (stackAmount >= 1 && GameInstance.playerController.IsCursorBusy())
+                {
+                    HeroInventoryItem slotStruct =  GameInstance.playerController.GetItemFromCursor();
+                    if (GameInstance.dataBase.GetItemFromBaseByIndex(slotStruct.container) == GameInstance.dataBase.GetItemFromBaseByIndex(inventoryItem.container)) 
+                    {
+                        stackAmount += slotStruct.stackAmount;
+                    }
+                    else
+                    {
+                        GameInstance.playerController.SetPlayerCursorBusy(inventoryItem);
+                        if (slotStruct.stackAmount > 1)
+                        {
+                            stackAmount = slotStruct.stackAmount;
+                        }
+                        else stackAmount = 1;
+                        inventoryItem = slotStruct;
+                        itemAvatar.sprite = GameInstance.dataBase.GetItemFromBaseByIndex(inventoryItem.container).InventorySprite;
+                        amountText.text = stackAmount.ToString();
+                        //exchange items in a slot
+                    }
+                    amountText.text = stackAmount.ToString();
+                    return;
+                }
+                if (stackAmount >= 1 && !GameInstance.playerController.IsCursorBusy())
+                {
+                   // print("one item left");
+                GameInstance.playerController.SetPlayerCursorBusy(inventoryItem);
+                stackAmount = 0;
+                inventoryItem = null;
+                itemAvatar.sprite = emptySlotSprite;
+                amountText.text = stackAmount.ToString();
+                return;
+                //GameInstance.getInventoryItem -= SaveInventoryItemsToGameInstance;
+                    //GameInstance.inventory.RemoveItemFromInventory(slotIndex);
+                }
             }
         }
+
+ 
     }
 
 

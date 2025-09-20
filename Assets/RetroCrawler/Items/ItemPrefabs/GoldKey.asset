@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 830199137178dfd4c92369ded1b83b63, type: 3}
-  m_Name: Key
+  m_Name: GoldKey
   m_EditorClassIdentifier: 
-  itemType: 16
-  itemName: Key
+  itemType: 19
+  itemName: Gold Key
   texture2DMouse: {fileID: 2800000, guid: c082e072de22bf44899cf1ef65cce930, type: 3}
   InventorySprite: {fileID: 21300000, guid: 1f9508c6a4f5bfb44a27f1884c3cab85, type: 3}
   worldSprite: {fileID: 21300000, guid: b342b46071880184e83d7a6cfe424e0d, type: 3}
@@ -21,4 +21,8 @@ MonoBehaviour:
   weight: 0
   spellContainer: {fileID: 0}
   weaponType: 0
+  twoHanded: 0
   price: 0
+  itemDescription: 
+  itemLevel: 0
+  keyType: 2

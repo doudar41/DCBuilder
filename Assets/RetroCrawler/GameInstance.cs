@@ -58,7 +58,8 @@ public static class GameInstance
     public static List<SkillStatSave> skillStatSaves = new List<SkillStatSave>();
     public static List<int> heroesPortraits = new List<int>();
     public static List<string> heroesNames = new List<string>();
-    public static List<HeroSpellbookSaved> spellbooksSaved = new List<HeroSpellbookSaved>(); 
+    public static List<HeroSpellbookSaved> spellbooksSaved = new List<HeroSpellbookSaved>();
+    public static List<KeyToLocks> keysSaved = new List<KeyToLocks>();
 
     public static int DiceRollingBiggestNumber(int diceNumber, int diceSides)
     {
@@ -121,7 +122,7 @@ public static class GameInstance
         party.SaveHeroesSpells();
         currentLevelName = levelName;
         levelChange = true;
-
+        inventory.SaveKeysToGameInstance();
         SceneManager.LoadScene(levelName, LoadSceneMode.Single);
     }
 
@@ -158,8 +159,6 @@ public static class GameInstance
     {
         initItems();
     }
-
-
 
 
     public static void SaveItemState(string _guid, SavedState _state, HeroInventoryItem heroInventoryItem)
@@ -214,6 +213,7 @@ public static class GameInstance
         saveData.heroesPortraits = heroesPortraits;
         saveData.heroesNames = heroesNames;
         saveData.spellbooksSaved = spellbooksSaved;
+        saveData.keysSaved = keysSaved;
 
         string path = Application.persistentDataPath + "/" + fileName;
         Gley.AllPlatformsSave.API.Save(saveData, path, DataWasSaved, false);
@@ -253,6 +253,7 @@ public static class GameInstance
             inventoryItemsSaved = saveData.inventoryItemsSaved;
             visitedBlocks = saveData.visitedBlocks ;
             levelChange = true;
+            keysSaved= saveData.keysSaved;
             SceneManager.LoadScene(saveData.levelName, LoadSceneMode.Single); 
         }
     }
@@ -452,6 +453,7 @@ public class SaveData
     public List<int> heroesPortraits = new List<int>();
     public List<string> heroesNames = new List<string>();
     public List<HeroSpellbookSaved> spellbooksSaved = new List<HeroSpellbookSaved>();
+    public List<KeyToLocks> keysSaved = new List<KeyToLocks>();
 }
 
 [System.Serializable]
@@ -570,4 +572,10 @@ public class GameMoney
 
         return convertedcoins;
     }
+}
+
+public class KeyToLocks
+{
+    public KeyType keyType;
+    public int amount;
 }

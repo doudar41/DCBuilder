@@ -6,26 +6,28 @@ using TMPro;
 
 public class Inventory : MonoBehaviour
 {
-    PlayerController playerController;
-    Dictionary<int, ItemSlotStruct> itemsInInventory = new Dictionary<int, ItemSlotStruct>();
-    Dictionary<int, ItemSlotStruct> itemsEquipped = new Dictionary<int, ItemSlotStruct>();
+    [SerializeField]    List<equipmentSlot> equipmentSlotsList = new List<equipmentSlot>();
+    [SerializeField]    GameObject slotsParent;
+    [SerializeField]    GameObject slotPrefab;
+    [SerializeField]    TextMeshProUGUI weightCapacity;
+    [SerializeField]    GameObject inventorySwitcher;
+    [SerializeField] List<TextMeshProUGUI> keyAmountsText = new List<TextMeshProUGUI>();
+    Dictionary<KeyType, TextMeshProUGUI> keyTexts = new Dictionary<KeyType, TextMeshProUGUI>();
 
-    [SerializeField]
-    List<equipmentSlot> equipmentSlotsList = new List<equipmentSlot>();
-    [SerializeField]
-    GameObject slotsParent;
-    [SerializeField]
-    TextMeshProUGUI weightCapacity;
-    [SerializeField] GameObject inventorySwitcher;
     public UnityEvent<int> sendWeight;
     public UnityEvent enableInventory;
 
     bool isInventoryOpened = false;
-    int enablecount = 0;
+
+    List<KeyToLocks> playersKeys = new List<KeyToLocks>();
+
 
     private void Awake()
     {
         GameInstance.inventory = this;
+        keyTexts.Add(KeyType.IronKey, keyAmountsText[0]);
+        keyTexts.Add(KeyType.RedKey, keyAmountsText[1]); 
+        keyTexts.Add(KeyType.GoldKey, keyAmountsText[2]);
     }
  
     public void EnableInventory(bool switchInventory)
@@ -42,7 +44,7 @@ public class Inventory : MonoBehaviour
 
     void Start()
     {
-        playerController = GameInstance.playerController;
+
         enableInventory.AddListener(GameInstance.party.heroEquipmentToInventory);
         inventorySwitcher.SetActive(false);
     }
@@ -113,6 +115,60 @@ public class Inventory : MonoBehaviour
         slots[slotIndex].RemoveItem();
     }
 
+    public void SaveKeyToList(KeyType keyType)
+    {
+        print("player keys " + playersKeys.Count);
+/*        if (playersKeys.Count > 0)
+        {
+            foreach (KeyToLocks key in playersKeys)
+            {
+                if (key.keyType == keyType)
+                {
+                    key.amount++;
+                    keyTexts[keyType].text = key.amount.ToString();
+                    return;
+                }
+            }
+        }*/
+
+        KeyToLocks keyToLocks = new KeyToLocks();
+        keyToLocks.keyType = keyType;
+        keyToLocks.amount = 1;
+        playersKeys.Add(keyToLocks);
+        if(keyTexts.ContainsKey(keyType)) keyTexts[keyType].text = keyToLocks.amount.ToString();
+    }
+
+    public bool UseKey(KeyType keyType)
+    {
+        foreach (KeyToLocks key in playersKeys)
+        {
+            if (key.keyType == keyType)
+            {
+                if (key.amount > 0)
+                {
+                    key.amount--;
+                    keyTexts[keyType].text = key.amount.ToString();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    public void SaveKeysToGameInstance()
+    {
+        GameInstance.keysSaved = playersKeys;
+    }
+
+    public void LoadKeys()
+    {
+        playersKeys = GameInstance.keysSaved;
+        foreach(KeyToLocks key in playersKeys)
+        {
+          keyTexts[key.keyType].text = key.amount.ToString();          
+        }
+    }
 }
 
 
@@ -122,4 +178,11 @@ public struct ItemSlotStruct
     public int stackAmount;
     public string _GUID;
     //special effect
+}
+
+public enum KeyType
+{
+    RedKey,
+    IronKey,
+    GoldKey
 }

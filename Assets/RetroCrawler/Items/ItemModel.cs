@@ -278,7 +278,8 @@ public enum ItemType
     CONSUMABLE,
     QUEST,
     LOOT,
-    Upgrades
+    Upgrades,
+    Key
 
 }
 

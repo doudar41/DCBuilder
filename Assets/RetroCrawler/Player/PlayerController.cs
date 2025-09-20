@@ -704,12 +704,17 @@ public class PlayerController : MonoBehaviour
 
     public void SetPlayerCursorBusy(HeroInventoryItem heroInventoryItem)
     {
-        
+        if (GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).itemType == ItemType.Key)
+        {
+            GameInstance.inventory.SaveKeyToList(GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).keyType);
+            return;
+        }
         heroInventoryItem.heroIndex = -1;
         cursorItemScriptable = heroInventoryItem;
         stackAmountCursor = heroInventoryItem.stackAmount;
         //currentCursorGUID = heroInventoryItem._GUID;
         //GameInstance.SaveItemState(heroInventoryItem._GUID, SavedState.Cursor, heroInventoryItem);
+
         Cursor.SetCursor(GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).texture2DMouse, hotSpot, cursorMode);
         cursorBusy = true;
     }

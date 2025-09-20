@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830199137178dfd4c92369ded1b83b63, type: 3}
+  m_Name: LeatherShirt
+  m_EditorClassIdentifier: 
+  itemType: 2
+  itemName: Leather shirt +5
+  texture2DMouse: {fileID: 2800000, guid: fd0d51c6b7e5e5e48b56273b245c7fd6, type: 3}
+  InventorySprite: {fileID: 21300000, guid: ad662fa54218c9f48bc7fb6357e5dd03, type: 3}
+  worldSprite: {fileID: 21300000, guid: ad662fa54218c9f48bc7fb6357e5dd03, type: 3}
+  prefab: {fileID: 2885720944578253258, guid: f757b3761d96625438488a1dffd1b204, type: 3}
+  weight: 5
+  spellContainer: {fileID: 11400000, guid: 061d7010281b11745a77518c2bbc8e1b, type: 2}
+  weaponType: 0
+  twoHanded: 0
+  price: 100
+  itemDescription: Leather shirt +5
+  itemLevel: 1

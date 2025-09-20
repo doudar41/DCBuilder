@@ -17,6 +17,8 @@ public class ItemScriptableContainer : ScriptableObject
     public bool twoHanded = false;
     public int price;
     public string itemDescription;
+    public int itemLevel;
+    public KeyType keyType;
 }
 
 

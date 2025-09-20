@@ -24,3 +24,4 @@ MonoBehaviour:
   twoHanded: 1
   price: 500
   itemDescription: 'Big Stick '
+  itemLevel: 1

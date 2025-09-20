@@ -26,6 +26,7 @@ MonoBehaviour:
     changedDependedStat: 0
     skillStatAdded: 0
     restToBeAbleToCastAgainInTurns: 0
+    SpellDescription: Fire damage 3/6 +2
   spellIcon: {fileID: 21300000, guid: f1839cf6467152d41a5acf86e3470269, type: 3}
   AOE: 0
   OnlyEnemies: 0
@@ -35,3 +36,4 @@ MonoBehaviour:
   equipableSpell: 0
   minDistanceToEnemy: 4
   spellName: Fire Bolt
+  spellPrice: 30

@@ -24,3 +24,4 @@ MonoBehaviour:
   twoHanded: 0
   price: 1
   itemDescription: Small but dangerous
+  itemLevel: 1

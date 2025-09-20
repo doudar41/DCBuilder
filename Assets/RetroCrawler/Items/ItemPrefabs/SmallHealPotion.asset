@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830199137178dfd4c92369ded1b83b63, type: 3}
+  m_Name: SmallHealPotion
+  m_EditorClassIdentifier: 
+  itemType: 15
+  itemName: StrenghtPotion+1
+  texture2DMouse: {fileID: 2800000, guid: 779f73d1bea149946a495704f144e213, type: 3}
+  InventorySprite: {fileID: 21300000, guid: a1e74bd3eb403e7478e7bd25c2a18b93, type: 3}
+  worldSprite: {fileID: 21300000, guid: a1e74bd3eb403e7478e7bd25c2a18b93, type: 3}
+  prefab: {fileID: 2885720944578253258, guid: e66de981b120ebe45b4511e693200877, type: 3}
+  weight: 0
+  spellContainer: {fileID: 11400000, guid: 39017368d402317448c0f3e1ff625d13, type: 2}
+  weaponType: 0
+  twoHanded: 0
+  price: 10
+  itemDescription: Small Hela Potion
+  itemLevel: 1

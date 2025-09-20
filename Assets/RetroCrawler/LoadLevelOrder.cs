@@ -68,6 +68,7 @@ public class LoadLevelOrder : MonoBehaviour
             h.HeroInit();
         }
 
+        GameInstance.inventory.LoadKeys();
 
 
     }

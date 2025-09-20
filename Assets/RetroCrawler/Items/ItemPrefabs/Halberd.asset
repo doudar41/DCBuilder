@@ -24,3 +24,4 @@ MonoBehaviour:
   twoHanded: 1
   price: 100
   itemDescription: Very big Axe
+  itemLevel: 1
