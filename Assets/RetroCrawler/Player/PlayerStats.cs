@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine;using UnityEngine.UI;
 using TMPro;
 
 public class PlayerStats : MonoBehaviour
@@ -9,7 +9,8 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] DependedStatTextUI dependedStatsUIText;
     [SerializeField] SkillsStatTextUI skillsStatsUIText;
     [SerializeField] GameObject panelStats;
-
+    [SerializeField] Slider carryingWeight;
+    [SerializeField] Slider hungerLevel;
     private void Start()
     {
         mainStatsUITexts.KeyPairFill();
@@ -25,7 +26,7 @@ public class PlayerStats : MonoBehaviour
             panelStats.SetActive(true);
             RefreshStats();
 
-    }
+        }
         else
         {
             panelStats.SetActive(false);
@@ -51,6 +52,10 @@ public class PlayerStats : MonoBehaviour
             if(dependedStatsUIText.GetValue(k.Key) != null)
             dependedStatsUIText.GetValue(k.Key).text = k.Value.ToString();
         }
+        print("equipment weight "+GameInstance.inventory.GetCurrentHeroWeight() + " hero eqquipment capacity "+ GameInstance.party.activeHero.GetDependedStat(DependedStat.CarryingCapacity));
+        carryingWeight.value = GameInstance.inventory.GetCurrentHeroWeight();
+
+
     }
 }
 

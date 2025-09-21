@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -63,7 +64,7 @@ public class Party : MonoBehaviour
         if (heroInventoryItem == null)
         {
             activeHero.RemoveItemFromEquipment(itemType);
-            GameInstance.inventory.UpdatePartyWeight();
+            UpdatePartyWeight();
             RefreshUI.Invoke();
             return;
         }
@@ -78,10 +79,14 @@ public class Party : MonoBehaviour
             activeHero.RemoveItemFromEquipment(itemType);
         }
 
-        GameInstance.inventory.UpdatePartyWeight();
+        UpdatePartyWeight();
         RefreshUI.Invoke();
     }
 
+    public void UpdatePartyWeight()
+    {
+
+    }
 
     public void heroEquipmentToInventory()
     {
@@ -126,7 +131,7 @@ public class Party : MonoBehaviour
 
     public void LoadEquipment()
     {
-        print(" equipment storage = " + GameInstance.equipmentHeroesSavedWithGUID.Count);
+        //print(" equipment storage = " + GameInstance.equipmentHeroesSavedWithGUID.Count);
         foreach(HeroInventoryItem he in GameInstance.equipmentHeroesSavedWithGUID)
         {
             print(" loading equipment " + he.container + " " +  " " + he.heroIndex);

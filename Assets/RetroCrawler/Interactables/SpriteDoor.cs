@@ -10,16 +10,16 @@ public class SpriteDoor : MonoBehaviour, IDoor, IInteractables
     float blockLenght = 5;
     public AnimationCurve curveDoorR, curveDoorL;
     bool busy = false;
-    float clampXMinR, clampXMaxR, clampXMaxL, clampXMinL;
+    [SerializeField]float clampXMinR, clampXMaxR, clampXMaxL, clampXMinL;
     [SerializeField]
     bool isOpened = false;
 
     void Start()
     {
-        clampXMinR = transform.position.x;
+/*        clampXMinR = transform.localPosition.x;
         clampXMaxR = blockLenght + clampXMinR;
-        clampXMaxL = transform.position.x;
-        clampXMinL = blockLenght - clampXMinR;
+        clampXMaxL = transform.localPosition.x;
+        clampXMinL = blockLenght - clampXMinR;*/
         if (isOpened)
         {
             OpenDoor();
@@ -56,24 +56,24 @@ public class SpriteDoor : MonoBehaviour, IDoor, IInteractables
     {
 
         busy = true;
-        float startxR = rightDoorPart.transform.position.x;
-        float startxL = leftDoorPart.transform.position.x;
+        float startxR = rightDoorPart.transform.localPosition.x;
+        float startxL = leftDoorPart.transform.localPosition.x;
         float currentPoint = 0;
         while (currentPoint < 1)
         {
             if (startPoint <= 0)
             {
-                rightDoorPart.transform.position = new Vector3(Mathf.Clamp(startxR + blockLenght * curveDoorR.Evaluate(currentPoint), clampXMinR, clampXMaxR),
-                    transform.position.y, transform.position.z);
-                leftDoorPart.transform.position = new Vector3(Mathf.Clamp(startxL - (blockLenght * curveDoorR.Evaluate(currentPoint)),  clampXMinL,clampXMaxL),
-                transform.position.y, transform.position.z);
+                rightDoorPart.transform.localPosition = new Vector3(Mathf.Clamp(startxR +  curveDoorR.Evaluate(currentPoint), clampXMinR, clampXMaxR),
+                    0, 0);
+                leftDoorPart.transform.localPosition = new Vector3(Mathf.Clamp(startxL - curveDoorR.Evaluate(currentPoint),  clampXMinL,clampXMaxL),
+                0, 0);
             }
             else
             {
-                rightDoorPart.transform.position = new Vector3(Mathf.Clamp(startxR - blockLenght * curveDoorR.Evaluate(currentPoint), clampXMinR, clampXMaxR),
-                    transform.position.y, transform.position.z);
-                leftDoorPart.transform.position = new Vector3(Mathf.Clamp(startxL + blockLenght * curveDoorR.Evaluate(currentPoint), clampXMinL, clampXMaxL),
-                transform.position.y, transform.position.z);
+                rightDoorPart.transform.localPosition = new Vector3(Mathf.Clamp(startxR -  curveDoorR.Evaluate(currentPoint), clampXMinR, clampXMaxR),
+                    0, 0);
+                leftDoorPart.transform.localPosition = new Vector3(Mathf.Clamp(startxL +  curveDoorR.Evaluate(currentPoint), clampXMinL, clampXMaxL),
+                0, 0);
                 //print("start corouting" + currentPoint);
             }
 

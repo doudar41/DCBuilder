@@ -18,10 +18,11 @@ MonoBehaviour:
   InventorySprite: {fileID: 21300000, guid: fa1e3c70c9377464dbc199fa50eff568, type: 3}
   worldSprite: {fileID: 21300000, guid: fa1e3c70c9377464dbc199fa50eff568, type: 3}
   prefab: {fileID: 2885720944578253258, guid: db0bcb72980b9fd4eb002d60459a152d, type: 3}
-  weight: 0
+  weight: 20
   spellContainer: {fileID: 11400000, guid: 73e5602241660e44294074333a29627d, type: 2}
   weaponType: 3
   twoHanded: 1
   price: 100
   itemDescription: Very big Axe
   itemLevel: 1
+  keyType: 0

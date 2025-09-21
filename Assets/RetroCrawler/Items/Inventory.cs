@@ -65,8 +65,9 @@ public class Inventory : MonoBehaviour
                 }
             }
         }
+
+        GameInstance.party.UpdatePartyWeight();
         GameInstance.party.RefreshUI.Invoke();
-        UpdatePartyWeight();
     }
 
 
@@ -75,11 +76,27 @@ public class Inventory : MonoBehaviour
 
     }
 
-    public void UpdatePartyWeight()
+    public float GetCurrentHeroWeight()
     {
-        //int weightCarried = GameInstance.party.GetWeight(out int capacity);
-       // weightCapacity.text = capacity.ToString() + "/" + weightCarried.ToString();
+        float weight = 0;
+
+       Dictionary<ItemType, HeroInventoryItem> heroEq = GameInstance.party.activeHero.GetHeroEquipment();
+        //print("hero equipment count "+heroEq.Count);
+        int heroWeight = 0;
+        foreach (KeyValuePair<ItemType, HeroInventoryItem> equi in heroEq)
+        {
+            if(equi.Value != null)
+            {
+                heroWeight += GameInstance.dataBase.GetItemFromBaseByIndex(equi.Value.container).weight;
+            }
+
+        }
+        weight = (float)heroWeight / (float)GameInstance.party.activeHero.GetDependedStat(DependedStat.CarryingCapacity);
+
+        return weight;
     }
+
+
 
     public void FindEmptySlotAndPutItem(HeroInventoryItem itemScriptableTemp, int stackamount)
     {
@@ -117,20 +134,6 @@ public class Inventory : MonoBehaviour
 
     public void SaveKeyToList(KeyType keyType)
     {
-        print("player keys " + playersKeys.Count);
-/*        if (playersKeys.Count > 0)
-        {
-            foreach (KeyToLocks key in playersKeys)
-            {
-                if (key.keyType == keyType)
-                {
-                    key.amount++;
-                    keyTexts[keyType].text = key.amount.ToString();
-                    return;
-                }
-            }
-        }*/
-
         KeyToLocks keyToLocks = new KeyToLocks();
         keyToLocks.keyType = keyType;
         keyToLocks.amount = 1;

@@ -18,10 +18,11 @@ MonoBehaviour:
   InventorySprite: {fileID: 21300000, guid: 2f4bca14b83cdef46b1a8c8ee65f408b, type: 3}
   worldSprite: {fileID: 21300000, guid: 2f4bca14b83cdef46b1a8c8ee65f408b, type: 3}
   prefab: {fileID: 2885720944578253258, guid: 6ef701849012dd347948da2d7020accf, type: 3}
-  weight: 0
+  weight: 10
   spellContainer: {fileID: 11400000, guid: 7fc89317aa5d7e54a9c6639250062bc9, type: 2}
   weaponType: 3
   twoHanded: 1
   price: 500
   itemDescription: 'Big Stick '
   itemLevel: 1
+  keyType: 0

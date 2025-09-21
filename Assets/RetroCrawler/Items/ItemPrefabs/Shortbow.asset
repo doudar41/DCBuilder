@@ -18,10 +18,11 @@ MonoBehaviour:
   InventorySprite: {fileID: 21300000, guid: 31b7a0ed44d59924398633cb2f3fa0a5, type: 3}
   worldSprite: {fileID: 21300000, guid: 31b7a0ed44d59924398633cb2f3fa0a5, type: 3}
   prefab: {fileID: 0}
-  weight: 0
+  weight: 5
   spellContainer: {fileID: 11400000, guid: da88a03632bf1bb41bf66c816ff85db5, type: 2}
   weaponType: 4
   twoHanded: 1
   price: 10
   itemDescription: Can you stretch it?
   itemLevel: 1
+  keyType: 0
