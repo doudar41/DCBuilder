@@ -177,4 +177,17 @@ public class Party : MonoBehaviour
         GameMoney gameMoney = new GameMoney();
         return gameMoney.ConvertCoins(moneyCollected);
     }
+
+
+    public int GetPartyWeight()
+    {
+        int weight = 0;
+        foreach(Hero h in heroes)
+        {
+            weight+=h.GetHeroWeight();
+        }
+
+
+        return weight+40;
+    }
 }

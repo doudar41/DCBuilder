@@ -663,6 +663,9 @@ public class PlayerController : MonoBehaviour
 
         IItem iItem = item.GetComponent<IItem>();
         iItem.ChangeGUID();
+
+       //wallsAccess[currentposition].GetComponent<I>().
+
         iItem.SetPrefab(GameInstance.dataBase.GetItemFromBaseByIndex(cursorItemScriptable.container));
         iItem.SetItemsAmount(stackAmountCursor);
         //iItem.SetGUID(currentCursorGUID);
@@ -763,6 +766,27 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    public List<InteractablesEnum> GetIIteractableInterfaces(Vector3 v)
+    {
+        IInteractables iInteractables;
+        if (wallsAccess.ContainsKey(moveTilemap.WorldToCell(v)))
+        { iInteractables = wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<IInteractables>(); }
+        else return null;
+        List<InteractablesEnum> interactableList = iInteractables.WhatIsIt();
+        return interactableList;
+    }
+    public IBlock GetBlockInterface(Vector3 v)
+    {
+        IBlock iblock;
+        if (wallsAccess.ContainsKey(moveTilemap.WorldToCell(v)))
+        {
+            iblock = wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<IBlock>();
+            return iblock; }
+        else return null;
+
+    }
+
+
     bool CheckBlockInterfaces(Vector3 v)
     {
         IInteractables iblock;
@@ -785,8 +809,6 @@ public class PlayerController : MonoBehaviour
 
                 case InteractablesEnum.LEVEL_EXIT:
 
-
-                    //GameInstance.inventory = null;
                     OnBlockPlacement leveldestination = wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<OnBlockPlacement>();
                     _input.Disable();
                     leveldestination.GetNextLevelInfo(out Vector3Int pos, out CardinalDirections dir, out string levelName);

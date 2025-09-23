@@ -11,7 +11,6 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables
     public GameObject[] walls = new GameObject[4]; //filled while placing on tilemap
     public Vector3Int position; //given when placing on a Tilemap
     public OnBlockPlacement blockParent; //temporary parent for pathfinding
-    public bool walkable = true;
 
     public List<InteractablesEnum> blockInteractables = new List<InteractablesEnum>();
 
@@ -23,7 +22,8 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables
     [SerializeField] CardinalDirections nextLevelDirection;
     [SerializeField] string nextLevelName;
     [SerializeField] int shopIndex;
-
+    int weightInBlock;
+    [SerializeField] WeightPlate weightPlate;
     private void Start()
     {
         coordinatesTextOn = GetComponentInChildren<TextMeshPro>();
@@ -185,6 +185,19 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables
     {
         return shopIndex;
     }
+
+    public void AddWeightToBlock(int amount)
+    {
+
+        weightInBlock = Mathf.Clamp(weightInBlock + amount, 0,int.MaxValue);
+        if (weightPlate !=null)weightPlate.CheckBlockForWeight(weightInBlock);
+    }
+
+    public int CheckWeightInBlock()
+    {
+        return weightInBlock;
+    }
+
 }
 
 
@@ -203,7 +216,6 @@ public enum GroundType
 }
 
 
-
 public interface IBlock
 {
 
@@ -219,4 +231,7 @@ public interface IBlock
 
 
     public OnBlockPlacement GetOnBlock();
+    public void AddWeightToBlock(int amount);
+    public int CheckWeightInBlock();
+
 }

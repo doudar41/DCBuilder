@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.01
@@ -552,7 +552,6 @@ MonoBehaviour:
   - {fileID: 258143950}
   position: {x: 2, y: 0, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1789199500}
@@ -561,6 +560,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &5466080
 GameObject:
   m_ObjectHideFlags: 0
@@ -819,7 +819,6 @@ MonoBehaviour:
   - {fileID: 1120506671}
   position: {x: 3, y: 1, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 860276166}
@@ -828,6 +827,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &6616347
 GameObject:
   m_ObjectHideFlags: 0
@@ -968,6 +968,7 @@ GameObject:
   - component: {fileID: 7009851}
   - component: {fileID: 7009850}
   - component: {fileID: 7009849}
+  - component: {fileID: 7009852}
   m_Layer: 5
   m_Name: Rest
   m_TagString: Untagged
@@ -1037,7 +1038,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7009850}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7009852}
+        m_TargetAssemblyTypeName: Partyrest, Assembly-CSharp
+        m_MethodName: StartRest
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &7009850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1076,6 +1089,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7009847}
   m_CullTransparentMesh: 1
+--- !u!114 &7009852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7009847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1a4e88913bb2e243961644b3dbb2a9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7093851
 GameObject:
   m_ObjectHideFlags: 0
@@ -4214,7 +4239,6 @@ MonoBehaviour:
   - {fileID: 1706019374}
   position: {x: 4, y: -3, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 16485370}
@@ -4223,6 +4247,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &21986542
 GameObject:
   m_ObjectHideFlags: 0
@@ -5731,7 +5756,6 @@ MonoBehaviour:
   - {fileID: 868470702}
   position: {x: -7, y: 8, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 472990303}
@@ -5740,6 +5764,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &30130759
 GameObject:
   m_ObjectHideFlags: 0
@@ -7959,7 +7984,6 @@ MonoBehaviour:
   - {fileID: 1926812981}
   position: {x: 4, y: -1, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1300790110}
@@ -7968,6 +7992,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &44604177
 GameObject:
   m_ObjectHideFlags: 0
@@ -11944,7 +11969,6 @@ MonoBehaviour:
   - {fileID: 1488728146}
   position: {x: -4, y: -4, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1513238514}
@@ -11953,6 +11977,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &67447062
 GameObject:
   m_ObjectHideFlags: 0
@@ -16527,7 +16552,6 @@ MonoBehaviour:
   - {fileID: 722521360}
   position: {x: -3, y: -3, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1332449985}
@@ -16536,6 +16560,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &99851534
 GameObject:
   m_ObjectHideFlags: 0
@@ -17940,7 +17965,6 @@ MonoBehaviour:
   - {fileID: 1185705947}
   position: {x: 2, y: 5, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1845124115}
@@ -17949,6 +17973,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &108249476
 GameObject:
   m_ObjectHideFlags: 0
@@ -20715,7 +20740,6 @@ MonoBehaviour:
   - {fileID: 460763089}
   position: {x: -8, y: 8, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 157620591}
@@ -20724,6 +20748,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &130503578
 GameObject:
   m_ObjectHideFlags: 0
@@ -24929,7 +24954,6 @@ MonoBehaviour:
   - {fileID: 1809361826}
   position: {x: -6, y: -1, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1930876734}
@@ -24938,6 +24962,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &159942724
 GameObject:
   m_ObjectHideFlags: 0
@@ -24997,7 +25022,6 @@ MonoBehaviour:
   - {fileID: 869194999}
   position: {x: 1, y: -3, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1248855619}
@@ -25006,6 +25030,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &160351720
 GameObject:
   m_ObjectHideFlags: 0
@@ -25234,7 +25259,6 @@ MonoBehaviour:
   - {fileID: 1104741139}
   position: {x: -9, y: 0, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 558291706}
@@ -25243,6 +25267,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &163237961
 GameObject:
   m_ObjectHideFlags: 0
@@ -25461,7 +25486,6 @@ MonoBehaviour:
   - {fileID: 854555725}
   position: {x: 2, y: -3, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 196013947}
@@ -25470,6 +25494,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &164615539
 GameObject:
   m_ObjectHideFlags: 0
@@ -26337,70 +26362,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.02, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &172786373
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 172786374}
-  - component: {fileID: 172786375}
-  m_Layer: 5
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &172786374
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 172786373}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1843917384}
-  - {fileID: 1918475404}
-  m_Father: {fileID: 2060423851}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &172786375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 172786373}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 10
-    m_Right: 10
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 0
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 1
-  m_ChildControlHeight: 1
-  m_ChildScaleWidth: 1
-  m_ChildScaleHeight: 1
-  m_ReverseArrangement: 0
 --- !u!1 &173688782
 GameObject:
   m_ObjectHideFlags: 0
@@ -27334,6 +27295,69 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 176864579}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &177876492
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 177876493}
+  - component: {fileID: 177876494}
+  m_Layer: 5
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &177876493
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177876492}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1742786322}
+  m_Father: {fileID: 873535700}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &177876494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177876492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 10
+    m_Right: 10
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 1
+  m_ChildScaleHeight: 1
+  m_ReverseArrangement: 0
 --- !u!1 &178663042
 GameObject:
   m_ObjectHideFlags: 0
@@ -33105,7 +33129,6 @@ MonoBehaviour:
   - {fileID: 1470501090}
   position: {x: -10, y: 9, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1583080808}
@@ -33114,6 +33137,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &213657130
 GameObject:
   m_ObjectHideFlags: 0
@@ -35172,7 +35196,6 @@ MonoBehaviour:
   - {fileID: 885492394}
   position: {x: 3, y: 6, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 0c000000
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 672546871}
@@ -35181,6 +35204,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &229513166
 GameObject:
   m_ObjectHideFlags: 0
@@ -37063,7 +37087,6 @@ MonoBehaviour:
   - {fileID: 1745517745}
   position: {x: 2, y: 1, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 996420714}
@@ -37072,6 +37095,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &242744208
 GameObject:
   m_ObjectHideFlags: 0
@@ -37773,7 +37797,6 @@ MonoBehaviour:
   - {fileID: 528972835}
   position: {x: -9, y: 5, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1244959659}
@@ -37782,6 +37805,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &245929345
 GameObject:
   m_ObjectHideFlags: 0
@@ -39400,7 +39424,6 @@ MonoBehaviour:
   - {fileID: 1043158166}
   position: {x: -7, y: 2, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 100190534}
@@ -39409,6 +39432,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &255322568
 GameObject:
   m_ObjectHideFlags: 0
@@ -40467,10 +40491,10 @@ Light:
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
-  m_CookieSize: 10
+  m_CookieSize: 100
   m_Shadows:
     m_Type: 0
-    m_Resolution: -1
+    m_Resolution: 0
     m_CustomResolution: -1
     m_Strength: 1
     m_Bias: 0.05
@@ -40521,13 +40545,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 261126559}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 35.44, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &261211115
 GameObject:
   m_ObjectHideFlags: 0
@@ -40587,7 +40611,6 @@ MonoBehaviour:
   - {fileID: 164615539}
   position: {x: -10, y: 6, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1607291110}
@@ -40596,6 +40619,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &262427759
 GameObject:
   m_ObjectHideFlags: 0
@@ -47088,7 +47112,6 @@ MonoBehaviour:
   - {fileID: 1725258867}
   position: {x: -8, y: -2, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 0d000000
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 5466080}
@@ -47097,6 +47120,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &310526601
 GameObject:
   m_ObjectHideFlags: 0
@@ -57968,7 +57992,6 @@ MonoBehaviour:
   - {fileID: 643995235}
   position: {x: -6, y: 1, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 717320127}
@@ -57977,6 +58000,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &375764800
 GameObject:
   m_ObjectHideFlags: 0
@@ -58475,6 +58499,81 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 0.02}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &378406110
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 378406111}
+  - component: {fileID: 378406113}
+  - component: {fileID: 378406112}
+  m_Layer: 5
+  m_Name: Fill
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &378406111
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378406110}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1304408654}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &378406112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378406110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.41568625, g: 0.87300324, b: 0.99215686, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 783a3e304eb53a74ea13101e61180766, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 0.64
+--- !u!222 &378406113
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378406110}
+  m_CullTransparentMesh: 1
 --- !u!1 &378983661
 GameObject:
   m_ObjectHideFlags: 0
@@ -58752,7 +58851,6 @@ MonoBehaviour:
   - {fileID: 1601702333}
   position: {x: -5, y: 9, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1384478667}
@@ -58761,6 +58859,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &380858543
 GameObject:
   m_ObjectHideFlags: 0
@@ -64537,7 +64636,6 @@ MonoBehaviour:
   - {fileID: 1071182123}
   position: {x: -2, y: -1, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 94778142}
@@ -64546,6 +64644,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &413261821
 GameObject:
   m_ObjectHideFlags: 0
@@ -68445,7 +68544,6 @@ MonoBehaviour:
   - {fileID: 411756383}
   position: {x: 2, y: 3, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 716628725}
@@ -68454,6 +68552,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &442941795
 GameObject:
   m_ObjectHideFlags: 0
@@ -70062,7 +70161,6 @@ MonoBehaviour:
   - {fileID: 894179660}
   position: {x: -7, y: -1, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1359560714}
@@ -70071,6 +70169,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &456158205
 GameObject:
   m_ObjectHideFlags: 0
@@ -71859,7 +71958,6 @@ MonoBehaviour:
   - {fileID: 1893453211}
   position: {x: -6, y: 8, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1749528024}
@@ -71868,6 +71966,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &467577541
 GameObject:
   m_ObjectHideFlags: 0
@@ -72381,7 +72480,6 @@ MonoBehaviour:
   - {fileID: 13570418}
   position: {x: -2, y: 1, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1226719306}
@@ -72390,6 +72488,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &469856931
 GameObject:
   m_ObjectHideFlags: 0
@@ -72929,7 +73028,6 @@ MonoBehaviour:
   - {fileID: 1598089020}
   position: {x: -3, y: -1, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 230794034}
@@ -72938,6 +73036,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &472277721
 GameObject:
   m_ObjectHideFlags: 0
@@ -77831,7 +77930,6 @@ MonoBehaviour:
   - {fileID: 1410245998}
   position: {x: -4, y: 0, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1028558760}
@@ -77840,6 +77938,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &502608069
 GameObject:
   m_ObjectHideFlags: 0
@@ -77988,7 +78087,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8463113305200442390, guid: f2f76c5f05449f2449e877b941024850, type: 3}
       propertyPath: m_Name
-      value: ItemModelContainer (4)
+      value: EmptyItemForGameInstanceDelegatre
       objectReference: {fileID: 0}
     - target: {fileID: 8463113305200442390, guid: f2f76c5f05449f2449e877b941024850, type: 3}
       propertyPath: m_IsActive
@@ -78695,7 +78794,6 @@ MonoBehaviour:
   - {fileID: 446802299}
   position: {x: -3, y: 2, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 2008839522}
@@ -78704,6 +78802,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &507817764
 GameObject:
   m_ObjectHideFlags: 0
@@ -79698,7 +79797,6 @@ MonoBehaviour:
   - {fileID: 528120066}
   position: {x: 4, y: 0, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1082662545}
@@ -79707,6 +79805,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &511438158
 GameObject:
   m_ObjectHideFlags: 0
@@ -80692,7 +80791,6 @@ MonoBehaviour:
   - {fileID: 815605177}
   position: {x: -8, y: 5, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 269255195}
@@ -80701,6 +80799,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &516970117
 GameObject:
   m_ObjectHideFlags: 0
@@ -83371,8 +83470,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -20, y: 0}
+  m_AnchoredPosition: {x: 0.000045776367, y: 0}
+  m_SizeDelta: {x: -0.00012207, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &532359835
 GameObject:
@@ -83722,7 +83821,6 @@ MonoBehaviour:
   - {fileID: 2141893189}
   position: {x: 1, y: -2, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1734869110}
@@ -83731,6 +83829,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &535793752
 GameObject:
   m_ObjectHideFlags: 0
@@ -84199,7 +84298,6 @@ MonoBehaviour:
   - {fileID: 592945203}
   position: {x: 3, y: 4, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1258632922}
@@ -84208,6 +84306,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &538959018
 GameObject:
   m_ObjectHideFlags: 0
@@ -85045,7 +85144,6 @@ MonoBehaviour:
   - {fileID: 1658480190}
   position: {x: 0, y: 1, z: 0}
   blockParent: {fileID: 542949838}
-  walkable: 1
   blockInteractables: 0d000000
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1536255720}
@@ -85054,6 +85152,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &543660390
 GameObject:
   m_ObjectHideFlags: 0
@@ -85113,7 +85212,6 @@ MonoBehaviour:
   - {fileID: 1859938915}
   position: {x: -5, y: 1, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1551932153}
@@ -85122,6 +85220,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &543858986
 GameObject:
   m_ObjectHideFlags: 0
@@ -89104,7 +89203,6 @@ MonoBehaviour:
   - {fileID: 1753830283}
   position: {x: -9, y: 7, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 325981412}
@@ -89113,6 +89211,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &564323319
 GameObject:
   m_ObjectHideFlags: 0
@@ -89172,7 +89271,6 @@ MonoBehaviour:
   - {fileID: 1146683262}
   position: {x: -10, y: 8, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1247427165}
@@ -89181,6 +89279,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &564386106
 GameObject:
   m_ObjectHideFlags: 0
@@ -91940,7 +92039,6 @@ MonoBehaviour:
   - {fileID: 1751502001}
   position: {x: 3, y: -1, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1530733861}
@@ -91949,6 +92047,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &582468345
 GameObject:
   m_ObjectHideFlags: 0
@@ -93809,7 +93908,6 @@ MonoBehaviour:
   - {fileID: 1899610822}
   position: {x: 1, y: -1, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 431526170}
@@ -93818,6 +93916,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &596211334
 GameObject:
   m_ObjectHideFlags: 0
@@ -94318,7 +94417,6 @@ MonoBehaviour:
   - {fileID: 2141364716}
   position: {x: 2, y: 2, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 147828058}
@@ -94327,6 +94425,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &601733478
 GameObject:
   m_ObjectHideFlags: 0
@@ -94575,7 +94674,6 @@ MonoBehaviour:
   - {fileID: 1767876300}
   position: {x: -9, y: 9, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1803815566}
@@ -94584,6 +94682,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &605151655
 GameObject:
   m_ObjectHideFlags: 0
@@ -96725,7 +96824,6 @@ MonoBehaviour:
   - {fileID: 1472598442}
   position: {x: -10, y: 4, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1291022605}
@@ -96734,6 +96832,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &622429609
 GameObject:
   m_ObjectHideFlags: 0
@@ -96793,7 +96892,6 @@ MonoBehaviour:
   - {fileID: 1735869843}
   position: {x: -7, y: 1, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1847175240}
@@ -96802,6 +96900,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &622927712
 GameObject:
   m_ObjectHideFlags: 0
@@ -97984,8 +98083,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -29.733002, y: 28.5}
-  m_SizeDelta: {x: 45.0653, y: 41.2}
+  m_AnchoredPosition: {x: -31.620003, y: 26.970001}
+  m_SizeDelta: {x: 42.31, y: 38.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &628230308
 MonoBehaviour:
@@ -100373,8 +100472,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 531902160}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -104829,7 +104928,6 @@ MonoBehaviour:
   - {fileID: 455737703}
   position: {x: 4, y: 5, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 238682809}
@@ -104838,6 +104936,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &672546871
 GameObject:
   m_ObjectHideFlags: 0
@@ -105103,7 +105202,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &674776719
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -105134,7 +105233,7 @@ Transform:
   m_GameObject: {fileID: 674776718}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.58, y: 2.51, z: 10.37}
+  m_LocalPosition: {x: -7.33, y: 2.51, z: -5.1}
   m_LocalScale: {x: 7.67, y: 7.94, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -105286,9 +105385,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   clampXMinR: 0
-  clampXMaxR: 0
+  clampXMaxR: 0.3
   clampXMaxL: 0
-  clampXMinL: 0
+  clampXMinL: -0.3
   isOpened: 0
 --- !u!1 &675294734
 GameObject:
@@ -107043,7 +107142,6 @@ MonoBehaviour:
   - {fileID: 392087019}
   position: {x: -5, y: 3, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1369884152}
@@ -107052,6 +107150,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &684056444
 GameObject:
   m_ObjectHideFlags: 0
@@ -109879,7 +109978,6 @@ MonoBehaviour:
   - {fileID: 2094332858}
   position: {x: -8, y: 7, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 445009615}
@@ -109888,6 +109986,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &704327566
 GameObject:
   m_ObjectHideFlags: 0
@@ -110193,8 +110292,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: 0.0001373291, y: 0}
-  m_SizeDelta: {x: -0.000015259, y: 0}
+  m_AnchoredPosition: {x: 0.0001373291, y: -1.1876001}
+  m_SizeDelta: {x: 0, y: 17.21}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &707484034
 GameObject:
@@ -114106,7 +114205,6 @@ MonoBehaviour:
   - {fileID: 1891184132}
   position: {x: -7, y: 3, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 228367220}
@@ -114115,6 +114213,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &728585713
 GameObject:
   m_ObjectHideFlags: 0
@@ -115678,7 +115777,6 @@ MonoBehaviour:
   - {fileID: 309666443}
   position: {x: -7, y: 6, z: 0}
   blockParent: {fileID: 737411194}
-  walkable: 1
   blockInteractables: 0d000000
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 944667943}
@@ -115687,6 +115785,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 1
+  weightPlate: {fileID: 0}
 --- !u!1 &737788725
 GameObject:
   m_ObjectHideFlags: 0
@@ -116614,7 +116713,6 @@ MonoBehaviour:
   - {fileID: 721015743}
   position: {x: -4, y: -6, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 443871641}
@@ -116623,6 +116721,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &746241128
 GameObject:
   m_ObjectHideFlags: 0
@@ -119089,7 +119188,6 @@ MonoBehaviour:
   - {fileID: 1234375073}
   position: {x: -3, y: -5, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 2039831307}
@@ -119098,6 +119196,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &762002868
 GameObject:
   m_ObjectHideFlags: 0
@@ -120466,7 +120565,6 @@ MonoBehaviour:
   - {fileID: 401738083}
   position: {x: 3, y: -3, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 2056755247}
@@ -120475,6 +120573,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &769000487
 GameObject:
   m_ObjectHideFlags: 0
@@ -123674,7 +123773,6 @@ MonoBehaviour:
   - {fileID: 2115426418}
   position: {x: -2, y: -8, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 03000000
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1040626148}
@@ -123683,6 +123781,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: Level02
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &793398639
 GameObject:
   m_ObjectHideFlags: 0
@@ -125006,7 +125105,6 @@ MonoBehaviour:
   - {fileID: 1355507908}
   position: {x: 4, y: 2, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1179436091}
@@ -125015,6 +125113,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &800832453
 GameObject:
   m_ObjectHideFlags: 0
@@ -128742,7 +128841,6 @@ MonoBehaviour:
   - {fileID: 90193657}
   position: {x: -2, y: -3, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 640788094}
@@ -128751,6 +128849,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &818915681
 GameObject:
   m_ObjectHideFlags: 0
@@ -129692,81 +129791,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 826431142}
   m_CullTransparentMesh: 1
---- !u!1 &826967826
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 826967827}
-  - component: {fileID: 826967829}
-  - component: {fileID: 826967828}
-  m_Layer: 5
-  m_Name: Fill
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &826967827
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 826967826}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1602117973}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &826967828
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 826967826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.990566, g: 0.41585082, b: 0.41585082, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &826967829
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 826967826}
-  m_CullTransparentMesh: 1
 --- !u!1 &827428125
 GameObject:
   m_ObjectHideFlags: 0
@@ -129826,7 +129850,6 @@ MonoBehaviour:
   - {fileID: 1610335703}
   position: {x: 2, y: 6, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1278782356}
@@ -129835,6 +129858,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &827461543
 GameObject:
   m_ObjectHideFlags: 0
@@ -131191,7 +131215,6 @@ MonoBehaviour:
   - {fileID: 773757694}
   position: {x: -5, y: 7, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 569680072}
@@ -131200,6 +131223,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &834705592
 GameObject:
   m_ObjectHideFlags: 0
@@ -131237,8 +131261,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 304.5, y: -228.5}
-  m_SizeDelta: {x: 609, y: 457}
+  m_AnchoredPosition: {x: 304.5, y: -222.2}
+  m_SizeDelta: {x: 609, y: 444.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &834705594
 MonoBehaviour:
@@ -131340,7 +131364,9 @@ MonoBehaviour:
     - {fileID: 799182658}
   panelStats: {fileID: 1958399261}
   carryingWeight: {fileID: 1553850341}
-  hungerLevel: {fileID: 2060423852}
+  hungerLevel: {fileID: 0}
+  weightHero: {fileID: 2076804697}
+  weightParty: {fileID: 1725364691}
 --- !u!1 &835161203
 GameObject:
   m_ObjectHideFlags: 0
@@ -132229,7 +132255,6 @@ MonoBehaviour:
   - {fileID: 2059246441}
   position: {x: -10, y: 5, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1881432579}
@@ -132238,6 +132263,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &838816326
 GameObject:
   m_ObjectHideFlags: 0
@@ -132980,7 +133006,6 @@ MonoBehaviour:
   - {fileID: 624383410}
   position: {x: -6, y: 0, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 773328058}
@@ -132989,6 +133014,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &844479347
 GameObject:
   m_ObjectHideFlags: 0
@@ -137138,6 +137164,97 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 872057443}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &873535699
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 873535700}
+  - component: {fileID: 873535701}
+  m_Layer: 5
+  m_Name: CarryingCapacitySlider (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &873535700
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873535699}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2105814641}
+  - {fileID: 1304408654}
+  - {fileID: 2012730743}
+  - {fileID: 177876493}
+  m_Father: {fileID: 1559115640}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -160}
+  m_SizeDelta: {x: 250, y: 32.4}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &873535701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873535699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 0
+  m_TargetGraphic: {fileID: 1778073110}
+  m_FillRect: {fileID: 378406111}
+  m_HandleRect: {fileID: 1778073109}
+  m_Direction: 0
+  m_MinValue: 0
+  m_MaxValue: 1
+  m_WholeNumbers: 0
+  m_Value: 1
+  m_OnValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &874469386
 GameObject:
   m_ObjectHideFlags: 0
@@ -137440,7 +137557,6 @@ MonoBehaviour:
   - {fileID: 425808008}
   position: {x: 3, y: 3, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 83841056}
@@ -137449,6 +137565,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &876421600
 GameObject:
   m_ObjectHideFlags: 0
@@ -137561,7 +137678,6 @@ MonoBehaviour:
   - {fileID: 1880101700}
   position: {x: -8, y: 9, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 392072074}
@@ -137570,6 +137686,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &877131203
 GameObject:
   m_ObjectHideFlags: 0
@@ -144112,7 +144229,6 @@ MonoBehaviour:
   - {fileID: 1894924221}
   position: {x: -1, y: -3, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1663792637}
@@ -144121,6 +144237,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &920085417
 GameObject:
   m_ObjectHideFlags: 0
@@ -144470,7 +144587,6 @@ MonoBehaviour:
   - {fileID: 640502182}
   position: {x: -1, y: -7, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 271246769}
@@ -144479,6 +144595,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &921551662
 GameObject:
   m_ObjectHideFlags: 0
@@ -144723,7 +144840,6 @@ MonoBehaviour:
   - {fileID: 1607903915}
   position: {x: -8, y: 1, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1229322206}
@@ -144732,6 +144848,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &925673354
 GameObject:
   m_ObjectHideFlags: 0
@@ -145229,7 +145346,6 @@ MonoBehaviour:
   - {fileID: 1770809684}
   position: {x: -3, y: 1, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 776202538}
@@ -145238,6 +145354,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &929235562
 GameObject:
   m_ObjectHideFlags: 0
@@ -145979,7 +146096,6 @@ MonoBehaviour:
   - {fileID: 265027197}
   position: {x: -7, y: 0, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1354848089}
@@ -145988,6 +146104,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &933946193
 GameObject:
   m_ObjectHideFlags: 0
@@ -150459,7 +150576,6 @@ MonoBehaviour:
   - {fileID: 315042050}
   position: {x: 1, y: 3, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 477407269}
@@ -150468,6 +150584,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &963108624
 GameObject:
   m_ObjectHideFlags: 0
@@ -152136,7 +152253,6 @@ MonoBehaviour:
   - {fileID: 1054870342}
   position: {x: 0, y: -2, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 609945770}
@@ -152145,6 +152261,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &973622618
 GameObject:
   m_ObjectHideFlags: 0
@@ -154491,7 +154608,6 @@ MonoBehaviour:
   - {fileID: 1473387266}
   position: {x: -1, y: -4, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 2079029702}
@@ -154500,6 +154616,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &998748015
 GameObject:
   m_ObjectHideFlags: 0
@@ -157199,7 +157316,6 @@ MonoBehaviour:
   - {fileID: 409938081}
   position: {x: 0, y: -7, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1681572127}
@@ -157208,6 +157324,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1017409153
 GameObject:
   m_ObjectHideFlags: 0
@@ -159385,7 +159502,6 @@ MonoBehaviour:
   - {fileID: 1131659793}
   position: {x: -9, y: 6, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 270731317}
@@ -159394,6 +159510,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1034100882
 GameObject:
   m_ObjectHideFlags: 0
@@ -159875,7 +159992,6 @@ MonoBehaviour:
   - {fileID: 1470476153}
   position: {x: -10, y: 0, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 366422125}
@@ -159884,6 +160000,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1037344409
 GameObject:
   m_ObjectHideFlags: 0
@@ -161824,7 +161941,6 @@ MonoBehaviour:
   - {fileID: 2045849808}
   position: {x: -2, y: -4, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 567744378}
@@ -161833,6 +161949,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1049675078
 GameObject:
   m_ObjectHideFlags: 0
@@ -162062,7 +162179,6 @@ MonoBehaviour:
   - {fileID: 500132354}
   position: {x: -14, y: -11, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 0}
@@ -162071,6 +162187,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1050008142
 GameObject:
   m_ObjectHideFlags: 0
@@ -162525,7 +162642,6 @@ MonoBehaviour:
   - {fileID: 844479347}
   position: {x: 2, y: 4, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1277168185}
@@ -162534,6 +162650,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1051214298
 GameObject:
   m_ObjectHideFlags: 0
@@ -163973,7 +164090,6 @@ MonoBehaviour:
   - {fileID: 1931842361}
   position: {x: -6, y: 2, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 736571540}
@@ -163982,6 +164098,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1059504638
 GameObject:
   m_ObjectHideFlags: 0
@@ -167589,7 +167706,6 @@ MonoBehaviour:
   - {fileID: 100166272}
   position: {x: -5, y: 6, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 310947381}
@@ -167598,6 +167714,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1087717037
 GameObject:
   m_ObjectHideFlags: 0
@@ -168477,7 +168594,6 @@ MonoBehaviour:
   - {fileID: 507823685}
   position: {x: -6, y: 3, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 726133198}
@@ -168486,6 +168602,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1097287638
 GameObject:
   m_ObjectHideFlags: 0
@@ -168620,7 +168737,6 @@ MonoBehaviour:
   - {fileID: 672947780}
   position: {x: -3, y: -6, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1875476633}
@@ -168629,6 +168745,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1098563074
 GameObject:
   m_ObjectHideFlags: 0
@@ -171752,7 +171869,6 @@ MonoBehaviour:
   - {fileID: 55583106}
   position: {x: 4, y: 4, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 959571893}
@@ -171761,6 +171877,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1116114217
 GameObject:
   m_ObjectHideFlags: 0
@@ -175205,7 +175322,6 @@ MonoBehaviour:
   - {fileID: 1885384111}
   position: {x: 0, y: 3, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 469897907}
@@ -175214,6 +175330,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1133226750
 GameObject:
   m_ObjectHideFlags: 0
@@ -175389,7 +175506,6 @@ MonoBehaviour:
   - {fileID: 595489483}
   position: {x: -4, y: 3, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 803709540}
@@ -175398,6 +175514,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1135499071
 GameObject:
   m_ObjectHideFlags: 0
@@ -177968,7 +178085,6 @@ MonoBehaviour:
   - {fileID: 1397543901}
   position: {x: -6, y: 9, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 689592732}
@@ -177977,6 +178093,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1157271888
 GameObject:
   m_ObjectHideFlags: 0
@@ -178519,7 +178636,6 @@ MonoBehaviour:
   - {fileID: 130133008}
   position: {x: 0, y: -4, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 50305293}
@@ -178528,6 +178644,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1162674739
 GameObject:
   m_ObjectHideFlags: 0
@@ -178640,7 +178757,6 @@ MonoBehaviour:
   - {fileID: 352629173}
   position: {x: -2, y: -7, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 2028274356}
@@ -178649,6 +178765,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1164322087
 GameObject:
   m_ObjectHideFlags: 0
@@ -179101,7 +179218,6 @@ MonoBehaviour:
   - {fileID: 1931564018}
   position: {x: 2, y: -2, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1524633846}
@@ -179110,6 +179226,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1167374943
 GameObject:
   m_ObjectHideFlags: 0
@@ -186088,7 +186205,6 @@ MonoBehaviour:
   - {fileID: 1110750956}
   position: {x: -9, y: 1, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1427298}
@@ -186097,6 +186213,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1209680024
 GameObject:
   m_ObjectHideFlags: 0
@@ -187852,7 +187969,6 @@ MonoBehaviour:
   - {fileID: 327034912}
   position: {x: -9, y: 8, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1383818326}
@@ -187861,6 +187977,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1223201306
 GameObject:
   m_ObjectHideFlags: 0
@@ -187992,7 +188109,6 @@ MonoBehaviour:
   - {fileID: 1513075456}
   position: {x: -14, y: -10, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 0}
@@ -188001,6 +188117,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!4 &1223590644
 Transform:
   m_ObjectHideFlags: 0
@@ -188702,7 +188819,6 @@ MonoBehaviour:
   - {fileID: 1768515452}
   position: {x: -2, y: 3, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 366147220}
@@ -188711,6 +188827,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1229322206
 GameObject:
   m_ObjectHideFlags: 0
@@ -189554,7 +189671,6 @@ MonoBehaviour:
   - {fileID: 463325382}
   position: {x: -1, y: -2, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1291652921}
@@ -189563,6 +189679,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1233157019
 GameObject:
   m_ObjectHideFlags: 0
@@ -190238,7 +190355,6 @@ MonoBehaviour:
   - {fileID: 1380606534}
   position: {x: 2, y: -1, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 465261939}
@@ -190247,6 +190363,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1240431640
 GameObject:
   m_ObjectHideFlags: 0
@@ -190725,7 +190842,6 @@ MonoBehaviour:
   - {fileID: 526692477}
   position: {x: -8, y: 2, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1930828529}
@@ -190734,6 +190850,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1243423170
 GameObject:
   m_ObjectHideFlags: 0
@@ -192971,6 +193088,161 @@ Transform:
   - {fileID: 1780009681}
   m_Father: {fileID: 1852414476}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1254102899
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1254102900}
+  - component: {fileID: 1254102902}
+  - component: {fileID: 1254102901}
+  - component: {fileID: 1254102903}
+  m_Layer: 5
+  m_Name: WieghtText (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1254102900
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1254102899}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.0023291, y: 1.0023291, z: 1.0023291}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1582456080}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 34.548927, y: -20.080042}
+  m_SizeDelta: {x: 58.960526, y: 30.09}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1254102901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1254102899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Party Weight
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 29aad055d0367ff48950c5de2c08f61c, type: 2}
+  m_sharedMaterial: {fileID: 7429070075599725389, guid: 29aad055d0367ff48950c5de2c08f61c, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4278246143
+  m_fontColor: {r: 1, g: 0.85331404, b: 0, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 10
+  m_fontSizeBase: 10
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1254102902
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1254102899}
+  m_CullTransparentMesh: 1
+--- !u!114 &1254102903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1254102899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: 40
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &1254364620
 GameObject:
   m_ObjectHideFlags: 0
@@ -193279,7 +193551,6 @@ MonoBehaviour:
   - {fileID: 361250763}
   position: {x: 1, y: 0, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1289697552}
@@ -193288,6 +193559,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1001 &1256484408
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -194167,7 +194439,6 @@ MonoBehaviour:
   - {fileID: 261103538}
   position: {x: -5, y: 5, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1693324282}
@@ -194176,6 +194447,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1001 &1261357369
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -201451,6 +201723,42 @@ Transform:
   - {fileID: 368636088}
   m_Father: {fileID: 269466872}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1304408653
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1304408654}
+  m_Layer: 5
+  m_Name: Fill Area
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1304408654
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1304408653}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 378406111}
+  m_Father: {fileID: 873535700}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.25}
+  m_AnchorMax: {x: 1, y: 0.75}
+  m_AnchoredPosition: {x: 0.0001373291, y: -1.1876001}
+  m_SizeDelta: {x: 0, y: 17.21}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1304665866
 GameObject:
   m_ObjectHideFlags: 0
@@ -203327,7 +203635,6 @@ MonoBehaviour:
   - {fileID: 180306802}
   position: {x: -14, y: -10, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 0}
@@ -203336,6 +203643,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!4 &1316119077
 Transform:
   m_ObjectHideFlags: 0
@@ -204139,6 +204447,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1321438219}
   - component: {fileID: 1321438220}
+  - component: {fileID: 1321438221}
   m_Layer: 11
   m_Name: Mesh
   m_TagString: Untagged
@@ -204177,11 +204486,27 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 10, y: 1, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1321438221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1321438218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4afc05fc11fa0f44e99e837df76f1115, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionTarget: {fileID: 674776718}
+  block: {fileID: 1852414477}
+  animationSprites: {fileID: 0}
+  weightToOpen: 10
 --- !u!1 &1321616771
 GameObject:
   m_ObjectHideFlags: 0
@@ -204941,7 +205266,6 @@ MonoBehaviour:
   - {fileID: 2030476982}
   position: {x: 4, y: 6, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 2021073531}
@@ -204950,6 +205274,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1326705702
 GameObject:
   m_ObjectHideFlags: 0
@@ -208630,7 +208955,6 @@ MonoBehaviour:
   - {fileID: 985443517}
   position: {x: -10, y: 7, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 748361606}
@@ -208639,6 +208963,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1351332206
 GameObject:
   m_ObjectHideFlags: 0
@@ -211226,7 +211551,6 @@ MonoBehaviour:
   - {fileID: 1318606947}
   position: {x: -4, y: -5, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1814139713}
@@ -211235,6 +211559,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1369884152
 GameObject:
   m_ObjectHideFlags: 0
@@ -215898,7 +216223,6 @@ MonoBehaviour:
   - {fileID: 325037604}
   position: {x: -5, y: 0, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 593386089}
@@ -215907,6 +216231,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1393924599
 GameObject:
   m_ObjectHideFlags: 0
@@ -218360,7 +218685,6 @@ MonoBehaviour:
   - {fileID: 2130060567}
   position: {x: -1, y: -6, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1409726603}
@@ -218369,6 +218693,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1411961738
 GameObject:
   m_ObjectHideFlags: 0
@@ -221119,7 +221444,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 542323036}
   m_HandleRect: {fileID: 542323035}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 1.0000001
   m_Size: 0.5677998
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -227999,7 +228324,6 @@ MonoBehaviour:
   - {fileID: 411900577}
   position: {x: -10, y: -1, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1548128729}
@@ -228008,6 +228332,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1477861200
 GameObject:
   m_ObjectHideFlags: 0
@@ -229181,7 +229506,6 @@ MonoBehaviour:
   - {fileID: 1035705116}
   position: {x: -7, y: 4, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1544718529}
@@ -229190,6 +229514,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1488218750
 GameObject:
   m_ObjectHideFlags: 0
@@ -235055,7 +235380,6 @@ MonoBehaviour:
   - {fileID: 1031297727}
   position: {x: 4, y: -2, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 449273440}
@@ -235064,6 +235388,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1529538181
 GameObject:
   m_ObjectHideFlags: 0
@@ -236129,7 +236454,6 @@ MonoBehaviour:
   - {fileID: 866699615}
   position: {x: -4, y: -1, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 987465909}
@@ -236138,6 +236462,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1536255720
 GameObject:
   m_ObjectHideFlags: 0
@@ -238495,7 +238820,6 @@ MonoBehaviour:
   - {fileID: 237479621}
   position: {x: -10, y: 2, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1761168342}
@@ -238504,6 +238828,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1549597937
 GameObject:
   m_ObjectHideFlags: 0
@@ -239322,8 +239647,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -136}
-  m_SizeDelta: {x: 250, y: 40}
+  m_AnchoredPosition: {x: 0, y: -122.98}
+  m_SizeDelta: {x: 250, y: 32.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1553850341
 MonoBehaviour:
@@ -239372,7 +239697,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.3
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -240486,7 +240811,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1559115640
 RectTransform:
   m_ObjectHideFlags: 0
@@ -240513,10 +240838,11 @@ RectTransform:
   - {fileID: 911078399}
   - {fileID: 1771943003}
   - {fileID: 1553850340}
-  - {fileID: 2060423851}
+  - {fileID: 873535700}
   - {fileID: 312872815}
   - {fileID: 628230307}
   - {fileID: 2061826608}
+  - {fileID: 1582456080}
   m_Father: {fileID: 834705593}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
@@ -241642,7 +241968,6 @@ MonoBehaviour:
   - {fileID: 1451998153}
   position: {x: -8, y: 4, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1401236771}
@@ -241651,6 +241976,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1568507136
 GameObject:
   m_ObjectHideFlags: 0
@@ -242711,81 +243037,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1575803258}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1575900688
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1575900689}
-  - component: {fileID: 1575900691}
-  - component: {fileID: 1575900690}
-  m_Layer: 5
-  m_Name: Handle
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &1575900689
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1575900688}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1676489955}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 20, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1575900690
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1575900688}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1575900691
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1575900688}
-  m_CullTransparentMesh: 1
 --- !u!1 &1577335564
 GameObject:
   m_ObjectHideFlags: 0
@@ -242845,7 +243096,6 @@ MonoBehaviour:
   - {fileID: 1944218445}
   position: {x: -8, y: 3, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1113187798}
@@ -242854,6 +243104,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1577562624
 GameObject:
   m_ObjectHideFlags: 0
@@ -243451,6 +243702,110 @@ Transform:
   - {fileID: 1546556279}
   m_Father: {fileID: 130264405}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1582456079
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1582456080}
+  - component: {fileID: 1582456081}
+  - component: {fileID: 1582456083}
+  - component: {fileID: 1582456082}
+  m_Layer: 5
+  m_Name: PartyWeight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1582456080
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1582456079}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1254102900}
+  - {fileID: 1725364690}
+  m_Father: {fileID: 1559115640}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -76.19985, y: -201.2}
+  m_SizeDelta: {x: 95.62, y: 40.09}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1582456081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1582456079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 5
+    m_Right: 5
+    m_Top: 5
+    m_Bottom: 5
+  m_ChildAlignment: 0
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 1
+  m_ChildScaleHeight: 1
+  m_ReverseArrangement: 0
+--- !u!114 &1582456082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1582456079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 09861754ae24554418eec6585de6f982, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1582456083
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1582456079}
+  m_CullTransparentMesh: 1
 --- !u!1 &1582610101
 GameObject:
   m_ObjectHideFlags: 0
@@ -245303,7 +245658,6 @@ MonoBehaviour:
   - {fileID: 229513166}
   position: {x: -1, y: -5, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 553175577}
@@ -245312,6 +245666,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1598765686
 GameObject:
   m_ObjectHideFlags: 0
@@ -245894,42 +246249,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1601934696}
   m_CullTransparentMesh: 1
---- !u!1 &1602117972
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1602117973}
-  m_Layer: 5
-  m_Name: Fill Area
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1602117973
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1602117972}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 826967827}
-  m_Father: {fileID: 2060423851}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.25}
-  m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: 0.0001373291, y: 0}
-  m_SizeDelta: {x: -0.000015259, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &1602532210 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6007174180746859800, guid: 425095aa7e0191d4795afc7e34380fa9, type: 3}
@@ -247577,7 +247896,6 @@ MonoBehaviour:
   - {fileID: 576118773}
   position: {x: -3, y: 0, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1350450983}
@@ -247586,6 +247904,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1608880764
 GameObject:
   m_ObjectHideFlags: 0
@@ -247927,7 +248246,6 @@ MonoBehaviour:
   - {fileID: 784320969}
   position: {x: 0, y: -3, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 666927190}
@@ -247936,6 +248254,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1609469037
 GameObject:
   m_ObjectHideFlags: 0
@@ -248505,7 +248824,6 @@ MonoBehaviour:
   - {fileID: 678171302}
   position: {x: -4, y: -2, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1648828053}
@@ -248514,6 +248832,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1612573616
 GameObject:
   m_ObjectHideFlags: 0
@@ -257525,7 +257844,6 @@ MonoBehaviour:
   - {fileID: 1489584418}
   position: {x: -5, y: 2, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 727183593}
@@ -257534,6 +257852,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1637750236
 GameObject:
   m_ObjectHideFlags: 0
@@ -257692,7 +258011,6 @@ MonoBehaviour:
   - {fileID: 1248177800}
   position: {x: -4, y: -7, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 525445300}
@@ -257701,6 +258019,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1639113555
 GameObject:
   m_ObjectHideFlags: 0
@@ -259784,7 +260103,6 @@ MonoBehaviour:
   - {fileID: 1078241764}
   position: {x: -10, y: 3, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 950619855}
@@ -259793,6 +260111,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1653101333
 GameObject:
   m_ObjectHideFlags: 0
@@ -260019,7 +260338,6 @@ MonoBehaviour:
   - {fileID: 1332717954}
   position: {x: 4, y: 3, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1199589728}
@@ -260028,6 +260346,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1654113382
 GameObject:
   m_ObjectHideFlags: 0
@@ -260903,8 +261222,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -1.1876001}
+  m_SizeDelta: {x: 0, y: 17.21}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1658935080
 MonoBehaviour:
@@ -260919,14 +261238,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6427109, g: 0.85055214, b: 0.9528302, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 09861754ae24554418eec6585de6f982, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -260935,7 +261254,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.67
 --- !u!222 &1658935081
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -261532,7 +261851,6 @@ MonoBehaviour:
   - {fileID: 195014475}
   position: {x: -5, y: 4, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1835017865}
@@ -261541,6 +261859,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1663705737
 GameObject:
   m_ObjectHideFlags: 0
@@ -263943,42 +264262,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1676394293}
   m_CullTransparentMesh: 1
---- !u!1 &1676489954
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1676489955}
-  m_Layer: 5
-  m_Name: Handle Slide Area
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1676489955
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1676489954}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1575900689}
-  m_Father: {fileID: 2060423851}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -20, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1676758356
 GameObject:
   m_ObjectHideFlags: 0
@@ -266815,7 +267098,6 @@ MonoBehaviour:
   - {fileID: 685613647}
   position: {x: -10, y: 1, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1652512185}
@@ -266824,6 +267106,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1692898171
 GameObject:
   m_ObjectHideFlags: 0
@@ -269173,7 +269456,6 @@ MonoBehaviour:
   - {fileID: 1621900355}
   position: {x: 0, y: -6, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1217295796}
@@ -269182,6 +269464,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1707386290
 GameObject:
   m_ObjectHideFlags: 0
@@ -269533,7 +269816,6 @@ MonoBehaviour:
   - {fileID: 1621241766}
   position: {x: -14, y: -10, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 0}
@@ -269542,6 +269824,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1708767906
 GameObject:
   m_ObjectHideFlags: 0
@@ -272222,7 +272505,6 @@ MonoBehaviour:
   - {fileID: 2144475001}
   position: {x: -3, y: -7, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 547517455}
@@ -272231,6 +272513,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1725258867
 GameObject:
   m_ObjectHideFlags: 0
@@ -272264,6 +272547,140 @@ Transform:
   - {fileID: 885309590}
   m_Father: {fileID: 310503289}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1725364689
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1725364690}
+  - component: {fileID: 1725364692}
+  - component: {fileID: 1725364691}
+  m_Layer: 5
+  m_Name: WieghtText (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1725364690
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725364689}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.0023291, y: 1.0023291, z: 1.0023291}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1582456080}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 77.35893, y: -20.080042}
+  m_SizeDelta: {x: 26.460526, y: 30.09}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1725364691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725364689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 0
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 29aad055d0367ff48950c5de2c08f61c, type: 2}
+  m_sharedMaterial: {fileID: 7429070075599725389, guid: 29aad055d0367ff48950c5de2c08f61c, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4278246143
+  m_fontColor: {r: 1, g: 0.85331404, b: 0, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 10
+  m_fontSizeBase: 10
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1725364692
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725364689}
+  m_CullTransparentMesh: 1
 --- !u!1 &1726911169
 GameObject:
   m_ObjectHideFlags: 0
@@ -273835,7 +274252,6 @@ MonoBehaviour:
   - {fileID: 1272014739}
   position: {x: -2, y: 0, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 563468838}
@@ -273844,6 +274260,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1736849920
 GameObject:
   m_ObjectHideFlags: 0
@@ -274341,7 +274758,6 @@ MonoBehaviour:
   - {fileID: 932846551}
   position: {x: -1, y: 3, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1402090474}
@@ -274350,6 +274766,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1741943297
 GameObject:
   m_ObjectHideFlags: 0
@@ -274424,6 +274841,140 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1741943297}
+  m_CullTransparentMesh: 1
+--- !u!1 &1742786321
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1742786322}
+  - component: {fileID: 1742786324}
+  - component: {fileID: 1742786323}
+  m_Layer: 5
+  m_Name: WieghtText (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1742786322
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742786321}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 177876493}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 125, y: -16.2}
+  m_SizeDelta: {x: 230, y: 32.4}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1742786323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742786321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Hunger
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 29aad055d0367ff48950c5de2c08f61c, type: 2}
+  m_sharedMaterial: {fileID: 7429070075599725389, guid: 29aad055d0367ff48950c5de2c08f61c, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4278246143
+  m_fontColor: {r: 1, g: 0.85331404, b: 0, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 12
+  m_fontSizeBase: 12
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1742786324
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742786321}
   m_CullTransparentMesh: 1
 --- !u!1 &1743093040
 GameObject:
@@ -275426,7 +275977,6 @@ MonoBehaviour:
   - {fileID: 1338285699}
   position: {x: -4, y: -3, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 859289043}
@@ -275435,6 +275985,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1747535644
 GameObject:
   m_ObjectHideFlags: 0
@@ -275643,7 +276194,6 @@ MonoBehaviour:
   - {fileID: 375204781}
   position: {x: -9, y: -1, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1321932625}
@@ -275652,6 +276202,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1748687848
 GameObject:
   m_ObjectHideFlags: 0
@@ -275930,7 +276481,6 @@ MonoBehaviour:
   - {fileID: 623627712}
   position: {x: -8, y: -1, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 198702830}
@@ -275939,6 +276489,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1751492249
 GameObject:
   m_ObjectHideFlags: 0
@@ -276432,7 +276983,6 @@ MonoBehaviour:
   - {fileID: 336703475}
   position: {x: -9, y: 2, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 804191284}
@@ -276441,6 +276991,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1754934196
 GameObject:
   m_ObjectHideFlags: 0
@@ -277812,7 +278363,6 @@ MonoBehaviour:
   - {fileID: 449834289}
   position: {x: 0, y: -1, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 350805564}
@@ -277821,6 +278371,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1762448121
 GameObject:
   m_ObjectHideFlags: 0
@@ -280250,6 +280801,81 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
+--- !u!1 &1778073108
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1778073109}
+  - component: {fileID: 1778073111}
+  - component: {fileID: 1778073110}
+  m_Layer: 5
+  m_Name: Handle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1778073109
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778073108}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2012730743}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 20, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1778073110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778073108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1778073111
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778073108}
+  m_CullTransparentMesh: 1
 --- !u!1 &1778304363
 GameObject:
   m_ObjectHideFlags: 0
@@ -280452,7 +281078,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4a8ef3d12a3c0804483ff95e30801f32, type: 2}
+  - {fileID: 2100000, guid: ba5986ec4264ba04a9de65eb42580472, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -284594,7 +285220,6 @@ MonoBehaviour:
   - {fileID: 1954166024}
   position: {x: -9, y: 4, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 787738660}
@@ -284603,6 +285228,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1001 &1808807897
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -285590,7 +286216,6 @@ MonoBehaviour:
   - {fileID: 2057865841}
   position: {x: 0, y: -5, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1971443942}
@@ -285599,6 +286224,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1816740675
 GameObject:
   m_ObjectHideFlags: 0
@@ -286877,7 +287503,6 @@ MonoBehaviour:
   - {fileID: 1152250834}
   position: {x: -3, y: 3, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 398037615}
@@ -286886,6 +287511,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1824228770
 GameObject:
   m_ObjectHideFlags: 0
@@ -288595,7 +289221,6 @@ MonoBehaviour:
   - {fileID: 1454394971}
   position: {x: 3, y: -2, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1888669357}
@@ -288604,6 +289229,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1834988332
 GameObject:
   m_ObjectHideFlags: 0
@@ -289967,140 +290593,6 @@ Transform:
   - {fileID: 1363593620}
   m_Father: {fileID: 925633151}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1843917383
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1843917384}
-  - component: {fileID: 1843917386}
-  - component: {fileID: 1843917385}
-  m_Layer: 5
-  m_Name: WieghtText (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1843917384
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1843917383}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 172786374}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1843917385
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1843917383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_text: Hunger
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
-  m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
-  m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontSize: 15
-  m_fontSizeBase: 15
-  m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 1
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 512
-  m_textAlignment: 65535
-  m_characterSpacing: 0
-  m_wordSpacing: 0
-  m_lineSpacing: 0
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_linkedTextComponent: {fileID: 0}
-  parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 1
-  m_enableExtraPadding: 0
-  checkPaddingRequired: 0
-  m_isRichText: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 1
-  m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
-  m_VertexBufferAutoSizeReduction: 0
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
-  m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_baseMaterial: {fileID: 0}
-  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!222 &1843917386
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1843917383}
-  m_CullTransparentMesh: 1
 --- !u!1 &1844325709
 GameObject:
   m_ObjectHideFlags: 0
@@ -291279,7 +291771,7 @@ GameObject:
   - component: {fileID: 1852414476}
   - component: {fileID: 1852414477}
   m_Layer: 11
-  m_Name: CityWallsBlock(Clone)
+  m_Name: WeightPlate01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -291327,8 +291819,7 @@ MonoBehaviour:
   - {fileID: 1432612235}
   position: {x: -2, y: -5, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
-  blockInteractables: 
+  blockInteractables: 09000000
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1453214781}
   groundType: 0
@@ -291336,6 +291827,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 1321438221}
 --- !u!1 &1853430503
 GameObject:
   m_ObjectHideFlags: 0
@@ -292544,7 +293036,6 @@ MonoBehaviour:
   - {fileID: 1320982778}
   position: {x: 3, y: 0, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 278379142}
@@ -292553,6 +293044,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1863719730
 GameObject:
   m_ObjectHideFlags: 0
@@ -294159,7 +294651,6 @@ MonoBehaviour:
   - {fileID: 1351332206}
   position: {x: -9, y: 3, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1772337450}
@@ -294168,6 +294659,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1874311142
 GameObject:
   m_ObjectHideFlags: 0
@@ -296434,81 +296926,6 @@ Transform:
   - {fileID: 396937365}
   m_Father: {fileID: 159942725}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1888481917
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1888481918}
-  - component: {fileID: 1888481920}
-  - component: {fileID: 1888481919}
-  m_Layer: 5
-  m_Name: Background
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1888481918
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1888481917}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2060423851}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.25}
-  m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1888481919
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1888481917}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.6427109, g: 0.85055214, b: 0.9528302, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1888481920
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1888481917}
-  m_CullTransparentMesh: 1
 --- !u!1 &1888669357
 GameObject:
   m_ObjectHideFlags: 0
@@ -299582,7 +299999,6 @@ MonoBehaviour:
   - {fileID: 1112771932}
   position: {x: -2, y: -6, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 140803321}
@@ -299591,6 +300007,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1912675131
 GameObject:
   m_ObjectHideFlags: 0
@@ -300378,140 +300795,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1918380087}
   m_CullTransparentMesh: 1
---- !u!1 &1918475403
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1918475404}
-  - component: {fileID: 1918475406}
-  - component: {fileID: 1918475405}
-  m_Layer: 5
-  m_Name: WieghtText
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1918475404
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1918475403}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 172786374}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1918475405
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1918475403}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_text: 0/12
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
-  m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
-  m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontSize: 15
-  m_fontSizeBase: 15
-  m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 1
-  m_HorizontalAlignment: 4
-  m_VerticalAlignment: 512
-  m_textAlignment: 65535
-  m_characterSpacing: 0
-  m_wordSpacing: 0
-  m_lineSpacing: 0
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_linkedTextComponent: {fileID: 0}
-  parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 1
-  m_enableExtraPadding: 0
-  checkPaddingRequired: 0
-  m_isRichText: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 1
-  m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
-  m_VertexBufferAutoSizeReduction: 0
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
-  m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_baseMaterial: {fileID: 0}
-  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!222 &1918475406
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1918475403}
-  m_CullTransparentMesh: 1
 --- !u!1 &1918557221
 GameObject:
   m_ObjectHideFlags: 0
@@ -300773,7 +301056,6 @@ MonoBehaviour:
   - {fileID: 1310214934}
   position: {x: -2, y: 2, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 34795080}
@@ -300782,6 +301064,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1923204341
 GameObject:
   m_ObjectHideFlags: 0
@@ -301998,7 +302281,6 @@ MonoBehaviour:
   - {fileID: 1644620202}
   position: {x: -5, y: 8, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 221369622}
@@ -302007,6 +302289,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1928994677
 GameObject:
   m_ObjectHideFlags: 0
@@ -302987,7 +303270,6 @@ MonoBehaviour:
   - {fileID: 222647102}
   position: {x: -5, y: -1, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 182364128}
@@ -302996,6 +303278,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1932665000
 GameObject:
   m_ObjectHideFlags: 0
@@ -304405,7 +304688,6 @@ MonoBehaviour:
   - {fileID: 1841904732}
   position: {x: -1, y: -1, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1718624187}
@@ -304414,6 +304696,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1942052258
 GameObject:
   m_ObjectHideFlags: 0
@@ -307078,7 +307361,6 @@ MonoBehaviour:
   - {fileID: 1044902576}
   position: {x: -3, y: -2, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1792594652}
@@ -307087,6 +307369,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1956825065
 GameObject:
   m_ObjectHideFlags: 0
@@ -307850,7 +308133,6 @@ MonoBehaviour:
   - {fileID: 1726712}
   position: {x: -4, y: 2, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1671230648}
@@ -307859,6 +308141,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &1964806565
 GameObject:
   m_ObjectHideFlags: 0
@@ -309777,7 +310060,7 @@ RectTransform:
   m_Father: {fileID: 706123738}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -309801,7 +310084,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 783a3e304eb53a74ea13101e61180766, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -309810,7 +310093,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.64
 --- !u!222 &1976784775
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -312195,7 +312478,6 @@ MonoBehaviour:
   - {fileID: 1122335072}
   position: {x: -6, y: 4, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 62482024}
@@ -312204,6 +312486,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &2000115484
 GameObject:
   m_ObjectHideFlags: 0
@@ -313494,7 +313777,6 @@ MonoBehaviour:
   - {fileID: 1837349113}
   position: {x: 3, y: 5, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1681129833}
@@ -313503,6 +313785,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &2008839522
 GameObject:
   m_ObjectHideFlags: 0
@@ -314275,6 +314558,42 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 0.02}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &2012730742
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2012730743}
+  m_Layer: 5
+  m_Name: Handle Slide Area
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2012730743
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2012730742}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1778073109}
+  m_Father: {fileID: 873535700}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0.000045776367, y: 0}
+  m_SizeDelta: {x: -0.00012207, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2013586674
 GameObject:
   m_ObjectHideFlags: 0
@@ -317068,7 +317387,6 @@ MonoBehaviour:
   - {fileID: 938917022}
   position: {x: -4, y: 1, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1616455146}
@@ -317077,6 +317395,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &2035694612
 GameObject:
   m_ObjectHideFlags: 0
@@ -319105,7 +319424,6 @@ MonoBehaviour:
   - {fileID: 1743093040}
   position: {x: -1, y: 0, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1610021431}
@@ -319114,6 +319432,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &2049864086
 GameObject:
   m_ObjectHideFlags: 0
@@ -319173,7 +319492,6 @@ MonoBehaviour:
   - {fileID: 713781670}
   position: {x: -2, y: -2, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 202633421}
@@ -319182,6 +319500,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &2049908208
 GameObject:
   m_ObjectHideFlags: 0
@@ -321290,97 +321609,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2060338917}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &2060423850
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2060423851}
-  - component: {fileID: 2060423852}
-  m_Layer: 5
-  m_Name: CarryingCapacitySlider (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &2060423851
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2060423850}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1888481918}
-  - {fileID: 1602117973}
-  - {fileID: 1676489955}
-  - {fileID: 172786374}
-  m_Father: {fileID: 1559115640}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -166.3}
-  m_SizeDelta: {x: 250, y: 40}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2060423852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2060423850}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 0
-  m_TargetGraphic: {fileID: 1575900690}
-  m_FillRect: {fileID: 826967827}
-  m_HandleRect: {fileID: 1575900689}
-  m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
-  m_WholeNumbers: 0
-  m_Value: 0.606
-  m_OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &2060440305
 GameObject:
   m_ObjectHideFlags: 0
@@ -321973,7 +322201,6 @@ MonoBehaviour:
   - {fileID: 2136848563}
   position: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 202101066}
@@ -321982,6 +322209,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &2063009456
 GameObject:
   m_ObjectHideFlags: 0
@@ -323252,7 +323480,6 @@ MonoBehaviour:
   - {fileID: 1734136063}
   position: {x: -8, y: 6, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 539126954}
@@ -323261,6 +323488,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &2071946945
 GameObject:
   m_ObjectHideFlags: 0
@@ -323320,7 +323548,6 @@ MonoBehaviour:
   - {fileID: 1788985443}
   position: {x: -7, y: 9, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 222125804}
@@ -323329,6 +323556,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &2072864980
 GameObject:
   m_ObjectHideFlags: 0
@@ -324012,10 +324240,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 857590916}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 207.685, y: -16.2}
+  m_SizeDelta: {x: 64.630005, y: 32.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2076804697
 MonoBehaviour:
@@ -324039,15 +324267,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: 0/12
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 29aad055d0367ff48950c5de2c08f61c, type: 2}
+  m_sharedMaterial: {fileID: 7429070075599725389, guid: 29aad055d0367ff48950c5de2c08f61c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4278246143
+  m_fontColor: {r: 1, g: 0.85331404, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -324064,14 +324292,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15
-  m_fontSizeBase: 15
+  m_fontSize: 12
+  m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 4
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -326359,7 +326587,6 @@ MonoBehaviour:
   - {fileID: 252780488}
   position: {x: -8, y: 0, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 809288632}
@@ -326368,6 +326595,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &2098345860
 GameObject:
   m_ObjectHideFlags: 0
@@ -326908,7 +327136,6 @@ MonoBehaviour:
   - {fileID: 903367986}
   position: {x: -3, y: -4, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 580384164}
@@ -326917,6 +327144,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &2103634746
 GameObject:
   m_ObjectHideFlags: 0
@@ -327205,6 +327433,81 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2105373373}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2105814640
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2105814641}
+  - component: {fileID: 2105814643}
+  - component: {fileID: 2105814642}
+  m_Layer: 5
+  m_Name: Background
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2105814641
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105814640}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 873535700}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.25}
+  m_AnchorMax: {x: 1, y: 0.75}
+  m_AnchoredPosition: {x: 0, y: -1.1876001}
+  m_SizeDelta: {x: 0, y: 17.21}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2105814642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105814640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 09861754ae24554418eec6585de6f982, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 0.67
+--- !u!222 &2105814643
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105814640}
+  m_CullTransparentMesh: 1
 --- !u!1 &2105937397
 GameObject:
   m_ObjectHideFlags: 0
@@ -328117,7 +328420,6 @@ MonoBehaviour:
   - {fileID: 267923506}
   position: {x: 4, y: 1, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 2118431717}
@@ -328126,6 +328428,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1001 &2110664542
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -332015,7 +332318,6 @@ MonoBehaviour:
   - {fileID: 1684311110}
   position: {x: 3, y: 2, z: 0}
   blockParent: {fileID: 0}
-  walkable: 1
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 148552167}
@@ -332024,6 +332326,7 @@ MonoBehaviour:
   nextLevelDirection: 0
   nextLevelName: 
   shopIndex: 0
+  weightPlate: {fileID: 0}
 --- !u!1 &2135496722
 GameObject:
   m_ObjectHideFlags: 0
@@ -332142,10 +332445,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 857590916}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 92.685, y: -16.2}
+  m_SizeDelta: {x: 165.37, y: 32.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2136553660
 MonoBehaviour:
@@ -332169,15 +332472,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: Carrying Weight
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 29aad055d0367ff48950c5de2c08f61c, type: 2}
+  m_sharedMaterial: {fileID: 7429070075599725389, guid: 29aad055d0367ff48950c5de2c08f61c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4278246143
+  m_fontColor: {r: 1, g: 0.85331404, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -332194,8 +332497,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15
-  m_fontSizeBase: 15
+  m_fontSize: 12
+  m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -333801,7 +334104,6 @@ SceneRoots:
   - {fileID: 1855788670}
   - {fileID: 1655013990}
   - {fileID: 753585383}
-  - {fileID: 503010412}
   - {fileID: 1718635284}
   - {fileID: 674776723}
   - {fileID: 726794480}
@@ -333811,6 +334113,7 @@ SceneRoots:
   - {fileID: 758686300}
   - {fileID: 868302427}
   - {fileID: 1936751434}
+  - {fileID: 503010412}
   - {fileID: 643588014}
   - {fileID: 151195781}
   - {fileID: 1816740677}

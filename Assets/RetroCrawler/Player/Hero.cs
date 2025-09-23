@@ -56,7 +56,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     }
     private void Start()
     {
-
+        GameInstance.progress += TimePassBy;
     }
 
     public void HeroInit()
@@ -107,8 +107,103 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
             }
         }
 
+        foreach(DependedStat dstat in System.Enum.GetValues(typeof(DependedStat)))
+        {
+            if (dependedStatsCurrent.ContainsKey(dstat))
+            {
+                dependedStatsCurrent[dstat] += GetDependedStatModificator(dstat);
+            }
+
+        }
     }
 
+    int GetDependedStatModificator(DependedStat dstat)
+    {
+
+        int statInt = dependedStatsCurrent[dstat];
+        switch (dstat)
+        {
+            case DependedStat.heroLevel:
+                break;
+            case DependedStat.maxHealth:
+                statInt += (GetMainStat(MainStat.Strength) / 5) * 10;
+                break;
+            case DependedStat.maxMana:
+                statInt += (GetMainStat(MainStat.Mind) / 5) * 10;
+                break;
+            case DependedStat.initiative:
+                if (GetHeroWeight() < GetDependedStat(DependedStat.CarryingCapacity))
+                {
+                    statInt += Mathf.Clamp(statInt - currentInitiativeReduction, 0, int.MaxValue);
+                    statInt += (GetMainStat(MainStat.Agility) / 5);
+                }
+                break;
+            case DependedStat.accuracy:
+                statInt += (GetMainStat(MainStat.Agility) / 5) + (GetMainStat(MainStat.Endurance) / 5);
+                break;
+            case DependedStat.defence:
+                statInt += 10 + (GetMainStat(MainStat.Endurance) / 5);
+                break;
+            case DependedStat.FireResistance:
+                break;
+            case DependedStat.CarryingCapacity:
+                statInt += (GetMainStat(MainStat.Survival) / 5) + (GetMainStat(MainStat.Strength) / 5);
+                break;
+            case DependedStat.Hunger:
+                statInt += (GetMainStat(MainStat.Survival) / 5) * 100;
+
+                break;
+            case DependedStat.None:
+                break;
+            case DependedStat.evasion:
+                break;
+            case DependedStat.WaterResistance:
+                break;
+            case DependedStat.EarthResistance:
+                break;
+            case DependedStat.AirResistance:
+                break;
+            case DependedStat.DarkResistance:
+                break;
+            case DependedStat.meleeDamage:
+                if (GetHeroWeight() < GetDependedStat(DependedStat.CarryingCapacity))
+                {
+                    statInt += (GetMainStat(MainStat.Strength) / 5) + GetSkillsStat(GetWeaponType());
+                }
+                break;
+            case DependedStat.rangeDamage:
+                if (GetHeroWeight() < GetDependedStat(DependedStat.CarryingCapacity))
+                {
+                    statInt += (GetMainStat(MainStat.Agility) / 5) + GetSkillsStat(GetWeaponType());
+                }
+                break;
+        }
+
+        foreach (KeyValuePair<ItemType, SpellContainer> k in equipmentSpells)
+        {
+            foreach (Spell s in k.Value.spells)
+            {
+
+                if (s.changedDependedStat == dstat)
+                {
+                    statInt += s.amount;
+                }
+            }
+        }
+
+
+        foreach (KeyValuePair<Spell, int> s in spellsAttached)
+        {
+            if (s.Key.changedDependedStat == dstat)
+            {
+                statInt += s.Key.amount;
+            }
+        }
+
+        return Mathf.Clamp(statInt, 0, int.MaxValue);
+
+
+    }
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -327,8 +422,11 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 statInt += (GetMainStat(MainStat.Mind) / 5)*10;
                 break;
             case DependedStat.initiative:
-                statInt += Mathf.Clamp(statInt - currentInitiativeReduction, 0, int.MaxValue);
-                statInt += (GetMainStat(MainStat.Agility) / 5);
+                if (GetHeroWeight()<GetDependedStat(DependedStat.CarryingCapacity))
+                {
+                    statInt += Mathf.Clamp(statInt - currentInitiativeReduction, 0, int.MaxValue);
+                    statInt += (GetMainStat(MainStat.Agility) / 5);
+                }
                 break;
             case DependedStat.accuracy:
                 statInt += (GetMainStat(MainStat.Agility) / 5) + (GetMainStat(MainStat.Endurance) / 5);
@@ -356,10 +454,16 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
             case DependedStat.DarkResistance:
                 break;
             case DependedStat.meleeDamage:
-                statInt +=  (GetMainStat(MainStat.Strength) / 5) + GetSkillsStat(GetWeaponType());
+                if (GetHeroWeight() < GetDependedStat(DependedStat.CarryingCapacity))
+                {
+                    statInt += (GetMainStat(MainStat.Strength) / 5) + GetSkillsStat(GetWeaponType());
+                }
                 break;
             case DependedStat.rangeDamage:
-                statInt += (GetMainStat(MainStat.Agility) / 5 ) + GetSkillsStat(GetWeaponType()); 
+                if (GetHeroWeight() < GetDependedStat(DependedStat.CarryingCapacity))
+                {
+                    statInt += (GetMainStat(MainStat.Agility) / 5) + GetSkillsStat(GetWeaponType());
+                }
                 break;
         }
 
@@ -368,6 +472,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         {
             foreach (Spell s in k.Value.spells)
             {
+
                 if (s.changedDependedStat == dependedStat)
                 {
                     statInt += s.amount;
@@ -375,12 +480,11 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
             }
         }
 
+
         foreach (KeyValuePair<Spell, int> s in spellsAttached)
         {
-
             if (s.Key.changedDependedStat == dependedStat)
             {
-                //print(s.Key.changedDependedStat + " "+ s.Key.amount);
                 statInt += s.Key.amount;
             }
         }
@@ -599,19 +703,36 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     void BattleTimeChanges(int count)
     {
         if (GameInstance.playerController.playerState != PlayerState.Battle) return;
-        TimeChanges();
+        TimeChanges(count);
     }
 
 
     void TimePassBy(int count)
     {
         if (GameInstance.playerController.playerState == PlayerState.Battle) return;
-        TimeChanges();
+        TimeChanges(count);
     }
 
 
-    void TimeChanges()
+    void TimeChanges(int count)
     {
+
+        print(GameInstance.GetNormalTime()[0]%60+"/"+ GameInstance.GetNormalTime()[1]+ "/"+GameInstance.GetNormalTime()[2]);
+
+        if (GameInstance.playerController.playerState != PlayerState.Battle)
+        {
+
+            if (dependedStatsCurrent.ContainsKey(DependedStat.Hunger))
+            {
+                dependedStatsCurrent[DependedStat.Hunger] = dependedStatsCurrent[DependedStat.Hunger] - 1;
+                if (dependedStatsCurrent[DependedStat.Hunger] <= 0)
+                {
+                    healthDecrease(1);
+                }
+            }
+
+        }
+
         //print("hero time changes");
         if (spellsAttached.Count <= 0) return;
         List<Spell> listToDelete = new List<Spell>();
@@ -621,12 +742,13 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
             if (spellsAttached[s.Key] > 0) { listToChange.Add(s.Key); }
             else listToDelete.Add(s.Key);
         }
+
         foreach (Spell s in listToChange)
         {
             int x = spellsAttached[s];
             spellsAttached[s] = x - 1;
-
         }
+
 
         foreach (Spell s in listToDelete)
         {
@@ -726,7 +848,19 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     }
 
 
+    public int GetHeroWeight()
+    {
+        int weight = 0;
+        foreach (KeyValuePair<ItemType, HeroInventoryItem> equi in equipmentWithGUID)
+        {
+            if (equi.Value != null)
+            {
+                weight += GameInstance.dataBase.GetItemFromBaseByIndex(equi.Value.container).weight;
+            }
+        }
+        return weight;
 
+    }
 
 }
 
@@ -759,6 +893,7 @@ public interface IHero
     public MagicType GetWeaponMagicType();
 
     public int GetHeroIndex();
+    public int GetHeroWeight();
 }
 
 public enum MainStat

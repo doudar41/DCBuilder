@@ -72,7 +72,8 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
                 if (slotStruct.stackAmount > 1) 
                 { 
                     slotStruct.stackAmount = slotStruct.stackAmount - 1;
-                    GameInstance.playerController.SetPlayerCursorBusy(slotStruct); 
+                    GameInstance.playerController.SetPlayerCursorBusy(slotStruct);
+                    GameInstance.inventory.FindEmptySlotAndPutItem(slotStruct, slotStruct.stackAmount - 1);
                 }
             }
 
@@ -85,25 +86,35 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
             print("item is full "+ slotStruct);
             if (itemTemp != null)
             {
-
                 if (itemTemp.itemType == itemType)
                 {
-                    slotStruct.stackAmount = 1;
-                    GameInstance.playerController.SetPlayerCursorBusy(slotStruct);
-                    ItemScriptable = itemTemp;
-                    itemAvatar.sprite = GameInstance.dataBase.GetItemFromBaseByIndex(ItemScriptable.container).InventorySprite;
-                    sendItemToParty.Invoke(ItemScriptable, itemType);
+                    if(ItemScriptable == itemTemp)
+                    {
+
+                        GameInstance.playerController.SetPlayerCursorBusy(slotStruct);
+
+                    }
+                    else
+                    {
+                        GameInstance.playerController.SetPlayerCursorBusy(ItemScriptable);
+                        sendItemToParty.Invoke(ItemScriptable, itemType);
+                        itemTemp.stackAmount = 1;
+                        ItemScriptable = itemTemp;
+                        itemAvatar.sprite = GameInstance.dataBase.GetItemFromBaseByIndex(ItemScriptable.container).InventorySprite;
+
+                    }
+
                     if (slotStruct.stackAmount > 1) GameInstance.inventory.FindEmptySlotAndPutItem(slotStruct, slotStruct.stackAmount - 1);
                 }
                 else
                 {
-                    if (slotStruct.stackAmount == 1) 
+                    if (slotStruct.stackAmount == 1)
                     {
-
-                        GameInstance.playerController.SetPlayerCursorBusy(slotStruct); 
+                        GameInstance.playerController.SetPlayerCursorBusy(slotStruct);
                     }
-                    if (slotStruct.stackAmount > 1) 
-                    { GameInstance.playerController.SetPlayerCursorBusy(slotStruct); 
+                    if (slotStruct.stackAmount > 1)
+                    {
+                        GameInstance.playerController.SetPlayerCursorBusy(slotStruct);
                     }
                 }
             }

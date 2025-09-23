@@ -56,11 +56,13 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables, IPointerClickHand
     {
         //GameInstance.itemsFound.Add(GUIDString);
         GameInstance.initItems += LevelEnterInit;
+        GameInstance.checkWeight += CheckWeight;
     }
     private void OnDestroy()
     {
         OnDestoryedByCursor.RemoveAllListeners();
         GameInstance.initItems -= LevelEnterInit;
+        GameInstance.checkWeight -= CheckWeight;
     }
 
     public void ChangeGUID()
@@ -80,29 +82,48 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables, IPointerClickHand
         }
         else
         {
-            return ;
+            return;
         }
         currentLevel = GameInstance.GetLevelName();
         GameObject item = Instantiate(itemScriptableLocal.prefab, transform);
         IItemHolder itemHolder = itemScriptableLocal.prefab.GetComponent<IItemHolder>();
         SphereCollider[] b = gameObject.GetComponents<SphereCollider>();
-        if (b.Length <1)
+        if (b.Length < 1)
         {
             col = gameObject.AddComponent<SphereCollider>();
             col.radius = 1f;
-/*            Rigidbody rb = gameObject.AddComponent<Rigidbody>();
-            col.material = frictionMaterial;
-            rb.freezeRotation = true;
-            rb.constraints = RigidbodyConstraints.FreezePositionX;
-            rb.constraints = RigidbodyConstraints.FreezePositionZ;*/
+            /*            Rigidbody rb = gameObject.AddComponent<Rigidbody>();
+                        col.material = frictionMaterial;
+                        rb.freezeRotation = true;
+                        rb.constraints = RigidbodyConstraints.FreezePositionX;
+                        rb.constraints = RigidbodyConstraints.FreezePositionZ;*/
         }
         else
         {
             col = b[0];
         }
+
+        //Check if block has a weightPlate
+
     }
 
-
+    private void CheckWeight()
+    {
+        if (GameInstance.playerController.GetIIteractableInterfaces(transform.position) != null)
+        {
+            foreach (InteractablesEnum inter in GameInstance.playerController.GetIIteractableInterfaces(transform.position))
+            {
+                if (inter == InteractablesEnum.WEIGHTPLATE)
+                {
+                    print("weight plate");
+                    if (GameInstance.playerController.GetBlockInterface(transform.position) != null)
+                    {
+                        GameInstance.playerController.GetBlockInterface(transform.position).AddWeightToBlock(itemScriptableLocal.weight);
+                    }
+                }
+            }
+        }
+    }
 
     private void OnCollisionEnter(Collision other)
     {
@@ -129,6 +150,16 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables, IPointerClickHand
 
     public void RemoveFromTheWorld()
     {
+        foreach (InteractablesEnum inter in GameInstance.playerController.GetIIteractableInterfaces(transform.position))
+        {
+            if (inter == InteractablesEnum.WEIGHTPLATE)
+            {
+                if (GameInstance.playerController.GetBlockInterface(transform.position) != null)
+                {
+                    GameInstance.playerController.GetBlockInterface(transform.position).AddWeightToBlock(-itemScriptableLocal.weight);
+                }
+            }
+        }
 
         GameInstance.RemoveItemFromLevel(GUIDString, heroInventoryLocalItem);
         DestroyImmediate(gameObject);
@@ -176,7 +207,23 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables, IPointerClickHand
         }
         transform.position = pos;
         heroInventoryLocalItem = CreateNewHeroInventoryItem();
+
         GameInstance.AddItemFromLevel(GUIDString, heroInventoryLocalItem);
+        if (GameInstance.playerController.GetIIteractableInterfaces(transform.position) != null)
+        {
+            foreach (InteractablesEnum inter in GameInstance.playerController.GetIIteractableInterfaces(transform.position))
+            {
+                if (inter == InteractablesEnum.WEIGHTPLATE)
+                {
+                    print("weight plate");
+                    if (GameInstance.playerController.GetBlockInterface(transform.position) != null)
+                    {
+                        GameInstance.playerController.GetBlockInterface(transform.position).AddWeightToBlock(itemScriptableLocal.weight);
+                    }
+                }
+            }
+        }
+
     }
 
     public void SetPrefab(ItemScriptableContainer itemScriptable)

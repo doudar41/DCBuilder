@@ -31,6 +31,7 @@ public class SpriteDoor : MonoBehaviour, IDoor, IInteractables
     
     public void CloseDoor()
     {
+        StopAllCoroutines();
         StartCoroutine(OpenDoorSmoothly(1));
         
     }
@@ -42,12 +43,13 @@ public class SpriteDoor : MonoBehaviour, IDoor, IInteractables
 
     public void OpenDoor()
     {
+        StopAllCoroutines();
         StartCoroutine(OpenDoorSmoothly(0));
     }
 
     public void WeightDoor(int weightTarget, int weightAmount)
     {
-        throw new System.NotImplementedException();
+
     }
 
     // Start is called before the first frame update
@@ -55,7 +57,7 @@ public class SpriteDoor : MonoBehaviour, IDoor, IInteractables
     IEnumerator OpenDoorSmoothly(int startPoint)
     {
 
-        busy = true;
+        //busy = true;
         float startxR = rightDoorPart.transform.localPosition.x;
         float startxL = leftDoorPart.transform.localPosition.x;
         float currentPoint = 0;
@@ -82,7 +84,7 @@ public class SpriteDoor : MonoBehaviour, IDoor, IInteractables
             currentPoint += 0.01f;
         }
         //print("cancel");
-        busy = false;
+        //busy = false;
         if (startPoint <= 0)
         {
             isOpened = true;

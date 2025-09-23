@@ -18,10 +18,11 @@ MonoBehaviour:
   InventorySprite: {fileID: 21300000, guid: ace9fb3d7a24e4f4dbfbeef5fac91646, type: 3}
   worldSprite: {fileID: 21300000, guid: ace9fb3d7a24e4f4dbfbeef5fac91646, type: 3}
   prefab: {fileID: 2885720944578253258, guid: e5dd30dee5940e047b0c0c706e3ed317, type: 3}
-  weight: 10
+  weight: 20
   spellContainer: {fileID: 11400000, guid: c44aed06ff9e61948b307d19469b5351, type: 2}
   weaponType: 0
   twoHanded: 0
   price: 500
   itemDescription: Full plate tank
   itemLevel: 2
+  keyType: 0

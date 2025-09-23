@@ -20,10 +20,18 @@ public static class GameInstance
 
     public delegate void TimeProgress(int countdown);
     public static TimeProgress progress;
-    static int timeProgress = 0;
+    static int timeProgress = 1;
+    static int timeStamp = 0;
+    static float gameTimeFrame = 1;
+    public static int[] gameTimeInNormalTime = new int[3];
+    static int[] savedGameTimeInNormalTime = new int[3] {0,0,0 };
+
 
     public delegate void InitItems();
     public static InitItems initItems;
+
+    public delegate void CheckWeight();
+    public static CheckWeight checkWeight;
 
     public delegate bool GetInventoryItem();
     public static GetInventoryItem getInventoryItem;
@@ -127,13 +135,48 @@ public static class GameInstance
     }
 
 
+    public static void  ChangeTimeFlow(float amount)
+    {
+        gameTimeFrame = amount;
+    }
+
+    public static void RestTime()
+    {
+        timeStamp = timeProgress + (60*8);
+
+
+    }
+
+    public static int[] GetNormalTime()
+    {
+        int[] timeNormal = new int[4];
+        timeNormal[0] = timeProgress;
+        timeNormal[1] = gameTimeInNormalTime[0] % 60;
+        timeNormal[2] = gameTimeInNormalTime[1] % 1440;
+        timeNormal[3] = gameTimeInNormalTime[2] % 43200;
+        return timeNormal;
+    }
+
+
     public static IEnumerator TimeStep()
     {
         while (playerController.playerState != PlayerState.Battle)
         {
-            timeProgress++;
-            progress(timeProgress);
-            yield return new WaitForSeconds(1);
+            if (timeStamp < timeProgress)
+            {
+                timeProgress++;
+                progress(timeProgress);
+                yield return new WaitForSeconds(gameTimeFrame);
+            }
+            else
+            {
+                timeProgress++;
+                progress(timeProgress);
+                yield return new WaitForSeconds(0.01f);
+            }
+            gameTimeInNormalTime[0] = (timeProgress / 60) + savedGameTimeInNormalTime[0];
+            gameTimeInNormalTime[1]= (timeProgress / 1440) + savedGameTimeInNormalTime[1];
+            gameTimeInNormalTime[2]= (timeProgress / 43200) + savedGameTimeInNormalTime[2];
         }
         yield return null;
     }
@@ -454,6 +497,8 @@ public class SaveData
     public List<string> heroesNames = new List<string>();
     public List<HeroSpellbookSaved> spellbooksSaved = new List<HeroSpellbookSaved>();
     public List<KeyToLocks> keysSaved = new List<KeyToLocks>();
+
+    public int timeProgress;
 }
 
 [System.Serializable]

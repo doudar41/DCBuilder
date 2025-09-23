@@ -11,6 +11,8 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] GameObject panelStats;
     [SerializeField] Slider carryingWeight;
     [SerializeField] Slider hungerLevel;
+    [SerializeField] TextMeshProUGUI weightHero, weightParty;
+
     private void Start()
     {
         mainStatsUITexts.KeyPairFill();
@@ -52,10 +54,10 @@ public class PlayerStats : MonoBehaviour
             if(dependedStatsUIText.GetValue(k.Key) != null)
             dependedStatsUIText.GetValue(k.Key).text = k.Value.ToString();
         }
-        print("equipment weight "+GameInstance.inventory.GetCurrentHeroWeight() + " hero eqquipment capacity "+ GameInstance.party.activeHero.GetDependedStat(DependedStat.CarryingCapacity));
+        //print("equipment weight "+GameInstance.inventory.GetCurrentHeroWeight() + " hero eqquipment capacity "+ GameInstance.party.activeHero.GetDependedStat(DependedStat.CarryingCapacity));
         carryingWeight.value = GameInstance.inventory.GetCurrentHeroWeight();
-
-
+        weightHero.text = GameInstance.party.activeHero.GetDependedStat(DependedStat.CarryingCapacity).ToString()+"/"+ GameInstance.party.activeHero.GetHeroWeight().ToString();
+        weightParty.text = GameInstance.party.GetPartyWeight().ToString();
     }
 }
 

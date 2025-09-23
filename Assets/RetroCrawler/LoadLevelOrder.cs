@@ -70,7 +70,7 @@ public class LoadLevelOrder : MonoBehaviour
 
         GameInstance.inventory.LoadKeys();
 
-
+        GameInstance.checkWeight();
     }
 
 

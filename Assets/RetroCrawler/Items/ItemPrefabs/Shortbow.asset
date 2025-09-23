@@ -17,7 +17,7 @@ MonoBehaviour:
   texture2DMouse: {fileID: 2800000, guid: 18dd57680d4c8ea49822f52f1060e74b, type: 3}
   InventorySprite: {fileID: 21300000, guid: 31b7a0ed44d59924398633cb2f3fa0a5, type: 3}
   worldSprite: {fileID: 21300000, guid: 31b7a0ed44d59924398633cb2f3fa0a5, type: 3}
-  prefab: {fileID: 0}
+  prefab: {fileID: 2885720944578253258, guid: 8dced93899d748c41a83f3928694cb58, type: 3}
   weight: 5
   spellContainer: {fileID: 11400000, guid: da88a03632bf1bb41bf66c816ff85db5, type: 2}
   weaponType: 4

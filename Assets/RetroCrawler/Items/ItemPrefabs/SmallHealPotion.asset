@@ -18,10 +18,11 @@ MonoBehaviour:
   InventorySprite: {fileID: 21300000, guid: a1e74bd3eb403e7478e7bd25c2a18b93, type: 3}
   worldSprite: {fileID: 21300000, guid: a1e74bd3eb403e7478e7bd25c2a18b93, type: 3}
   prefab: {fileID: 2885720944578253258, guid: e66de981b120ebe45b4511e693200877, type: 3}
-  weight: 0
+  weight: 1
   spellContainer: {fileID: 11400000, guid: 39017368d402317448c0f3e1ff625d13, type: 2}
   weaponType: 0
   twoHanded: 0
   price: 10
   itemDescription: Small Hela Potion
   itemLevel: 1
+  keyType: 0
