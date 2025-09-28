@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 1
+  m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.01
@@ -41239,6 +41239,19 @@ MonoBehaviour:
   - {fileID: 688218189}
   - {fileID: 2133352066}
   - {fileID: 1498709694}
+  spelleffects:
+  - spellEffect: 17
+    magicType: 1
+    changedMainStat: 0
+    changedDependedStat: 0
+    skillStatAdded: 0
+    sprite: {fileID: 21300000, guid: 8de884997aafed84bb895064d5612725, type: 3}
+  - spellEffect: 17
+    magicType: 2
+    changedMainStat: 0
+    changedDependedStat: 0
+    skillStatAdded: 0
+    sprite: {fileID: 21300000, guid: 23b7c283f374f6040b6d55e7509b9261, type: 3}
 --- !u!1 &267215618
 GameObject:
   m_ObjectHideFlags: 0
@@ -60982,6 +60995,19 @@ MonoBehaviour:
   - {fileID: 1256484410}
   - {fileID: 576342902}
   - {fileID: 251034618}
+  spelleffects:
+  - spellEffect: 17
+    magicType: 1
+    changedMainStat: 0
+    changedDependedStat: 0
+    skillStatAdded: 0
+    sprite: {fileID: 21300000, guid: 8de884997aafed84bb895064d5612725, type: 3}
+  - spellEffect: 17
+    magicType: 2
+    changedMainStat: 0
+    changedDependedStat: 0
+    skillStatAdded: 0
+    sprite: {fileID: 21300000, guid: 23b7c283f374f6040b6d55e7509b9261, type: 3}
 --- !u!114 &390259447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103507,6 +103533,19 @@ MonoBehaviour:
   - {fileID: 79322493}
   - {fileID: 1127144814}
   - {fileID: 1582668166}
+  spelleffects:
+  - spellEffect: 17
+    magicType: 1
+    changedMainStat: 0
+    changedDependedStat: 0
+    skillStatAdded: 0
+    sprite: {fileID: 21300000, guid: 8de884997aafed84bb895064d5612725, type: 3}
+  - spellEffect: 17
+    magicType: 2
+    changedMainStat: 0
+    changedDependedStat: 0
+    skillStatAdded: 0
+    sprite: {fileID: 21300000, guid: 23b7c283f374f6040b6d55e7509b9261, type: 3}
 --- !u!224 &664943799
 RectTransform:
   m_ObjectHideFlags: 0
@@ -123777,7 +123816,7 @@ MonoBehaviour:
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 1040626148}
   groundType: 0
-  nextLevelPosition: {x: 0, y: 0, z: 0}
+  nextLevelPosition: {x: -2, y: -7, z: 0}
   nextLevelDirection: 0
   nextLevelName: Level02
   shopIndex: 0
@@ -131364,7 +131403,7 @@ MonoBehaviour:
     - {fileID: 799182658}
   panelStats: {fileID: 1958399261}
   carryingWeight: {fileID: 1553850341}
-  hungerLevel: {fileID: 0}
+  hungerLevel: {fileID: 873535701}
   weightHero: {fileID: 2076804697}
   weightParty: {fileID: 1725364691}
 --- !u!1 &835161203
@@ -153889,6 +153928,19 @@ MonoBehaviour:
   - {fileID: 1625787398}
   - {fileID: 1662168074}
   - {fileID: 1521389114}
+  spelleffects:
+  - spellEffect: 17
+    magicType: 1
+    changedMainStat: 0
+    changedDependedStat: 0
+    skillStatAdded: 0
+    sprite: {fileID: 21300000, guid: 8de884997aafed84bb895064d5612725, type: 3}
+  - spellEffect: 17
+    magicType: 2
+    changedMainStat: 0
+    changedDependedStat: 0
+    skillStatAdded: 0
+    sprite: {fileID: 21300000, guid: 23b7c283f374f6040b6d55e7509b9261, type: 3}
 --- !u!114 &989526191
 MonoBehaviour:
   m_ObjectHideFlags: 0

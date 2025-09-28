@@ -68,6 +68,8 @@ public static class GameInstance
     public static List<string> heroesNames = new List<string>();
     public static List<HeroSpellbookSaved> spellbooksSaved = new List<HeroSpellbookSaved>();
     public static List<KeyToLocks> keysSaved = new List<KeyToLocks>();
+    public static List<SavedSpellsAttached> spellsAttachedToHeroes = new List<SavedSpellsAttached>();
+    public static List<SavedSpellsAttached> spellsFromSpellbook = new List<SavedSpellsAttached>();
 
     public static int DiceRollingBiggestNumber(int diceNumber, int diceSides)
     {
@@ -128,6 +130,12 @@ public static class GameInstance
         }
         spellbooksSaved.Clear();
         party.SaveHeroesSpells();
+        spellsAttachedToHeroes.Clear();
+        party.GetSpellsAttached();
+
+        spellsFromSpellbook.Clear();
+        spellbook.SaveContinousSpells();
+
         currentLevelName = levelName;
         levelChange = true;
         inventory.SaveKeysToGameInstance();
@@ -257,6 +265,8 @@ public static class GameInstance
         saveData.heroesNames = heroesNames;
         saveData.spellbooksSaved = spellbooksSaved;
         saveData.keysSaved = keysSaved;
+        saveData.spellsFromSpellbook = spellsFromSpellbook;
+        saveData.heroesSpellsAttachedSaved = spellsAttachedToHeroes;
 
         string path = Application.persistentDataPath + "/" + fileName;
         Gley.AllPlatformsSave.API.Save(saveData, path, DataWasSaved, false);
@@ -297,6 +307,9 @@ public static class GameInstance
             visitedBlocks = saveData.visitedBlocks ;
             levelChange = true;
             keysSaved= saveData.keysSaved;
+
+            spellsAttachedToHeroes = saveData.heroesSpellsAttachedSaved;
+             spellsFromSpellbook = saveData.spellsFromSpellbook;
             SceneManager.LoadScene(saveData.levelName, LoadSceneMode.Single); 
         }
     }
@@ -497,6 +510,8 @@ public class SaveData
     public List<string> heroesNames = new List<string>();
     public List<HeroSpellbookSaved> spellbooksSaved = new List<HeroSpellbookSaved>();
     public List<KeyToLocks> keysSaved = new List<KeyToLocks>();
+    public List<SavedSpellsAttached> heroesSpellsAttachedSaved = new List<SavedSpellsAttached>();
+    public List<SavedSpellsAttached> spellsFromSpellbook = new List<SavedSpellsAttached>();
 
     public int timeProgress;
 }
@@ -623,4 +638,12 @@ public class KeyToLocks
 {
     public KeyType keyType;
     public int amount;
+}
+
+[System.Serializable]
+public class SavedSpellsAttached
+{
+    public int heroID;
+    public List<Spell> spell = new List<Spell>();
+    public List<int> timesToFinish = new List<int>(); // if -1 means infinite
 }

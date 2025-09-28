@@ -19,7 +19,7 @@ public class Party : MonoBehaviour
     }
     private void Start()
     {
-        SetActiveHero(heroes[0]);
+
         StartCoroutine(GameInstance.TimeStep());
         SetTimerForHeroes(false);
 
@@ -43,10 +43,23 @@ public class Party : MonoBehaviour
         return heroes;
     }
 
+    public void PartyHeroInit()
+    {
+        heroes[0].MakeHeroActive(true);
+        activeHero = heroes[0].GetComponent<IHero>();
+        GameInstance.spellbook.GetPagesReady();
+        //RefreshUI.Invoke();
+    }
+
+
+
     public void SetActiveHero(Hero hero)
     {
         if (GameInstance.spellbook.SpellWaiting()) return;
-
+        if(hero == null)
+        {
+            hero = heroes[0];
+        }
         foreach(Hero h in heroes)
         {
             if (hero == h) {
@@ -57,7 +70,9 @@ public class Party : MonoBehaviour
                 RefreshUI.Invoke();
             }
             else h.MakeHeroActive(false);
+
         }
+
     }
     public void GetItemFromEquipmentSlot(HeroInventoryItem heroInventoryItem, ItemType itemType)
     {
@@ -78,7 +93,6 @@ public class Party : MonoBehaviour
         {
             activeHero.RemoveItemFromEquipment(itemType);
         }
-
         UpdatePartyWeight();
         RefreshUI.Invoke();
     }
@@ -142,8 +156,6 @@ public class Party : MonoBehaviour
                 if (he.heroIndex >=0 ) heroes[he.heroIndex].AddEquipmentToCharacter(he); 
             }
         }
-
-        
     }
 
 
@@ -157,7 +169,6 @@ public class Party : MonoBehaviour
             GameInstance.spellbooksSaved.Add(heroSpellbookSaved);
         }
     }
-
 
 
     public int SellBuyMoneyCheck(int amount)
@@ -186,8 +197,39 @@ public class Party : MonoBehaviour
         {
             weight+=h.GetHeroWeight();
         }
-
-
         return weight+40;
     }
+
+    public List<SavedSpellsAttached> GetSpellsAttached()
+    {
+        List<SavedSpellsAttached> spellsAttached = new List<SavedSpellsAttached>();
+        foreach (Hero h in heroes)
+        {
+            SavedSpellsAttached spellattached = new SavedSpellsAttached();
+            spellattached.heroID = h.GetHeroIndex();
+            //print("spell attacted on hero " + h.GetSpellsAttached().Count);
+            foreach (KeyValuePair< Spell,int> s in h.GetSpellsAttached())
+            {
+                spellattached.spell.Add(s.Key);
+                spellattached.timesToFinish.Add(s.Value);
+            }
+            spellsAttached.Add(spellattached);
+        }
+        //print("spell attacted saved "+spellsAttached.Count);
+        GameInstance.spellsAttachedToHeroes = spellsAttached;
+        return spellsAttached;
+    }
+
+    public void RestoreSpellsAttached(List<SavedSpellsAttached> savedspellsattached) 
+    {
+        foreach(SavedSpellsAttached savedSpell in savedspellsattached)
+        {
+            for(int i =0; i<savedSpell.spell.Count;i++)
+            {
+                print(savedSpell.spell[i].spellEffect);
+                heroes[savedSpell.heroID].AddSpellToSpellAttached(savedSpell.spell[i], savedSpell.timesToFinish[i]);
+            }
+        }
+    }
+
 }

@@ -71,9 +71,10 @@ public class LoadLevelOrder : MonoBehaviour
         GameInstance.inventory.LoadKeys();
 
         GameInstance.checkWeight();
+
+        GameInstance.party.RestoreSpellsAttached(GameInstance.spellsAttachedToHeroes);
+        GameInstance.party.PartyHeroInit();
+        print("no spellbook");
+        GameInstance.spellbook.RestoreContinousSpells();
     }
-
-
-
-
 }

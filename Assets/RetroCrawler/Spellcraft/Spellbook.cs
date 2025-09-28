@@ -193,6 +193,88 @@ public class Spellbook : MonoBehaviour
         }
     }
 
+    public void SaveContinousSpells()
+    {
+        SavedSpellsAttached savedSpellsAttached = new SavedSpellsAttached();
+        foreach (KeyValuePair< Spell,int> s in spellTimeActive)
+        {
+            savedSpellsAttached.spell.Add(s.Key);
+            savedSpellsAttached.timesToFinish.Add(s.Value);        
+            //print("save continous spells " + s.Key.spellEffect+"/"+s.Value);
+        }
+        GameInstance.spellsFromSpellbook.Add(savedSpellsAttached);
+
+    }
+
+    public void RestoreContinousSpells()
+    {
+        print("save continous spells ");
+        foreach (SavedSpellsAttached savedspell in GameInstance.spellsFromSpellbook)
+        {
+
+
+            for (int i=0;i< savedspell.spell.Count; i++)
+            {
+                print("save continous spells " + savedspell.spell[i].spellEffect + "/" + savedspell.timesToFinish[i]);
+                switch (savedspell.spell[i].spellEffect)
+                {
+                    case SpellEffects.Recall:
+                        if (GameInstance.playerController.playerState != PlayerState.Battle) print("recall mark");
+                        //Get list of marked coordinates from active hero trasfer to this coordinates 
+                        break;
+                    case SpellEffects.WizardEye:
+                        // open special signs on map
+                        if (spellTimeActive.ContainsKey(savedspell.spell[i])) break;
+                        mapCamera.cullingMask |= 1 << 10;
+                        mapMini.cullingMask |= 1 << 10;
+                        spellTimeActive.Add(savedspell.spell[i], savedspell.timesToFinish[i]);
+                        massSpellIcons[1].color = Color.white;
+                        break;
+                    case SpellEffects.Waterwalk:
+                        if (spellTimeActive.ContainsKey(savedspell.spell[i]))
+                        {
+                            spellTimeActive[savedspell.spell[i]] = savedspell.timesToFinish[i];
+                            break;
+                        }
+                        spellTimeActive.Add(savedspell.spell[i], savedspell.timesToFinish[i]);
+                        massSpellIcons[3].color = Color.white;
+                        GameInstance.playerController.waterWalk = true;
+                        //blocks returned water ground become walkable changes in player controller
+                        break;
+                    case SpellEffects.LavaWalk:
+                        if (spellTimeActive.ContainsKey(savedspell.spell[i]))
+                        {
+                            spellTimeActive[savedspell.spell[i]] = savedspell.timesToFinish[i];
+                            break;
+                        }
+                        spellTimeActive.Add(savedspell.spell[i], savedspell.timesToFinish[i]);
+                        massSpellIcons[4].color = Color.white;
+                        GameInstance.playerController.lavaWalk = true;
+
+
+                        break;
+                    case SpellEffects.Restoration:
+                        break;
+                    case SpellEffects.Identify:
+                        //close spell book and wait for an item to click
+                        break;
+                    case SpellEffects.LightARoom:
+                        if (spellTimeActive.ContainsKey(savedspell.spell[i]))
+                        {
+                            spellTimeActive[savedspell.spell[i]] = savedspell.timesToFinish[i];
+                            break;
+                        }
+                        spellTimeActive.Add(savedspell.spell[i], savedspell.timesToFinish[i]);
+                        GameInstance.playerController.LightARoom(1);
+                        massSpellIcons[2].color = Color.white;
+                        break;
+                }
+            }
+
+        }
+
+    }
+
     public void GetGameObjectTarget(GameObject target)
     {
         //print("weapon spell hero check" + target);

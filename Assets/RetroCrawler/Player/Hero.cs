@@ -117,6 +117,19 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         }
     }
 
+    
+    public Dictionary<Spell,int> GetSpellsAttached()
+    {
+        return spellsAttached;
+    }
+
+    public void AddSpellToSpellAttached(Spell spell, int timesToFinish)
+    {
+        SingleSpellApply(spell, null);
+       // spellsAttached.Add(spell, timesToFinish);
+
+    }
+
     int GetDependedStatModificator(DependedStat dstat)
     {
 
@@ -230,110 +243,137 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
         foreach (Spell s in spellToApply.spells)
         {
-            switch (s.spellEffect)
-            {
-                case SpellEffects.PhysicalDamage:
-
-                    int attackRoll = GameInstance.DiceRollingBiggestNumber(1, 20);
-                    if (GetDependedStat(DependedStat.evasion) <= attackRoll) 
-                    {
-                        int amount = GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides);
-                        //amount of damage - 
-                        healthDecrease(amount); 
-                    }
-
-                    break;
-                case SpellEffects.MagicDamage:
-                    switch (s.magicType)
-                    {
-                        case MagicType.Fire:
-                            //print(" fire resistence " + GetDependedStat(DependedStat.FireResistance));
-                            break;
-                        case MagicType.Water:
-                            break;
-                        case MagicType.Air:
-                            break;
-                        case MagicType.Earth:
-                            break;
-                        case MagicType.Light:
-                            break;
-                        case MagicType.Dark:
-                            break;
-                    }
-
-                    break;
-                case SpellEffects.MainStatModify:
-                    if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, s.numberOfTurns);
-                    else spellsAttached[s] = s.numberOfTurns;
-                    if (buffPanels != null) buffPanels.AddBuffToList(spellToApply);
-
-
-                    break;
-                case SpellEffects.DependedStatModify:
-                    if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, s.numberOfTurns);
-                    else spellsAttached[s] = s.numberOfTurns;
-                    if (buffPanels != null) buffPanels.AddBuffToList(spellToApply);
-
-                    break;
-                case SpellEffects.Restoration:
-                    if (gameplayStatuses.Contains(GameplayStatus.Petrified))
-                    {
-                        if (buffPanels != null) buffPanels.RemoveBuffFromList(petrifySpell.spells[0]);
-                    }
-
-                    foreach (GameplayStatus st in System.Enum.GetValues(typeof(GameplayStatus)))
-                    {
-                        if(st != GameplayStatus.Dead)
-                        {
-                            gameplayStatuses.Remove(st);
-
-                        }
-                    }
-                    if (portraits.GetStatePortrait(GameplayStatus.None, out Sprite stateSpriteWell)) portrait.sprite = stateSpriteWell;
-                    break;
-
-
-                case SpellEffects.Identify:
-                    break;
-
-                case SpellEffects.Heal:
-                    if (currentHealth <= 0) break;
-                    int healroll = GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides);
-                    healroll += GetSkillsStat(SkillsStat.LightMagic) + GetMainStat(MainStat.Mind)+s.diceBonus+s.amount;
-                    HealHero(healroll);
-                    break;
-                case SpellEffects.ElementalWeapon:
-                    weaponEnchanced = s.magicType;
-                    if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, s.numberOfTurns);
-                    else spellsAttached[s] = s.numberOfTurns;
-                    if (buffPanels != null) buffPanels.AddBuffToList(spellToApply);
-
-                    break;
-                case SpellEffects.Poison:
-
-                    break;
-                case SpellEffects.ElementalResistance:
-
-                    if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, s.numberOfTurns);
-                    else spellsAttached[s] = s.numberOfTurns;
-                    if (buffPanels != null) buffPanels.AddBuffToList(spellToApply);
-
-                    break;
-                case SpellEffects.Petrify:
-                    if (!gameplayStatuses.Contains(GameplayStatus.Petrified)) 
-                    { 
-                        gameplayStatuses.Add(GameplayStatus.Petrified); 
-                        if(portraits.GetStatePortrait(GameplayStatus.Petrified, out Sprite stateSpritePetrified)) portrait.sprite = stateSpritePetrified; 
-                    }
-
-                    if (buffPanels != null) buffPanels.AddBuffToList(spellToApply);
-                    break;
-
-            }
+            SingleSpellApply(s, spellToApply);
         }
         hitTargetEffecct.Invoke(spellToApply);
         if (GameInstance.playerController.playerState == PlayerState.Battle && !spellToApply.AOE) StartCoroutine(AttackDelay());
     }
+
+
+
+    public void SingleSpellApply(Spell s, SpellContainer spellToApply)
+    {
+        switch (s.spellEffect)
+        {
+            case SpellEffects.PhysicalDamage:
+
+                int attackRoll = GameInstance.DiceRollingBiggestNumber(1, 20);
+                if (GetDependedStat(DependedStat.evasion) <= attackRoll)
+                {
+                    int amount = GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides);
+                    //amount of damage - 
+                    healthDecrease(amount);
+                }
+
+                break;
+            case SpellEffects.MagicDamage:
+                switch (s.magicType)
+                {
+                    case MagicType.Fire:
+                        //print(" fire resistence " + GetDependedStat(DependedStat.FireResistance));
+                        break;
+                    case MagicType.Water:
+                        break;
+                    case MagicType.Air:
+                        break;
+                    case MagicType.Earth:
+                        break;
+                    case MagicType.Light:
+                        break;
+                    case MagicType.Dark:
+                        break;
+                }
+
+                break;
+            case SpellEffects.MainStatModify:
+                if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, s.numberOfTurns);
+                else spellsAttached[s] = s.numberOfTurns;
+                if (buffPanels != null) 
+                {
+                    if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
+                    else buffPanels.AddBuffToList(s);
+                }
+
+
+                break;
+            case SpellEffects.DependedStatModify:
+                if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, s.numberOfTurns);
+                else spellsAttached[s] = s.numberOfTurns;
+                if (buffPanels != null)
+                {
+                    if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
+                    else buffPanels.AddBuffToList(s);
+                }
+
+                break;
+            case SpellEffects.Restoration:
+                if (gameplayStatuses.Contains(GameplayStatus.Petrified))
+                {
+                    if (buffPanels != null) buffPanels.RemoveBuffFromList(petrifySpell.spells[0]);
+                }
+
+                foreach (GameplayStatus st in System.Enum.GetValues(typeof(GameplayStatus)))
+                {
+                    if (st != GameplayStatus.Dead)
+                    {
+                        gameplayStatuses.Remove(st);
+
+                    }
+                }
+                if (portraits.GetStatePortrait(GameplayStatus.None, out Sprite stateSpriteWell)) portrait.sprite = stateSpriteWell;
+                break;
+
+
+            case SpellEffects.Identify:
+                break;
+
+            case SpellEffects.Heal:
+                if (currentHealth <= 0) break;
+                int healroll = GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides);
+                healroll += GetSkillsStat(SkillsStat.LightMagic) + GetMainStat(MainStat.Mind) + s.diceBonus + s.amount;
+                HealHero(healroll);
+                break;
+            case SpellEffects.ElementalWeapon:
+                weaponEnchanced = s.magicType;
+                if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, s.numberOfTurns);
+                else spellsAttached[s] = s.numberOfTurns;
+                if (buffPanels != null)
+                {
+                    if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
+                    else buffPanels.AddBuffToList(s);
+                }
+
+                break;
+            case SpellEffects.Poison:
+
+                break;
+            case SpellEffects.ElementalResistance:
+
+                if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, s.numberOfTurns);
+                else spellsAttached[s] = s.numberOfTurns;
+                if (buffPanels != null)
+                {
+                    if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
+                    else buffPanels.AddBuffToList(s);
+                }
+
+                break;
+            case SpellEffects.Petrify:
+                if (!gameplayStatuses.Contains(GameplayStatus.Petrified))
+                {
+                    gameplayStatuses.Add(GameplayStatus.Petrified);
+                    if (portraits.GetStatePortrait(GameplayStatus.Petrified, out Sprite stateSpritePetrified)) portrait.sprite = stateSpritePetrified;
+                }
+                if (buffPanels != null)
+                {
+                    if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
+                    else buffPanels.AddBuffToList(s);
+                }
+                break;
+
+        }
+    }
+
 
 
     void HealHero(int amount)
@@ -717,7 +757,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     void TimeChanges(int count)
     {
 
-        print(GameInstance.GetNormalTime()[0]%60+"/"+ GameInstance.GetNormalTime()[1]+ "/"+GameInstance.GetNormalTime()[2]);
+       // print(GameInstance.GetNormalTime()[0]%60+"/"+ GameInstance.GetNormalTime()[1]+ "/"+GameInstance.GetNormalTime()[2]);
 
         if (GameInstance.playerController.playerState != PlayerState.Battle)
         {
