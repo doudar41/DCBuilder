@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
     Transform dropItemPosition, throwItemPosition;
     int hoverPortraitIndex = -1;
     bool cursorHoveringUI = false;
-    string currentCursorGUID = "";
+    //string currentCursorGUID = "";
 
     [SerializeField]bool noEncounter = false;
     int countdownToEncounter = 22;
@@ -79,8 +79,9 @@ public class PlayerController : MonoBehaviour
     //Shops
     [SerializeField] ChooseShop chooseShop;
     public bool shopIsOpened = false;
-
-
+    public bool dialogueIsOpened = false;
+    UniqueDialogueName startingDialogueName;
+    IBlock textblock;
 
     private void OnEnable()
     {
@@ -386,7 +387,8 @@ public class PlayerController : MonoBehaviour
         if (!RaycastOnMovement(Vector3.forward)) return;
         //print(transform.rotation.eulerAngles);
         if (busyWalking) return;
-        if (shopIsOpened) return;
+        if (shopIsOpened) return;        
+        if (dialogueIsOpened) return;
         Vector3 v = CardinalDir.GetNewPoint(currentforwardDirection, currentposition, moveTilemap);
         if (!CheckBlockInterfaces(v)) return;
         stepSound.Invoke();
@@ -399,6 +401,7 @@ public class PlayerController : MonoBehaviour
         if (!RaycastOnMovement(Vector3.back)) return;
         if (busyWalking) return;
         if (shopIsOpened) return;
+        if (dialogueIsOpened) return;
         var v = CardinalDir.GetNewPoint(CardinalDir.GetOpposite(currentforwardDirection), currentposition, moveTilemap);
         if (!CheckBlockInterfaces(v)) return;
         stepSound.Invoke();
@@ -411,6 +414,7 @@ public class PlayerController : MonoBehaviour
         if (!RaycastOnMovement(Vector3.right)) return;
         if (busyWalking) return;
         if (shopIsOpened) return;
+        if (dialogueIsOpened) return;
         var v = CardinalDir.GetNewPoint(CardinalDir.GetRightDir(currentforwardDirection), currentposition, moveTilemap);
         if (!CheckBlockInterfaces(v)) return;
         stepSound.Invoke();
@@ -424,6 +428,7 @@ public class PlayerController : MonoBehaviour
         if (!RaycastOnMovement(Vector3.left)) return;
         if (busyWalking) return;
         if (shopIsOpened) return;
+        if (dialogueIsOpened) return;
         var v = CardinalDir.GetNewPoint(CardinalDir.GetOpposite(CardinalDir.GetRightDir(currentforwardDirection)), currentposition, moveTilemap);
         if (!CheckBlockInterfaces(v)) return;
         stepSound.Invoke();
@@ -435,6 +440,7 @@ public class PlayerController : MonoBehaviour
         if (playerState == PlayerState.Battle) { /*print("battle state");*/ return; }
         if (busyWalking) return;
         if (shopIsOpened) return;
+        if (dialogueIsOpened) return;
         turnAround.Invoke();
         StartCoroutine(SmoothRotation(90));
     }
@@ -443,6 +449,7 @@ public class PlayerController : MonoBehaviour
         if (playerState == PlayerState.Battle) { /*print("battle state");*/ return; }
         if (busyWalking) return;
         if (shopIsOpened) return;
+        if (dialogueIsOpened) return;
         turnAround.Invoke();
         StartCoroutine(SmoothRotation(-90));
     }
@@ -757,6 +764,11 @@ public class PlayerController : MonoBehaviour
                             break;
                         case InteractablesEnum.WALL:
                             return false;
+                        case InteractablesEnum.DIALOGUEKEY:
+                            UniqueDialogueName un =  hit.collider.GetComponent<DialogueKey>().GetUniqueDialogueName();
+                            if(!GameInstance.party.currentUniqueDialogueNames.Contains(un)) GameInstance.party.currentUniqueDialogueNames.Add(un);
+                            GameObject.DestroyImmediate(hit.collider.gameObject);
+                            return false;
                     }
                 }
             }
@@ -838,13 +850,24 @@ public class PlayerController : MonoBehaviour
                     //print("open a store");
                     chooseShop.ChooseShopOfType( wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<OnBlockPlacement>().GetShopIndex());
                     shopIsOpened = true;
-                    
+
+                    if (interactableList.Contains(InteractablesEnum.DIALOGUE)) break;
+                    else return false;
+                case InteractablesEnum.DIALOGUE:
+                    textblock = wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<IBlock>();
+                    GameInstance.dialoguePanel.SetIBlock(textblock);
+                    dialogueIsOpened = true;
+                    GameInstance.dialoguePanel.ActivateFirstDialogue();
                     return false;
 
             }
         }
         return true;
     }
+
+
+
+
 
     public void SetPlayerState(PlayerState state)
     {

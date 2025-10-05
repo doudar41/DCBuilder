@@ -25,5 +25,7 @@ public enum InteractablesEnum
     PLAYER,
     HERO,
     WALL,
-    STORE
+    STORE,
+    DIALOGUE,
+    DIALOGUEKEY
 }

@@ -24,6 +24,9 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables
     [SerializeField] int shopIndex;
     int weightInBlock;
     [SerializeField] WeightPlate weightPlate;
+    [SerializeField] List<UniqueDialogueName> dialogues = new List<UniqueDialogueName>(); 
+    
+
     private void Start()
     {
         coordinatesTextOn = GetComponentInChildren<TextMeshPro>();
@@ -92,6 +95,7 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables
     }
 
     
+
 
     public bool IfWallOpened(CardinalDirections dir)
     {
@@ -198,6 +202,45 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables
         return weightInBlock;
     }
 
+
+    public UniqueDialogueName RunDialogue()
+    {
+
+        List<UniqueDialogueName> listOfDialogues = new List<UniqueDialogueName>();
+
+        foreach(UniqueDialogueName ud in GameInstance.party.currentUniqueDialogueNames)
+        {
+            foreach(UniqueDialogueName udLocal in dialogues)
+            {
+                if (ud == udLocal)
+                {
+                    listOfDialogues.Add(udLocal);
+                }
+            }
+
+        }
+
+        GameInstance.dialoguePanel.gameObject.SetActive(true);
+        print("start dialogue" + GameInstance.dataBase.CheckPriority(listOfDialogues));
+        GameInstance.dialoguePanel.ActivateDialogue( GameInstance.dataBase.CheckPriority(listOfDialogues));
+
+
+        return GameInstance.dataBase.CheckPriority(listOfDialogues); 
+    } 
+
+    public void DeleteDialogueOption(UniqueDialogueName uniqueDialogueName)
+    {
+        if(dialogues.Contains(uniqueDialogueName)) dialogues.Remove(uniqueDialogueName);
+        if (dialogues.Count == 0)
+        {
+            if (blockInteractables.Contains(InteractablesEnum.DIALOGUE)) blockInteractables.Remove(InteractablesEnum.DIALOGUE);
+        }
+    }
+    public void DeleteDialogue()
+    {
+        if(blockInteractables.Contains(InteractablesEnum.DIALOGUE)) blockInteractables.Remove(InteractablesEnum.DIALOGUE);
+    }
+
 }
 
 
@@ -233,5 +276,7 @@ public interface IBlock
     public OnBlockPlacement GetOnBlock();
     public void AddWeightToBlock(int amount);
     public int CheckWeightInBlock();
-
+    public UniqueDialogueName RunDialogue();
+    public void DeleteDialogueOption(UniqueDialogueName uniqueDialogueName);
+    public void DeleteDialogue();
 }

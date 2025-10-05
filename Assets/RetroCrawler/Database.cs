@@ -47,4 +47,39 @@ public class Database : MonoBehaviour
         return databaseScriptable.allSpells;
     }
 
+    public DialogueDependencies GetDialogue(UniqueDialogueName uniqueDialogueName)
+    {
+        foreach(DialogueDependencies dd in databaseScriptable.dialogues)
+        {
+            if(dd.uniqueName == uniqueDialogueName)
+            {
+                return dd;
+            }
+        }
+        return null;
+    }
+
+    public List<DialogueDependencies> GetAllDialogues()
+    {
+        return databaseScriptable.dialogues;
+    }
+
+
+    public UniqueDialogueName CheckPriority(List<UniqueDialogueName> uniqueDialogueNames)
+    {
+        int priority = 0;
+        UniqueDialogueName higherName = UniqueDialogueName.None;
+        foreach (UniqueDialogueName un in uniqueDialogueNames)
+        {
+             if(GetDialogue(un).priorityIndex > priority)
+            {
+                higherName = un;
+                priority = GetDialogue(un).priorityIndex;
+            }
+        }
+
+
+        return higherName;
+    }
+
 }

@@ -13,6 +13,7 @@ public static class GameInstance
     public static BattleManager battleManager;
     public static Spellbook spellbook;
     public static Database dataBase;
+    public static DialoguePanel dialoguePanel;
 
     static Texture2D cursorTargetGraphics, cursorNormal;
     static CursorMode cursorMode = CursorMode.Auto;
@@ -24,7 +25,7 @@ public static class GameInstance
     static int timeStamp = 0;
     static float gameTimeFrame = 1;
     public static int[] gameTimeInNormalTime = new int[3];
-    static int[] savedGameTimeInNormalTime = new int[3] {0,0,0 };
+    static List<int> savedGameTimeInNormalTime = new List<int> (){0,0,0 };
 
 
     public delegate void InitItems();
@@ -268,6 +269,11 @@ public static class GameInstance
         saveData.spellsFromSpellbook = spellsFromSpellbook;
         saveData.heroesSpellsAttachedSaved = spellsAttachedToHeroes;
 
+        savedGameTimeInNormalTime[0] = gameTimeInNormalTime[0];
+        savedGameTimeInNormalTime[1] = gameTimeInNormalTime[1];
+        savedGameTimeInNormalTime[2] = gameTimeInNormalTime[2];
+        saveData.savedGameTimeInNormalTime = savedGameTimeInNormalTime;
+
         string path = Application.persistentDataPath + "/" + fileName;
         Gley.AllPlatformsSave.API.Save(saveData, path, DataWasSaved, false);
     }
@@ -300,13 +306,14 @@ public static class GameInstance
             }
             itemsOnLevelSavedWithGUID = ConvertLevelItemsBack(saveData.itemsOnLevel);
             Debug.Log(" items on levels "+itemsOnLevelSavedWithGUID.Count);
+            savedGameTimeInNormalTime = saveData.savedGameTimeInNormalTime;
             levelsVisited = saveData.visitedLevels;
             nextLevelPosition = saveData.playerPosition;
             nextLevelRotation = saveData.playercardinalDirection;
             inventoryItemsSaved = saveData.inventoryItemsSaved;
             visitedBlocks = saveData.visitedBlocks ;
             levelChange = true;
-            keysSaved= saveData.keysSaved;
+            keysSaved = saveData.keysSaved;
 
             spellsAttachedToHeroes = saveData.heroesSpellsAttachedSaved;
              spellsFromSpellbook = saveData.spellsFromSpellbook;
@@ -512,7 +519,7 @@ public class SaveData
     public List<KeyToLocks> keysSaved = new List<KeyToLocks>();
     public List<SavedSpellsAttached> heroesSpellsAttachedSaved = new List<SavedSpellsAttached>();
     public List<SavedSpellsAttached> spellsFromSpellbook = new List<SavedSpellsAttached>();
-
+    public List<int> savedGameTimeInNormalTime = new List<int>();
     public int timeProgress;
 }
 
@@ -583,7 +590,7 @@ public class HeroSpellbookSaved
 }
 
 
-public struct GameTime
+public class GameTime
 {
     public int minute;
     public int hour;

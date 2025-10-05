@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fc4bf8bed5e41a4fa66bd7300eb3474, type: 3}
+  m_Name: Barmaid01
+  m_EditorClassIdentifier: 
+  uniqueName: 2
+  dialogue_phrases:
+  - portraits: {fileID: 21300000, guid: b11aba9e688945f49a02385534692db5, type: 3}
+    dialogueTexts: "Oh no, not another party of adventurers out on the king\u2019s
+      quest. Listen I\u2019d advise you to leave before you even think of going anywhere
+      else. Just make your way out the door and out of ChaosKeep. Go find love, plow
+      a farm, anything! Just get\u2026!"
+  - portraits: {fileID: 21300000, guid: b11aba9e688945f49a02385534692db5, type: 3}
+    dialogueTexts: "Oh hells\u2026 Well there\u2019s your Duke! Been nice knowin\u2019ya!
+      Get a room at least before you die, one final rest and some gold to our purses."
+  - portraits: {fileID: 21300000, guid: 8e78f8b2b22c138418b82972c188c268, type: 3}
+    dialogueTexts: Hand me the missive or go on your way like the wench said.
+  journalEnter: 
+  priorityIndex: 2
+  dialogueButtons:
+  - uniqueName: 3
+    buttonText: 'Hand Duke the missive '
+  dialogueDone: 1
+  oneTimeDialogue: 1
+  namesToDelete: 

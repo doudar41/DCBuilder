@@ -24,7 +24,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
     List<GameplayStatus> gameplayStatuses = new List<GameplayStatus>();
 
     int healthStarted;
-    bool isDead = false;
+    //bool isDead = false;
 
     public UnityEvent<float> healthNormalized;
     public UnityEvent<SpellContainer> hitTargetEffecct;
@@ -44,7 +44,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
             col.enabled = false;
             gameObject.tag = "Untagged";
             health = 0;
-            isDead = true;
+            //isDead = true;
             StartCoroutine(SpriteFadeOut());
         }
         //print ("enemy health " + health + " - " + (float)health / (float)healthStarted);

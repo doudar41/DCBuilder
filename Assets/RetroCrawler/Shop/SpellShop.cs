@@ -14,7 +14,7 @@ public class SpellShop : MonoBehaviour
     [SerializeField] List<TextMeshProUGUI> heroesCoinsText;
     [SerializeField] float sellMultiplier = 1;
     [SerializeField] Vector2Int itemsLevel = new Vector2Int(0,1);
-    [SerializeField] int shopIndex = 1;
+    //[SerializeField] int shopIndex = 1;
     [SerializeField] Camera cam;
     [SerializeField] TextMeshProUGUI textOfShopState;
 

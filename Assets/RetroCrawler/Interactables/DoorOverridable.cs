@@ -8,7 +8,7 @@ public class DoorOverridable : MonoBehaviour, IDoor, IInteractables
     [SerializeField] GameObject door;
     [SerializeField]
     bool isOpened = false;
-    bool stop = false;
+    //bool stop = false;
     [SerializeField]
     float blockHeight = 1;
     [SerializeField]

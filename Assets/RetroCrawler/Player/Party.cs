@@ -13,6 +13,8 @@ public class Party : MonoBehaviour
 
     int moneyCollected = 1000;
 
+    public List<UniqueDialogueName> currentUniqueDialogueNames = new List<UniqueDialogueName>(); 
+
     private void OnEnable()
     {
         GameInstance.party = this;

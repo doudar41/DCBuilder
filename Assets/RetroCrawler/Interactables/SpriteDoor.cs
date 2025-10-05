@@ -9,7 +9,7 @@ public class SpriteDoor : MonoBehaviour, IDoor, IInteractables
     [SerializeField]
     float blockLenght = 5;
     public AnimationCurve curveDoorR, curveDoorL;
-    bool busy = false;
+    //bool busy = false;
     [SerializeField]float clampXMinR, clampXMaxR, clampXMaxL, clampXMinL;
     [SerializeField]
     bool isOpened = false;
