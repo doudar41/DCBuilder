@@ -45,6 +45,11 @@ public class BattleManager : MonoBehaviour
     public delegate void BattlePassTime(int count);
     public BattlePassTime battlePassTime;
 
+    [SerializeField] List<ItemScriptableContainer> listRandomLoot = new List<ItemScriptableContainer>();
+    [SerializeField] BattleGroundGraphics battleGroundGraphics;
+    bool customBattle = false;
+    IBlock customBattleBlock;
+
     private void Awake()
     {
         GameInstance.battleManager = this;
@@ -78,6 +83,41 @@ public class BattleManager : MonoBehaviour
     }
 
 
+    public void CustomBattleStart(List<EnemySized> _level01Enemies, IBlock iblock, BattleGroundEnvironment battleGroundEnvironment )
+    {
+        customBattle = true;
+        customBattleBlock = iblock;
+
+        battleGroundGraphics.SetBattleGround(battleGroundEnvironment);
+        GameInstance.playerController.StartCustomBattle();
+        enemyTurn.Invoke("Battle");
+        StopCoroutine(GameInstance.TimeStep());
+        GameInstance.party.SetTimerForHeroes(true);
+        //Add enemies
+        SpawnEnemies(_level01Enemies, 2, spawnPointsRaw01, 1);
+        SpawnEnemies(_level01Enemies, 2, spawnPointsRaw02, 2);
+
+
+        foreach (Hero h in GameInstance.party.GetHeroList())
+        {
+            allOpponents.Add(h.gameObject);
+        }
+
+        SortingOpponents();
+
+        targetIndexInOpponents = -1;
+        quarrySortedKey = 0;
+        StartCoroutine(RecheckPositionRotation());
+
+        if (IfActiveOpponentIsEnemy())
+        {
+            EnemyAutoAttack();
+        }
+        battleStarts.Invoke();
+    }
+
+
+
     void SpawnEnemies(List<EnemySized> enemies, int randomRange, List<GameObject> spawnRow, int row)
     {
         foreach (GameObject spawnPoint in spawnRow)
@@ -101,27 +141,29 @@ public class BattleManager : MonoBehaviour
             }
         }
 
-        if (!empty.Contains(0) && !empty.Contains(1)&& !empty.Contains(2))
-        {
-            if (Random.Range(0, randomRange) == 0)
+            if (!empty.Contains(0) && !empty.Contains(1) && !empty.Contains(2))
             {
+                if (Random.Range(0, randomRange) == 0)
+                {
                     GameObject enemy = Instantiate(enemies[1].enemies[Random.Range(0, enemies[1].enemies.Count)], spawnRow[1].transform);
                     allOpponents.Add(enemy);
                     empty.Add(1);
-                    enemy.GetComponent<IEnemy>().SetEnemyPlaceSpace(row, new List<int> { 0,1,2});
+                    enemy.GetComponent<IEnemy>().SetEnemyPlaceSpace(row, new List<int> { 0, 1, 2 });
+                }
             }
-        }
 
-        if (!empty.Contains(2) && !empty.Contains(3) && !empty.Contains(4))
-        {
-            if (Random.Range(0, randomRange) == 0)
+            if (!empty.Contains(2) && !empty.Contains(3) && !empty.Contains(4))
             {
-                GameObject enemy = Instantiate(enemies[1].enemies[Random.Range(0, enemies[1].enemies.Count)], spawnRow[3].transform);
-                allOpponents.Add(enemy);
-                empty.Add(3);
-                enemy.GetComponent<IEnemy>().SetEnemyPlaceSpace(row, new List<int> { 2, 3, 4 });
+                if (Random.Range(0, randomRange) == 0)
+                {
+                    GameObject enemy = Instantiate(enemies[1].enemies[Random.Range(0, enemies[1].enemies.Count)], spawnRow[3].transform);
+                    allOpponents.Add(enemy);
+                    empty.Add(3);
+                    enemy.GetComponent<IEnemy>().SetEnemyPlaceSpace(row, new List<int> { 2, 3, 4 });
+                }
             }
-        }
+
+
 
         if (empty.Count == 0)
         {
@@ -140,6 +182,7 @@ public class BattleManager : MonoBehaviour
             allOpponents.Add(enemy);
             enemy.GetComponent<IEnemy>().SetEnemyPlaceSpace(row, new List<int> { 2 });
         }
+        
     }
 
 
@@ -150,6 +193,15 @@ public class BattleManager : MonoBehaviour
         GameInstance.playerController.transform.position = playerBattlePlace.position;
         GameInstance.playerController.transform.rotation = playerBattlePlace.rotation;
     }
+
+    IEnumerator RecheckPositionRotation(Transform customBattleGround)
+    {
+        yield return new WaitForSeconds(0.3f);
+        GameInstance.playerController.beforeBattleTransformRot = GameInstance.playerController.gameObject.transform.rotation;
+        GameInstance.playerController.transform.position = customBattleGround.position;
+        GameInstance.playerController.transform.rotation = customBattleGround.rotation;
+    }
+
 
     void EnemyAutoAttack()
     {
@@ -310,6 +362,10 @@ public class BattleManager : MonoBehaviour
         int enemyCount = 0;
         foreach (GameObject g in allOpponents)
         { 
+            if(g == null)
+            {
+                continue;
+            }
             if (g.GetComponent<IHero>() != null)
             {
                 heroesHealth += g.GetComponent<IHero>().GetHeroHealth();
@@ -410,6 +466,10 @@ public class BattleManager : MonoBehaviour
             foreach(int i in toErase)
             {
                 DestroyImmediate(allOpponents[i]);
+            }
+            if (customBattle)
+            {
+                customBattleBlock.FinishTheBattle();
             }
         }
         else

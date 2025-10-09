@@ -35,7 +35,7 @@ public class DialoguePanel : MonoBehaviour
             buttonsTextFields.Add(b.GetComponentInChildren<TextMeshProUGUI>());
         }
 
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
         letMeGoQuitTalk.onClick.AddListener(CloseDialogue);
         
     }
@@ -54,22 +54,35 @@ public class DialoguePanel : MonoBehaviour
         {
             if (dialogue.deleteDialogue)
             {
+
                 blockWithUniqueNames.DeleteDialogue();
             }
 
             foreach(UniqueDialogueName un in dialogue.namesToDeleteFromBlock)
             {
-                if(blockWithUniqueNames != null)
+                if (blockWithUniqueNames != null)
                 {
-                    blockWithUniqueNames.DeleteDialogue();
+                    blockWithUniqueNames.DeleteDialogueOption(un);
                 }
+                if (!GameInstance.dialoguesFinished.Contains(un)) GameInstance.dialoguesFinished.Add(un);
             }
 
             foreach (UniqueDialogueName un in dialogue.namesToDeleteFromParty)
             {
                if(GameInstance.party.currentUniqueDialogueNames.Contains(un)) GameInstance.party.currentUniqueDialogueNames.Remove(un);
+               if (!GameInstance.dialoguesFinished.Contains(un)) GameInstance.dialoguesFinished.Add(un);
             }
+
+            foreach (UniqueDialogueName un in dialogue.namesAddToParty)
+            {
+                if (!GameInstance.party.currentUniqueDialogueNames.Contains(un)) GameInstance.party.currentUniqueDialogueNames.Add(un);
+            }
+
+            GameInstance.party.MoneyGoes(-dialogue.goldAmount);
+            if(dialogue.journalEnter !="") GameInstance.gameJournal.AddEntryToJournal(dialogue.journalEnter);
         }
+
+
 
 
 
@@ -81,6 +94,7 @@ public class DialoguePanel : MonoBehaviour
         dialoguePanelUI.SetActive(false);
         dialogueFinished = false;
         dialogueTreeForRemove.Clear();
+        dialoguePhraseIndex = 0;
     }
 
     public void SetIBlock(IBlock iblock)
@@ -90,8 +104,15 @@ public class DialoguePanel : MonoBehaviour
 
     public void ActivateFirstDialogue()
     {
-        UniqueDialogueName nameDialogue = blockWithUniqueNames.RunDialogue();
-        GameInstance.dialoguePanel.ActivateDialogue(nameDialogue);
+        List<UniqueDialogueName> nameDialogue = blockWithUniqueNames.RunDialogue();
+        UniqueDialogueName un = GameInstance.dataBase.CheckPriority(nameDialogue);
+        if(un == UniqueDialogueName.None && nameDialogue.Count>0) 
+        {
+            GameInstance.playerController.dialogueIsOpened = false;
+            return;
+            //GameInstance.dialoguePanel.ActivateDialogue(nameDialogue[0]); return; 
+        }
+        if (GameInstance.party.currentUniqueDialogueNames.Contains(un) && un != UniqueDialogueName.None) GameInstance.dialoguePanel.ActivateDialogue(un);
     }
 
     public void ActivateDialogue(UniqueDialogueName uniqueDialogueName)
@@ -156,6 +177,8 @@ public class DialoguePanel : MonoBehaviour
 
     public void NextDialoguePhrase()
     {
+        print("dialogue to open" + currentdialogue);
+        if (GameInstance.dataBase.GetDialogue(currentdialogue) == null) return;
         dialoguePhraseIndex = Mathf.Clamp(dialoguePhraseIndex + 1, 0, GameInstance.dataBase.GetDialogue(currentdialogue).dialogue_phrases.Count - 1);
         dialogueText.text = GameInstance.dataBase.GetDialogue(currentdialogue).dialogue_phrases[dialoguePhraseIndex].dialogueTexts;
         var dialogue = GameInstance.dataBase.GetDialogue(currentdialogue);

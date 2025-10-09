@@ -367,6 +367,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+
+    public void StartCustomBattle()
+    {
+        beforeBattleTransformPos = gameObject.transform.position;
+        beforeBattleTransformRot = gameObject.transform.rotation;
+        //Look for free block near 
+        playerState = PlayerState.Battle;
+        busyWalking = false;
+        //GameInstance.battleManager.CustomBattleStart();
+        countdownToEncounter = Random.Range(rangeOfEnCounter.x, rangeOfEnCounter.y);
+    }
+
     public void ReturnToPreBattlePosition()
     {
         playerState = PlayerState.Explore;
@@ -762,6 +775,7 @@ public class PlayerController : MonoBehaviour
                             break;
                         case InteractablesEnum.STORY:
                             break;
+
                         case InteractablesEnum.WALL:
                             return false;
                         case InteractablesEnum.DIALOGUEKEY:
@@ -769,6 +783,7 @@ public class PlayerController : MonoBehaviour
                             if(!GameInstance.party.currentUniqueDialogueNames.Contains(un)) GameInstance.party.currentUniqueDialogueNames.Add(un);
                             GameObject.DestroyImmediate(hit.collider.gameObject);
                             return false;
+
                     }
                 }
             }
@@ -859,7 +874,10 @@ public class PlayerController : MonoBehaviour
                     dialogueIsOpened = true;
                     GameInstance.dialoguePanel.ActivateFirstDialogue();
                     return false;
-
+                case InteractablesEnum.CUSTOMBATTLE:
+                    print("start custom battle");
+                    wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<IBlock>().SetCustomBattle();
+                    return false;
             }
         }
         return true;

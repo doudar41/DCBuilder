@@ -69,17 +69,35 @@ public class Database : MonoBehaviour
     {
         int priority = 0;
         UniqueDialogueName higherName = UniqueDialogueName.None;
+
         foreach (UniqueDialogueName un in uniqueDialogueNames)
         {
              if(GetDialogue(un).priorityIndex > priority)
             {
-                higherName = un;
-                priority = GetDialogue(un).priorityIndex;
+                if (GameInstance.party.currentUniqueDialogueNames.Contains(un))
+                {
+                    higherName = un;
+                    priority = GetDialogue(un).priorityIndex;
+                }
             }
         }
 
-
         return higherName;
     }
+
+
+    public HeroInventoryItem HeroInventoryFromITemScriptable(ItemScriptableContainer item)
+    {
+        HeroInventoryItem heroInventoryItem = new HeroInventoryItem();
+            heroInventoryItem.heroIndex =-1;
+             heroInventoryItem.itemType = item.itemType;
+             heroInventoryItem.container = GetItemIndexFromDataBase(item);
+             heroInventoryItem.stackAmount = 1;
+             heroInventoryItem.positionReplaced = Vector3.zero;
+             heroInventoryItem.level = "Level01";
+             heroInventoryItem.levelOfIdenifySaved = 0;
+
+        return heroInventoryItem;
+}
 
 }

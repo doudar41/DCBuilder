@@ -24,14 +24,44 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables
     [SerializeField] int shopIndex;
     int weightInBlock;
     [SerializeField] WeightPlate weightPlate;
-    [SerializeField] List<UniqueDialogueName> dialogues = new List<UniqueDialogueName>(); 
-    
+    [SerializeField] List<UniqueDialogueName> dialogues = new List<UniqueDialogueName>();
+    [SerializeField] List<EnemySized> enemyList = new List<EnemySized>();
+    [SerializeField] BattleGroundEnvironment battleGroundEnvironment;
+    [SerializeField] List<ItemScriptableContainer> afterBattleLoot = new List<ItemScriptableContainer>();
+    [SerializeField] List<KeyToLocks> afterBattleKeys = new List<KeyToLocks>();
+    [SerializeField] List<UniqueDialogueName> afterBattleDialogue = new List<UniqueDialogueName>();
+    [SerializeField] int goldAmount = 0;
+    [SerializeField] GameObject characterSprite;
+
+
+    private void Awake()
+    {
+        GameInstance.initItems += BlockInit;
+    }
+
+    private void OnDestroy()
+    {
+        GameInstance.initItems -= BlockInit;
+    }
 
     private void Start()
     {
         coordinatesTextOn = GetComponentInChildren<TextMeshPro>();
         coordinatesTextOn.gameObject.SetActive(false);
     }
+
+    void BlockInit()
+    {
+        foreach(UniqueDialogueName un in GameInstance.dialoguesFinished)
+        {
+            DeleteDialogueOption(un);
+        }
+        if (dialogues.Count == 0)
+        {
+            if (blockInteractables.Contains(InteractablesEnum.DIALOGUE)) blockInteractables.Remove(InteractablesEnum.DIALOGUE);
+        }
+    }
+
 
     public void CheckGridForGameObject(Tilemap tilemap, Vector3Int position)
     {
@@ -203,14 +233,14 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables
     }
 
 
-    public UniqueDialogueName RunDialogue()
+    public List<UniqueDialogueName> RunDialogue()
     {
 
-        List<UniqueDialogueName> listOfDialogues = new List<UniqueDialogueName>();
+/*        List<UniqueDialogueName> listOfDialogues = new List<UniqueDialogueName>();
 
-        foreach(UniqueDialogueName ud in GameInstance.party.currentUniqueDialogueNames)
+        foreach (UniqueDialogueName ud in GameInstance.party.currentUniqueDialogueNames)
         {
-            foreach(UniqueDialogueName udLocal in dialogues)
+            foreach (UniqueDialogueName udLocal in dialogues)
             {
                 if (ud == udLocal)
                 {
@@ -218,27 +248,51 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables
                 }
             }
 
-        }
+        }*/
 
-        GameInstance.dialoguePanel.gameObject.SetActive(true);
-        print("start dialogue" + GameInstance.dataBase.CheckPriority(listOfDialogues));
-        GameInstance.dialoguePanel.ActivateDialogue( GameInstance.dataBase.CheckPriority(listOfDialogues));
+        //GameInstance.dialoguePanel.gameObject.SetActive(true);
+        //print("start dialogue" + GameInstance.dataBase.CheckPriority(listOfDialogues));
+        //GameInstance.dialoguePanel.ActivateDialogue(GameInstance.dataBase.CheckPriority(listOfDialogues));
 
 
-        return GameInstance.dataBase.CheckPriority(listOfDialogues); 
-    } 
+        return dialogues;
+    }
 
     public void DeleteDialogueOption(UniqueDialogueName uniqueDialogueName)
     {
         if(dialogues.Contains(uniqueDialogueName)) dialogues.Remove(uniqueDialogueName);
-        if (dialogues.Count == 0)
-        {
-            if (blockInteractables.Contains(InteractablesEnum.DIALOGUE)) blockInteractables.Remove(InteractablesEnum.DIALOGUE);
-        }
+
     }
     public void DeleteDialogue()
     {
+        //print("delete dialogue in block");
         if(blockInteractables.Contains(InteractablesEnum.DIALOGUE)) blockInteractables.Remove(InteractablesEnum.DIALOGUE);
+        if (characterSprite != null) characterSprite.SetActive(false);
+    }
+
+
+    public void SetCustomBattle()
+    {
+        GameInstance.battleManager.CustomBattleStart(enemyList, gameObject.GetComponent<IBlock>(), battleGroundEnvironment) ;
+    }
+
+    public void FinishTheBattle()
+    {
+        blockInteractables.Remove(InteractablesEnum.CUSTOMBATTLE);
+        foreach(ItemScriptableContainer item in afterBattleLoot)
+        {
+            GameInstance.inventory.FindEmptySlotAndPutItem(GameInstance.dataBase.HeroInventoryFromITemScriptable(item), 1);
+        }
+        foreach(KeyToLocks keys in afterBattleKeys)
+        {
+            GameInstance.inventory.SaveKeyToList(keys.keyType);
+        }
+        foreach(UniqueDialogueName un in afterBattleDialogue)
+        {
+           if (!GameInstance.party.currentUniqueDialogueNames.Contains(un)) GameInstance.party.currentUniqueDialogueNames.Add(un);
+        }
+        GameInstance.party.MoneyGoes(-goldAmount);
+        //
     }
 
 }
@@ -276,7 +330,10 @@ public interface IBlock
     public OnBlockPlacement GetOnBlock();
     public void AddWeightToBlock(int amount);
     public int CheckWeightInBlock();
-    public UniqueDialogueName RunDialogue();
+    public List<UniqueDialogueName> RunDialogue();
     public void DeleteDialogueOption(UniqueDialogueName uniqueDialogueName);
     public void DeleteDialogue();
+
+    public void SetCustomBattle();
+    public void FinishTheBattle();
 }

@@ -16,6 +16,10 @@ public class DialogueDependencies: ScriptableObject
     public List<UniqueDialogueName> namesToDeleteFromParty = new List<UniqueDialogueName>();
     public bool deleteDialogue = false;
     public string lastButtonText = "Quit";
+    public List<UniqueDialogueName> namesAddToParty = new List<UniqueDialogueName>();
+    public List<ItemScriptableContainer> itemsAddToParty = new List<ItemScriptableContainer>();
+    public List<KeyToLocks> keysAddToParty = new List<KeyToLocks>();
+    public int goldAmount = 0; 
 }
 
 [System.Serializable]
@@ -41,5 +45,8 @@ public enum UniqueDialogueName //Party would have current list of dialogue names
     BartenderCaveTalks,
     AfterCaveDukeDialogue,
     CastleGuardsProhibitEntrance,
-    CastleGuardsAllowToEnter
+    CastleGuardsAllowToEnter,
+    PeasantInDistress01,
+    PeasantInDistress02,
+    PeasantInDistress03
 }

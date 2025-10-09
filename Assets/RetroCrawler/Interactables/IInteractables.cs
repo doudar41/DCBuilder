@@ -27,5 +27,6 @@ public enum InteractablesEnum
     WALL,
     STORE,
     DIALOGUE,
-    DIALOGUEKEY
+    DIALOGUEKEY,
+    CUSTOMBATTLE
 }

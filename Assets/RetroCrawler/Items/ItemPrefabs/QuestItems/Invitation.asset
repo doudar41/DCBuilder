@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830199137178dfd4c92369ded1b83b63, type: 3}
+  m_Name: Invitation
+  m_EditorClassIdentifier: 
+  itemType: 16
+  itemName: Royal Missive
+  texture2DMouse: {fileID: 2800000, guid: e8b0bbc45dc3e304bb90faca69522478, type: 3}
+  InventorySprite: {fileID: 21300000, guid: 5b83f6cc9d0484040978dc93558e9829, type: 3}
+  worldSprite: {fileID: 21300000, guid: 5b83f6cc9d0484040978dc93558e9829, type: 3}
+  prefab: {fileID: 2885720944578253258, guid: 8fb51645225b2dc4f8b644551bf61973, type: 3}
+  weight: 0
+  spellContainer: {fileID: 0}
+  weaponType: 0
+  twoHanded: 0
+  price: 0
+  itemDescription: 
+  itemLevel: 0
+  keyType: 0
+  journalEntry: Hear ye, Hear ye! His Royal crownship and keeper of our realm has
+    hereby called all ye heroes and villains, all ye Death Crusaders, for one glorious
+    quest! Unbound treasure and secrets await you in ChaosKeep! Make way to the Unwavering
+    Hag. There, enquire for the royal advisor to the crown, the very own Duke Hitherin,
+    for your first trial.
+  dialogueKeys: 010000000200000003000000

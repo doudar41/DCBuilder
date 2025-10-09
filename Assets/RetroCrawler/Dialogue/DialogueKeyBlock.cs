@@ -5,6 +5,25 @@ using UnityEngine;
 public class DialogueKeyBlock : MonoBehaviour, IInteractables, DialogueKey
 {
     [SerializeField] UniqueDialogueName uniqueDialogueName;
+
+    private void Awake()
+    {
+        GameInstance.initItems += BlockInit;
+    }
+
+    private void OnDestroy()
+    {
+        GameInstance.initItems -= BlockInit;
+    }
+
+
+    void BlockInit()
+    {
+        if (GameInstance.dialoguesFinished.Contains(uniqueDialogueName)) Destroy(gameObject);
+    }
+
+
+
     public int GetWeight(out int carringCapacity)
     {
         throw new System.NotImplementedException();

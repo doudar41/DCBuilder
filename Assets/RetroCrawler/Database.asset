@@ -21,6 +21,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 21a6bdf2f1ae9b342bdaceecf9860468, type: 2}
   - {fileID: 11400000, guid: 7b5642d4ff3954d4e8888593ec4824e6, type: 2}
   - {fileID: 11400000, guid: 0ecb15639e7ed314d917b620d2b96285, type: 2}
+  - {fileID: 11400000, guid: 263cb7644106e4f448a1b1fe1c5460e8, type: 2}
   portraits:
   - {fileID: 11400000, guid: 7b2c0760a983ae640892fad570561b6f, type: 2}
   - {fileID: 11400000, guid: a2f8762c7f53ab94faf5cf111ef3a434, type: 2}
@@ -60,3 +61,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 31b6b1dea8a3b8c4b81c0699d21ad637, type: 2}
   - {fileID: 11400000, guid: 68cf36331578499479b7fd3300948672, type: 2}
   - {fileID: 11400000, guid: a07f0af9414e8fa4d80214b75d468c26, type: 2}
+  - {fileID: 11400000, guid: b43012c2173029444b7bce955a53ead8, type: 2}
+  - {fileID: 11400000, guid: a0dfc5a1c91fb6c458011ad1353845fd, type: 2}
+  - {fileID: 11400000, guid: 92bebcf5513a43c4396ae86aa440fd75, type: 2}

@@ -19,6 +19,8 @@ public class ItemScriptableContainer : ScriptableObject
     public string itemDescription;
     public int itemLevel;
     public KeyType keyType;
+    public string journalEntry = "";
+    public List<UniqueDialogueName> dialogueKeys = new List<UniqueDialogueName>();
 }
 
 

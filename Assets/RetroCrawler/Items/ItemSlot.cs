@@ -54,6 +54,25 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
                 }
                 return;
             }
+            if (inventoryItem.itemType == ItemType.QUEST)
+            {
+                ItemScriptableContainer item =  GameInstance.dataBase.GetItemFromBaseByIndex(inventoryItem.container);
+                if (item.journalEntry!="")
+               GameInstance.gameJournal.AddEntryToJournal(item.journalEntry);
+
+                foreach(UniqueDialogueName un in item.dialogueKeys)
+                {
+                    if (!GameInstance.party.currentUniqueDialogueNames.Contains(un))
+                    {
+                        GameInstance.party.currentUniqueDialogueNames.Add(un);
+                    }
+                }
+                RemoveItem();
+                return;
+
+
+
+            }
         }
         if (clickCount == 1)
         {

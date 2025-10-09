@@ -14,6 +14,7 @@ public static class GameInstance
     public static Spellbook spellbook;
     public static Database dataBase;
     public static DialoguePanel dialoguePanel;
+    public static GameJournal gameJournal;
 
     static Texture2D cursorTargetGraphics, cursorNormal;
     static CursorMode cursorMode = CursorMode.Auto;
@@ -71,6 +72,9 @@ public static class GameInstance
     public static List<KeyToLocks> keysSaved = new List<KeyToLocks>();
     public static List<SavedSpellsAttached> spellsAttachedToHeroes = new List<SavedSpellsAttached>();
     public static List<SavedSpellsAttached> spellsFromSpellbook = new List<SavedSpellsAttached>();
+    public static List<UniqueDialogueName> dialoguesFinished = new List<UniqueDialogueName>(); //delete dialogue names on load level
+
+    public static List<string> journalEntries = new List<string>();
 
     public static int DiceRollingBiggestNumber(int diceNumber, int diceSides)
     {
@@ -273,7 +277,8 @@ public static class GameInstance
         savedGameTimeInNormalTime[1] = gameTimeInNormalTime[1];
         savedGameTimeInNormalTime[2] = gameTimeInNormalTime[2];
         saveData.savedGameTimeInNormalTime = savedGameTimeInNormalTime;
-
+        saveData.dialoguesFinished = dialoguesFinished;
+        saveData.journalEntries = journalEntries;
         string path = Application.persistentDataPath + "/" + fileName;
         Gley.AllPlatformsSave.API.Save(saveData, path, DataWasSaved, false);
     }
@@ -306,6 +311,7 @@ public static class GameInstance
             }
             itemsOnLevelSavedWithGUID = ConvertLevelItemsBack(saveData.itemsOnLevel);
             Debug.Log(" items on levels "+itemsOnLevelSavedWithGUID.Count);
+
             savedGameTimeInNormalTime = saveData.savedGameTimeInNormalTime;
             levelsVisited = saveData.visitedLevels;
             nextLevelPosition = saveData.playerPosition;
@@ -314,9 +320,12 @@ public static class GameInstance
             visitedBlocks = saveData.visitedBlocks ;
             levelChange = true;
             keysSaved = saveData.keysSaved;
-
+            dialoguesFinished = saveData.dialoguesFinished;
             spellsAttachedToHeroes = saveData.heroesSpellsAttachedSaved;
-             spellsFromSpellbook = saveData.spellsFromSpellbook;
+            spellsFromSpellbook = saveData.spellsFromSpellbook;
+            journalEntries = saveData.journalEntries;
+
+
             SceneManager.LoadScene(saveData.levelName, LoadSceneMode.Single); 
         }
     }
@@ -521,6 +530,8 @@ public class SaveData
     public List<SavedSpellsAttached> spellsFromSpellbook = new List<SavedSpellsAttached>();
     public List<int> savedGameTimeInNormalTime = new List<int>();
     public int timeProgress;
+    public List<UniqueDialogueName> dialoguesFinished = new List<UniqueDialogueName>();
+    public List<string> journalEntries = new List<string>();
 }
 
 [System.Serializable]

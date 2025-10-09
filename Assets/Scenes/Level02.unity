@@ -3733,7 +3733,7 @@ PrefabInstance:
     - target: {fileID: 8120318257475654242, guid: f2f76c5f05449f2449e877b941024850, type: 3}
       propertyPath: itemScriptableLocal
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 0ecb15639e7ed314d917b620d2b96285, type: 2}
     - target: {fileID: 8463113305200442390, guid: f2f76c5f05449f2449e877b941024850, type: 3}
       propertyPath: m_Name
       value: ItemModelContainer
@@ -12240,6 +12240,7 @@ MonoBehaviour:
   nextLevelName: 
   shopIndex: 0
   weightPlate: {fileID: 0}
+  dialogues: 
 --- !u!1 &188564446
 GameObject:
   m_ObjectHideFlags: 0
@@ -21056,7 +21057,6 @@ MonoBehaviour:
   - {fileID: 1187851702}
   sellMultiplier: 1
   itemsLevel: {x: 0, y: 1}
-  shopIndex: 1
   cam: {fileID: 33811588}
   textOfShopState: {fileID: 254118135}
   closeShopPanel:
@@ -32925,6 +32925,7 @@ MonoBehaviour:
   nextLevelName: 
   shopIndex: 0
   weightPlate: {fileID: 0}
+  dialogues: 
 --- !u!4 &499848374
 Transform:
   m_ObjectHideFlags: 0
@@ -42563,6 +42564,7 @@ MonoBehaviour:
   nextLevelName: Level01
   shopIndex: 0
   weightPlate: {fileID: 0}
+  dialogues: 
 --- !u!1 &652352106
 GameObject:
   m_ObjectHideFlags: 0
@@ -52251,6 +52253,7 @@ MonoBehaviour:
   nextLevelName: 
   shopIndex: 0
   weightPlate: {fileID: 0}
+  dialogues: 
 --- !u!1 &808849289
 GameObject:
   m_ObjectHideFlags: 0
@@ -66350,6 +66353,7 @@ MonoBehaviour:
   nextLevelName: 
   shopIndex: 0
   weightPlate: {fileID: 0}
+  dialogues: 
 --- !u!1 &1014709711
 GameObject:
   m_ObjectHideFlags: 0
@@ -67761,6 +67765,7 @@ MonoBehaviour:
   nextLevelName: 
   shopIndex: 0
   weightPlate: {fileID: 0}
+  dialogues: 
 --- !u!4 &1040081613
 Transform:
   m_ObjectHideFlags: 0
@@ -68508,6 +68513,7 @@ MonoBehaviour:
   nextLevelName: 
   shopIndex: 0
   weightPlate: {fileID: 0}
+  dialogues: 
 --- !u!1 &1050008142
 GameObject:
   m_ObjectHideFlags: 0
@@ -78109,6 +78115,7 @@ MonoBehaviour:
   nextLevelName: 
   shopIndex: 0
   weightPlate: {fileID: 0}
+  dialogues: 
 --- !u!4 &1223590644
 Transform:
   m_ObjectHideFlags: 0
@@ -82941,6 +82948,7 @@ MonoBehaviour:
   nextLevelName: 
   shopIndex: 0
   weightPlate: {fileID: 0}
+  dialogues: 
 --- !u!1 &1294607355
 GameObject:
   m_ObjectHideFlags: 0
@@ -84342,6 +84350,7 @@ MonoBehaviour:
   nextLevelName: 
   shopIndex: 0
   weightPlate: {fileID: 0}
+  dialogues: 
 --- !u!4 &1316119077
 Transform:
   m_ObjectHideFlags: 0
@@ -85787,6 +85796,7 @@ MonoBehaviour:
   lavaWalk: 0
   chooseShop: {fileID: 490105886}
   shopIsOpened: 0
+  dialogueIsOpened: 0
 --- !u!54 &1338786999
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -86276,6 +86286,7 @@ MonoBehaviour:
   nextLevelName: 
   shopIndex: 0
   weightPlate: {fileID: 0}
+  dialogues: 
 --- !u!1 &1356118102
 GameObject:
   m_ObjectHideFlags: 0
@@ -94139,6 +94150,7 @@ MonoBehaviour:
   nextLevelName: 
   shopIndex: 0
   weightPlate: {fileID: 0}
+  dialogues: 
 --- !u!1 &1488429503
 GameObject:
   m_ObjectHideFlags: 0
@@ -101549,6 +101561,7 @@ MonoBehaviour:
   nextLevelName: 
   shopIndex: 0
   weightPlate: {fileID: 0}
+  dialogues: 
 --- !u!1 &1598332695
 GameObject:
   m_ObjectHideFlags: 0
@@ -112021,6 +112034,7 @@ MonoBehaviour:
   nextLevelName: 
   shopIndex: 0
   weightPlate: {fileID: 0}
+  dialogues: 
 --- !u!4 &1675198316
 Transform:
   m_ObjectHideFlags: 0
@@ -114949,6 +114963,7 @@ MonoBehaviour:
   nextLevelName: 
   shopIndex: 0
   weightPlate: {fileID: 0}
+  dialogues: 
 --- !u!1 &1708767906
 GameObject:
   m_ObjectHideFlags: 0
@@ -118530,6 +118545,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  currentUniqueDialogueNames: 
 --- !u!1 &1771943002
 GameObject:
   m_ObjectHideFlags: 0
@@ -121723,6 +121739,7 @@ MonoBehaviour:
   nextLevelName: 
   shopIndex: 0
   weightPlate: {fileID: 0}
+  dialogues: 
 --- !u!1 &1830190205
 GameObject:
   m_ObjectHideFlags: 0
@@ -122987,6 +123004,7 @@ MonoBehaviour:
   nextLevelName: 
   shopIndex: 0
   weightPlate: {fileID: 0}
+  dialogues: 
 --- !u!4 &1841997892
 Transform:
   m_ObjectHideFlags: 0
