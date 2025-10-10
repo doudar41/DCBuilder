@@ -25,14 +25,11 @@ public class BattleManager : MonoBehaviour
     List<GameObject> allOpponents = new List<GameObject>();
     Dictionary<int, GameObject> quarrySorted = new Dictionary<int, GameObject>();
     int quarrySortedKey = 0;
-
     int actionCounter = 0;
-
 
     //Turn event 
     //Quarry of heroes and enemies
     [SerializeField] Transform playerBattlePlace;
-
     [SerializeField] List<GameObject> spawnPointsRaw01, spawnPointsRaw02, SpawnPointsRaw03;
 
 
@@ -49,6 +46,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] BattleGroundGraphics battleGroundGraphics;
     bool customBattle = false;
     IBlock customBattleBlock;
+
 
     private void Awake()
     {
@@ -521,14 +519,14 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    public void ReceiveLastSpellInput()
+/*    public void ReceiveLastSpellInput()
     {
         if (quarrySorted[quarrySortedKey].GetComponent<IHero>() == null) return;
 
 
         // if spell AOE roll through all with current spell of a hero
         //if spell no AOE wait for cursor input
-    }
+    }*/
 
 
     public void BattleSpellAgro(int amount)
@@ -550,11 +548,11 @@ public class BattleManager : MonoBehaviour
         {
             BattleIsOver(true);
         }
-        GameInstance.battleManager.BattleEffect = false;
+        BattleEffect = false;
         if (WhoWon() == 0) EndOfTheTurn();
     }
 
-
+/*
     public void ChooseTargetForSpell(GameObject opponentGameObject, SpellContainer spellContainer)
     {
         if(allOpponents.Contains(opponentGameObject))
@@ -575,7 +573,7 @@ public class BattleManager : MonoBehaviour
             EndOfTheTurn();
         }
         //apply spell to chosen opponent
-    }
+    }*/
 
     public void RemoveOpponent(GameObject opponent)
     {

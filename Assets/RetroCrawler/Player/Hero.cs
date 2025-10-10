@@ -395,6 +395,10 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         currentHealth = Mathf.Clamp(currentHealth - amount, 0, GetDependedStat(DependedStat.maxHealth)); 
         healthSlider.ProgressBarFill((float)currentHealth / (float)GetDependedStat(DependedStat.maxHealth));
         if (currentHealth <= 0) portrait.sprite = deadSprite;
+        if(GameInstance.playerController.playerState != PlayerState.Battle)
+        {
+            if(GameInstance.party.CheckForDeadHeroes()) GameInstance.LoadGameMainMenu();
+        }
     }
     public void ManaDecrease(int amount)
     {

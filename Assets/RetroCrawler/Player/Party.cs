@@ -234,4 +234,17 @@ public class Party : MonoBehaviour
         }
     }
 
+
+    public bool CheckForDeadHeroes()
+    {
+        int health = 0;
+
+        foreach(Hero hero in heroes)
+        {
+            health += hero.GetHeroHealth();
+        }
+        return health <= 0;
+
+    }
+
 }

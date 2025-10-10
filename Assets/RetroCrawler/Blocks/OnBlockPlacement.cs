@@ -60,6 +60,8 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables
         {
             if (blockInteractables.Contains(InteractablesEnum.DIALOGUE)) blockInteractables.Remove(InteractablesEnum.DIALOGUE);
         }
+
+
     }
 
 
@@ -236,36 +238,21 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables
     public List<UniqueDialogueName> RunDialogue()
     {
 
-/*        List<UniqueDialogueName> listOfDialogues = new List<UniqueDialogueName>();
-
-        foreach (UniqueDialogueName ud in GameInstance.party.currentUniqueDialogueNames)
-        {
-            foreach (UniqueDialogueName udLocal in dialogues)
-            {
-                if (ud == udLocal)
-                {
-                    listOfDialogues.Add(udLocal);
-                }
-            }
-
-        }*/
-
-        //GameInstance.dialoguePanel.gameObject.SetActive(true);
-        //print("start dialogue" + GameInstance.dataBase.CheckPriority(listOfDialogues));
-        //GameInstance.dialoguePanel.ActivateDialogue(GameInstance.dataBase.CheckPriority(listOfDialogues));
-
-
         return dialogues;
     }
 
     public void DeleteDialogueOption(UniqueDialogueName uniqueDialogueName)
     {
         if(dialogues.Contains(uniqueDialogueName)) dialogues.Remove(uniqueDialogueName);
-
+        if (afterBattleDialogue.Contains(uniqueDialogueName)) 
+        { 
+            afterBattleDialogue.Remove(uniqueDialogueName);
+            blockInteractables.Remove(InteractablesEnum.CUSTOMBATTLE);
+        }
     }
     public void DeleteDialogue()
     {
-        //print("delete dialogue in block");
+
         if(blockInteractables.Contains(InteractablesEnum.DIALOGUE)) blockInteractables.Remove(InteractablesEnum.DIALOGUE);
         if (characterSprite != null) characterSprite.SetActive(false);
     }
