@@ -17,6 +17,7 @@ public class Spell
     public SkillsStat skillStatAdded = SkillsStat.None;
     public int restToBeAbleToCastAgainInTurns = 0;
     public string SpellDescription;
+    public SkillsStat skillToCheckInCalculations = SkillsStat.None;
 }
 
 

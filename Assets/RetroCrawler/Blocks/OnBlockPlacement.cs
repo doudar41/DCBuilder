@@ -9,7 +9,7 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables
 
     public TextMeshPro coordinatesTextOn; //Shown only in Editor
     public GameObject[] walls = new GameObject[4]; //filled while placing on tilemap
-    public Vector3Int position; //given when placing on a Tilemap
+    public Vector3Int blockPosition; //given when placing on a Tilemap
     public OnBlockPlacement blockParent; //temporary parent for pathfinding
 
     public List<InteractablesEnum> blockInteractables = new List<InteractablesEnum>();
@@ -63,7 +63,10 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables
 
 
     }
-
+    public void InitPosition(Tilemap tilemap)
+    {
+        blockPosition = tilemap.WorldToCell(transform.position);
+    }
 
     public void CheckGridForGameObject(Tilemap tilemap, Vector3Int position)
     {
@@ -119,10 +122,10 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables
     {
         List<OnBlockPlacement> neighborsAround = new List<OnBlockPlacement>();
         var blocks = transform.parent.GetComponentsInChildren<Transform>();
-        neighborsAround.Add(CheckForNeighbor(tilemap, CardinalDirections.EAST, position, 1, 0, blocks));
-        neighborsAround.Add(CheckForNeighbor(tilemap, CardinalDirections.WEST, position, -1, 0, blocks));
-        neighborsAround.Add(CheckForNeighbor(tilemap, CardinalDirections.NORTH, position, 0, 1, blocks));
-        neighborsAround.Add(CheckForNeighbor(tilemap, CardinalDirections.SOUTH, position, 0, -1, blocks));
+        neighborsAround.Add(CheckForNeighbor(tilemap, CardinalDirections.EAST, blockPosition, 1, 0, blocks));
+        neighborsAround.Add(CheckForNeighbor(tilemap, CardinalDirections.WEST, blockPosition, -1, 0, blocks));
+        neighborsAround.Add(CheckForNeighbor(tilemap, CardinalDirections.NORTH, blockPosition, 0, 1, blocks));
+        neighborsAround.Add(CheckForNeighbor(tilemap, CardinalDirections.SOUTH, blockPosition, 0, -1, blocks));
         return neighborsAround;
     }
 
@@ -155,17 +158,17 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables
 
     public Vector3Int GetPortalDestination()
     {
-        return portalDestination.position;
+        return portalDestination.blockPosition;
     }
 
     public void CoordinatesToText()
     {
-        coordinatesTextOn.text = position.ToString();
+        coordinatesTextOn.text = blockPosition.ToString();
     }
 
     public Vector3Int GetBlockCoordinate()
     {
-        return position;
+        return blockPosition;
     }
 
     public OnBlockPlacement GetPortalPoint()

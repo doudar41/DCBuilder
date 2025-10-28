@@ -213,6 +213,8 @@ public class BattleManager : MonoBehaviour
             AttackEnding();
         }
         enemyTurn.Invoke("Enemy turn");
+
+        attacker.MoveAheadOnAttack();
         for (int i =0; i<allOpponents.Count;i++)
         {
 
@@ -399,6 +401,7 @@ public class BattleManager : MonoBehaviour
                 if (g.GetComponent<IEnemy>().GetEnemyHealth() > 0)
                 {
                     sortList.Add(g.GetComponent<IBattle>().GetInitiativeInBattle());
+                    g.GetComponent<IEnemy>().MoveBackAfterAttack();
                 }
             }
             if (g.GetComponent<IHero>() != null)
@@ -540,10 +543,13 @@ public class BattleManager : MonoBehaviour
 
     public void AttackEnding()
     {
-
+/*        if (quarrySorted[quarrySortedKey].GetComponent<IEnemy>() != null)
+        {
+            quarrySorted[quarrySortedKey].GetComponent<IEnemy>().MoveBackAfterAttack();
+        }*/
             //Check for heroes health
             //if ok end of the turn
-        if (WhoWon() == 2) BattleIsOver(false);
+            if (WhoWon() == 2) BattleIsOver(false);
         if (WhoWon() == 1)
         {
             BattleIsOver(true);

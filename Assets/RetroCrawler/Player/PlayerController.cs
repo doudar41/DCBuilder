@@ -136,8 +136,26 @@ public class PlayerController : MonoBehaviour
 
         foreach (OnBlockPlacement w in walls)
         {
-            if (!wallsAccess.ContainsKey(w.position)) { wallsAccess.Add(w.position, w); }
+            if (!wallsAccess.ContainsKey(w.blockPosition)) { wallsAccess.Add(w.blockPosition, w); }
         }
+
+        if(walls.Length != wallsAccess.Count)
+        {
+            print("map blocks positions are broken");
+            wallsAccess.Clear();
+            foreach (OnBlockPlacement w in walls)
+            {
+                w.InitPosition(moveTilemap);
+                if (!wallsAccess.ContainsKey(w.blockPosition)) { wallsAccess.Add(w.blockPosition, w); }
+            }
+
+
+        }
+        else
+        {
+            print("blocks quantity checked");
+        }
+
     }
 
     public OnBlockPlacement GetBlockByCoordinatesOnStart(Vector3Int coords)
@@ -244,7 +262,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     void NewGamePlayerStruct()
     {
         startposition = moveTilemap.WorldToCell(transform.position);
@@ -257,8 +274,8 @@ public class PlayerController : MonoBehaviour
 
         foreach (OnBlockPlacement w in walls)
         {
-            if (!wallsAccess.ContainsKey(w.position))
-                wallsAccess.Add(w.position, w);
+            if (!wallsAccess.ContainsKey(w.blockPosition))
+                wallsAccess.Add(w.blockPosition, w);
         }
         currentWallBlock = wallsAccess[currentposition];
         RotateToCardinalLocation();

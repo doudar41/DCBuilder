@@ -906,6 +906,16 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     }
 
+
+    public int MagicDamage(SkillsStat skillStat)
+    {
+        int amount = 0;
+        amount += GetSkillsStat(skillStat)/5;
+        amount += GetMainStat(MainStat.Mind) / 5;
+
+        return amount;
+    }
+
 }
 
 
@@ -932,6 +942,9 @@ public interface IHero
     public SpellContainer GetInfusedWeaponSpell();
     public string HeroName();
     public int GetDependedStat(DependedStat dependedStat);
+    public int GetSkillsStat(SkillsStat skillStat);
+
+    public int MagicDamage(SkillsStat skillStat);
     public List<GameplayStatus> GetHeroStatus();
 
     public MagicType GetWeaponMagicType();

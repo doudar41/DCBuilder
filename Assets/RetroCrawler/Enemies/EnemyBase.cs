@@ -9,55 +9,98 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
     [SerializeField] string enemyName;
     [SerializeField] int rowIndex;
     [SerializeField] List<int> placeIndexes;
-    [SerializeField] int health =100;
+    [SerializeField] int health = 100;
     [SerializeField] SpriteRenderer enemyFace, outlineRenderer;
     [SerializeField] PortraitContainer enemySprites;
 
     [SerializeField] List<SpellContainer> attackSpells = new List<SpellContainer>();
     [SerializeField] Collider col;
     [SerializeField] int enemySize;
-    [SerializeField] int initiative = 1, defence = 1, magicDefence = 0, accuracy = 0, evasion =0;
-    [SerializeField] List<MagicType> immunityList = new List<MagicType>();
+    [SerializeField] int initiative = 1, accuracy = 0, evasion = 0;
+    [SerializeField] List<EnemyStatNumbers> enemyStatNumbers;
 
-    [SerializeField] Sprite EffectSprite;
+    [SerializeField] List<MagicType> immunityList = new List<MagicType>();
+    [SerializeField] List<int> spellResistance = new List<int>();
 
     List<GameplayStatus> gameplayStatuses = new List<GameplayStatus>();
 
     int healthStarted;
-    //bool isDead = false;
 
     public UnityEvent<float> healthNormalized;
     public UnityEvent<SpellContainer> hitTargetEffecct;
+
     [SerializeField] SpellContainer immunityspell;
-    [SerializeField] List<int> spellResistance = new List<int>();
+
+
+    Dictionary<EnemyStat, Vector3Int> rememberedNormalStats = new Dictionary<EnemyStat, Vector3Int>(); 
+
+
     private void Start()
     {
         outlineRenderer.color = Color.clear;
         healthStarted = health;
+        GameInstance.progress += Timepassed;
+        foreach (EnemyStat es in System.Enum.GetValues(typeof(EnemyStat)))
+        {
+            rememberedNormalStats.Add(es, new Vector3Int(0, 0, 0));
+        }
+
+        rememberedNormalStats[EnemyStat.INITIATIVE] = new Vector3Int(initiative, 0, 0);
+        rememberedNormalStats[EnemyStat.ACCURACY] = new Vector3Int(accuracy, 0, 0);
+        rememberedNormalStats[EnemyStat.DEFENCE] = new Vector3Int(spellResistance[0], 0, 0);
+        rememberedNormalStats[EnemyStat.HEALTH] = new Vector3Int(health, 0, 0);
+        rememberedNormalStats[EnemyStat.EVASION] = new Vector3Int(evasion, 0, 0);
+    }
+
+    private void OnDestroy()
+    {
+        GameInstance.progress -= Timepassed;
     }
 
     public void HealthDamage(int amount)
     {
         health = Mathf.Clamp(health - amount, 0, int.MaxValue);
+
         if (health <= 0)
         {
             col.enabled = false;
             gameObject.tag = "Untagged";
             health = 0;
-            //isDead = true;
             StartCoroutine(SpriteFadeOut());
         }
-        //print ("enemy health " + health + " - " + (float)health / (float)healthStarted);
+
         healthNormalized.Invoke(1-((float)health / (float)healthStarted));
     }
+
 
     public void OnPointerClick(PointerEventData eventData)
     {
         if (health > 0) GameInstance.spellbook.spellTargetEvent.Invoke(this.gameObject);
     }
+
+
+    public void MoveAheadOnAttack()
+    {
+        transform.localPosition = new Vector3(0,0,-0.05f);
+        transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
+        StartCoroutine(WaitAndBack());
+
+    }
+
+    IEnumerator WaitAndBack()
+    {
+        yield return new WaitForSeconds(0.2f);
+        MoveBackAfterAttack();
+    }
+
+    public void MoveBackAfterAttack()
+    {
+        transform.localPosition = new Vector3(0, 0, 0);
+        transform.localScale = new Vector3(1, 1, 1);
+    }
+
     public SpellContainer enemyAttack()
     {
-        //StartCoroutine(AttackDelay());
         return attackSpells[Random.Range(0, attackSpells.Count)];
     }
 
@@ -73,160 +116,116 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
         if (spellToApply == null) return null;
         List<string> results = new List<string>();
         int attackRoll = 0;
-        int attackrollbonus = 0, damagebonus = 0, magicbonus =0, evaderoll = 0;
+        int attackrollbonus = 0, magicbonus = 0, evaderoll = 0;
+
         IHero hero = spellcaster.GetComponent<IHero>();
+
         if (spellcaster.GetComponent<IHero>() != null) 
         {
 
-            attackrollbonus = hero.GetDependedStat(DependedStat.accuracy);
-
+            attackrollbonus = hero.GetDependedStat(DependedStat.accuracy);  // agillity modifier + endurance modifier of attacker
         }
 
 
-        foreach (Spell s in spellToApply.spells)
+        foreach (Spell _spell in spellToApply.spells)
         {
-            int dice = GameInstance.DiceRollingBiggestNumber(1, 20);
-            attackRoll = dice + attackrollbonus;
-            evaderoll = GameInstance.DiceRollingBiggestNumber(1, 20) + evasion;
-            results.Add(attackRoll.ToString()); results.Add(evaderoll.ToString());
-            if (immunityList.Contains(s.magicType)) 
+
+            if (immunityList.Contains(_spell.magicType)) // skip magic attack if enemy has a total immunity to it 
             {
-                hitTargetEffecct.Invoke(immunityspell);
-                continue; 
+                hitTargetEffecct.Invoke(immunityspell); // Event for showing immunity animation
+                continue;
             }
 
-            switch (s.spellEffect)
+            int dice = GameInstance.DiceRollingBiggestNumber(1, 20); //attackroll and evaderoll random generation
+            attackRoll = dice + attackrollbonus;
+            evaderoll = GameInstance.DiceRollingBiggestNumber(1, 20) + evasion;
+
+            results.Add(attackRoll.ToString()); results.Add(evaderoll.ToString()); // attackroll and evaderoll added to list to be used in the battle log
+
+            if (evaderoll > attackRoll) continue; //if evasion is successful and dice is not equal 20 spell is ignored
+
+            int amount = CalculateIncomingDamage(_spell, dice); 
+
+
+            switch (_spell.spellEffect) //spellEffects is enum used to list all spell effects 
             {
-                case SpellEffects.PhysicalDamage:
-                    if (evaderoll <= attackRoll || dice == 20)
-                    {
-                        int amount = CalculateIncomingDamage(s, dice);
+                case SpellEffects.PhysicalDamage: // Mostly weapon damage calculation
 
-                        if (spellToApply.minDistanceToEnemy>2) amount += hero.GetDependedStat(DependedStat.rangeDamage);
-                        else amount += hero.GetDependedStat(DependedStat.meleeDamage);
+                    // Rolling dices according with stored in a spell scriptable object numbers + make it second time if dice is equal 20
 
-                        if (immunityList.Contains(spellcaster.GetComponent<IHero>().GetWeaponMagicType()))
-                        {
-                            hitTargetEffecct.Invoke(immunityspell);
-                            continue;
-                        }
-                        switch (spellcaster.GetComponent<IHero>().GetWeaponMagicType())
-                        {
-
-                            case MagicType.None:
-                                amount -= defence;
-                                HealthDamage(amount);
-                                break;
-
-                            case MagicType.Fire:
-                                if (evaderoll <= attackRoll || dice == 20)
-                                {
-                                    amount -= spellResistance[1];
-                                    HealthDamage(amount);
-                                    results.Add(amount.ToString());
-                                }
-                                break;
-                            case MagicType.Water:
-                                if (evaderoll <= attackRoll || dice == 20)
-                                {
-                                    amount -= spellResistance[2];
-                                    HealthDamage(amount);
-                                    results.Add(amount.ToString());
-                                }
-                                break;
-
-                            case MagicType.Ice:
-                                if (evaderoll <= attackRoll || dice == 20)
-                                {
-                                    amount -= spellResistance[3];
-                                    HealthDamage(amount);
-                                    results.Add(amount.ToString());
-                                }
-                                break;
-                            case MagicType.Air:
-                                if (evaderoll <= attackRoll || dice == 20)
-                                {
-                                    amount -= spellResistance[4];
-                                    HealthDamage(amount);
-                                    results.Add(amount.ToString());
-                                }
-                                break;
-                            case MagicType.Earth:
-                                if (evaderoll <= attackRoll || dice == 20)
-                                {
-                                    amount -= spellResistance[5];
-                                    HealthDamage(amount);
-                                    results.Add(amount.ToString());
-                                }
-                                break;
-                            case MagicType.Light:
-                                if (evaderoll <= attackRoll || dice == 20)
-                                {
-                                    amount -= spellResistance[6];
-                                    HealthDamage(amount);
-                                    results.Add(amount.ToString());
-                                }
-                                break;
-                            case MagicType.Dark:
-                                if (evaderoll <= attackRoll || dice == 20)
-                                {
-                                    amount -= spellResistance[7];
-                                    HealthDamage(amount);
-                                    results.Add(amount.ToString());
-                                }
-                                break;
-                        }
-                        amount -= defence;
-
-                        HealthDamage(amount);
-                        results.Add(amount.ToString());
+                    if (spellToApply.minDistanceToEnemy > 2) //Add bonus to a range or melee attack
+                    { 
+                        amount += hero.GetDependedStat(DependedStat.rangeDamage); 
+                    }
+                    else 
+                    { 
+                        amount += hero.GetDependedStat(DependedStat.meleeDamage); 
                     }
 
-                    break;
-                case SpellEffects.MagicDamage:
-                    switch (s.magicType)
+                    // If weapon damage was change to a elemental checking if enemy has an immunity to it
+
+                    if (immunityList.Contains(spellcaster.GetComponent<IHero>().GetWeaponMagicType())) 
                     {
-                        case MagicType.Fire:
-                            if (evaderoll <= attackRoll || dice == 20)
-                            {
-                                int amount = CalculateIncomingDamage(s, dice);
-
-                                HealthDamage(amount);
-                                results.Add(amount.ToString());
-                            }
-                            break;
-                        case MagicType.Water:
-                            if (evaderoll <= attackRoll || dice == 20)
-                            {
-                                int amount = CalculateIncomingDamage(s, dice);
-                                HealthDamage(amount);
-                                results.Add(amount.ToString());
-                            }
-                            break;
-
-                        case MagicType.Ice:
-                            if (evaderoll <= attackRoll || dice == 20)
-                            {
-                                int amount = CalculateIncomingDamage(s, dice);
-
-                                HealthDamage(amount);
-                                results.Add(amount.ToString());
-                            }
-                            break;
-                        case MagicType.Air:
-                            break;
-                        case MagicType.Earth:
-                            break;
-                        case MagicType.Light:
-                            break;
-                        case MagicType.Dark:
-                            break;
+                        hitTargetEffecct.Invoke(immunityspell); // Event for showing immunity animation
+                        continue;
                     }
 
+                    //First spellResistance index is defence amount
+                    // If weapon enchanced with element all damage become an elemental damage
+
+                    amount -= spellResistance[(int)spellcaster.GetComponent<IHero>().GetWeaponMagicType()]; 
+                    HealthDamage(amount);
+                    results.Add(amount.ToString());
                     break;
-                case SpellEffects.MainStatModify:
+
+                case SpellEffects.MagicDamage: 
+
+                    //if damage is magical Magic damage is calculating by rolling dice and add bonus of skill and stats (ex. + Elemental magic / 5)
+
+                    amount += spellcaster.GetComponent<IHero>().MagicDamage(_spell.skillToCheckInCalculations);
+                    amount -= spellResistance[(int)_spell.magicType];
+                    HealthDamage(amount);
+                    results.Add(amount.ToString());
+
                     break;
+
                 case SpellEffects.DependedStatModify:
+
+                    switch (_spell.changedDependedStat)
+                    {
+                        case DependedStat.maxMana: //if enemy is spellcaster and there is a limited mana pool
+                            break;
+
+                        case DependedStat.initiative:
+                            rememberedNormalStats[EnemyStat.INITIATIVE] = new Vector3Int(initiative, Mathf.Clamp(initiative - amount, 0, int.MaxValue), _spell.numberOfTurns);
+                            //initiative = Mathf.Clamp(initiative - amount, 0, int.MaxValue);
+
+                            break;
+                        case DependedStat.accuracy:
+                            rememberedNormalStats[EnemyStat.ACCURACY] = new Vector3Int(initiative, Mathf.Clamp(initiative - amount, 0, int.MaxValue), _spell.numberOfTurns);
+
+                            break;
+                        case DependedStat.defence:
+                            break;
+                        case DependedStat.evasion:
+                            break;
+                        case DependedStat.FireResistance:
+                            break;
+                        case DependedStat.WaterResistance:
+                            break;
+                        case DependedStat.EarthResistance:
+                            break;
+                        case DependedStat.AirResistance:
+                            break;
+                        case DependedStat.DarkResistance:
+                            break;
+
+                        case DependedStat.meleeDamage:
+                            break;
+                        case DependedStat.rangeDamage:
+                            break;
+                    }
+
                     break;
 
                 case SpellEffects.Petrify:
@@ -237,8 +236,6 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                     }
 
                     break;
-
-
             }
             results.Add("-1");
             if (evaderoll <= attackRoll || dice == 20) hitTargetEffecct.Invoke(spellToApply);
@@ -293,7 +290,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
         if (health <= 0) return;
         if (outlineRenderer != null)
         {
-            outlineRenderer.color = Color.white;
+            outlineRenderer.gameObject.SetActive(true);
         }
 
     }
@@ -303,7 +300,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
         if (health <= 0) return;
         if (outlineRenderer != null)
         {
-            outlineRenderer.color = Color.clear;
+            outlineRenderer.gameObject.SetActive(false);
         }
 
     }
@@ -370,6 +367,20 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
     {
         return gameplayStatuses;
     }
+
+
+
+    void Timepassed(int minite)
+    {
+        List<int> indexesContinue = new List<int>();
+        List<int> indexesFinish = new List<int>();
+        foreach(EnemyStat es in System.Enum.GetValues(typeof(EnemyStat)))
+        {
+           if(rememberedNormalStats.ContainsKey(es)) rememberedNormalStats[es] = new Vector3Int(rememberedNormalStats[es].x, rememberedNormalStats[es].y,rememberedNormalStats[es].z-1);
+        }
+    }
+
+
 }
 
 
@@ -390,4 +401,26 @@ public interface IEnemy
     public void SetTransform(GameObject spawnPlace);
     public int GetEnemyAccuracy();
     public List<GameplayStatus> GetEnemyStatus();
+    public void MoveAheadOnAttack();
+    public void MoveBackAfterAttack();
+}
+
+
+[System.Serializable]
+public struct EnemyStatNumbers
+{
+    public      EnemyStat enemyStat;
+    public int defaultAmount { get; set; }
+    public      int modifiedAmount { get; set; }
+    public      int TurnsToRestore { get; set; }
+}
+
+
+public enum EnemyStat
+{
+    INITIATIVE,
+    HEALTH,
+    DEFENCE,
+    ACCURACY,
+    EVASION
 }

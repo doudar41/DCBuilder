@@ -43,7 +43,7 @@ public override void Paint(GridLayout gridLayout, GameObject brushTarget, Vector
             }
             //Debug.Log("tilemap name" + brushTarget.name);
             var tilemapOfBlocks = brushTarget.GetComponent<Tilemap>();
-            blockWalls.position = position;
+            blockWalls.blockPosition = position;
             blockWalls.CoordinatesToText(); // In editor blocks shows coordinates
             blockWalls.CheckGridForGameObject(tilemapOfBlocks, position); // OnBlockPlacement script checks for neighbor tiles.
                                                                           // If it finds other block on neighbor tile it deactivates 

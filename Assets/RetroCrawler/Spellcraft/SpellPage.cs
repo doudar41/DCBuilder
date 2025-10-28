@@ -17,10 +17,6 @@ public class SpellPage : MonoBehaviour
     [SerializeField] GameObject spellPage;
 
 
-    private void Awake()
-    {
-        //InitializeSpellPage();
-    }
 
     public void InitializeSpellPage()
     {
@@ -37,9 +33,7 @@ public class SpellPage : MonoBehaviour
     {
         foreach (SpellButton b in spellButtons)
         {
-
             b.DeactivateSpell();
-
         }
         foreach (SpellContainer sc in allPageSpells)
         {
@@ -61,7 +55,6 @@ public class SpellPage : MonoBehaviour
     {
         if (active)
         {
-            //print(" spell button count "+spellMap.Count);
             spellPage.SetActive(true);
             foreach (SpellButton b in spellButtons)
             {

@@ -4,12 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
+
+//This script handles  
+// 1. Spellbook UI, reading saved spells on active party member and show them in a spellbook 
+// 2. Casting non-battle spells with time limit like Water or Lava walk
+// 3. battle log UI
+
 public class Spellbook : MonoBehaviour
 {
 
     [SerializeField] List<SpellPage> pages = new List<SpellPage>(); //Check page for spell availability
     [SerializeField] Toggle spellbookSwitch;
-    PlayerController playerController;
     SpellContainer spellWaitToRelease;
     [SerializeField] List<GameObject> objectToClose = new List<GameObject>();
 
@@ -30,21 +35,24 @@ public class Spellbook : MonoBehaviour
 
     public UnityEvent<SpellContainer> hitTargetEffecct; 
 
+
+
     private void OnEnable()
     {
-        GameInstance.spellbook = this;
-        foreach (SpellPage sp in pages)
-        {
-            sp.InitializeSpellPage();
-        }
+
 
     }
     private void Awake()
     {
+        GameInstance.spellbook = this;
         GameInstance.progress += TimeLimitSpellCount;
         foreach (Image i in stateIconPanel.transform.GetComponentsInChildren<Image>())
         {
             massSpellIcons.Add(i);
+        }
+        foreach (SpellPage sp in pages)
+        {
+            sp.InitializeSpellPage();
         }
     }
     private void OnDestroy()
@@ -52,6 +60,24 @@ public class Spellbook : MonoBehaviour
         GameInstance.progress -= TimeLimitSpellCount;
 
     }
+
+
+    public void OpenSpellbook(bool active)
+    {
+        GetPagesReady();
+        foreach (GameObject g in objectToClose)
+        {
+            g.SetActive(true);
+            if (g.GetComponent<SpellPageButton>() != null) g.GetComponent<SpellPageButton>().OnUncheckPage();
+        }
+        //print("spellbook?" + active);
+        if (active) pages[lastOpenedPage].OpenSpellPage(true);
+        else CloseSpellbook();
+        if (objectToClose[lastOpenedPage].GetComponent<SpellPageButton>() != null) objectToClose[lastOpenedPage].GetComponent<SpellPageButton>().CheckedPage();
+
+    }
+
+
     public void CloseSpellbook()
     {
         foreach (SpellPage sp in pages) 
@@ -402,21 +428,6 @@ public class Spellbook : MonoBehaviour
 
         return heroSpellbook;
     } 
-
-    public void OpenSpellbook(bool active)
-    {
-
-        foreach (GameObject g in objectToClose)
-        {
-            g.SetActive(true);
-            if (g.GetComponent<SpellPageButton>() != null) g.GetComponent<SpellPageButton>().OnUncheckPage();
-        }
-        //print("spellbook?" + active);
-        if (active) pages[lastOpenedPage].OpenSpellPage(true);
-        else CloseSpellbook();
-        if (objectToClose[lastOpenedPage].GetComponent<SpellPageButton>() != null) objectToClose[lastOpenedPage].GetComponent<SpellPageButton>().CheckedPage();
-        
-    }
 
 
     public void SetSpellPage(int index)

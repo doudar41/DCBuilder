@@ -663,7 +663,7 @@ MonoBehaviour:
   - {fileID: 498559621}
   - {fileID: 83474552}
   - {fileID: 235223502}
-  position: {x: 0, y: 14, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -1278,7 +1278,7 @@ MonoBehaviour:
   - {fileID: 2075546820}
   - {fileID: 55178112}
   - {fileID: 258143950}
-  position: {x: 2, y: 0, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -1688,7 +1688,7 @@ MonoBehaviour:
   - {fileID: 1776416000}
   - {fileID: 214741615}
   - {fileID: 1120506671}
-  position: {x: 3, y: 1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -2598,7 +2598,7 @@ GameObject:
   - component: {fileID: 8850645}
   - component: {fileID: 8850644}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: RightPage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3571,7 +3571,7 @@ MonoBehaviour:
   - {fileID: 46407427}
   - {fileID: 1079010169}
   - {fileID: 1311808745}
-  position: {x: 2, y: 11, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -4910,7 +4910,7 @@ MonoBehaviour:
   - {fileID: 74993442}
   - {fileID: 375524860}
   - {fileID: 1149006935}
-  position: {x: 3, y: 10, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -6906,7 +6906,7 @@ MonoBehaviour:
   - {fileID: 1617765728}
   - {fileID: 729091550}
   - {fileID: 184033105}
-  position: {x: -21, y: 0, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -7075,7 +7075,7 @@ MonoBehaviour:
   - {fileID: 1155165904}
   - {fileID: 99347315}
   - {fileID: 1706019374}
-  position: {x: 4, y: -3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -8470,7 +8470,7 @@ MonoBehaviour:
   - {fileID: 2021169173}
   - {fileID: 1778494417}
   - {fileID: 445550078}
-  position: {x: 4, y: 9, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -9131,7 +9131,7 @@ MonoBehaviour:
   - {fileID: 1839771788}
   - {fileID: 1989715759}
   - {fileID: 868470702}
-  position: {x: -7, y: 8, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -10031,7 +10031,7 @@ MonoBehaviour:
   - {fileID: 1289968825}
   - {fileID: 789474254}
   - {fileID: 881122681}
-  position: {x: -13, y: 0, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -12739,7 +12739,7 @@ MonoBehaviour:
   - {fileID: 648329011}
   - {fileID: 470102470}
   - {fileID: 1926812981}
-  position: {x: 4, y: -1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -13369,13 +13369,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 45773136}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 934729100}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 180, y: -90, z: -90}
 --- !u!33 &45773138
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -17991,7 +17991,7 @@ MonoBehaviour:
   - {fileID: 1448970903}
   - {fileID: 470158104}
   - {fileID: 1105746705}
-  position: {x: 1, y: 17, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -19186,7 +19186,7 @@ MonoBehaviour:
   - {fileID: 1490737067}
   - {fileID: 182195782}
   - {fileID: 1531447770}
-  position: {x: 3, y: 22, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -20140,7 +20140,7 @@ MonoBehaviour:
   - {fileID: 1196954629}
   - {fileID: 1770390609}
   - {fileID: 1488728146}
-  position: {x: -4, y: -4, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -20843,7 +20843,7 @@ MonoBehaviour:
   - {fileID: 816197596}
   - {fileID: 645640134}
   - {fileID: 509970685}
-  position: {x: 1, y: 15, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -23339,7 +23339,7 @@ MonoBehaviour:
   - {fileID: 358938614}
   - {fileID: 791221561}
   - {fileID: 1348489688}
-  position: {x: -14, y: 2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -24315,7 +24315,7 @@ MonoBehaviour:
   - {fileID: 143871720}
   - {fileID: 538066383}
   - {fileID: 1402469103}
-  position: {x: 2, y: 7, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -28843,7 +28843,7 @@ MonoBehaviour:
   - {fileID: 983577352}
   - {fileID: 1173417252}
   - {fileID: 722521360}
-  position: {x: -3, y: -3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -30089,7 +30089,7 @@ MonoBehaviour:
   - {fileID: 1127829232}
   - {fileID: 184295005}
   - {fileID: 670456634}
-  position: {x: -7, y: 14, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -30359,7 +30359,7 @@ MonoBehaviour:
   - {fileID: 191946173}
   - {fileID: 1584249756}
   - {fileID: 420958336}
-  position: {x: -16, y: -4, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 103733192}
   blockInteractables: 0c000000
   portalDestination: {fileID: 0}
@@ -31168,7 +31168,7 @@ MonoBehaviour:
   - {fileID: 85080455}
   - {fileID: 327154850}
   - {fileID: 758410070}
-  position: {x: -3, y: 16, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -31243,7 +31243,7 @@ MonoBehaviour:
   - {fileID: 175801761}
   - {fileID: 702867245}
   - {fileID: 1185705947}
-  position: {x: 2, y: 5, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -32015,7 +32015,7 @@ MonoBehaviour:
   - {fileID: 474739024}
   - {fileID: 769273283}
   - {fileID: 1431600437}
-  position: {x: -2, y: 26, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -33099,7 +33099,7 @@ MonoBehaviour:
   - {fileID: 2141234684}
   - {fileID: 1222551014}
   - {fileID: 831852861}
-  position: {x: -6, y: 14, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -33174,7 +33174,7 @@ MonoBehaviour:
   - {fileID: 267213770}
   - {fileID: 1243145986}
   - {fileID: 1337740470}
-  position: {x: -15, y: -4, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 115617400}
   blockInteractables: 0c000000
   portalDestination: {fileID: 0}
@@ -33634,7 +33634,7 @@ MonoBehaviour:
   - {fileID: 1993892921}
   - {fileID: 1607468260}
   - {fileID: 1088682383}
-  position: {x: 2, y: 19, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -35461,7 +35461,7 @@ MonoBehaviour:
   - {fileID: 200044078}
   - {fileID: 403618383}
   - {fileID: 121752970}
-  position: {x: 2, y: 15, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -37377,7 +37377,7 @@ MonoBehaviour:
   - {fileID: 1238748032}
   - {fileID: 640162446}
   - {fileID: 460763089}
-  position: {x: -8, y: 8, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -38874,7 +38874,7 @@ MonoBehaviour:
   - {fileID: 682783181}
   - {fileID: 604393730}
   - {fileID: 2068831533}
-  position: {x: -1, y: 19, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -42711,7 +42711,7 @@ MonoBehaviour:
   - {fileID: 988062228}
   - {fileID: 1572048605}
   - {fileID: 1871044816}
-  position: {x: -19, y: 1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -44114,7 +44114,7 @@ MonoBehaviour:
   - {fileID: 2049971842}
   - {fileID: 127607874}
   - {fileID: 1835758789}
-  position: {x: -17, y: -2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -44915,7 +44915,7 @@ MonoBehaviour:
   - {fileID: 1639755548}
   - {fileID: 1976070912}
   - {fileID: 1809361826}
-  position: {x: -6, y: -1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -45073,7 +45073,7 @@ MonoBehaviour:
   - {fileID: 285659451}
   - {fileID: 1888376592}
   - {fileID: 869194999}
-  position: {x: 1, y: -3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -45655,7 +45655,7 @@ MonoBehaviour:
   - {fileID: 1370035678}
   - {fileID: 231794438}
   - {fileID: 2101747490}
-  position: {x: -14, y: 3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -45730,7 +45730,7 @@ MonoBehaviour:
   - {fileID: 614353103}
   - {fileID: 2122792104}
   - {fileID: 1104741139}
-  position: {x: -9, y: 0, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -46146,7 +46146,7 @@ MonoBehaviour:
   - {fileID: 98996057}
   - {fileID: 1902215069}
   - {fileID: 854555725}
-  position: {x: 2, y: -3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -52943,7 +52943,7 @@ MonoBehaviour:
   - {fileID: 131797669}
   - {fileID: 1364861348}
   - {fileID: 976035299}
-  position: {x: -3, y: 15, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -56871,7 +56871,7 @@ MonoBehaviour:
   - {fileID: 1690485548}
   - {fileID: 1333766083}
   - {fileID: 1877353975}
-  position: {x: -13, y: -4, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 208086272}
   blockInteractables: 0c000000
   portalDestination: {fileID: 0}
@@ -57661,7 +57661,7 @@ MonoBehaviour:
   - {fileID: 1451639983}
   - {fileID: 2130208304}
   - {fileID: 489771811}
-  position: {x: -2, y: 14, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -57875,7 +57875,7 @@ MonoBehaviour:
   - {fileID: 100594663}
   - {fileID: 1650430976}
   - {fileID: 1470501090}
-  position: {x: -10, y: 9, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -58355,7 +58355,7 @@ MonoBehaviour:
   - {fileID: 2127675783}
   - {fileID: 785716528}
   - {fileID: 625309821}
-  position: {x: -19, y: 5, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -60989,7 +60989,7 @@ MonoBehaviour:
   - {fileID: 1049756999}
   - {fileID: 2069521788}
   - {fileID: 324062790}
-  position: {x: 1, y: 22, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -61598,7 +61598,7 @@ MonoBehaviour:
   - {fileID: 648408531}
   - {fileID: 676192133}
   - {fileID: 885492394}
-  position: {x: 3, y: 6, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -63837,7 +63837,7 @@ MonoBehaviour:
   - {fileID: 1301550192}
   - {fileID: 743115242}
   - {fileID: 749685927}
-  position: {x: 8, y: 11, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -65190,7 +65190,7 @@ MonoBehaviour:
   - {fileID: 1627901456}
   - {fileID: 2143934271}
   - {fileID: 1745517745}
-  position: {x: 2, y: 1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -66381,7 +66381,7 @@ MonoBehaviour:
   - {fileID: 64358719}
   - {fileID: 1431589657}
   - {fileID: 528972835}
-  position: {x: -9, y: 5, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -67358,13 +67358,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 249498591}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1908904294}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 180, y: -90, z: -90}
 --- !u!33 &249498593
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -69222,7 +69222,7 @@ MonoBehaviour:
   - {fileID: 1976979974}
   - {fileID: 1198533186}
   - {fileID: 1043158166}
-  position: {x: -7, y: 2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -69685,7 +69685,7 @@ MonoBehaviour:
   - {fileID: 933654281}
   - {fileID: 1081221438}
   - {fileID: 1146031859}
-  position: {x: 2, y: 25, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -70098,7 +70098,7 @@ MonoBehaviour:
   - {fileID: 2043282746}
   - {fileID: 208601010}
   - {fileID: 54640855}
-  position: {x: 3, y: 8, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -71067,7 +71067,7 @@ MonoBehaviour:
   - {fileID: 2104387539}
   - {fileID: 360388646}
   - {fileID: 164615539}
-  position: {x: -10, y: 6, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -72781,7 +72781,7 @@ MonoBehaviour:
   - {fileID: 271888114}
   - {fileID: 1961385407}
   - {fileID: 51915791}
-  position: {x: 1, y: 23, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -77853,7 +77853,7 @@ MonoBehaviour:
   - {fileID: 1296717515}
   - {fileID: 2092321858}
   - {fileID: 1940151628}
-  position: {x: 3, y: 24, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -78222,7 +78222,7 @@ MonoBehaviour:
   - {fileID: 1248160408}
   - {fileID: 493485294}
   - {fileID: 1104278531}
-  position: {x: 4, y: 12, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -82418,7 +82418,7 @@ MonoBehaviour:
   - {fileID: 1962249867}
   - {fileID: 689027403}
   - {fileID: 1713049941}
-  position: {x: 4, y: 7, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -83123,7 +83123,7 @@ MonoBehaviour:
   - {fileID: 313459687}
   - {fileID: 9460253}
   - {fileID: 357524239}
-  position: {x: -22, y: 3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -83231,7 +83231,7 @@ MonoBehaviour:
   - {fileID: 139639507}
   - {fileID: 1384643768}
   - {fileID: 1665525436}
-  position: {x: -1, y: 18, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -83746,7 +83746,7 @@ MonoBehaviour:
   - {fileID: 1294704815}
   - {fileID: 102880557}
   - {fileID: 1725258867}
-  position: {x: -8, y: -2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 0d0000000e000000
   portalDestination: {fileID: 0}
@@ -85095,7 +85095,7 @@ MonoBehaviour:
   - {fileID: 1983581028}
   - {fileID: 1570197492}
   - {fileID: 1266968036}
-  position: {x: -17, y: 5, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -85139,13 +85139,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 313848106}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1513075457}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!23 &313848108
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -93931,7 +93931,7 @@ MonoBehaviour:
   - {fileID: 2083571231}
   - {fileID: 205102551}
   - {fileID: 264528743}
-  position: {x: 3, y: 19, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -98734,7 +98734,7 @@ MonoBehaviour:
   - {fileID: 892716208}
   - {fileID: 271189190}
   - {fileID: 1057350353}
-  position: {x: 3, y: 7, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -102468,7 +102468,7 @@ MonoBehaviour:
   - {fileID: 1049768238}
   - {fileID: 696324814}
   - {fileID: 643995235}
-  position: {x: -6, y: 1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -103639,7 +103639,7 @@ MonoBehaviour:
   - {fileID: 952378634}
   - {fileID: 1884650378}
   - {fileID: 624310959}
-  position: {x: -14, y: -3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 380681645}
   blockInteractables: 0c000000
   portalDestination: {fileID: 0}
@@ -103714,7 +103714,7 @@ MonoBehaviour:
   - {fileID: 1302407843}
   - {fileID: 1240431640}
   - {fileID: 1601702333}
-  position: {x: -5, y: 9, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -107561,7 +107561,7 @@ MonoBehaviour:
   - {fileID: 468289366}
   - {fileID: 1546607516}
   - {fileID: 146448126}
-  position: {x: 3, y: 12, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -108055,7 +108055,7 @@ MonoBehaviour:
   - {fileID: 915445874}
   - {fileID: 364335960}
   - {fileID: 1816510527}
-  position: {x: -13, y: -1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -110752,7 +110752,7 @@ MonoBehaviour:
   - {fileID: 1533815590}
   - {fileID: 56352940}
   - {fileID: 1552944701}
-  position: {x: -5, y: 10, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -112559,7 +112559,7 @@ MonoBehaviour:
   - {fileID: 250945259}
   - {fileID: 1649141893}
   - {fileID: 1071182123}
-  position: {x: -2, y: -1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -113917,7 +113917,7 @@ MonoBehaviour:
   - {fileID: 1080765863}
   - {fileID: 1084465406}
   - {fileID: 1087412980}
-  position: {x: 1, y: 20, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -115240,7 +115240,7 @@ MonoBehaviour:
   - {fileID: 233647189}
   - {fileID: 1484026759}
   - {fileID: 1978098380}
-  position: {x: -17, y: 2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -115591,7 +115591,7 @@ MonoBehaviour:
   - {fileID: 531249569}
   - {fileID: 821275384}
   - {fileID: 1246389708}
-  position: {x: 2, y: 23, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -117294,7 +117294,7 @@ MonoBehaviour:
   - {fileID: 2107683583}
   - {fileID: 312957576}
   - {fileID: 1884386866}
-  position: {x: -22, y: 1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -119007,7 +119007,7 @@ MonoBehaviour:
   - {fileID: 1593998997}
   - {fileID: 2112520985}
   - {fileID: 1124684734}
-  position: {x: -17, y: -5, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -119082,7 +119082,7 @@ MonoBehaviour:
   - {fileID: 2028744746}
   - {fileID: 162025920}
   - {fileID: 1673587446}
-  position: {x: -19, y: 3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -119189,7 +119189,7 @@ MonoBehaviour:
   - {fileID: 1734296331}
   - {fileID: 184791511}
   - {fileID: 823514249}
-  position: {x: -2, y: 15, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -120171,7 +120171,7 @@ MonoBehaviour:
   - {fileID: 798048756}
   - {fileID: 401010626}
   - {fileID: 1444357733}
-  position: {x: 2, y: 20, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -120374,7 +120374,7 @@ MonoBehaviour:
   - {fileID: 841795947}
   - {fileID: 106094873}
   - {fileID: 411756383}
-  position: {x: 2, y: 3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -123221,7 +123221,7 @@ MonoBehaviour:
   - {fileID: 1236926218}
   - {fileID: 2037141308}
   - {fileID: 894179660}
-  position: {x: -7, y: -1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -125707,7 +125707,7 @@ MonoBehaviour:
   - {fileID: 164692062}
   - {fileID: 201920090}
   - {fileID: 237077373}
-  position: {x: 0, y: 17, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -126223,7 +126223,7 @@ MonoBehaviour:
   - {fileID: 1378779637}
   - {fileID: 412774737}
   - {fileID: 1893453211}
-  position: {x: -6, y: 8, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -126638,7 +126638,7 @@ MonoBehaviour:
   - {fileID: 1164094747}
   - {fileID: 163873870}
   - {fileID: 1339928801}
-  position: {x: -20, y: 3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -126979,7 +126979,7 @@ MonoBehaviour:
   - {fileID: 344718331}
   - {fileID: 1853430503}
   - {fileID: 13570418}
-  position: {x: -2, y: 1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -127567,7 +127567,7 @@ MonoBehaviour:
   - {fileID: 53426405}
   - {fileID: 1996458687}
   - {fileID: 1598089020}
-  position: {x: -3, y: -1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -129231,7 +129231,7 @@ MonoBehaviour:
   - {fileID: 1662981289}
   - {fileID: 1513415925}
   - {fileID: 2050697205}
-  position: {x: -3, y: 22, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -135373,7 +135373,7 @@ MonoBehaviour:
   - {fileID: 1566922100}
   - {fileID: 544691415}
   - {fileID: 1375203686}
-  position: {x: -13, y: 2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -135670,7 +135670,7 @@ MonoBehaviour:
   - {fileID: 1045938578}
   - {fileID: 1964806565}
   - {fileID: 1410245998}
-  position: {x: -4, y: 0, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -136710,7 +136710,7 @@ MonoBehaviour:
   - {fileID: 1329645656}
   - {fileID: 1842293510}
   - {fileID: 191523083}
-  position: {x: 8, y: 13, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -136901,7 +136901,7 @@ MonoBehaviour:
   - {fileID: 1080890513}
   - {fileID: 879844950}
   - {fileID: 446802299}
-  position: {x: -3, y: 2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -138196,7 +138196,7 @@ MonoBehaviour:
   - {fileID: 265459515}
   - {fileID: 444747908}
   - {fileID: 528120066}
-  position: {x: 4, y: 0, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -138387,7 +138387,7 @@ MonoBehaviour:
   - {fileID: 482119216}
   - {fileID: 955155030}
   - {fileID: 786687334}
-  position: {x: 2, y: 9, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -139270,7 +139270,7 @@ MonoBehaviour:
   - {fileID: 833158263}
   - {fileID: 1393690737}
   - {fileID: 677186461}
-  position: {x: 3, y: 20, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -139705,7 +139705,7 @@ MonoBehaviour:
   - {fileID: 1848453859}
   - {fileID: 356851373}
   - {fileID: 815605177}
-  position: {x: -8, y: 5, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -144734,7 +144734,7 @@ MonoBehaviour:
   - {fileID: 1379082034}
   - {fileID: 253363377}
   - {fileID: 1442492980}
-  position: {x: -13, y: -3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 533450287}
   blockInteractables: 0c000000
   portalDestination: {fileID: 0}
@@ -144809,7 +144809,7 @@ MonoBehaviour:
   - {fileID: 1411961738}
   - {fileID: 1734138544}
   - {fileID: 2141893189}
-  position: {x: 1, y: -2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -145951,7 +145951,7 @@ MonoBehaviour:
   - {fileID: 1100652990}
   - {fileID: 430774397}
   - {fileID: 592945203}
-  position: {x: 3, y: 4, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -147488,7 +147488,7 @@ MonoBehaviour:
   - {fileID: 1032319444}
   - {fileID: 318436666}
   - {fileID: 1658480190}
-  position: {x: 0, y: 1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 542949838}
   blockInteractables: 0d000000
   portalDestination: {fileID: 0}
@@ -147699,7 +147699,7 @@ MonoBehaviour:
   - {fileID: 1220786145}
   - {fileID: 749736526}
   - {fileID: 1859938915}
-  position: {x: -5, y: 1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -148173,7 +148173,7 @@ MonoBehaviour:
   - {fileID: 1383304529}
   - {fileID: 1427194314}
   - {fileID: 2100485124}
-  position: {x: -2, y: 16, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -151841,7 +151841,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 12660f2ea480d6f4a94fb238e123c558, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -153566,7 +153566,7 @@ MonoBehaviour:
   - {fileID: 1711876058}
   - {fileID: 529808864}
   - {fileID: 1753830283}
-  position: {x: -9, y: 7, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -153674,7 +153674,7 @@ MonoBehaviour:
   - {fileID: 1793651147}
   - {fileID: 1555249502}
   - {fileID: 1146683262}
-  position: {x: -10, y: 8, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -155464,7 +155464,7 @@ MonoBehaviour:
   - {fileID: 1031031943}
   - {fileID: 44470837}
   - {fileID: 2073571595}
-  position: {x: -18, y: -3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -157888,7 +157888,7 @@ MonoBehaviour:
   - {fileID: 946317380}
   - {fileID: 1869592759}
   - {fileID: 1751502001}
-  position: {x: 3, y: -1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -159576,7 +159576,7 @@ MonoBehaviour:
   - {fileID: 1518839137}
   - {fileID: 1158056121}
   - {fileID: 1083214923}
-  position: {x: -4, y: 25, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -160349,7 +160349,7 @@ MonoBehaviour:
   - {fileID: 1462264162}
   - {fileID: 1839013088}
   - {fileID: 1160393150}
-  position: {x: -18, y: -5, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -160960,7 +160960,7 @@ MonoBehaviour:
   - {fileID: 697618318}
   - {fileID: 1519625082}
   - {fileID: 1899610822}
-  position: {x: 1, y: -1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -161317,7 +161317,7 @@ MonoBehaviour:
   - {fileID: 1932732163}
   - {fileID: 1119225781}
   - {fileID: 1030708356}
-  position: {x: -14, y: 0, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -161952,7 +161952,7 @@ MonoBehaviour:
   - {fileID: 197682410}
   - {fileID: 344604715}
   - {fileID: 2141364716}
-  position: {x: 2, y: 2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -162080,7 +162080,7 @@ MonoBehaviour:
   - {fileID: 697207789}
   - {fileID: 424371800}
   - {fileID: 1615830961}
-  position: {x: -1, y: 14, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -162626,7 +162626,7 @@ MonoBehaviour:
   - {fileID: 641110164}
   - {fileID: 1611569036}
   - {fileID: 1767876300}
-  position: {x: -9, y: 9, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -167029,7 +167029,7 @@ MonoBehaviour:
   - {fileID: 1882863833}
   - {fileID: 1633916565}
   - {fileID: 1472598442}
-  position: {x: -10, y: 4, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -167157,7 +167157,7 @@ MonoBehaviour:
   - {fileID: 2109141367}
   - {fileID: 1841902230}
   - {fileID: 1735869843}
-  position: {x: -7, y: 1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -169124,13 +169124,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 628641216}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.70710677, z: -0.70710677, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2078896561}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 90, z: -90}
 --- !u!23 &628641218
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -172504,7 +172504,7 @@ MonoBehaviour:
   - {fileID: 82695209}
   - {fileID: 441496565}
   - {fileID: 1485834993}
-  position: {x: -13, y: 1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -177965,7 +177965,7 @@ MonoBehaviour:
   - {fileID: 1986723991}
   - {fileID: 729932949}
   - {fileID: 861157952}
-  position: {x: -4, y: 20, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -179646,7 +179646,7 @@ MonoBehaviour:
   - {fileID: 1741098614}
   - {fileID: 1225871245}
   - {fileID: 35594085}
-  position: {x: -11, y: 2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -180306,7 +180306,7 @@ MonoBehaviour:
   - {fileID: 1377479232}
   - {fileID: 812082822}
   - {fileID: 455737703}
-  position: {x: 4, y: 5, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -183214,7 +183214,7 @@ MonoBehaviour:
   - {fileID: 102994920}
   - {fileID: 136896412}
   - {fileID: 392087019}
-  position: {x: -5, y: 3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 0e000000
   portalDestination: {fileID: 0}
@@ -183523,7 +183523,7 @@ MonoBehaviour:
   - {fileID: 687776553}
   - {fileID: 1910887433}
   - {fileID: 593732302}
-  position: {x: 2, y: 17, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -183933,7 +183933,7 @@ MonoBehaviour:
   - {fileID: 2002503055}
   - {fileID: 658626486}
   - {fileID: 829472481}
-  position: {x: 1, y: 16, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -185957,7 +185957,7 @@ MonoBehaviour:
   - {fileID: 795062011}
   - {fileID: 2031402559}
   - {fileID: 43339870}
-  position: {x: 4, y: 14, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -187303,7 +187303,7 @@ MonoBehaviour:
   - {fileID: 856440905}
   - {fileID: 1290597207}
   - {fileID: 1914039216}
-  position: {x: -3, y: 19, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -188304,7 +188304,7 @@ MonoBehaviour:
   - {fileID: 1162482040}
   - {fileID: 70465999}
   - {fileID: 1400163435}
-  position: {x: 3, y: 23, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -189062,7 +189062,7 @@ MonoBehaviour:
   - {fileID: 1241187277}
   - {fileID: 1488218750}
   - {fileID: 2094332858}
-  position: {x: -8, y: 7, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -189598,7 +189598,7 @@ MonoBehaviour:
   - {fileID: 2003986654}
   - {fileID: 1963995655}
   - {fileID: 161831532}
-  position: {x: -19, y: 4, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -190078,7 +190078,7 @@ MonoBehaviour:
   - {fileID: 1032059539}
   - {fileID: 1653901869}
   - {fileID: 1586234682}
-  position: {x: 1, y: 25, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -195936,7 +195936,7 @@ MonoBehaviour:
   - {fileID: 1643702173}
   - {fileID: 1702143137}
   - {fileID: 1891184132}
-  position: {x: -7, y: 3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -198277,7 +198277,7 @@ MonoBehaviour:
   - {fileID: 1599715345}
   - {fileID: 169711297}
   - {fileID: 309666443}
-  position: {x: -7, y: 6, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 737411194}
   blockInteractables: 0d000000
   portalDestination: {fileID: 0}
@@ -198677,7 +198677,7 @@ MonoBehaviour:
   - {fileID: 712815847}
   - {fileID: 1622081621}
   - {fileID: 1855449045}
-  position: {x: -24, y: 2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -200459,7 +200459,7 @@ MonoBehaviour:
   - {fileID: 88118198}
   - {fileID: 1975212861}
   - {fileID: 721015743}
-  position: {x: -4, y: -6, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -204134,7 +204134,7 @@ MonoBehaviour:
   - {fileID: 1326074503}
   - {fileID: 1648631727}
   - {fileID: 1631008267}
-  position: {x: 3, y: 21, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -204547,7 +204547,7 @@ MonoBehaviour:
   - {fileID: 690363258}
   - {fileID: 291712553}
   - {fileID: 1234375073}
-  position: {x: -3, y: -5, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -204708,7 +204708,7 @@ MonoBehaviour:
   - {fileID: 1951852893}
   - {fileID: 1743313677}
   - {fileID: 1004659093}
-  position: {x: -14, y: 1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -205466,7 +205466,7 @@ MonoBehaviour:
   - {fileID: 618675811}
   - {fileID: 2024597192}
   - {fileID: 1097010763}
-  position: {x: -5, y: 13, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -206653,7 +206653,7 @@ MonoBehaviour:
   - {fileID: 348310094}
   - {fileID: 118098727}
   - {fileID: 401738083}
-  position: {x: 3, y: -3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -209679,7 +209679,7 @@ MonoBehaviour:
   - {fileID: 1339775115}
   - {fileID: 1369476450}
   - {fileID: 308835269}
-  position: {x: -4, y: 15, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -211935,7 +211935,7 @@ MonoBehaviour:
   - {fileID: 1327945787}
   - {fileID: 1797240324}
   - {fileID: 2115426418}
-  position: {x: -2, y: -8, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 03000000
   portalDestination: {fileID: 0}
@@ -212093,7 +212093,7 @@ MonoBehaviour:
   - {fileID: 1413239062}
   - {fileID: 98020750}
   - {fileID: 30223197}
-  position: {x: -12, y: -2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -213378,7 +213378,7 @@ MonoBehaviour:
   - {fileID: 585629142}
   - {fileID: 922359397}
   - {fileID: 18409690}
-  position: {x: -14, y: -1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -213999,7 +213999,7 @@ MonoBehaviour:
   - {fileID: 144094728}
   - {fileID: 218771181}
   - {fileID: 1355507908}
-  position: {x: 4, y: 2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -216294,7 +216294,7 @@ MonoBehaviour:
   - {fileID: 293842718}
   - {fileID: 132018711}
   - {fileID: 149336322}
-  position: {x: -3, y: 18, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -216486,7 +216486,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   cursorTargetGraphics: {fileID: 2800000, guid: 23ecf04ed2cfd8544bcddbda5e579909, type: 3}
-  cursorNormal: {fileID: 2800000, guid: 51621e241ea75dc418c402f37c8910b1, type: 3}
+  cursorNormal: {fileID: 2800000, guid: 4deac03f29bc8fd4496331c673da55b4, type: 3}
   SpellCharged: 0
   mapCamera: {fileID: 1816740676}
   mapMini: {fileID: 1127878761}
@@ -219260,7 +219260,7 @@ MonoBehaviour:
   - {fileID: 284964967}
   - {fileID: 552098383}
   - {fileID: 90193657}
-  position: {x: -2, y: -3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -221168,7 +221168,7 @@ MonoBehaviour:
   - {fileID: 1137515970}
   - {fileID: 1794157714}
   - {fileID: 1610335703}
-  position: {x: 2, y: 6, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -223287,7 +223287,7 @@ MonoBehaviour:
   - {fileID: 1595140106}
   - {fileID: 1669503723}
   - {fileID: 773757694}
-  position: {x: -5, y: 7, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -223588,7 +223588,7 @@ MonoBehaviour:
   - {fileID: 154339490}
   - {fileID: 322371262}
   - {fileID: 892038881}
-  position: {x: -12, y: -1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -224794,7 +224794,7 @@ MonoBehaviour:
   - {fileID: 949505457}
   - {fileID: 673202681}
   - {fileID: 2059246441}
-  position: {x: -10, y: 5, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -225813,7 +225813,7 @@ MonoBehaviour:
   - {fileID: 1615287861}
   - {fileID: 2116219873}
   - {fileID: 1715157780}
-  position: {x: -17, y: -4, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 841547773}
   blockInteractables: 0c000000
   portalDestination: {fileID: 0}
@@ -226662,7 +226662,7 @@ MonoBehaviour:
   - {fileID: 1568831818}
   - {fileID: 1266596769}
   - {fileID: 624383410}
-  position: {x: -6, y: 0, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -233121,7 +233121,7 @@ MonoBehaviour:
   - {fileID: 1013761473}
   - {fileID: 105263038}
   - {fileID: 100637432}
-  position: {x: 2, y: 12, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -233418,7 +233418,7 @@ MonoBehaviour:
   - {fileID: 1566628969}
   - {fileID: 1969756505}
   - {fileID: 790207285}
-  position: {x: -16, y: -3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 869771836}
   blockInteractables: 0c000000
   portalDestination: {fileID: 0}
@@ -235052,7 +235052,7 @@ MonoBehaviour:
   - {fileID: 1834988332}
   - {fileID: 291404962}
   - {fileID: 425808008}
-  position: {x: 3, y: 3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -235299,7 +235299,7 @@ MonoBehaviour:
   - {fileID: 1005564443}
   - {fileID: 1549924602}
   - {fileID: 1880101700}
-  position: {x: -8, y: 9, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -237483,7 +237483,7 @@ MonoBehaviour:
   - {fileID: 2072235381}
   - {fileID: 80192100}
   - {fileID: 1378658405}
-  position: {x: -16, y: -2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -241277,7 +241277,7 @@ MonoBehaviour:
   - {fileID: 362137818}
   - {fileID: 1919904182}
   - {fileID: 1146438242}
-  position: {x: -2, y: 17, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -242312,7 +242312,7 @@ Transform:
   m_GameObject: {fileID: 902943201}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.3}
+  m_LocalPosition: {x: 0, y: 0.05999999, z: 0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -243391,7 +243391,7 @@ MonoBehaviour:
   - {fileID: 103713788}
   - {fileID: 663362858}
   - {fileID: 1511408031}
-  position: {x: -16, y: 2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -247896,7 +247896,7 @@ MonoBehaviour:
   - {fileID: 175824324}
   - {fileID: 867602719}
   - {fileID: 1894924221}
-  position: {x: -1, y: -3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -248568,7 +248568,7 @@ MonoBehaviour:
   - {fileID: 12078541}
   - {fileID: 1885391159}
   - {fileID: 640502182}
-  position: {x: -1, y: -7, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -249334,7 +249334,7 @@ MonoBehaviour:
   - {fileID: 1833364151}
   - {fileID: 2141745806}
   - {fileID: 1607903915}
-  position: {x: -8, y: 1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -250182,7 +250182,7 @@ MonoBehaviour:
   - {fileID: 188600077}
   - {fileID: 94469163}
   - {fileID: 1770809684}
-  position: {x: -3, y: 1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -251226,7 +251226,7 @@ MonoBehaviour:
   - {fileID: 1649752213}
   - {fileID: 1425709341}
   - {fileID: 265027197}
-  position: {x: -7, y: 0, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -255640,7 +255640,7 @@ MonoBehaviour:
   - {fileID: 1632009978}
   - {fileID: 450297501}
   - {fileID: 1293837983}
-  position: {x: -18, y: 5, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -255910,7 +255910,7 @@ MonoBehaviour:
   - {fileID: 487496847}
   - {fileID: 893795633}
   - {fileID: 264010029}
-  position: {x: -13, y: -2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -258711,7 +258711,7 @@ MonoBehaviour:
   - {fileID: 2000458112}
   - {fileID: 1824228770}
   - {fileID: 315042050}
-  position: {x: 1, y: 3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -260911,7 +260911,7 @@ MonoBehaviour:
   - {fileID: 2026614538}
   - {fileID: 1218048444}
   - {fileID: 1544948168}
-  position: {x: 1, y: 19, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -261339,7 +261339,7 @@ MonoBehaviour:
   - {fileID: 2100971853}
   - {fileID: 305763920}
   - {fileID: 1054870342}
-  position: {x: 0, y: -2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -263743,7 +263743,7 @@ MonoBehaviour:
   - {fileID: 2139672773}
   - {fileID: 43098816}
   - {fileID: 1794875158}
-  position: {x: -20, y: 1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -265976,7 +265976,7 @@ MonoBehaviour:
   - {fileID: 503870076}
   - {fileID: 294019880}
   - {fileID: 200988174}
-  position: {x: -4, y: 23, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -266383,7 +266383,7 @@ MonoBehaviour:
   - {fileID: 1154536922}
   - {fileID: 240718212}
   - {fileID: 1473387266}
-  position: {x: -1, y: -4, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -267194,7 +267194,7 @@ MonoBehaviour:
   - {fileID: 1259345611}
   - {fileID: 527739938}
   - {fileID: 603565010}
-  position: {x: 0, y: 16, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -267427,7 +267427,7 @@ MonoBehaviour:
   - {fileID: 1772540523}
   - {fileID: 1667513401}
   - {fileID: 1614320155}
-  position: {x: -5, y: 11, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -269919,7 +269919,7 @@ MonoBehaviour:
   - {fileID: 1059931196}
   - {fileID: 2036273835}
   - {fileID: 1098494892}
-  position: {x: -13, y: 3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -271246,7 +271246,7 @@ MonoBehaviour:
   - {fileID: 1967971972}
   - {fileID: 1983836275}
   - {fileID: 409938081}
-  position: {x: 0, y: -7, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -275834,7 +275834,7 @@ MonoBehaviour:
   - {fileID: 1923482008}
   - {fileID: 336599113}
   - {fileID: 1131659793}
-  position: {x: -9, y: 6, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -276497,7 +276497,7 @@ MonoBehaviour:
   - {fileID: 1546812100}
   - {fileID: 812732217}
   - {fileID: 1470476153}
-  position: {x: -10, y: 0, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -279358,7 +279358,7 @@ MonoBehaviour:
   - {fileID: 608034708}
   - {fileID: 1697030848}
   - {fileID: 215795841}
-  position: {x: -15, y: -2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -279719,7 +279719,7 @@ MonoBehaviour:
   - {fileID: 1187901346}
   - {fileID: 1419768548}
   - {fileID: 2045849808}
-  position: {x: -2, y: -4, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -280708,7 +280708,7 @@ MonoBehaviour:
   - {fileID: 591303046}
   - {fileID: 23660455}
   - {fileID: 844479347}
-  position: {x: 2, y: 4, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -281002,7 +281002,7 @@ MonoBehaviour:
   - {fileID: 241361644}
   - {fileID: 1631763454}
   - {fileID: 44812441}
-  position: {x: 2, y: 22, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -283575,7 +283575,7 @@ MonoBehaviour:
   - {fileID: 144199732}
   - {fileID: 1868756988}
   - {fileID: 1931842361}
-  position: {x: -6, y: 2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -286106,7 +286106,7 @@ MonoBehaviour:
   - {fileID: 761729521}
   - {fileID: 9433633}
   - {fileID: 364589289}
-  position: {x: -12, y: 2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -287858,7 +287858,7 @@ MonoBehaviour:
   - {fileID: 974667299}
   - {fileID: 1214380802}
   - {fileID: 1652178851}
-  position: {x: -3, y: 14, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -290382,7 +290382,7 @@ MonoBehaviour:
   - {fileID: 456601704}
   - {fileID: 848245682}
   - {fileID: 100166272}
-  position: {x: -5, y: 6, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -292123,7 +292123,7 @@ MonoBehaviour:
   - {fileID: 1369149201}
   - {fileID: 1983456572}
   - {fileID: 507823685}
-  position: {x: -6, y: 3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -292508,7 +292508,7 @@ MonoBehaviour:
   - {fileID: 1946968366}
   - {fileID: 561271587}
   - {fileID: 672947780}
-  position: {x: -3, y: -6, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -297724,7 +297724,7 @@ MonoBehaviour:
   - {fileID: 621499799}
   - {fileID: 2013586674}
   - {fileID: 55583106}
-  position: {x: 4, y: 4, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -298033,7 +298033,7 @@ MonoBehaviour:
   - {fileID: 1103692809}
   - {fileID: 1528971363}
   - {fileID: 1196680121}
-  position: {x: -1, y: 15, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -299774,7 +299774,7 @@ MonoBehaviour:
   - {fileID: 1577523974}
   - {fileID: 1998644168}
   - {fileID: 1154152312}
-  position: {x: 1, y: 24, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -302542,7 +302542,7 @@ MonoBehaviour:
   - {fileID: 596434006}
   - {fileID: 967053988}
   - {fileID: 1600225851}
-  position: {x: -22, y: 2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -302700,7 +302700,7 @@ MonoBehaviour:
   - {fileID: 2121152490}
   - {fileID: 1696826353}
   - {fileID: 1885384111}
-  position: {x: 0, y: 3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -303093,7 +303093,7 @@ MonoBehaviour:
   - {fileID: 1200390924}
   - {fileID: 513422912}
   - {fileID: 595489483}
-  position: {x: -4, y: 3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -304050,7 +304050,7 @@ MonoBehaviour:
   - {fileID: 525099757}
   - {fileID: 60733032}
   - {fileID: 399717882}
-  position: {x: -23, y: 2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -306409,7 +306409,7 @@ MonoBehaviour:
   - {fileID: 808875303}
   - {fileID: 718900229}
   - {fileID: 73241823}
-  position: {x: -20, y: 4, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -306642,7 +306642,7 @@ MonoBehaviour:
   - {fileID: 1548104369}
   - {fileID: 1587384023}
   - {fileID: 399427188}
-  position: {x: 3, y: 26, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -306992,7 +306992,7 @@ MonoBehaviour:
   - {fileID: 85399409}
   - {fileID: 2036873139}
   - {fileID: 1830499473}
-  position: {x: -6, y: 13, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -308203,7 +308203,7 @@ MonoBehaviour:
   - {fileID: 707484034}
   - {fileID: 214301640}
   - {fileID: 1397543901}
-  position: {x: -6, y: 9, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -309117,7 +309117,7 @@ Transform:
   m_GameObject: {fileID: 1161518290}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.6}
+  m_LocalPosition: {x: 0, y: 0.05999999, z: 0.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -309317,7 +309317,7 @@ MonoBehaviour:
   - {fileID: 1628596580}
   - {fileID: 1216303182}
   - {fileID: 130133008}
-  position: {x: 0, y: -4, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -309617,7 +309617,7 @@ MonoBehaviour:
   - {fileID: 501670501}
   - {fileID: 546594129}
   - {fileID: 352629173}
-  position: {x: -2, y: -7, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -310307,7 +310307,7 @@ MonoBehaviour:
   - {fileID: 1707980756}
   - {fileID: 1298419087}
   - {fileID: 1931564018}
-  position: {x: 2, y: -2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -315810,7 +315810,7 @@ MonoBehaviour:
   - {fileID: 223212597}
   - {fileID: 1746472721}
   - {fileID: 350500435}
-  position: {x: -18, y: -2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -319358,7 +319358,7 @@ GameObject:
   - component: {fileID: 1202629187}
   - component: {fileID: 1202629186}
   m_Layer: 5
-  m_Name: Button
+  m_Name: LeftPage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -321535,7 +321535,7 @@ MonoBehaviour:
   - {fileID: 63368542}
   - {fileID: 1654113382}
   - {fileID: 1110750956}
-  position: {x: -9, y: 1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -321718,7 +321718,7 @@ MonoBehaviour:
   - {fileID: 1426233885}
   - {fileID: 46198122}
   - {fileID: 2105571701}
-  position: {x: -2, y: 18, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -323954,7 +323954,7 @@ MonoBehaviour:
   - {fileID: 1939733380}
   - {fileID: 1450850380}
   - {fileID: 1467165158}
-  position: {x: 4, y: 8, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -324996,7 +324996,7 @@ MonoBehaviour:
   - {fileID: 1006496572}
   - {fileID: 129164115}
   - {fileID: 327034912}
-  position: {x: -9, y: 8, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -326279,7 +326279,7 @@ MonoBehaviour:
   - {fileID: 2127629618}
   - {fileID: 810205126}
   - {fileID: 1768515452}
-  position: {x: -2, y: 3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -327654,7 +327654,7 @@ MonoBehaviour:
   - {fileID: 1688704043}
   - {fileID: 55390592}
   - {fileID: 463325382}
-  position: {x: -1, y: -2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -328934,7 +328934,7 @@ MonoBehaviour:
   - {fileID: 1210180113}
   - {fileID: 54066377}
   - {fileID: 1380606534}
-  position: {x: 2, y: -1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -329834,7 +329834,7 @@ MonoBehaviour:
   - {fileID: 1516730068}
   - {fileID: 2103634746}
   - {fileID: 526692477}
-  position: {x: -8, y: 2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -330403,7 +330403,7 @@ MonoBehaviour:
   - {fileID: 1518853315}
   - {fileID: 1778067405}
   - {fileID: 1416977007}
-  position: {x: 7, y: 12, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -333438,7 +333438,7 @@ MonoBehaviour:
   - {fileID: 815945900}
   - {fileID: 1870373449}
   - {fileID: 361250763}
-  position: {x: 1, y: 0, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -334505,7 +334505,7 @@ MonoBehaviour:
   - {fileID: 287477638}
   - {fileID: 1629727367}
   - {fileID: 261103538}
-  position: {x: -5, y: 5, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -338867,7 +338867,7 @@ MonoBehaviour:
   - {fileID: 2028575110}
   - {fileID: 1010254888}
   - {fileID: 1828066206}
-  position: {x: -17, y: 3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -345684,7 +345684,7 @@ MonoBehaviour:
   - {fileID: 113039006}
   - {fileID: 2051806980}
   - {fileID: 1543902948}
-  position: {x: 4, y: 10, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -347354,7 +347354,7 @@ MonoBehaviour:
   - {fileID: 1499534455}
   - {fileID: 1104059124}
   - {fileID: 1873072214}
-  position: {x: 1, y: 14, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -349656,7 +349656,7 @@ MonoBehaviour:
   - {fileID: 564130623}
   - {fileID: 1157854587}
   - {fileID: 973868856}
-  position: {x: 1, y: 18, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -351484,7 +351484,7 @@ MonoBehaviour:
   - {fileID: 547544656}
   - {fileID: 52489938}
   - {fileID: 1118393581}
-  position: {x: 2, y: 14, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -352436,7 +352436,7 @@ MonoBehaviour:
   - {fileID: 2133202728}
   - {fileID: 1763980455}
   - {fileID: 1698574818}
-  position: {x: -4, y: 22, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -353536,7 +353536,7 @@ MonoBehaviour:
   - {fileID: 613693344}
   - {fileID: 675469408}
   - {fileID: 2030476982}
-  position: {x: 4, y: 6, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -353892,7 +353892,7 @@ MonoBehaviour:
   - {fileID: 2050516250}
   - {fileID: 1062193283}
   - {fileID: 1260183263}
-  position: {x: 1, y: 21, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -354577,13 +354577,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1332496382}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1221964247}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 180, y: -90, z: -90}
 --- !u!23 &1332496384
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -360436,7 +360436,7 @@ MonoBehaviour:
   - {fileID: 1947515290}
   - {fileID: 500093268}
   - {fileID: 985443517}
-  position: {x: -10, y: 7, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -360544,7 +360544,7 @@ MonoBehaviour:
   - {fileID: 1469746298}
   - {fileID: 702690596}
   - {fileID: 2072834422}
-  position: {x: 6, y: 10, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -361279,7 +361279,7 @@ MonoBehaviour:
   - {fileID: 1761057615}
   - {fileID: 336446499}
   - {fileID: 1500651636}
-  position: {x: -4, y: 14, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -364663,7 +364663,7 @@ MonoBehaviour:
   - {fileID: 1226362119}
   - {fileID: 1276189033}
   - {fileID: 1484620325}
-  position: {x: -1, y: 26, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -365380,7 +365380,7 @@ MonoBehaviour:
   - {fileID: 1713491377}
   - {fileID: 456325758}
   - {fileID: 1318606947}
-  position: {x: -4, y: -5, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -368211,6 +368211,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1377792566}
   - component: {fileID: 1377792567}
+  - component: {fileID: 1377792568}
   m_Layer: 6
   m_Name: Torchlight (1)
   m_TagString: Untagged
@@ -368245,8 +368246,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 0.79166776, b: 0.5424528, a: 1}
-  m_Intensity: 1
-  m_Range: 10
+  m_Intensity: 0.1
+  m_Range: 1
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -368295,6 +368296,23 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &1377792568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1377792565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e53e1871bc6606429dcc564dc70ca49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShadingSteps: 32
+  TargetIntensity: 4
+  MinimumIntensityDifference: 0.15
+  MaximumIntensityDifference: 1.5
+  FrameRate: 12
 --- !u!1 &1377805367
 GameObject:
   m_ObjectHideFlags: 0
@@ -369301,7 +369319,7 @@ MonoBehaviour:
   - {fileID: 1504387753}
   - {fileID: 2009415200}
   - {fileID: 1328940194}
-  position: {x: 7, y: 10, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -372913,7 +372931,7 @@ MonoBehaviour:
   - {fileID: 1230342844}
   - {fileID: 1493106903}
   - {fileID: 325037604}
-  position: {x: -5, y: 0, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -377478,7 +377496,7 @@ MonoBehaviour:
   - {fileID: 449806378}
   - {fileID: 1243423170}
   - {fileID: 2130060567}
-  position: {x: -1, y: -6, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -381370,7 +381388,7 @@ MonoBehaviour:
   - {fileID: 1658610593}
   - {fileID: 830772477}
   - {fileID: 1871560257}
-  position: {x: -4, y: 24, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -381788,8 +381806,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 542323036}
   m_HandleRect: {fileID: 542323035}
   m_Direction: 2
-  m_Value: 0.99999964
-  m_Size: 0.56779975
+  m_Value: 1.0000001
+  m_Size: 0.5677998
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -382569,7 +382587,7 @@ MonoBehaviour:
   - {fileID: 396282085}
   - {fileID: 688893881}
   - {fileID: 1883202468}
-  position: {x: 2, y: 10, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -389597,7 +389615,7 @@ MonoBehaviour:
   - {fileID: 170559848}
   - {fileID: 599148554}
   - {fileID: 1851536735}
-  position: {x: -3, y: 26, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -391359,7 +391377,7 @@ Transform:
   m_GameObject: {fileID: 1464587159}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.06, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -391926,7 +391944,7 @@ MonoBehaviour:
   - {fileID: 1139280002}
   - {fileID: 2003674701}
   - {fileID: 1480716347}
-  position: {x: 3, y: 14, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -392695,7 +392713,7 @@ MonoBehaviour:
   - {fileID: 802425526}
   - {fileID: 72926643}
   - {fileID: 860040127}
-  position: {x: -21, y: 1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -394712,7 +394730,7 @@ MonoBehaviour:
   - {fileID: 1165472279}
   - {fileID: 1044618003}
   - {fileID: 411900577}
-  position: {x: -10, y: -1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -396905,7 +396923,7 @@ MonoBehaviour:
   - {fileID: 247055732}
   - {fileID: 663851410}
   - {fileID: 1035705116}
-  position: {x: -7, y: 4, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -397046,7 +397064,7 @@ MonoBehaviour:
   - {fileID: 1970436072}
   - {fileID: 234795571}
   - {fileID: 894702002}
-  position: {x: 2, y: 21, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -398488,7 +398506,7 @@ MonoBehaviour:
   - {fileID: 1596946421}
   - {fileID: 88581254}
   - {fileID: 1132775538}
-  position: {x: 0, y: 18, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -399622,7 +399640,7 @@ MonoBehaviour:
   - {fileID: 917291278}
   - {fileID: 892218307}
   - {fileID: 530900861}
-  position: {x: -18, y: -4, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -400100,7 +400118,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 12660f2ea480d6f4a94fb238e123c558, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -404414,7 +404432,7 @@ MonoBehaviour:
   - {fileID: 1487170384}
   - {fileID: 1896575681}
   - {fileID: 1265351373}
-  position: {x: 4, y: 11, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -406180,7 +406198,7 @@ MonoBehaviour:
   - {fileID: 663821446}
   - {fileID: 1026181104}
   - {fileID: 1031297727}
-  position: {x: 4, y: -2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -406429,7 +406447,7 @@ MonoBehaviour:
   - {fileID: 43550466}
   - {fileID: 1476627311}
   - {fileID: 1135311695}
-  position: {x: -19, y: 2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -408043,7 +408061,7 @@ MonoBehaviour:
   - {fileID: 1611407452}
   - {fileID: 1562355034}
   - {fileID: 866699615}
-  position: {x: -4, y: -1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -410099,7 +410117,7 @@ MonoBehaviour:
   - {fileID: 356008}
   - {fileID: 1197639005}
   - {fileID: 834255727}
-  position: {x: -2, y: 19, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -411716,7 +411734,7 @@ MonoBehaviour:
   - {fileID: 1486917196}
   - {fileID: 174140077}
   - {fileID: 237479621}
-  position: {x: -10, y: 2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -413523,13 +413541,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1555617216}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2036569284}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!33 &1555617218
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -415326,7 +415344,7 @@ MonoBehaviour:
   - {fileID: 1972765040}
   - {fileID: 905797637}
   - {fileID: 18208987}
-  position: {x: -21, y: -1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -415688,7 +415706,7 @@ MonoBehaviour:
   - {fileID: 1803355958}
   - {fileID: 806386356}
   - {fileID: 1375357573}
-  position: {x: -14, y: -2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -416449,7 +416467,7 @@ MonoBehaviour:
   - {fileID: 1785958730}
   - {fileID: 1360995741}
   - {fileID: 1451998153}
-  position: {x: -8, y: 4, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -418462,7 +418480,7 @@ MonoBehaviour:
   - {fileID: 470259833}
   - {fileID: 971541256}
   - {fileID: 1944218445}
-  position: {x: -8, y: 3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -421192,7 +421210,7 @@ MonoBehaviour:
   - {fileID: 267242054}
   - {fileID: 138642769}
   - {fileID: 1536523360}
-  position: {x: 2, y: 26, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -422788,7 +422806,7 @@ MonoBehaviour:
   - {fileID: 77524170}
   - {fileID: 1018260461}
   - {fileID: 229513166}
-  position: {x: -1, y: -5, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -425533,7 +425551,7 @@ MonoBehaviour:
   - {fileID: 2033747847}
   - {fileID: 1128528815}
   - {fileID: 576118773}
-  position: {x: -3, y: 0, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -425973,7 +425991,7 @@ MonoBehaviour:
   - {fileID: 2017083283}
   - {fileID: 298497098}
   - {fileID: 784320969}
-  position: {x: 0, y: -3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -427117,7 +427135,7 @@ MonoBehaviour:
   - {fileID: 1971255588}
   - {fileID: 243581001}
   - {fileID: 678171302}
-  position: {x: -4, y: -2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -429096,13 +429114,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1616920284}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1430510270}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 90}
 --- !u!23 &1616920286
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -432522,7 +432540,7 @@ MonoBehaviour:
   - {fileID: 86253725}
   - {fileID: 422976623}
   - {fileID: 831168264}
-  position: {x: -4, y: 26, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -438683,7 +438701,7 @@ MonoBehaviour:
   - {fileID: 134092026}
   - {fileID: 74473439}
   - {fileID: 1489584418}
-  position: {x: -5, y: 2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -438857,7 +438875,7 @@ MonoBehaviour:
   - {fileID: 257532802}
   - {fileID: 471875922}
   - {fileID: 1248177800}
-  position: {x: -4, y: -7, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -442624,7 +442642,7 @@ MonoBehaviour:
   - {fileID: 380281376}
   - {fileID: 1415435049}
   - {fileID: 1078241764}
-  position: {x: -10, y: 3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -442949,7 +442967,7 @@ MonoBehaviour:
   - {fileID: 1793935817}
   - {fileID: 510225627}
   - {fileID: 1332717954}
-  position: {x: 4, y: 3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -444086,7 +444104,7 @@ MonoBehaviour:
   - {fileID: 905254837}
   - {fileID: 1445015690}
   - {fileID: 1657662939}
-  position: {x: 2, y: 16, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -444247,7 +444265,7 @@ MonoBehaviour:
   - {fileID: 1868041541}
   - {fileID: 1097613810}
   - {fileID: 948067622}
-  position: {x: 8, y: 12, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -445164,7 +445182,7 @@ MonoBehaviour:
   - {fileID: 1613429269}
   - {fileID: 145963483}
   - {fileID: 195014475}
-  position: {x: -5, y: 4, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -445695,7 +445713,7 @@ MonoBehaviour:
   - {fileID: 1227940114}
   - {fileID: 217822589}
   - {fileID: 1811881907}
-  position: {x: 2, y: 24, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -449656,7 +449674,7 @@ MonoBehaviour:
   - {fileID: 1977160491}
   - {fileID: 1438822412}
   - {fileID: 164930789}
-  position: {x: -3, y: 17, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -453990,7 +454008,7 @@ MonoBehaviour:
   - {fileID: 1069791558}
   - {fileID: 472277721}
   - {fileID: 685613647}
-  position: {x: -10, y: 1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -457929,7 +457947,7 @@ MonoBehaviour:
   - {fileID: 391390834}
   - {fileID: 506470201}
   - {fileID: 1621900355}
-  position: {x: 0, y: -6, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -463364,7 +463382,7 @@ MonoBehaviour:
   - {fileID: 1452674733}
   - {fileID: 1558528466}
   - {fileID: 2144475001}
-  position: {x: -3, y: -7, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -463944,7 +463962,7 @@ MonoBehaviour:
   - {fileID: 1526204246}
   - {fileID: 15952973}
   - {fileID: 77753247}
-  position: {x: 0, y: 26, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -465401,7 +465419,7 @@ MonoBehaviour:
   - {fileID: 1422311883}
   - {fileID: 1753264840}
   - {fileID: 742560187}
-  position: {x: 3, y: 9, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -466523,7 +466541,7 @@ MonoBehaviour:
   - {fileID: 730351893}
   - {fileID: 1247914193}
   - {fileID: 1272014739}
-  position: {x: -2, y: 0, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -467598,7 +467616,7 @@ MonoBehaviour:
   - {fileID: 1426480759}
   - {fileID: 435340266}
   - {fileID: 932846551}
-  position: {x: -1, y: 3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -467673,7 +467691,7 @@ MonoBehaviour:
   - {fileID: 1357374931}
   - {fileID: 657126872}
   - {fileID: 1454545664}
-  position: {x: 0, y: 19, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -467823,7 +467841,7 @@ MonoBehaviour:
   - {fileID: 70842950}
   - {fileID: 488935648}
   - {fileID: 1207738808}
-  position: {x: -17, y: 4, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -467931,7 +467949,7 @@ MonoBehaviour:
   - {fileID: 1562416481}
   - {fileID: 457569413}
   - {fileID: 1248012622}
-  position: {x: -4, y: 19, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -469906,7 +469924,7 @@ MonoBehaviour:
   - {fileID: 1108353444}
   - {fileID: 2102630998}
   - {fileID: 1338285699}
-  position: {x: -4, y: -3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -470213,7 +470231,7 @@ MonoBehaviour:
   - {fileID: 1249664677}
   - {fileID: 1500356960}
   - {fileID: 375204781}
-  position: {x: -9, y: -1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -470696,7 +470714,7 @@ MonoBehaviour:
   - {fileID: 1413984945}
   - {fileID: 1229120764}
   - {fileID: 623627712}
-  position: {x: -8, y: -1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -470771,7 +470789,7 @@ MonoBehaviour:
   - {fileID: 731111087}
   - {fileID: 1286775211}
   - {fileID: 405403089}
-  position: {x: 0, y: 15, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -471449,7 +471467,7 @@ MonoBehaviour:
   - {fileID: 100600952}
   - {fileID: 961740135}
   - {fileID: 336703475}
-  position: {x: -9, y: 2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -471607,7 +471625,7 @@ MonoBehaviour:
   - {fileID: 1767276286}
   - {fileID: 1196331602}
   - {fileID: 1618726566}
-  position: {x: 3, y: 25, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -473806,7 +473824,7 @@ MonoBehaviour:
   - {fileID: 1480891654}
   - {fileID: 614854180}
   - {fileID: 449834289}
-  position: {x: 0, y: -1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -477252,7 +477270,7 @@ MonoBehaviour:
   - {fileID: 479795095}
   - {fileID: 1673122468}
   - {fileID: 407278282}
-  position: {x: -15, y: 2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -480709,7 +480727,7 @@ MonoBehaviour:
   - {fileID: 1631989166}
   - {fileID: 2066271737}
   - {fileID: 1701505571}
-  position: {x: -12, y: -3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -486154,7 +486172,7 @@ MonoBehaviour:
   - {fileID: 746241128}
   - {fileID: 1117450413}
   - {fileID: 1954166024}
-  position: {x: -9, y: 4, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -488361,7 +488379,7 @@ MonoBehaviour:
   - {fileID: 1407435145}
   - {fileID: 1970516548}
   - {fileID: 2057865841}
-  position: {x: 0, y: -5, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -490188,7 +490206,7 @@ MonoBehaviour:
   - {fileID: 377398071}
   - {fileID: 1718944694}
   - {fileID: 1152250834}
-  position: {x: -3, y: 3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -493155,7 +493173,7 @@ MonoBehaviour:
   - {fileID: 1098780436}
   - {fileID: 1456393042}
   - {fileID: 1454394971}
-  position: {x: 3, y: -2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -494201,7 +494219,7 @@ MonoBehaviour:
   - {fileID: 193701514}
   - {fileID: 976960716}
   - {fileID: 1172940916}
-  position: {x: 2, y: 18, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -497463,7 +497481,7 @@ MonoBehaviour:
   - {fileID: 496418524}
   - {fileID: 1447008148}
   - {fileID: 1432612235}
-  position: {x: -2, y: -5, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -499768,7 +499786,7 @@ MonoBehaviour:
   - {fileID: 339441689}
   - {fileID: 2018558055}
   - {fileID: 1320982778}
-  position: {x: 3, y: 0, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -502991,7 +503009,7 @@ MonoBehaviour:
   - {fileID: 1590361292}
   - {fileID: 860156787}
   - {fileID: 1351332206}
-  position: {x: -9, y: 3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -507569,7 +507587,7 @@ MonoBehaviour:
   - {fileID: 458528645}
   - {fileID: 867318386}
   - {fileID: 1563470360}
-  position: {x: 7, y: 11, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -509098,7 +509116,7 @@ MonoBehaviour:
   - {fileID: 2115538478}
   - {fileID: 672479329}
   - {fileID: 27661601}
-  position: {x: 5, y: 10, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -509592,7 +509610,7 @@ MonoBehaviour:
   - {fileID: 1807226398}
   - {fileID: 975444893}
   - {fileID: 1928974111}
-  position: {x: -5, y: 14, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -510382,7 +510400,7 @@ MonoBehaviour:
   - {fileID: 336900058}
   - {fileID: 534441739}
   - {fileID: 1589020180}
-  position: {x: 3, y: 13, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -512901,7 +512919,7 @@ MonoBehaviour:
   - {fileID: 641345607}
   - {fileID: 1712139069}
   - {fileID: 1112771932}
-  position: {x: -2, y: -6, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -514718,7 +514736,7 @@ MonoBehaviour:
   - {fileID: 1810074762}
   - {fileID: 2051399466}
   - {fileID: 1310214934}
-  position: {x: -2, y: 2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -515765,7 +515783,7 @@ MonoBehaviour:
   - {fileID: 535906462}
   - {fileID: 4021119}
   - {fileID: 1387149635}
-  position: {x: 2, y: 13, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -516198,13 +516216,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1926181990}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.70710677, z: -0.70710677, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1525385524}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 90, z: -90}
 --- !u!23 &1926181992
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -517068,7 +517086,7 @@ MonoBehaviour:
   - {fileID: 2086724378}
   - {fileID: 1440296033}
   - {fileID: 1644620202}
-  position: {x: -5, y: 8, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -518485,7 +518503,7 @@ MonoBehaviour:
   - {fileID: 373443246}
   - {fileID: 1829558401}
   - {fileID: 222647102}
-  position: {x: -5, y: -1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -520255,13 +520273,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1939220871}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.70710677, z: -0.70710677, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 952863250}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 90, z: -90}
 --- !u!23 &1939220873
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -520646,7 +520664,7 @@ MonoBehaviour:
   - {fileID: 1836159218}
   - {fileID: 1954269385}
   - {fileID: 1841904732}
-  position: {x: -1, y: -1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -522508,7 +522526,7 @@ MonoBehaviour:
   - {fileID: 445598425}
   - {fileID: 639190599}
   - {fileID: 727425607}
-  position: {x: -14, y: -4, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 1948085266}
   blockInteractables: 0c000000
   portalDestination: {fileID: 0}
@@ -524587,7 +524605,7 @@ MonoBehaviour:
   - {fileID: 93071713}
   - {fileID: 504159820}
   - {fileID: 439369533}
-  position: {x: -1, y: 17, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -524967,7 +524985,7 @@ MonoBehaviour:
   - {fileID: 127665693}
   - {fileID: 1238735864}
   - {fileID: 1044902576}
-  position: {x: -3, y: -2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -526567,7 +526585,7 @@ MonoBehaviour:
   - {fileID: 2096971366}
   - {fileID: 461120804}
   - {fileID: 1726712}
-  position: {x: -4, y: 2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -530085,7 +530103,7 @@ MonoBehaviour:
   - {fileID: 1338926138}
   - {fileID: 540126207}
   - {fileID: 1085964899}
-  position: {x: -4, y: 16, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -531679,7 +531697,7 @@ MonoBehaviour:
   - {fileID: 1120072541}
   - {fileID: 1641329831}
   - {fileID: 567645030}
-  position: {x: 2, y: 8, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -532873,7 +532891,7 @@ MonoBehaviour:
   - {fileID: 2134538552}
   - {fileID: 745023993}
   - {fileID: 578220875}
-  position: {x: 1, y: 26, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -533219,13 +533237,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1989382147}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1725900224}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 90}
 --- !u!33 &1989382149
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -534253,7 +534271,7 @@ MonoBehaviour:
   - {fileID: 1333726431}
   - {fileID: 365534702}
   - {fileID: 1502658349}
-  position: {x: -3, y: 23, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -535245,7 +535263,7 @@ MonoBehaviour:
   - {fileID: 131313058}
   - {fileID: 1617597710}
   - {fileID: 1122335072}
-  position: {x: -6, y: 4, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -535784,7 +535802,7 @@ MonoBehaviour:
   - {fileID: 891202882}
   - {fileID: 265506070}
   - {fileID: 804048896}
-  position: {x: -17, y: -3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 2001139062}
   blockInteractables: 0c000000
   portalDestination: {fileID: 0}
@@ -535965,7 +535983,7 @@ MonoBehaviour:
   - {fileID: 73121041}
   - {fileID: 236821511}
   - {fileID: 345040506}
-  position: {x: 4, y: 13, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -536806,7 +536824,7 @@ MonoBehaviour:
   - {fileID: 1066189520}
   - {fileID: 334527026}
   - {fileID: 1112311824}
-  position: {x: -15, y: -3, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 2004988657}
   blockInteractables: 100000000c000000
   portalDestination: {fileID: 0}
@@ -537447,7 +537465,7 @@ MonoBehaviour:
   - {fileID: 777277631}
   - {fileID: 135897816}
   - {fileID: 1837349113}
-  position: {x: 3, y: 5, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -543702,7 +543720,7 @@ MonoBehaviour:
   - {fileID: 1778304363}
   - {fileID: 3894279}
   - {fileID: 938917022}
-  position: {x: -4, y: 1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -546855,7 +546873,7 @@ MonoBehaviour:
   - {fileID: 1019887546}
   - {fileID: 947774132}
   - {fileID: 1743093040}
-  position: {x: -1, y: 0, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -547013,7 +547031,7 @@ MonoBehaviour:
   - {fileID: 595929525}
   - {fileID: 113250339}
   - {fileID: 713781670}
-  position: {x: -2, y: -2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -550756,7 +550774,7 @@ MonoBehaviour:
   - {fileID: 357107476}
   - {fileID: 1867164391}
   - {fileID: 2136848563}
-  position: {x: 0, y: 0, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -551269,7 +551287,7 @@ MonoBehaviour:
   - {fileID: 379194131}
   - {fileID: 2054835465}
   - {fileID: 613245981}
-  position: {x: 3, y: 11, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -552848,7 +552866,7 @@ MonoBehaviour:
   - {fileID: 40842696}
   - {fileID: 552921652}
   - {fileID: 1734136063}
-  position: {x: -8, y: 6, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -552923,7 +552941,7 @@ MonoBehaviour:
   - {fileID: 160351720}
   - {fileID: 1154465834}
   - {fileID: 1788985443}
-  position: {x: -7, y: 9, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -557651,7 +557669,7 @@ MonoBehaviour:
   - {fileID: 1081631336}
   - {fileID: 468165818}
   - {fileID: 318739478}
-  position: {x: -4, y: 18, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -558965,7 +558983,7 @@ MonoBehaviour:
   - {fileID: 1684540026}
   - {fileID: 1916615706}
   - {fileID: 252780488}
-  position: {x: -8, y: 0, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -559239,7 +559257,7 @@ MonoBehaviour:
   - {fileID: 1700713570}
   - {fileID: 1651369479}
   - {fileID: 1263483390}
-  position: {x: -20, y: 2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -559463,7 +559481,7 @@ MonoBehaviour:
   - {fileID: 605619811}
   - {fileID: 1640913165}
   - {fileID: 1888073098}
-  position: {x: -5, y: 12, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -560271,7 +560289,7 @@ MonoBehaviour:
   - {fileID: 498070026}
   - {fileID: 540657879}
   - {fileID: 903367986}
-  position: {x: -3, y: -4, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -561645,7 +561663,7 @@ MonoBehaviour:
   - {fileID: 951125908}
   - {fileID: 1805342946}
   - {fileID: 97238603}
-  position: {x: -4, y: 21, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -562280,7 +562298,7 @@ MonoBehaviour:
   - {fileID: 1945975492}
   - {fileID: 523128656}
   - {fileID: 267923506}
-  position: {x: 4, y: 1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -569040,7 +569058,7 @@ MonoBehaviour:
   - {fileID: 1345380768}
   - {fileID: 777345705}
   - {fileID: 1684311110}
-  position: {x: 3, y: 2, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -569115,7 +569133,7 @@ MonoBehaviour:
   - {fileID: 791307808}
   - {fileID: 879572270}
   - {fileID: 1487827993}
-  position: {x: 1, y: 8, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -569844,6 +569862,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2138457996}
   - component: {fileID: 2138457997}
+  - component: {fileID: 2138457998}
   m_Layer: 6
   m_Name: Torchlight (1)
   m_TagString: Untagged
@@ -569878,8 +569897,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 0.79166776, b: 0.5424528, a: 1}
-  m_Intensity: 1
-  m_Range: 10
+  m_Intensity: 0.1
+  m_Range: 1
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -569928,6 +569947,23 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &2138457998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138457995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e53e1871bc6606429dcc564dc70ca49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShadingSteps: 32
+  TargetIntensity: 4
+  MinimumIntensityDifference: 0.15
+  MaximumIntensityDifference: 1.5
+  FrameRate: 12
 --- !u!1 &2138746265
 GameObject:
   m_ObjectHideFlags: 0
@@ -570156,7 +570192,7 @@ MonoBehaviour:
   - {fileID: 513850988}
   - {fileID: 635007181}
   - {fileID: 1844935633}
-  position: {x: -1, y: 16, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -570231,7 +570267,7 @@ MonoBehaviour:
   - {fileID: 75940524}
   - {fileID: 1858226168}
   - {fileID: 1925273097}
-  position: {x: -15, y: -1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -570367,7 +570403,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2139722897}
   m_Layer: 5
-  m_Name: Page2
+  m_Name: Page02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -571590,7 +571626,7 @@ MonoBehaviour:
   - {fileID: 1165790237}
   - {fileID: 80722452}
   - {fileID: 943313117}
-  position: {x: -4, y: 17, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
