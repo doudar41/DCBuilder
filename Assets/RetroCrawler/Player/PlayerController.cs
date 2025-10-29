@@ -202,7 +202,7 @@ public class PlayerController : MonoBehaviour
     {
         if (cursorHoveringUI) return;
         if (GameInstance.battleManager.BattleEffect) return;
-        if (playerState == PlayerState.Battle && !GameInstance.spellbook.SpellCharged) 
+        if (playerState == PlayerState.Battle && !GameInstance.spellbook.SpellWaiting()) 
         { 
              GameInstance.battleManager.ReceiveAttackInput();
             GameInstance.battleManager.BattleEffect = true;

@@ -18,7 +18,7 @@ public class SpellPage : MonoBehaviour
 
 
 
-    public void InitializeSpellPage()
+    public void InitializeSpellSchoolScript()
     {
         spellPage.SetActive(true);
         foreach (SpellButton b in spellButtons)
