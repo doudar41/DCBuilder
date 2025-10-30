@@ -139,48 +139,62 @@ public class BattleManager : MonoBehaviour
             }
         }
 
-            if (!empty.Contains(0) && !empty.Contains(1) && !empty.Contains(2))
-            {
-                if (Random.Range(0, randomRange) == 0)
-                {
-                    GameObject enemy = Instantiate(enemies[1].enemies[Random.Range(0, enemies[1].enemies.Count)], spawnRow[1].transform);
-                    allOpponents.Add(enemy);
-                    empty.Add(1);
-                    enemy.GetComponent<IEnemy>().SetEnemyPlaceSpace(row, new List<int> { 0, 1, 2 });
-                }
-            }
-
-            if (!empty.Contains(2) && !empty.Contains(3) && !empty.Contains(4))
-            {
-                if (Random.Range(0, randomRange) == 0)
-                {
-                    GameObject enemy = Instantiate(enemies[1].enemies[Random.Range(0, enemies[1].enemies.Count)], spawnRow[3].transform);
-                    allOpponents.Add(enemy);
-                    empty.Add(3);
-                    enemy.GetComponent<IEnemy>().SetEnemyPlaceSpace(row, new List<int> { 2, 3, 4 });
-                }
-            }
-
-
-
-        if (empty.Count == 0)
+        if(empty.Count == 0 && enemies.Count ==1)
         {
-            if (Random.Range(0, 1) == 0)
+            GameObject enemy = Instantiate(enemies[0].enemies[Random.Range(0, enemies[0].enemies.Count)], spawnRow[2].transform);
+            enemy.GetComponent<IEnemy>().SetEnemyPlaceSpace(row, new List<int> { 2 });
+            return;
+        }
+
+
+        if (!empty.Contains(0) && !empty.Contains(1) && !empty.Contains(2))
+        {
+            if (Random.Range(0, randomRange) == 0)
             {
-                GameObject enemy = Instantiate(enemies[2].enemies[Random.Range(0, enemies[2].enemies.Count)], spawnRow[2].transform);
+                GameObject enemy = Instantiate(enemies[1].enemies[Random.Range(0, enemies[1].enemies.Count)], spawnRow[1].transform);
                 allOpponents.Add(enemy);
-                empty.Add(2);
-                enemy.GetComponent<IEnemy>().SetEnemyPlaceSpace(row, new List<int> { 0, 1, 2,3,4 });
+                empty.Add(1);
+                enemy.GetComponent<IEnemy>().SetEnemyPlaceSpace(row, new List<int> { 0, 1, 2 });
             }
+        }
+
+
+        if (!empty.Contains(2) && !empty.Contains(3) && !empty.Contains(4))
+        {
+            if (Random.Range(0, randomRange) == 0)
+            {
+                GameObject enemy = Instantiate(enemies[1].enemies[Random.Range(0, enemies[1].enemies.Count)], spawnRow[3].transform);
+                allOpponents.Add(enemy);
+                empty.Add(3);
+                enemy.GetComponent<IEnemy>().SetEnemyPlaceSpace(row, new List<int> { 2, 3, 4 });
+            }
+        }
+
+        if (empty.Count == 0 && enemies.Count == 2)
+        {
+            GameObject enemy = Instantiate(enemies[1].enemies[Random.Range(0, enemies[1].enemies.Count)], spawnRow[2].transform);
+            allOpponents.Add(enemy);
+            empty.Add(3);
+            enemy.GetComponent<IEnemy>().SetEnemyPlaceSpace(row, new List<int> { 1, 2, 3 });
+            return;
+        }
+
+        if (empty.Count == 0 && enemies.Count == 3)
+        {
+            GameObject enemy = Instantiate(enemies[2].enemies[Random.Range(0, enemies[2].enemies.Count)], spawnRow[2].transform);
+            allOpponents.Add(enemy);
+            empty.Add(5);
+            enemy.GetComponent<IEnemy>().SetEnemyPlaceSpace(row, new List<int> {0, 1, 2, 3, 4 });
+            return;
         }
 
         if (empty.Count == 0)
         {
             GameObject enemy = Instantiate(enemies[0].enemies[Random.Range(0, enemies[0].enemies.Count)], spawnRow[2].transform);
-            allOpponents.Add(enemy);
             enemy.GetComponent<IEnemy>().SetEnemyPlaceSpace(row, new List<int> { 2 });
+            return;
         }
-        
+
     }
 
 

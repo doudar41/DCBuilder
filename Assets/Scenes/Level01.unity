@@ -396224,6 +396224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveTilemap: {fileID: 269466874}
+  torchlight: {fileID: 464073583}
   noWay:
     m_PersistentCalls:
       m_Calls: []
@@ -396251,7 +396252,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  torchlight: {fileID: 464073583}
   playerState: 0
   leftMouse: {fileID: 982749724803576811, guid: cf2274971eb66e34b8fc663cf4d81ca0, type: 3}
   walkCurve:

@@ -8,7 +8,8 @@ using UnityEngine.Tilemaps;
 
 public class PlayerController : MonoBehaviour
 {
-    public Tilemap moveTilemap;
+    [SerializeField] Tilemap moveTilemap;
+    [SerializeField] Light torchlight;
 
     Vector3Int startposition;
     Vector3Int currentposition;
@@ -16,12 +17,11 @@ public class PlayerController : MonoBehaviour
     GroundType currentGroundType;
     CardinalDirections currentforwardDirection;
     Dictionary<Vector3Int, OnBlockPlacement> wallsAccess = new Dictionary<Vector3Int, OnBlockPlacement>();
+
     public UnityEvent noWay, stepSound, turnAround, portalTransfer;
     public UnityEvent<CardinalDirections> cardinalDirectionToUI;
 
     List<visitedBlock> visitedBlocks = new  List<visitedBlock>();
-
-    [SerializeField] Light torchlight;
 
     public PlayerState playerState = PlayerState.Explore;
 
@@ -47,9 +47,9 @@ public class PlayerController : MonoBehaviour
     [Range(0.001f, 1.0f)]
     float couroutingDelayinSec = 0.01f;
 
-    public Texture2D cursorTexture;
-    public CursorMode cursorMode = CursorMode.Auto;
-    public Vector2 hotSpot = Vector2.zero;
+    [SerializeField] Texture2D cursorTexture;
+    [SerializeField] CursorMode cursorMode = CursorMode.Auto;
+    [SerializeField] Vector2 hotSpot = Vector2.zero;
 
     bool cursorBusy = false;
     int stackAmountCursor;
@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
 
 
     Vector3 beforeBattleTransformPos;
-    public Quaternion beforeBattleTransformRot;
+    public Quaternion beforeBattleTransformRot; 
 
     float intensivity = 0.1f;
     bool lightBusy =false;
@@ -83,19 +83,12 @@ public class PlayerController : MonoBehaviour
     UniqueDialogueName startingDialogueName;
     IBlock textblock;
 
-    private void OnEnable()
+
+    private void Awake()
     {
         GameInstance.playerController = this;
     }
-    private void Awake()
-    {
-        //GameInstance.itemsFound.Clear();
-    }
-    void Start()
-    {
 
-
-    }
 
     private void RegisteringKeys()
     {

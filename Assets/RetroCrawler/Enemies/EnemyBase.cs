@@ -32,8 +32,9 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
     [SerializeField] SpellContainer immunityspell;
 
 
-    Dictionary<EnemyStat, Vector3Int> rememberedNormalStats = new Dictionary<EnemyStat, Vector3Int>(); 
+    Dictionary<EnemyStat, Vector3Int> rememberedNormalStats = new Dictionary<EnemyStat, Vector3Int>();
 
+    Vector3 savedPosition;
 
     private void Start()
     {
@@ -81,7 +82,8 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
 
     public void MoveAheadOnAttack()
     {
-        transform.localPosition = new Vector3(0,0,-0.05f);
+        savedPosition = transform.localPosition;
+        transform.localPosition = new Vector3(savedPosition.x, savedPosition.y, savedPosition.z - 0.05f);
         transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
         StartCoroutine(WaitAndBack());
 
@@ -95,7 +97,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
 
     public void MoveBackAfterAttack()
     {
-        transform.localPosition = new Vector3(0, 0, 0);
+        transform.localPosition = savedPosition;
         transform.localScale = new Vector3(1, 1, 1);
     }
 
