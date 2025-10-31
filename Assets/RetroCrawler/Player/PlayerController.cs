@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
     public bool dialogueIsOpened = false;
     UniqueDialogueName startingDialogueName;
     IBlock textblock;
-
+    public bool attackAllowed = false;
 
     private void Awake()
     {
@@ -193,13 +193,16 @@ public class PlayerController : MonoBehaviour
 
     void ReceiveAttackInput(InputAction.CallbackContext context)
     {
-        if (cursorHoveringUI) return;
-        if (GameInstance.battleManager.BattleEffect) return;
-        if (playerState == PlayerState.Battle && !GameInstance.spellbook.SpellWaiting()) 
+        if (playerState != PlayerState.Battle) return;
+        if (!attackAllowed) return;
+        //if (cursorHoveringUI) return; //??
+        //if (GameInstance.battleManager.battleInputDelay) { context.action.Reset(); return; }
+
+        if (!GameInstance.spellbook.SpellWaiting()) 
         { 
              GameInstance.battleManager.ReceiveAttackInput();
-            GameInstance.battleManager.BattleEffect = true;
         }
+        attackAllowed = false;
     }
 
     public void ReceiveLastSpellInput(InputAction.CallbackContext context)

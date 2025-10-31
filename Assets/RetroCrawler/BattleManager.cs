@@ -37,7 +37,7 @@ public class BattleManager : MonoBehaviour
     public UnityEvent battleStarts, BattleEnd, PlayerTurn;
 
     int targetIndexInOpponents = 0; //index in allopponents list
-    public bool BattleEffect = false;
+
 
     public delegate void BattlePassTime(int count);
     public BattlePassTime battlePassTime;
@@ -46,7 +46,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] BattleGroundGraphics battleGroundGraphics;
     bool customBattle = false;
     IBlock customBattleBlock;
-
+    List<int> listOfTheDead = new List<int>();
 
     private void Awake()
     {
@@ -76,6 +76,10 @@ public class BattleManager : MonoBehaviour
         if (IfActiveOpponentIsEnemy())
         {
             EnemyAutoAttack();
+        }
+        else
+        {
+            GameInstance.playerController.attackAllowed = true;
         }
         battleStarts.Invoke();
     }
@@ -111,6 +115,10 @@ public class BattleManager : MonoBehaviour
         {
             EnemyAutoAttack();
         }
+        else
+        {
+            GameInstance.playerController.attackAllowed = true;
+        }
         battleStarts.Invoke();
     }
 
@@ -128,6 +136,8 @@ public class BattleManager : MonoBehaviour
 
         List<int> empty = new List<int>();
 
+        //Try to fill each spawn point with 1 level enemies
+
         for (int i =0;i< spawnRow.Count;i++)
         {
             if(Random.Range(0, randomRange) == 0)
@@ -137,14 +147,20 @@ public class BattleManager : MonoBehaviour
                 allOpponents.Add(enemy);
                 enemy.GetComponent<IEnemy>().SetEnemyPlaceSpace(row, new List<int> { i });
             }
+
         }
 
-        if(empty.Count == 0 || enemies.Count ==1)
+        // if there are no enemies spawned and enemy list have only level 1 enemies 
+        // spawn one level 1 enemy at the center of spawn line
+
+        if (empty.Count == 0 && enemies.Count == 1)
         {
             GameObject enemy = Instantiate(enemies[0].enemies[Random.Range(0, enemies[0].enemies.Count)], spawnRow[2].transform);
             enemy.GetComponent<IEnemy>().SetEnemyPlaceSpace(row, new List<int> { 2 });
-            return;
         }
+
+
+        if (enemies.Count == 1) return;
 
 
         if (!empty.Contains(0) && !empty.Contains(1) && !empty.Contains(2))
@@ -158,7 +174,6 @@ public class BattleManager : MonoBehaviour
             }
         }
 
-
         if (!empty.Contains(2) && !empty.Contains(3) && !empty.Contains(4))
         {
             if (Random.Range(0, randomRange) == 0)
@@ -170,16 +185,17 @@ public class BattleManager : MonoBehaviour
             }
         }
 
-        if (empty.Count == 0 || enemies.Count == 2)
+        if (empty.Count == 0 && enemies.Count == 2)
         {
             GameObject enemy = Instantiate(enemies[1].enemies[Random.Range(0, enemies[1].enemies.Count)], spawnRow[2].transform);
             allOpponents.Add(enemy);
             empty.Add(3);
             enemy.GetComponent<IEnemy>().SetEnemyPlaceSpace(row, new List<int> { 1, 2, 3 });
-            return;
         }
 
-        if (empty.Count == 0 || enemies.Count == 3)
+        if (enemies.Count == 2) return;
+
+        if (empty.Count == 0 && enemies.Count == 3)
         {
             GameObject enemy = Instantiate(enemies[2].enemies[Random.Range(0, enemies[2].enemies.Count)], spawnRow[2].transform);
             allOpponents.Add(enemy);
@@ -194,7 +210,6 @@ public class BattleManager : MonoBehaviour
             enemy.GetComponent<IEnemy>().SetEnemyPlaceSpace(row, new List<int> { 2 });
             return;
         }
-
     }
 
 
@@ -217,18 +232,25 @@ public class BattleManager : MonoBehaviour
 
     void EnemyAutoAttack()
     {
+        if(!quarrySorted.ContainsKey(quarrySortedKey)) AttackEnding();
+        if (listOfTheDead.Contains(quarrySortedKey)) AttackEnding();
+        if (quarrySorted[quarrySortedKey].GetComponent<IEnemy>() == null) AttackEnding();
         IEnemy attacker = quarrySorted[quarrySortedKey].GetComponent<IEnemy>();
         if (attacker.GetEnemyStatus().Contains(GameplayStatus.Petrified)) AttackEnding();
-        GameInstance.battleManager.BattleEffect = true;
+
         // Choosing hero to attack
         int biggestAgro = -1;
-        if(attacker.GetEnemyHealth() <= 0)
+       // print("alive enemy index " + quarrySortedKey);
+        if (attacker.GetEnemyHealth() <= 0)
         {
+            //print("dead enemy index "+quarrySortedKey);
             AttackEnding();
+            return;
         }
         enemyTurn.Invoke("Enemy turn");
 
         attacker.MoveAheadOnAttack();
+
         for (int i =0; i<allOpponents.Count;i++)
         {
 
@@ -284,6 +306,19 @@ public class BattleManager : MonoBehaviour
         battlePassTime(actionCounter);
         quarrySorted.Remove(quarrySortedKey);
         quarrySortedKey++;
+        if (listOfTheDead.Contains(quarrySortedKey))
+        {
+            for(int i = quarrySortedKey;i< quarrySorted.Count; i++)
+            {
+                if (!listOfTheDead.Contains(i))
+                {
+                    quarrySortedKey = i; break;
+                }
+            }
+
+        }
+
+
         targetIndexInOpponents = -1;
         enemyTurn.Invoke("");
         PlayerTurn.Invoke();
@@ -293,9 +328,20 @@ public class BattleManager : MonoBehaviour
             EnemyAutoAttack();
 
         }
+        else
+        {
+            GameInstance.playerController.attackAllowed = true;
+        }
         SetActiveHero();
 
-        if (quarrySorted.Count == 0) EndOfRound();
+        print("left behind "+quarrySorted.Count);
+
+        if (quarrySorted.Count - listOfTheDead.Count <= 0) 
+        {
+            quarrySorted.Clear();
+            EndOfRound(); 
+        }
+
 
         GetRidOfDeadEnemies();
         //refresh initiative of all 
@@ -326,8 +372,7 @@ public class BattleManager : MonoBehaviour
 
     public void EndOfRound()
     {
-       // print("end of the round");
-
+        // print("end of the round");
         quarrySortedKey = 0;
         //GetRidOfDeadEnemies();
         SortingOpponents();
@@ -337,6 +382,10 @@ public class BattleManager : MonoBehaviour
         if (IfActiveOpponentIsEnemy())
         {
             EnemyAutoAttack();
+        }
+        else
+        {
+            GameInstance.playerController.attackAllowed = true;
         }
     }
 
@@ -442,14 +491,20 @@ public class BattleManager : MonoBehaviour
 
                 if (i == g.GetComponent<IBattle>().GetInitiativeInBattle())
                 {
-                    if (!quarrySorted.ContainsValue(g)) quarrySorted.Add(quarrySorted.Count, g);
+                    if (!quarrySorted.ContainsValue(g)) 
+                    { 
+                       if( !quarrySorted.TryAdd(quarrySorted.Count, g))
+                        {
+                            print(g);
+                        } 
+                    }
                 }
             }
         }
 
         foreach (KeyValuePair<int, GameObject> k in quarrySorted)
         {
-            print(k.Key + " " + k.Value.name + " " + k.Value.GetComponent<IBattle>().GetInitiativeInBattle());
+           // print(k.Key + " " + k.Value.name + " " + k.Value.GetComponent<IBattle>().GetInitiativeInBattle());
         }
 
     }
@@ -510,37 +565,33 @@ public class BattleManager : MonoBehaviour
     
     public void ReceiveAttackInput()
     {
+
+        //battleInputDelay = true;
         if (quarrySorted[quarrySortedKey] == null)
         {
-            AttackEnding();
+            
             return;
         }
         if (quarrySorted[quarrySortedKey].GetComponent<IHero>() == null) 
         {
-            AttackEnding();
+
             return; 
         }
-
+        //print("switch hero" + quarrySorted[quarrySortedKey].GetComponent<IHero>().HeroName());
         IHero attacker = quarrySorted[quarrySortedKey].GetComponent<IHero>();
         GameInstance.spellbook.CastSpell(attacker.GetWeaponSpell());
     }
 
-    private void FindEnemyOpponent()
+    public void RemoveDeadEnemy(GameObject g)
     {
-        if (targetIndexInOpponents < 0)
+        foreach(KeyValuePair<int, GameObject> enemy in quarrySorted)
         {
-            for (int i = 0; i < allOpponents.Count; i++)
+            if (enemy.Value == g)
             {
-                if (allOpponents[i].GetComponent<IEnemy>() != null) 
-                {
-                    if (allOpponents[i].GetComponent<IEnemy>().GetEnemyRow() == 1)
-                    { 
-                        targetIndexInOpponents = i;
-                        break; 
-                    }
-                }
+                listOfTheDead.Add(enemy.Key);
             }
         }
+
     }
 
 /*    public void ReceiveLastSpellInput()
@@ -564,43 +615,17 @@ public class BattleManager : MonoBehaviour
 
     public void AttackEnding()
     {
-/*        if (quarrySorted[quarrySortedKey].GetComponent<IEnemy>() != null)
-        {
-            quarrySorted[quarrySortedKey].GetComponent<IEnemy>().MoveBackAfterAttack();
-        }*/
             //Check for heroes health
             //if ok end of the turn
+            
         if (WhoWon() == 2) BattleIsOver(false);
         if (WhoWon() == 1)
         {
             BattleIsOver(true);
         }
-        BattleEffect = false;
+        //BattleEffect = false;
         if (WhoWon() == 0) EndOfTheTurn();
     }
-
-/*
-    public void ChooseTargetForSpell(GameObject opponentGameObject, SpellContainer spellContainer)
-    {
-        if(allOpponents.Contains(opponentGameObject))
-        {
-            //print("target found applying spell ");
-            //GetComponent<IHero>()
-            targetIndexInOpponents = allOpponents.IndexOf(opponentGameObject);
-        }
-
-        if (opponentGameObject.GetComponent<IEnemy>() != null)
-        {
-           // allOpponents[targetIndexInOpponents].GetComponent<IEnemy>().CastSpellOnEnemy(spellContainer, opponentGameObject);
-            EndOfTheTurn();
-        }
-        if (opponentGameObject.GetComponent<IHero>() != null)
-        {
-
-            EndOfTheTurn();
-        }
-        //apply spell to chosen opponent
-    }*/
 
     public void RemoveOpponent(GameObject opponent)
     {

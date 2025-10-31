@@ -27,7 +27,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
     int healthStarted;
 
     public UnityEvent<float> healthNormalized;
-    public UnityEvent<SpellContainer> hitTargetEffecct;
+    public UnityEvent<SpellContainer> hitTargetEffect;
 
     [SerializeField] SpellContainer immunityspell;
 
@@ -58,19 +58,22 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
         GameInstance.progress -= Timepassed;
     }
 
-    public void HealthDamage(int amount)
+    public int HealthDamage(int amount)
     {
         health = Mathf.Clamp(health - amount, 0, int.MaxValue);
 
+        healthNormalized.Invoke(1-((float)health / (float)healthStarted));
+
         if (health <= 0)
         {
+            //print("enemy dead");
             col.enabled = false;
             gameObject.tag = "Untagged";
             health = 0;
             StartCoroutine(SpriteFadeOut());
+            GameInstance.battleManager.RemoveDeadEnemy(gameObject);
         }
-
-        healthNormalized.Invoke(1-((float)health / (float)healthStarted));
+        return health;
     }
 
 
@@ -108,14 +111,14 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
 
     IEnumerator AttackDelay()
     {
-        GameInstance.battleManager.BattleEffect = true;
         yield return new WaitForSeconds(0.5f);
+        print("stop attacking enemy");
         GameInstance.battleManager.AttackEnding();
     }
 
     public List<string> ApplySpellToEnemy(SpellContainer spellToApply, GameObject spellcaster)
     {
-        if (spellToApply == null) return null;
+        if (spellToApply == null) { StartCoroutine(AttackDelay()); return null; }
         List<string> results = new List<string>();
         int attackRoll = 0;
         int attackrollbonus = 0, magicbonus = 0, evaderoll = 0;
@@ -134,7 +137,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
 
             if (immunityList.Contains(_spell.magicType)) // skip magic attack if enemy has a total immunity to it 
             {
-                hitTargetEffecct.Invoke(immunityspell); // Event for showing immunity animation
+                hitTargetEffect.Invoke(immunityspell); // Event for showing immunity animation
                 continue;
             }
 
@@ -168,7 +171,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
 
                     if (immunityList.Contains(spellcaster.GetComponent<IHero>().GetWeaponMagicType())) 
                     {
-                        hitTargetEffecct.Invoke(immunityspell); // Event for showing immunity animation
+                        hitTargetEffect.Invoke(immunityspell); // Event for showing immunity animation
                         continue;
                     }
 
@@ -176,8 +179,9 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                     // If weapon enchanced with element all damage become an elemental damage
 
                     amount -= spellResistance[(int)spellcaster.GetComponent<IHero>().GetWeaponMagicType()]; 
-                    HealthDamage(amount);
+
                     results.Add(amount.ToString());
+                    HealthDamage(amount);
                     break;
 
                 case SpellEffects.MagicDamage: 
@@ -186,9 +190,9 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
 
                     amount += spellcaster.GetComponent<IHero>().MagicDamage(_spell.skillToCheckInCalculations);
                     amount -= spellResistance[(int)_spell.magicType];
-                    HealthDamage(amount);
-                    results.Add(amount.ToString());
 
+                    results.Add(amount.ToString());
+                    HealthDamage(amount);
                     break;
 
                 case SpellEffects.DependedStatModify:
@@ -240,7 +244,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                     break;
             }
             results.Add("-1");
-            if (evaderoll <= attackRoll || dice == 20) hitTargetEffecct.Invoke(spellToApply);
+            if (evaderoll <= attackRoll || dice == 20) hitTargetEffect.Invoke(spellToApply);
         }
 
         StartCoroutine(AttackDelay());
@@ -318,6 +322,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
             outlineRenderer.color = b;
             yield return new WaitForSeconds(0.1f*Time.deltaTime);
         }
+        //StartCoroutine(AttackDelay());
         yield return null;
     }
 
@@ -391,7 +396,7 @@ public interface IEnemy
     public int GetEnemyRow();
     public List<int> GetEnemyPlace();
     public void SetEnemyPlaceSpace(int row, List<int> places);
-    public void HealthDamage(int amount);
+    public int HealthDamage(int amount);
     public string GetEnemyName();
     public SpellContainer enemyAttack();
     public List<string> ApplySpellToEnemy(SpellContainer spellToApply, GameObject spellcaster);

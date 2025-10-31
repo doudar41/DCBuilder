@@ -214,6 +214,7 @@ public class Spellbook : MonoBehaviour
         }
         else
         {
+            //print(spellToCast.name);
             // Non AEO Single spell loaded to be released
             spellWaitToRelease = spellToCast;
             spellTargetEvent.AddListener(GetGameObjectTarget);

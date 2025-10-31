@@ -370,8 +370,8 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                     else buffPanels.AddBuffToList(s);
                 }
                 break;
-
         }
+
     }
 
 
@@ -386,7 +386,9 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     IEnumerator AttackDelay()
     {
+        //print("");
         yield return new WaitForSeconds(0.5f);
+
         GameInstance.battleManager.AttackEnding();
     }
 
