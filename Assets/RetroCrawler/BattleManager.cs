@@ -139,7 +139,7 @@ public class BattleManager : MonoBehaviour
             }
         }
 
-        if(empty.Count == 0 && enemies.Count ==1)
+        if(empty.Count == 0 || enemies.Count ==1)
         {
             GameObject enemy = Instantiate(enemies[0].enemies[Random.Range(0, enemies[0].enemies.Count)], spawnRow[2].transform);
             enemy.GetComponent<IEnemy>().SetEnemyPlaceSpace(row, new List<int> { 2 });
@@ -170,7 +170,7 @@ public class BattleManager : MonoBehaviour
             }
         }
 
-        if (empty.Count == 0 && enemies.Count == 2)
+        if (empty.Count == 0 || enemies.Count == 2)
         {
             GameObject enemy = Instantiate(enemies[1].enemies[Random.Range(0, enemies[1].enemies.Count)], spawnRow[2].transform);
             allOpponents.Add(enemy);
@@ -179,7 +179,7 @@ public class BattleManager : MonoBehaviour
             return;
         }
 
-        if (empty.Count == 0 && enemies.Count == 3)
+        if (empty.Count == 0 || enemies.Count == 3)
         {
             GameObject enemy = Instantiate(enemies[2].enemies[Random.Range(0, enemies[2].enemies.Count)], spawnRow[2].transform);
             allOpponents.Add(enemy);
@@ -293,26 +293,7 @@ public class BattleManager : MonoBehaviour
             EnemyAutoAttack();
 
         }
-        if (quarrySorted.ContainsKey(quarrySortedKey))
-        {
-            if(quarrySorted.TryGetValue(quarrySortedKey, out GameObject g))
-            {
-                if (quarrySorted.Count != 0 && g !=null)
-                {
-
-                    if (g.GetComponent<IHero>() != null)
-                    { 
-                        IHero newactivehero = g.GetComponent<IHero>();
-                        GameInstance.party.BattleHeroSwitch(newactivehero.GetThisHero());
-                        if (newactivehero.GetHeroHealth() <= 0 || 
-                            newactivehero.GetHeroStatus().Contains(GameplayStatus.Petrified) ||
-                            newactivehero.GetHeroStatus().Contains(GameplayStatus.Stunned) ) AttackEnding();
-                    }
-                }
-            }
-        }
-
-
+        SetActiveHero();
 
         if (quarrySorted.Count == 0) EndOfRound();
 
@@ -320,6 +301,29 @@ public class BattleManager : MonoBehaviour
         //refresh initiative of all 
         // apply damage and 
     }
+
+    private void SetActiveHero()
+    {
+        if (quarrySorted.ContainsKey(quarrySortedKey))
+        {
+            if (quarrySorted.TryGetValue(quarrySortedKey, out GameObject g))
+            {
+                if (quarrySorted.Count != 0 && g != null)
+                {
+
+                    if (g.GetComponent<IHero>() != null)
+                    {
+                        IHero newactivehero = g.GetComponent<IHero>();
+                        GameInstance.party.BattleHeroSwitch(newactivehero.GetThisHero());
+                        if (newactivehero.GetHeroHealth() <= 0 ||
+                            newactivehero.GetHeroStatus().Contains(GameplayStatus.Petrified) ||
+                            newactivehero.GetHeroStatus().Contains(GameplayStatus.Stunned)) AttackEnding();
+                    }
+                }
+            }
+        }
+    }
+
     public void EndOfRound()
     {
        // print("end of the round");
@@ -328,6 +332,7 @@ public class BattleManager : MonoBehaviour
         //GetRidOfDeadEnemies();
         SortingOpponents();
         CheckForEmptyRow();
+        SetActiveHero();
 
         if (IfActiveOpponentIsEnemy())
         {
@@ -420,8 +425,10 @@ public class BattleManager : MonoBehaviour
             }
             if (g.GetComponent<IHero>() != null)
             {
+
                 if (g.GetComponent<IHero>().GetHeroHealth() > 0)
                 {
+                    //print("hero " + g.name);
                     sortList.Add(g.GetComponent<IBattle>().GetInitiativeInBattle());
                 }
             }
@@ -442,7 +449,7 @@ public class BattleManager : MonoBehaviour
 
         foreach (KeyValuePair<int, GameObject> k in quarrySorted)
         {
-            //print(k.Key + " " + k.Value.name + " " + k.Value.GetComponent<IBattle>().GetInitiativeInBattle());
+            print(k.Key + " " + k.Value.name + " " + k.Value.GetComponent<IBattle>().GetInitiativeInBattle());
         }
 
     }
@@ -563,7 +570,7 @@ public class BattleManager : MonoBehaviour
         }*/
             //Check for heroes health
             //if ok end of the turn
-            if (WhoWon() == 2) BattleIsOver(false);
+        if (WhoWon() == 2) BattleIsOver(false);
         if (WhoWon() == 1)
         {
             BattleIsOver(true);
