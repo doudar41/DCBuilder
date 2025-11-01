@@ -20,7 +20,7 @@ public class BattleManager : MonoBehaviour
 {
     [SerializeField] List<EnemySized> level01Enemies = new List<EnemySized>();
     [SerializeField] List<GameObject> level01Bosses = new List<GameObject>();
-
+    [SerializeField] defeatedList _defeatedList;
 
     List<GameObject> allOpponents = new List<GameObject>();
     Dictionary<int, GameObject> quarrySorted = new Dictionary<int, GameObject>();
@@ -232,18 +232,20 @@ public class BattleManager : MonoBehaviour
 
     void EnemyAutoAttack()
     {
-        if(!quarrySorted.ContainsKey(quarrySortedKey)) AttackEnding();
-        if (listOfTheDead.Contains(quarrySortedKey)) AttackEnding();
+/*        if (!quarrySorted.ContainsKey(quarrySortedKey)) AttackEnding();
+        if (listOfTheDead.Contains(quarrySortedKey))    AttackEnding();*/
         if (quarrySorted[quarrySortedKey].GetComponent<IEnemy>() == null) AttackEnding();
+
+        print("attacker name " + quarrySorted[quarrySortedKey].GetComponent<IEnemy>().GetEnemyName() + "/"+ quarrySortedKey);
+
         IEnemy attacker = quarrySorted[quarrySortedKey].GetComponent<IEnemy>();
-        if (attacker.GetEnemyStatus().Contains(GameplayStatus.Petrified)) AttackEnding();
+        //if (attacker.GetEnemyStatus().Contains(GameplayStatus.Petrified)) AttackEnding();
 
         // Choosing hero to attack
         int biggestAgro = -1;
-       // print("alive enemy index " + quarrySortedKey);
+
         if (attacker.GetEnemyHealth() <= 0)
         {
-            //print("dead enemy index "+quarrySortedKey);
             AttackEnding();
             return;
         }
@@ -271,9 +273,7 @@ public class BattleManager : MonoBehaviour
         {
             IHero targetHero = allOpponents[targetIndexInOpponents].GetComponent<IHero>();
             targetHero.ApplySpellToHero(attacker.enemyAttack(), allOpponents[targetIndexInOpponents]);
-
         }
-
     }
 
     bool IfActiveOpponentIsEnemy()
@@ -302,13 +302,34 @@ public class BattleManager : MonoBehaviour
 
     public void EndOfTheTurn()
     {
+        //GetRidOfDeadEnemies();
         actionCounter++;
         battlePassTime(actionCounter);
-        quarrySorted.Remove(quarrySortedKey);
+        //quarrySorted.Remove(quarrySortedKey);
         quarrySortedKey++;
+
+        if (quarrySorted.ContainsKey(quarrySortedKey))
+        {
+            //print("end of turn if it stops press skip " + quarrySorted[quarrySortedKey]);
+        }
+        else
+        {
+            if(quarrySortedKey >= quarrySorted.Count)
+            {
+                targetIndexInOpponents = -1;
+                enemyTurn.Invoke("");
+/*                PlayerTurn.Invoke();
+                SetActiveHero();*/
+                quarrySorted.Clear();
+
+                EndOfRound();
+                return;
+            }
+        }
+
         if (listOfTheDead.Contains(quarrySortedKey))
         {
-            for(int i = quarrySortedKey;i< quarrySorted.Count; i++)
+            for (int i = quarrySortedKey; i < quarrySorted.Count; i++)
             {
                 if (!listOfTheDead.Contains(i))
                 {
@@ -319,33 +340,25 @@ public class BattleManager : MonoBehaviour
         }
 
 
-        targetIndexInOpponents = -1;
-        enemyTurn.Invoke("");
-        PlayerTurn.Invoke();
         if (IfActiveOpponentIsEnemy())
         {
-
             EnemyAutoAttack();
-
         }
         else
         {
             GameInstance.playerController.attackAllowed = true;
         }
+        targetIndexInOpponents = -1;
+        enemyTurn.Invoke("");
+        PlayerTurn.Invoke();
         SetActiveHero();
 
-        print("left behind "+quarrySorted.Count);
 
-        if (quarrySorted.Count - listOfTheDead.Count <= 0) 
-        {
-            quarrySorted.Clear();
-            EndOfRound(); 
-        }
-
-
-        GetRidOfDeadEnemies();
-        //refresh initiative of all 
-        // apply damage and 
+        /*        if (quarrySorted.Count - listOfTheDead.Count <= 0) 
+                {
+                    quarrySorted.Clear();
+                    EndOfRound(); 
+                }*/
     }
 
     private void SetActiveHero()
@@ -591,7 +604,7 @@ public class BattleManager : MonoBehaviour
                 listOfTheDead.Add(enemy.Key);
             }
         }
-
+        RemoveDefeated(g);
     }
 
 /*    public void ReceiveLastSpellInput()
@@ -655,6 +668,12 @@ public class BattleManager : MonoBehaviour
     {
         return actionCounter;
     }
+
+    public void RemoveDefeated(GameObject enemyObject)
+    {
+        _defeatedList.AddToList(enemyObject);
+    }
+
 
 }
 

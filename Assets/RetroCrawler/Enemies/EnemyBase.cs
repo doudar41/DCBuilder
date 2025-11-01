@@ -21,6 +21,8 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
 
     [SerializeField] List<MagicType> immunityList = new List<MagicType>();
     [SerializeField] List<int> spellResistance = new List<int>();
+    [SerializeField] Animator animator;
+    [SerializeField] GameObject figure;
 
     List<GameplayStatus> gameplayStatuses = new List<GameplayStatus>();
 
@@ -38,6 +40,8 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
 
     private void Start()
     {
+
+
         outlineRenderer.color = Color.clear;
         healthStarted = health;
         GameInstance.progress += Timepassed;
@@ -51,6 +55,9 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
         rememberedNormalStats[EnemyStat.DEFENCE] = new Vector3Int(spellResistance[0], 0, 0);
         rememberedNormalStats[EnemyStat.HEALTH] = new Vector3Int(health, 0, 0);
         rememberedNormalStats[EnemyStat.EVASION] = new Vector3Int(evasion, 0, 0);
+
+
+
     }
 
     private void OnDestroy()
@@ -70,7 +77,14 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
             col.enabled = false;
             gameObject.tag = "Untagged";
             health = 0;
-            StartCoroutine(SpriteFadeOut());
+            //StartCoroutine(SpriteFadeOut());
+            //figure.SetActive(false);
+            if(enemySprites.GetStatePortrait(GameplayStatus.Dead, out Sprite deadSprite))
+            {
+                enemyFace.sprite = deadSprite;
+            }
+
+            SetEnemyRowAndPlace(-1, new List<int> { });
             GameInstance.battleManager.RemoveDeadEnemy(gameObject);
         }
         return health;
@@ -79,23 +93,29 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
 
     public void OnPointerClick(PointerEventData eventData)
     {
+
         if (health > 0) GameInstance.spellbook.spellTargetEvent.Invoke(this.gameObject);
     }
 
 
     public void MoveAheadOnAttack()
     {
+
         savedPosition = transform.localPosition;
         transform.localPosition = new Vector3(savedPosition.x, savedPosition.y, savedPosition.z - 0.05f);
         transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
         StartCoroutine(WaitAndBack());
 
+
+        //animator.SetTrigger("Attack");
+
     }
 
     IEnumerator WaitAndBack()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(1f);
         MoveBackAfterAttack();
+       // animator.SetBool("Idle", true);
     }
 
     public void MoveBackAfterAttack()
@@ -268,6 +288,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
 
     public void SetEnemyRowAndPlace(int row, List<int> place)
     {
+
         rowIndex = row;
         placeIndexes = place;
     }
@@ -294,41 +315,43 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (health <= 0) return;
-        if (outlineRenderer != null)
+/*        if (outlineRenderer != null)
         {
             outlineRenderer.gameObject.SetActive(true);
-        }
+        }*/
 
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         if (health <= 0) return;
-        if (outlineRenderer != null)
+/*        if (outlineRenderer != null)
         {
             outlineRenderer.gameObject.SetActive(false);
-        }
+        }*/
 
     }
 
     IEnumerator SpriteFadeOut()
     {
-        if (outlineRenderer != null) outlineRenderer.color = Color.clear;
-        for (byte f = 255; f > 0; f--)
-        {
+        /*        if (outlineRenderer != null) outlineRenderer.color = Color.clear;
+                for (byte f = 255; f > 0; f--)
+                {
 
-            Color32 b = new Color32(f,f,f,f);
-            enemyFace.color = b;
-            outlineRenderer.color = b;
-            yield return new WaitForSeconds(0.1f*Time.deltaTime);
-        }
+                    Color32 b = new Color32(f,f,f,f);
+                    enemyFace.color = b;
+                    outlineRenderer.color = b;
+                    yield return new WaitForSeconds(0.1f*Time.deltaTime);
+                }*/
+
         //StartCoroutine(AttackDelay());
+
         yield return null;
     }
 
     public string GetEnemyName()
     {
-        return "";
+        return enemyName;
     }
     public int GetEnemySize()
     {
@@ -353,17 +376,24 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
     public void SetEnemyPlaceSpace(int row, List<int> places)
     {
         rowIndex = row;
+
         //placeIndexes.Clear();
         foreach (int i in places)
         {
             if(!placeIndexes.Contains(i)) placeIndexes.Add(i);
         }
-
+        SetEnemyRowAndPlace(row, places);
     }
 
     public void SetTransform(GameObject spawnPlace)
     {
-        transform.position = spawnPlace.transform.position;
+        
+        //transform.position = spawnPlace.transform.position;
+
+        transform.parent = spawnPlace.transform;
+        transform.localPosition = Vector3.zero;
+        //figure.transform.localPosition = Vector3.zero;
+       // animator.Play("SnakeAttack",0,0);
     }
     public int GetEnemyAccuracy()
     {

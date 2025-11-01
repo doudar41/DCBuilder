@@ -17,3 +17,5 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 44d3635c1a3ba574faea342d821df372, type: 3}
   - state: 5
     sprite: {fileID: 21300000, guid: 04114d732ce97f7418c0d4c26985d713, type: 3}
+  - state: 6
+    sprite: {fileID: 21300000, guid: 89f68a0970b20b54ab6db721dfb3d020, type: 3}
