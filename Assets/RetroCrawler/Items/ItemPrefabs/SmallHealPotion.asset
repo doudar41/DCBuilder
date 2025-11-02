@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SmallHealPotion
   m_EditorClassIdentifier: 
   itemType: 15
-  itemName: StrenghtPotion+1
+  itemName: Small Heal Potion
   texture2DMouse: {fileID: 2800000, guid: 779f73d1bea149946a495704f144e213, type: 3}
   InventorySprite: {fileID: 21300000, guid: a1e74bd3eb403e7478e7bd25c2a18b93, type: 3}
   worldSprite: {fileID: 21300000, guid: a1e74bd3eb403e7478e7bd25c2a18b93, type: 3}
@@ -22,7 +22,9 @@ MonoBehaviour:
   spellContainer: {fileID: 11400000, guid: 39017368d402317448c0f3e1ff625d13, type: 2}
   weaponType: 0
   twoHanded: 0
-  price: 10
-  itemDescription: Small Hela Potion
+  price: 100
+  itemDescription: Small Heal Potion
   itemLevel: 1
   keyType: 0
+  journalEntry: 
+  dialogueKeys: 

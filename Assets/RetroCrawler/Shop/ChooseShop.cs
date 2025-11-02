@@ -7,12 +7,8 @@ public class ChooseShop : MonoBehaviour
 {
     [SerializeField] List<GameObject> shopToChoose = new List<GameObject>();
     [SerializeField] List<GameObject> buttonPanels = new List<GameObject>();
-
+    [SerializeField] Camera cameraUI;
     public UnityEvent switchOnPanel;
-    private void Start()
-    {
-
-    }
 
     public void ChooseShopOfType(int index)
     {
@@ -22,9 +18,11 @@ public class ChooseShop : MonoBehaviour
             g.SetActive(false);
 
         }
+        cameraUI.depth = 2;
         //switchOnPanel.Invoke();
         shopToChoose[index].SetActive(true);
         buttonPanels[index].SetActive(true);
+
         if (shopToChoose[index].GetComponent<ItemShop>() != null) 
         { 
             shopToChoose[index].GetComponent<ItemShop>().NewItemsToSell(); 
