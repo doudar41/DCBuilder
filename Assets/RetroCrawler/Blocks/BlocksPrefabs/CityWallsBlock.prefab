@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 8830532593720054571}
   - component: {fileID: 7314359643008550759}
   m_Layer: 11
-  m_Name: Text (TMP)
+  m_Name: BlockIndex
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 7443934456798674445}
   - component: {fileID: 4328374572812783430}
   m_Layer: 11
-  m_Name: Square
+  m_Name: FloorMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -318,7 +318,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4a8ef3d12a3c0804483ff95e30801f32, type: 2}
+  - {fileID: 2100000, guid: f8a568eef338ea94795e94c696bed473, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -636,7 +636,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: eece367f6fdede34ba3894794c4c1da0, type: 2}
+  - {fileID: 2100000, guid: 38e8769007e34e646a7a76ce8177807a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -772,7 +772,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: eece367f6fdede34ba3894794c4c1da0, type: 2}
+  - {fileID: 2100000, guid: 38e8769007e34e646a7a76ce8177807a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -855,7 +855,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: eece367f6fdede34ba3894794c4c1da0, type: 2}
+  - {fileID: 2100000, guid: 38e8769007e34e646a7a76ce8177807a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1024,7 +1024,7 @@ GameObject:
   - component: {fileID: 4937114926852727942}
   - component: {fileID: 2147255815302183749}
   m_Layer: 11
-  m_Name: Mesh
+  m_Name: FloorCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1127,7 +1127,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: eece367f6fdede34ba3894794c4c1da0, type: 2}
+  - {fileID: 2100000, guid: 38e8769007e34e646a7a76ce8177807a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1272,7 +1272,7 @@ MonoBehaviour:
   - {fileID: 4297417284220401103}
   - {fileID: 7665905285942165095}
   - {fileID: 3914190278243387258}
-  position: {x: 0, y: 0, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -1281,3 +1281,12 @@ MonoBehaviour:
   nextLevelPosition: {x: 0, y: 0, z: 0}
   nextLevelDirection: 0
   nextLevelName: 
+  shopIndex: 0
+  weightPlate: {fileID: 0}
+  dialogues: 
+  enemyList: []
+  battleGroundEnvironment: 0
+  afterBattleLoot: []
+  afterBattleDialogue: 
+  goldAmount: 0
+  characterSprite: {fileID: 0}

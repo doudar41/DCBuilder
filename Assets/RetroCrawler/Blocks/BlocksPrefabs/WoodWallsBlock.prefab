@@ -318,7 +318,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4a8ef3d12a3c0804483ff95e30801f32, type: 2}
+  - {fileID: 2100000, guid: f8a568eef338ea94795e94c696bed473, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1272,7 +1272,7 @@ MonoBehaviour:
   - {fileID: 4297417284220401103}
   - {fileID: 7665905285942165095}
   - {fileID: 3914190278243387258}
-  position: {x: 0, y: 0, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 0}
   blockInteractables: 
   portalDestination: {fileID: 0}
@@ -1283,3 +1283,10 @@ MonoBehaviour:
   nextLevelName: 
   shopIndex: 0
   weightPlate: {fileID: 0}
+  dialogues: 
+  enemyList: []
+  battleGroundEnvironment: 0
+  afterBattleLoot: []
+  afterBattleDialogue: 
+  goldAmount: 0
+  characterSprite: {fileID: 0}
