@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 
 /// <summary>
-/// Battle start by sorting quarry of ooponents
+/// Battle start by sorting quarry of opponents
 /// Then it awaits for signal to attack or cast a spell
 /// While waiting player can choose spell to cast target to cast
 /// pressing attack uses weapon in hands to perform mellee or range attack
@@ -18,50 +18,86 @@ using UnityEngine.Events;
 
 public class BattleManager : MonoBehaviour
 {
+
+    // These are lists of randomly spawned enemies in timebased or scripted encounters
     [SerializeField] List<EnemySized> level01Enemies = new List<EnemySized>();
     [SerializeField] List<GameObject> level01Bosses = new List<GameObject>();
+
+    //Reference to GameObject where defeated enemies went after being killed.
     [SerializeField] defeatedList _defeatedList;
 
+    // List of all enemies and heroes 
     List<GameObject> allOpponents = new List<GameObject>();
+    // Dictionary is used to make an order of opponents depend on their initiative and state
     Dictionary<int, GameObject> quarrySorted = new Dictionary<int, GameObject>();
+    //  integer which increment by 1 each turn till reach end of quarrySorted list then back to zero and start new round
     int quarrySortedKey = 0;
+    // Counter of time turns
     int actionCounter = 0;
 
-    //Turn event 
-    //Quarry of heroes and enemies
+    // it is teleport destination in a gameworld for Player for battle 
     [SerializeField] Transform playerBattlePlace;
+
+    // GameObjects which contains transforms for enemies to spawn
     [SerializeField] List<GameObject> spawnPointsRaw01, spawnPointsRaw02, SpawnPointsRaw03;
 
-
+    //Event which makes battle text appear at battle start and during enemy turn
     public UnityEvent<string> enemyTurn;
+
+    // battleStarts opens overlay of battle buttons and close map zooming buttons disable map functionality and also starts battle log
+    // BattleEnd restores everything back mainly the map fuctionality and also close battle log
+    // PlayerTurn open battle buttons close battle text objects (one which showws "Enemy Turn" text)
     public UnityEvent battleStarts, BattleEnd, PlayerTurn;
 
+    //Index of a target opponent in allopponents list 
     int targetIndexInOpponents = 0; //index in allopponents list
 
-
+    //This delegate is send command to opponents counter number instead of normal exploration gametime delegate
     public delegate void BattlePassTime(int count);
     public BattlePassTime battlePassTime;
 
+
+    // Not used yet
     [SerializeField] List<ItemScriptableContainer> listRandomLoot = new List<ItemScriptableContainer>();
+
+    //This class contains textures of several available bioms to choose depend on battle ground environment enum of the block
     [SerializeField] BattleGroundGraphics battleGroundGraphics;
+    //if it's scripted battle
     bool customBattle = false;
+
+
+    // Block responsible for calling a custom battle
     IBlock customBattleBlock;
+
+    //List of defeated enemies
     List<int> listOfTheDead = new List<int>();
+
 
     private void Awake()
     {
         GameInstance.battleManager = this;
     }
 
+
+    //This is start of battle after random time passed in explore state. Player Controller has NoEncounter bool which on/off time based encounter
     public void BattleStart()
     {
-        enemyTurn.Invoke("Battle");
-        StopCoroutine(GameInstance.TimeStep());
-        GameInstance.party.SetTimerForHeroes(true);
-        //Add enemies
-        SpawnEnemies(level01Enemies, 2, spawnPointsRaw01, 1);
-        SpawnEnemies(level01Enemies, 2, spawnPointsRaw02, 2);
 
+        if (!customBattle)
+        {
+            // This will notify player that Battle begun
+            enemyTurn.Invoke("Battle");
+            //Stop game time and start battle time
+            StopCoroutine(GameInstance.TimeStep());
+            GameInstance.party.SetTimerForHeroes(true);
+            //Spawn enemies and add them to allopponents list
+            SpawnEnemies(level01Enemies, 2, spawnPointsRaw01, 1);
+            SpawnEnemies(level01Enemies, 2, spawnPointsRaw02, 2);
+
+        }
+
+
+        //Add heroes to allopponents list
         foreach (Hero h in GameInstance.party.GetHeroList())
         {
             allOpponents.Add(h.gameObject);
@@ -71,8 +107,10 @@ public class BattleManager : MonoBehaviour
 
         targetIndexInOpponents = -1;
         quarrySortedKey = 0;
+        //Teleport player to battle location
         StartCoroutine(RecheckPositionRotation());
 
+        //Check if the first member of a quarry is enemy
         if (IfActiveOpponentIsEnemy())
         {
             EnemyAutoAttack();
@@ -81,14 +119,20 @@ public class BattleManager : MonoBehaviour
         {
             GameInstance.playerController.attackAllowed = true;
         }
+        //Open UI elements which need for battle 
         battleStarts.Invoke();
+
+        _defeatedList.ClearList();
+ 
     }
 
-
+    //This one starts scripted battle 
     public void CustomBattleStart(List<EnemySized> _level01Enemies, IBlock iblock, BattleGroundEnvironment battleGroundEnvironment )
     {
+        //With this bool == true the InteractablesEnum "CUSTOMBATTLE" in blockInteractables list will be removed after winning battle so the battle will not be repeated
         customBattle = true;
         customBattleBlock = iblock;
+
 
         battleGroundGraphics.SetBattleGround(battleGroundEnvironment);
         GameInstance.playerController.StartCustomBattle();
@@ -98,34 +142,16 @@ public class BattleManager : MonoBehaviour
         //Add enemies
         SpawnEnemies(_level01Enemies, 2, spawnPointsRaw01, 1);
         SpawnEnemies(_level01Enemies, 2, spawnPointsRaw02, 2);
-
-
-        foreach (Hero h in GameInstance.party.GetHeroList())
-        {
-            allOpponents.Add(h.gameObject);
-        }
-
-        SortingOpponents();
-
-        targetIndexInOpponents = -1;
-        quarrySortedKey = 0;
-        StartCoroutine(RecheckPositionRotation());
-
-        if (IfActiveOpponentIsEnemy())
-        {
-            EnemyAutoAttack();
-        }
-        else
-        {
-            GameInstance.playerController.attackAllowed = true;
-        }
-        battleStarts.Invoke();
+        
+        BattleStart();
     }
 
 
-
+    //Spawn enemies logic 
     void SpawnEnemies(List<EnemySized> enemies, int randomRange, List<GameObject> spawnRow, int row)
     {
+
+        // Destroys any left object on spawn line 
         foreach (GameObject spawnPoint in spawnRow)
         {
             for (int i = 0; i < spawnPoint.transform.childCount; i++)
@@ -147,7 +173,6 @@ public class BattleManager : MonoBehaviour
                 allOpponents.Add(enemy);
                 enemy.GetComponent<IEnemy>().SetEnemyPlaceSpace(row, new List<int> { i });
             }
-
         }
 
         // if there are no enemies spawned and enemy list have only level 1 enemies 
@@ -159,9 +184,7 @@ public class BattleManager : MonoBehaviour
             enemy.GetComponent<IEnemy>().SetEnemyPlaceSpace(row, new List<int> { 2 });
         }
 
-
         if (enemies.Count == 1) return;
-
 
         if (!empty.Contains(0) && !empty.Contains(1) && !empty.Contains(2))
         {
@@ -221,38 +244,39 @@ public class BattleManager : MonoBehaviour
         GameInstance.playerController.transform.rotation = playerBattlePlace.rotation;
     }
 
-    IEnumerator RecheckPositionRotation(Transform customBattleGround)
+/*    IEnumerator RecheckPositionRotation(Transform customBattleGround)
     {
         yield return new WaitForSeconds(0.3f);
         GameInstance.playerController.beforeBattleTransformRot = GameInstance.playerController.gameObject.transform.rotation;
         GameInstance.playerController.transform.position = customBattleGround.position;
         GameInstance.playerController.transform.rotation = customBattleGround.rotation;
-    }
+    }*/
 
 
     void EnemyAutoAttack()
     {
-/*        if (!quarrySorted.ContainsKey(quarrySortedKey)) AttackEnding();
-        if (listOfTheDead.Contains(quarrySortedKey))    AttackEnding();*/
         if (quarrySorted[quarrySortedKey].GetComponent<IEnemy>() == null) AttackEnding();
 
-        print("attacker name " + quarrySorted[quarrySortedKey].GetComponent<IEnemy>().GetEnemyName() + "/"+ quarrySortedKey);
+        //print("attacker name " + quarrySorted[quarrySortedKey].GetComponent<IEnemy>().GetEnemyName() + "/"+ quarrySortedKey);
 
         IEnemy attacker = quarrySorted[quarrySortedKey].GetComponent<IEnemy>();
-        //if (attacker.GetEnemyStatus().Contains(GameplayStatus.Petrified)) AttackEnding();
+        // Notify player that it's a enemy turn
+        enemyTurn.Invoke("Enemy turn");
 
-        // Choosing hero to attack
+        // Choosing hero to attack by finding hero with biggest agro
         int biggestAgro = -1;
 
+        // Check if enemy has a health to attack 
         if (attacker.GetEnemyHealth() <= 0)
         {
             AttackEnding();
             return;
         }
-        enemyTurn.Invoke("Enemy turn");
 
+        //Play animation of moving forward
         attacker.MoveAheadOnAttack();
 
+        //Ruun through all opponents, getting IHero interface, if it on gameobject checking for agro and save biggest one to biggestAgro to compare 
         for (int i =0; i<allOpponents.Count;i++)
         {
 
@@ -268,14 +292,17 @@ public class BattleManager : MonoBehaviour
                 }
             }
         }
-
+        //If targetIndexInOpponents -1 there is no one to attack
         if (targetIndexInOpponents > -1) 
         {
             IHero targetHero = allOpponents[targetIndexInOpponents].GetComponent<IHero>();
+            //Apply attack spell from enemy to chosen hero
             targetHero.ApplySpellToHero(attacker.enemyAttack(), allOpponents[targetIndexInOpponents]);
         }
     }
 
+
+    /// Checking if gameobject has IEnemy interface
     bool IfActiveOpponentIsEnemy()
     {
         if (quarrySorted.Count <= 0 || quarrySorted[quarrySortedKey]== null) return false;
@@ -284,6 +311,7 @@ public class BattleManager : MonoBehaviour
     }
 
 
+    //Make an enemiy list
     public List<IEnemy> GetEnemies()
     {
         List<IEnemy> enemiesList = new List<IEnemy>();
@@ -300,14 +328,18 @@ public class BattleManager : MonoBehaviour
     }
 
 
+    //This method close a current turn and start next
+
     public void EndOfTheTurn()
     {
-        //GetRidOfDeadEnemies();
+        //Advace battle time 
         actionCounter++;
         battlePassTime(actionCounter);
-        //quarrySorted.Remove(quarrySortedKey);
+        //Next element in quarrySorted objects key
         quarrySortedKey++;
 
+
+        //Check if current key exist 
         if (quarrySorted.ContainsKey(quarrySortedKey))
         {
             //print("end of turn if it stops press skip " + quarrySorted[quarrySortedKey]);
@@ -316,10 +348,9 @@ public class BattleManager : MonoBehaviour
         {
             if(quarrySortedKey >= quarrySorted.Count)
             {
+                //Switch to next round if key larger than quarry size
                 targetIndexInOpponents = -1;
                 enemyTurn.Invoke("");
-/*                PlayerTurn.Invoke();
-                SetActiveHero();*/
                 quarrySorted.Clear();
 
                 EndOfRound();
@@ -327,6 +358,7 @@ public class BattleManager : MonoBehaviour
             }
         }
 
+        //Make reference of dead enemies
         if (listOfTheDead.Contains(quarrySortedKey))
         {
             for (int i = quarrySortedKey; i < quarrySorted.Count; i++)
@@ -339,10 +371,11 @@ public class BattleManager : MonoBehaviour
 
         }
 
-
+        // Choose between enemy or player turn
         if (IfActiveOpponentIsEnemy())
         {
             EnemyAutoAttack();
+            return;
         }
         else
         {
@@ -352,15 +385,10 @@ public class BattleManager : MonoBehaviour
         enemyTurn.Invoke("");
         PlayerTurn.Invoke();
         SetActiveHero();
-
-
-        /*        if (quarrySorted.Count - listOfTheDead.Count <= 0) 
-                {
-                    quarrySorted.Clear();
-                    EndOfRound(); 
-                }*/
     }
 
+
+    //This will check Hero status and make it active hero 
     private void SetActiveHero()
     {
         if (quarrySorted.ContainsKey(quarrySortedKey))
@@ -383,11 +411,11 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    //End round nullifies quarry key resorting opponents check for empty row in enemy formation, if yes move enemies closer to player
+
     public void EndOfRound()
     {
-        // print("end of the round");
         quarrySortedKey = 0;
-        //GetRidOfDeadEnemies();
         SortingOpponents();
         CheckForEmptyRow();
         SetActiveHero();
@@ -402,6 +430,8 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+
+    //Checking for empty row in enemy formation
     public void CheckForEmptyRow()
     {
         List<IEnemy> enemies = GetEnemies();
@@ -434,7 +464,7 @@ public class BattleManager : MonoBehaviour
     }
 
 
-
+    //Check if all enemies or heroes are dead 
     int WhoWon()
     {
         int enemyHealth = 0;

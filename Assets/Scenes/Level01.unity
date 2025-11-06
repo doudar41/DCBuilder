@@ -5475,7 +5475,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &30719284
 RectTransform:
   m_ObjectHideFlags: 0
@@ -81989,7 +81989,6 @@ GameObject:
   - component: {fileID: 514662221}
   - component: {fileID: 514662220}
   - component: {fileID: 514662219}
-  - component: {fileID: 514662222}
   m_Layer: 5
   m_Name: Scroll View
   m_TagString: Untagged
@@ -82087,50 +82086,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 514662217}
   m_CullTransparentMesh: 1
---- !u!114 &514662222
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 514662217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ba59704ce0805c4ebdec76eeb35c2f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EnterHoverUIElement:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1338786998}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: EnterHover
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  ExitHoverUIElement:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1338786998}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: ExitHover
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  elementType: 1
-  index: 1
 --- !u!1 &514834333
 GameObject:
   m_ObjectHideFlags: 0
@@ -113848,7 +113803,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 34a1224ad2969fe4b9913a871be1fabe, type: 2}
+  - {fileID: 2100000, guid: fec6c76f5ef565b4481d885688876526, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -135905,6 +135860,7 @@ GameObject:
   - component: {fileID: 834705593}
   - component: {fileID: 834705594}
   - component: {fileID: 834705595}
+  - component: {fileID: 834705596}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -136037,6 +135993,50 @@ MonoBehaviour:
   hungerLevel: {fileID: 873535701}
   weightHero: {fileID: 2076804697}
   weightParty: {fileID: 1725364691}
+--- !u!114 &834705596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 834705592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ba59704ce0805c4ebdec76eeb35c2f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnterHoverUIElement:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1338786998}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: EnterHover
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ExitHoverUIElement:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1338786998}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: ExitHover
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  elementType: 1
+  index: 1
 --- !u!1 &834894128
 GameObject:
   m_ObjectHideFlags: 0
@@ -215317,7 +215317,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 36f793fd540c7944aa4b056b6125b9a6, type: 2}
+  - {fileID: 2100000, guid: 5717076f7179c4e40bdb1177c5a2c222, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -229454,7 +229454,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 542323036}
   m_HandleRect: {fileID: 542323035}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0.9999998
   m_Size: 0.5677998
   m_NumberOfSteps: 0
   m_OnValueChanged:
