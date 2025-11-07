@@ -84,6 +84,8 @@ public class PlayerController : MonoBehaviour
     IBlock textblock;
     public bool attackAllowed = false;
 
+    bool menuOpened = false;
+
     private void Awake()
     {
         GameInstance.playerController = this;
@@ -287,10 +289,16 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    public void MenuOpened(bool onOff)
+    {
+        menuOpened = onOff;
+    }
+
     void MovementUpdate(InputAction.CallbackContext context)
     {
-        if (cursorHoveringUI) return;
-        if (playerState == PlayerState.Battle) { /*print("battle state");*/ return; }
+
+        if (playerState == PlayerState.Battle) { /*print("battle state");*/ return; }   
+        if (menuOpened) {  return; }
         //GameInstance.savedInt++;
         MovementUpdateFuther(context.ReadValue<Vector2>());
 

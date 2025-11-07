@@ -19,13 +19,13 @@ public class GameMenuToggle : MonoBehaviour
         { 
             panelImage.sprite = gameMenuSprites[5]; 
             cam.depth = -2;
-
+            GameInstance.playerController.MenuOpened(false);
             return;  
         }
 
         panelImage.sprite = gameMenuSprites[group.GetFirstActiveToggle().transform.GetSiblingIndex()]; 
         cam.depth = 1;
- 
+        GameInstance.playerController.MenuOpened(true);
     }
 
 
