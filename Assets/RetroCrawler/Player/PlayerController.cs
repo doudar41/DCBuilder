@@ -925,6 +925,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void NoMouseInGameInteraction(bool switchUI)
+    {
+        cursorHoveringUI = switchUI;
+    }
+
+
+
     public void ExitHover()
     {
         cursorHoveringUI = false;
@@ -989,5 +996,6 @@ public interface IPlayerInterface
 public enum PlayerState
 {
     Explore,
-    Battle
+    Battle,
+    MenuOpened
 }

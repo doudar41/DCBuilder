@@ -20,7 +20,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     
     private void Awake()
     {
-        //itemAvatar = GetComponent<Image>();
         GameInstance.getInventoryItem += SaveInventoryItemsToGameInstance;
     }
 
@@ -31,7 +30,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        print(eventData.button + " "+ eventData.clickCount);
+        //print(eventData.button + " "+ eventData.clickCount);
         int clickCount = eventData.clickCount;
         if (eventData.button == PointerEventData.InputButton.Right)
         {
@@ -69,9 +68,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
                 }
                 RemoveItem();
                 return;
-
-
-
             }
         }
         if (clickCount == 1)
@@ -90,8 +86,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
                     else stackAmount = 1;
                     itemAvatar.sprite = GameInstance.dataBase.GetItemFromBaseByIndex(inventoryItem.container).InventorySprite;
                     amountText.text = stackAmount.ToString();
-
-                    //_GUID = slotStruct._GUID;
                 }
             }
             else
@@ -128,15 +122,12 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
                 itemAvatar.sprite = emptySlotSprite;
                 amountText.text = stackAmount.ToString();
                 return;
-                //GameInstance.getInventoryItem -= SaveInventoryItemsToGameInstance;
-                    //GameInstance.inventory.RemoveItemFromInventory(slotIndex);
                 }
             }
         }
 
  
     }
-
 
     public bool AddItemInSlot(HeroInventoryItem itemTemp, int amount)
     {
@@ -179,10 +170,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             GameInstance.AddInventoryItem(inventoryItem);
             return false;
         }
-
     }
-
-
 
     public HeroInventoryItem GetItemFromSlot()
     {

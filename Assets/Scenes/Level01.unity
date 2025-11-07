@@ -41093,7 +41093,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 5.8864746, y: 11.952515}
+  m_AnchoredPosition: {x: 5.8864746, y: 11.952511}
   m_SizeDelta: {x: -11.773, y: -37.1496}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &264730062
@@ -136035,8 +136035,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  elementType: 1
-  index: 1
+  elementType: 0
+  index: 0
 --- !u!1 &834894128
 GameObject:
   m_ObjectHideFlags: 0
@@ -229454,8 +229454,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 542323036}
   m_HandleRect: {fileID: 542323035}
   m_Direction: 2
-  m_Value: 0.9999998
-  m_Size: 0.5677998
+  m_Value: 0.99999964
+  m_Size: 0.5677997
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -251885,7 +251885,6 @@ GameObject:
   - component: {fileID: 1559115640}
   - component: {fileID: 1559115642}
   - component: {fileID: 1559115641}
-  - component: {fileID: 1559115643}
   m_Layer: 5
   m_Name: PaperDoll
   m_TagString: Untagged
@@ -251969,50 +251968,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1559115639}
   m_CullTransparentMesh: 1
---- !u!114 &1559115643
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1559115639}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ba59704ce0805c4ebdec76eeb35c2f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EnterHoverUIElement:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1338786998}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: EnterHover
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  ExitHoverUIElement:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1338786998}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: ExitHover
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  elementType: 1
-  index: 4
 --- !u!1 &1559421924
 GameObject:
   m_ObjectHideFlags: 0
@@ -290295,6 +290250,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: GameMenuToggle, Assembly-CSharp
         m_MethodName: SwitchToSprite
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1338786998}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: NoMouseInGameInteraction
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
