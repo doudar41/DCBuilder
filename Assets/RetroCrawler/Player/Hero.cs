@@ -1,45 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;using UnityEngine.Events;
+using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+
+/// <summary>
+/// Hero is a Image on a lower panel of game play menu which receive damage and can attack. Clicking on image will make hero active it will shows equipped weapons, spells 
+/// hunger level, status. During the battle battleManager switching between heroes waiting for player input to attack or to cast a spell. 
+/// </summary>
+
+
 
 
 public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 {
-    [SerializeField] string heroName = "";
-    [SerializeField] Image portrait;
-    [SerializeField] Sprite deadSprite, portraitSprite, petrifiedSprite;
-    [SerializeField] PortraitContainer portraits;
-    [SerializeField] SpellContainer petrifySpell;
-    [SerializeField] HealthImage healthSlider, manaSlider;
-    [SerializeField] List<SpellContainer> heroSpellbook = new List<SpellContainer>();
-    [SerializeField] int rowIndex = 1;
-    [SerializeField] SpellContainer unarmedSpell;
-    SpellContainer defaultSpell;
-    int currentHealth = 100, currentMana = 100;
-    int heroID = 0;
 
-    Dictionary<MainStat, int> mainStatContainer = new Dictionary<MainStat, int>();
-    Dictionary<DependedStat, int> dependedStatsCurrent = new Dictionary<DependedStat, int>();
-    Dictionary<SkillsStat, int> skillsStatsCurrent = new Dictionary<SkillsStat, int>();
-    Dictionary<ItemType, SpellContainer> equipmentSpells = new Dictionary<ItemType, SpellContainer>();
-    Dictionary<Spell,int> spellsAttached = new Dictionary<Spell, int>();
+    [SerializeField] string heroName = "";
+    [SerializeField] Image portrait; 
+    [SerializeField] Sprite deadSprite; // The same for all players
+    [SerializeField] PortraitContainer portraits; // Each hero can have a picture representing state their in, poisoned, stunned etc.
+    [SerializeField] List<SpellContainer> debuffSpells; //List of debuff spells which removed by restoration spell
+    [SerializeField] HealthImage healthSlider, manaSlider; //Reference to health and Mana custom bars
+    [SerializeField] List<SpellContainer> heroSpellbook = new List<SpellContainer>(); //This contains all spell owned by hero
+    [SerializeField] SpellContainer unarmedSpell; //default hero attack without weapons
+    SpellContainer lastSpell; //The last spell hero used canbe used by pressing "T" or menu button "Last Spell"
+    int currentHealth = 100, currentMana = 100; //default health and mana parameters
+    int heroID = 0; // hero ID is a hero index in the Party script which will be used for inventory management
+
+    Dictionary<MainStat, int> mainStatContainer = new Dictionary<MainStat, int>();  // Container of main attributes held unmodified attributes of a hero
+    Dictionary<DependedStat, int> dependedStatsCurrent = new Dictionary<DependedStat, int>(); // Container of unmodified depended stats of a hero like health and mana 
+    Dictionary<SkillsStat, int> skillsStatsCurrent = new Dictionary<SkillsStat, int>(); // Container of unmodified skills of a hero
+    Dictionary<ItemType, SpellContainer> equipmentSpells = new Dictionary<ItemType, SpellContainer>(); // Spells on enchanted armor, weapons and accessories saved here
+    Dictionary<Spell,int> spellsAttached = new Dictionary<Spell, int>(); // Other spells on player buffs and debuffs
 
 
     //Battle manager var
     [SerializeField] int agroLevel = 1;  // recalculates Depend on damage and heal spell( spells can have an agro? ) 
 
-    int currentInitiativeReduction = 0;
+    int currentInitiativeReduction = 0; // I think it's for Stun spell 
 
-    public Dictionary<ItemType, HeroInventoryItem> equipmentWithGUID = new Dictionary<ItemType, HeroInventoryItem>();
+    public Dictionary<ItemType, HeroInventoryItem> equipmentWithGUID = new Dictionary<ItemType, HeroInventoryItem>(); // Container of equipment on hero
 
-    int currentTimeSnap;
-    [SerializeField] BuffPanels buffPanels;
+    [SerializeField] BuffPanels buffPanels; // panel above hero with buff and debuff spell icons
 
-    List<GameplayStatus> gameplayStatuses = new List<GameplayStatus>();
+    List<GameplayStatus> gameplayStatuses = new List<GameplayStatus>(); // DeBuff states of a hero
 
-    public UnityEvent<SpellContainer> hitTargetEffecct;
+    public UnityEvent<SpellContainer> hitTargetEffect;  
 
     MagicType weaponEnchanced = MagicType.None;
     private void Awake()
@@ -245,7 +252,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         {
             SingleSpellApply(s, spellToApply);
         }
-        hitTargetEffecct.Invoke(spellToApply);
+        hitTargetEffect.Invoke(spellToApply);
         if (GameInstance.playerController.playerState == PlayerState.Battle && !spellToApply.AOE) StartCoroutine(AttackDelay());
     }
 
@@ -307,9 +314,17 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
                 break;
             case SpellEffects.Restoration:
-                if (gameplayStatuses.Contains(GameplayStatus.Petrified))
+
+                foreach(SpellContainer sc in debuffSpells)
                 {
-                    if (buffPanels != null) buffPanels.RemoveBuffFromList(petrifySpell.spells[0]);
+                    if (buffPanels != null) 
+                    { 
+                        foreach(Spell sp in sc.spells)
+                        {
+                            buffPanels.RemoveBuffFromList(sp);
+                        }
+
+                    }
                 }
 
                 foreach (GameplayStatus st in System.Enum.GetValues(typeof(GameplayStatus)))
@@ -320,6 +335,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
                     }
                 }
+
                 if (portraits.GetStatePortrait(GameplayStatus.None, out Sprite stateSpriteWell)) portrait.sprite = stateSpriteWell;
                 break;
 
@@ -408,10 +424,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         manaSlider.ProgressBarFill((float)currentMana / (float)GetDependedStat(DependedStat.maxMana));
     }
 
-    public int GetRowIndex()
-    {
-        return rowIndex;
-    }
+
 
     public int GetMainStat(MainStat mainStat)
     {
@@ -884,13 +897,13 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     public void SetDefaultSpell(SpellContainer spellContainer)
     {
-        defaultSpell = spellContainer;
+        lastSpell = spellContainer;
     }
 
     public SpellContainer GetDefaultSpell()
     {
 
-        return defaultSpell;
+        return lastSpell;
     }
 
 
@@ -929,7 +942,7 @@ public interface IHero
     public void MakeHeroActive(bool active);
     public void ApplySpellToHero(SpellContainer spellToApply, GameObject spellcaster);
     public void ManaDecrease(int amount);
-    public int GetRowIndex();
+
     public Dictionary<MainStat, int> GetMainStatsForUI();
     public Dictionary<DependedStat, int> GetDependedStatsForUI();
     public Dictionary<SkillsStat, int> GetSkillStatsForUI();

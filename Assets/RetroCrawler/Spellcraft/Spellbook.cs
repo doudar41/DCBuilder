@@ -330,10 +330,8 @@ public class Spellbook : MonoBehaviour
         if (target.GetComponent<IEnemy>() != null)
         {
             IEnemy ienemy = target.GetComponent<IEnemy>();
-            int sum = GameInstance.party.activeHero.GetRowIndex() + ienemy.GetEnemyRow();
             if (ienemy.GetEnemyRow() <= spellWaitToRelease.minDistanceToEnemy)
             {
-
                List<string> results =  ienemy.ApplySpellToEnemy(spellWaitToRelease, GameInstance.party.activeHero.GetThisHero().gameObject);
                battlelogEvent.Invoke(new List<string>() { GameInstance.party.activeHero.HeroName(), target.name, spellWaitToRelease.spellName }, results);
             }
