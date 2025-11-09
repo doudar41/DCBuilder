@@ -52530,10 +52530,8 @@ MonoBehaviour:
   heroName: Second
   portrait: {fileID: 334719790}
   deadSprite: {fileID: 21300000, guid: 4a7bc3a0d1048364e967f428e9f1fbe0, type: 3}
-  portraitSprite: {fileID: 0}
-  petrifiedSprite: {fileID: 0}
   portraits: {fileID: 11400000, guid: 7b2c0760a983ae640892fad570561b6f, type: 2}
-  petrifySpell: {fileID: 11400000, guid: 3c2b877f87019a54ea24947ce9f8bb54, type: 2}
+  debuffSpells: []
   healthSlider: {fileID: 811053063}
   manaSlider: {fileID: 1437654804}
   heroSpellbook:
@@ -52541,11 +52539,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e3a79240743a5a142b61e0e31c0e0acc, type: 2}
   - {fileID: 11400000, guid: b8df391d64d9c7e4595e2682acade30c, type: 2}
   - {fileID: 11400000, guid: 3c2b877f87019a54ea24947ce9f8bb54, type: 2}
-  rowIndex: 1
   unarmedSpell: {fileID: 11400000, guid: e6b63f7b10bb2a74fbe76ac43e5357e9, type: 2}
   agroLevel: 0
   buffPanels: {fileID: 390259446}
-  hitTargetEffecct:
+  hitTargetEffect:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 87441835}
@@ -66625,10 +66622,8 @@ MonoBehaviour:
   heroName: First
   portrait: {fileID: 413261823}
   deadSprite: {fileID: 21300000, guid: 4a7bc3a0d1048364e967f428e9f1fbe0, type: 3}
-  portraitSprite: {fileID: 0}
-  petrifiedSprite: {fileID: 0}
   portraits: {fileID: 11400000, guid: 7b2c0760a983ae640892fad570561b6f, type: 2}
-  petrifySpell: {fileID: 11400000, guid: 3c2b877f87019a54ea24947ce9f8bb54, type: 2}
+  debuffSpells: []
   healthSlider: {fileID: 312348156}
   manaSlider: {fileID: 1992319548}
   heroSpellbook:
@@ -66638,11 +66633,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 656da33d7c5af70499543f75a1fb36f2, type: 2}
   - {fileID: 11400000, guid: d25ece6c53efb1942869aa247c3416d0, type: 2}
   - {fileID: 11400000, guid: 8a5d1a8b526ff474fbb4c7ae3a94d513, type: 2}
-  rowIndex: 1
   unarmedSpell: {fileID: 11400000, guid: e6b63f7b10bb2a74fbe76ac43e5357e9, type: 2}
   agroLevel: 0
   buffPanels: {fileID: 266897862}
-  hitTargetEffecct:
+  hitTargetEffect:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 298110610}
@@ -199968,10 +199962,8 @@ MonoBehaviour:
   heroName: Forth
   portrait: {fileID: 1252770125}
   deadSprite: {fileID: 21300000, guid: 4a7bc3a0d1048364e967f428e9f1fbe0, type: 3}
-  portraitSprite: {fileID: 0}
-  petrifiedSprite: {fileID: 0}
   portraits: {fileID: 11400000, guid: 7b2c0760a983ae640892fad570561b6f, type: 2}
-  petrifySpell: {fileID: 11400000, guid: 3c2b877f87019a54ea24947ce9f8bb54, type: 2}
+  debuffSpells: []
   healthSlider: {fileID: 84126309}
   manaSlider: {fileID: 1866137357}
   heroSpellbook:
@@ -199980,11 +199972,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ad5e6b35e11b5f1468b81475d1760a67, type: 2}
   - {fileID: 11400000, guid: a0eac9f0a17f4a44295be463432fcd30, type: 2}
   - {fileID: 11400000, guid: 69f4e34e42426ef44913678ded40e9d9, type: 2}
-  rowIndex: 1
   unarmedSpell: {fileID: 11400000, guid: e6b63f7b10bb2a74fbe76ac43e5357e9, type: 2}
   agroLevel: 0
   buffPanels: {fileID: 664943798}
-  hitTargetEffecct:
+  hitTargetEffect:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 918056255}
@@ -295422,10 +295413,8 @@ MonoBehaviour:
   heroName: Third
   portrait: {fileID: 1797327671}
   deadSprite: {fileID: 21300000, guid: 4a7bc3a0d1048364e967f428e9f1fbe0, type: 3}
-  portraitSprite: {fileID: 0}
-  petrifiedSprite: {fileID: 0}
   portraits: {fileID: 11400000, guid: 7b2c0760a983ae640892fad570561b6f, type: 2}
-  petrifySpell: {fileID: 11400000, guid: 3c2b877f87019a54ea24947ce9f8bb54, type: 2}
+  debuffSpells: []
   healthSlider: {fileID: 116105823}
   manaSlider: {fileID: 1590609929}
   heroSpellbook:
@@ -295433,11 +295422,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e3a79240743a5a142b61e0e31c0e0acc, type: 2}
   - {fileID: 11400000, guid: 993d5824c329a7947b013882b9f32cd2, type: 2}
   - {fileID: 11400000, guid: 859ec649d33ad2d4fb1a9c982d01f251, type: 2}
-  rowIndex: 1
   unarmedSpell: {fileID: 11400000, guid: e6b63f7b10bb2a74fbe76ac43e5357e9, type: 2}
   agroLevel: 0
   buffPanels: {fileID: 989526190}
-  hitTargetEffecct:
+  hitTargetEffect:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 121914918}
