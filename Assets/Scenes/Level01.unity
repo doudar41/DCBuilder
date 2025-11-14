@@ -14935,6 +14935,7 @@ MonoBehaviour:
   - onEnemy: 0
     spellEffect: 0
     magicType: 0
+    aspriteAnim: {fileID: 0}
     animationList:
     - {fileID: 21300000, guid: 7dfe185ca37b91444b51c6071ad90844, type: 3}
     - {fileID: 21300000, guid: c4e391345633ead49ba1466e272d9b96, type: 3}
@@ -19429,6 +19430,7 @@ MonoBehaviour:
   - onEnemy: 0
     spellEffect: 0
     magicType: 0
+    aspriteAnim: {fileID: 0}
     animationList:
     - {fileID: 21300000, guid: 7dfe185ca37b91444b51c6071ad90844, type: 3}
     - {fileID: 21300000, guid: c4e391345633ead49ba1466e272d9b96, type: 3}
@@ -41093,7 +41095,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 5.8864746, y: 11.952511}
+  m_AnchoredPosition: {x: 5.8864746, y: 11.952515}
   m_SizeDelta: {x: -11.773, y: -37.1496}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &264730062
@@ -46254,6 +46256,7 @@ MonoBehaviour:
   - onEnemy: 0
     spellEffect: 0
     magicType: 0
+    aspriteAnim: {fileID: 0}
     animationList:
     - {fileID: 1576728687, guid: 2ec4db58f8d78ff4d90dc8e1275839c7, type: 3}
     - {fileID: -119207694, guid: 2ec4db58f8d78ff4d90dc8e1275839c7, type: 3}
@@ -46267,6 +46270,7 @@ MonoBehaviour:
   - onEnemy: 0
     spellEffect: 1
     magicType: 1
+    aspriteAnim: {fileID: 0}
     animationList:
     - {fileID: 1743907904, guid: e43c352b8f8b87c42bead255d645c7c3, type: 3}
     - {fileID: -1944005030, guid: e43c352b8f8b87c42bead255d645c7c3, type: 3}
@@ -51863,7 +51867,7 @@ MonoBehaviour:
   - {fileID: 2048054569}
   - {fileID: 874583712}
   - {fileID: 447928635}
-  magicTypes: 0100000002000000
+  magicTypes: 010000000200000005000000
   itemsTypesToSell: 0f000000
   heroesCoinsText:
   - {fileID: 1282331870}
@@ -52540,6 +52544,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b8df391d64d9c7e4595e2682acade30c, type: 2}
   - {fileID: 11400000, guid: 3c2b877f87019a54ea24947ce9f8bb54, type: 2}
   unarmedSpell: {fileID: 11400000, guid: e6b63f7b10bb2a74fbe76ac43e5357e9, type: 2}
+  immunityList: 
   agroLevel: 0
   buffPanels: {fileID: 390259446}
   hitTargetEffect:
@@ -66634,6 +66639,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d25ece6c53efb1942869aa247c3416d0, type: 2}
   - {fileID: 11400000, guid: 8a5d1a8b526ff474fbb4c7ae3a94d513, type: 2}
   unarmedSpell: {fileID: 11400000, guid: e6b63f7b10bb2a74fbe76ac43e5357e9, type: 2}
+  immunityList: 
   agroLevel: 0
   buffPanels: {fileID: 266897862}
   hitTargetEffect:
@@ -149955,6 +149961,7 @@ MonoBehaviour:
   - onEnemy: 0
     spellEffect: 0
     magicType: 0
+    aspriteAnim: {fileID: 0}
     animationList:
     - {fileID: 21300000, guid: 7dfe185ca37b91444b51c6071ad90844, type: 3}
     - {fileID: 21300000, guid: c4e391345633ead49ba1466e272d9b96, type: 3}
@@ -158083,7 +158090,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 6902
+    m_Bits: 15094
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -199973,6 +199980,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a0eac9f0a17f4a44295be463432fcd30, type: 2}
   - {fileID: 11400000, guid: 69f4e34e42426ef44913678ded40e9d9, type: 2}
   unarmedSpell: {fileID: 11400000, guid: e6b63f7b10bb2a74fbe76ac43e5357e9, type: 2}
+  immunityList: 
   agroLevel: 0
   buffPanels: {fileID: 664943798}
   hitTargetEffect:
@@ -229445,8 +229453,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 542323036}
   m_HandleRect: {fileID: 542323035}
   m_Direction: 2
-  m_Value: 0.99999964
-  m_Size: 0.5677997
+  m_Value: 1.0000001
+  m_Size: 0.56779987
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -295423,6 +295431,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 993d5824c329a7947b013882b9f32cd2, type: 2}
   - {fileID: 11400000, guid: 859ec649d33ad2d4fb1a9c982d01f251, type: 2}
   unarmedSpell: {fileID: 11400000, guid: e6b63f7b10bb2a74fbe76ac43e5357e9, type: 2}
+  immunityList: 
   agroLevel: 0
   buffPanels: {fileID: 989526190}
   hitTargetEffect:

@@ -17,9 +17,9 @@ MonoBehaviour:
     amount: 0
     agroPoints: 1
     manaCost: 20
-    diceRollsNumber: 3
+    diceRollsNumber: 1
     diceSides: 6
-    diceBonus: 2
+    diceBonus: 0
     numberOfTurns: 0
     magicType: 1
     changedMainStat: 0
@@ -27,6 +27,22 @@ MonoBehaviour:
     skillStatAdded: 0
     restToBeAbleToCastAgainInTurns: 0
     SpellDescription: Fire damage 3/6 +2
+    skillToCheckInCalculations: 9
+  - spellEffect: 23
+    amount: 0
+    agroPoints: 1
+    manaCost: 1
+    diceRollsNumber: 1
+    diceSides: 1
+    diceBonus: 0
+    numberOfTurns: 0
+    magicType: 1
+    changedMainStat: 0
+    changedDependedStat: 0
+    skillStatAdded: 0
+    restToBeAbleToCastAgainInTurns: 0
+    SpellDescription: Fire damage 3/6 +2
+    skillToCheckInCalculations: 9
   spellIcon: {fileID: 21300000, guid: f1839cf6467152d41a5acf86e3470269, type: 3}
   AOE: 0
   OnlyEnemies: 0
@@ -37,3 +53,5 @@ MonoBehaviour:
   minDistanceToEnemy: 4
   spellName: Fire Bolt
   spellPrice: 30
+  spellLevel: 0
+  animationTriggerName: FireBolt

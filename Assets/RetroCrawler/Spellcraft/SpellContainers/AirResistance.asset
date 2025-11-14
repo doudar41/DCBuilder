@@ -21,11 +21,13 @@ MonoBehaviour:
     diceSides: 0
     diceBonus: 0
     numberOfTurns: 20
-    magicType: 0
+    magicType: 3
     changedMainStat: 0
     changedDependedStat: 11
     skillStatAdded: 0
     restToBeAbleToCastAgainInTurns: 0
+    SpellDescription: 
+    skillToCheckInCalculations: 0
   spellIcon: {fileID: 21300000, guid: 85fc0c8438c5f8e48a64d96139ef3310, type: 3}
   AOE: 1
   OnlyEnemies: 0
@@ -35,3 +37,5 @@ MonoBehaviour:
   equipableSpell: 0
   minDistanceToEnemy: 2
   spellName: Air Resistance
+  spellPrice: 0
+  spellLevel: 0

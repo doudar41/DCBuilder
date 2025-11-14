@@ -88,7 +88,7 @@ public class BattleManager : MonoBehaviour
             // This will notify player that Battle begun
             enemyTurn.Invoke("Battle");
             //Stop game time and start battle time
-            StopCoroutine(GameInstance.TimeStep());
+            //StopCoroutine(GameInstance.TimeStep());
             GameInstance.party.SetTimerForHeroes(true);
             //Spawn enemies and add them to allopponents list
             SpawnEnemies(level01Enemies, 2, spawnPointsRaw01, 1);
@@ -137,7 +137,7 @@ public class BattleManager : MonoBehaviour
         battleGroundGraphics.SetBattleGround(battleGroundEnvironment);
         GameInstance.playerController.StartCustomBattle();
         enemyTurn.Invoke("Battle");
-        StopCoroutine(GameInstance.TimeStep());
+        //StopCoroutine(GameInstance.TimeStep());
         GameInstance.party.SetTimerForHeroes(true);
         //Add enemies
         SpawnEnemies(_level01Enemies, 2, spawnPointsRaw01, 1);
@@ -469,7 +469,7 @@ public class BattleManager : MonoBehaviour
     {
         int enemyHealth = 0;
         int heroesHealth = 0;
-        int petrifiedEnemies = 0, petrifiedHeroes = 0;
+        int unabledEnemies = 0, unabledHeroes = 0;
         int enemyCount = 0;
         foreach (GameObject g in allOpponents)
         { 
@@ -480,20 +480,23 @@ public class BattleManager : MonoBehaviour
             if (g.GetComponent<IHero>() != null)
             {
                 heroesHealth += g.GetComponent<IHero>().GetHeroHealth();
-                if (g.GetComponent<IHero>().GetHeroStatus().Contains(GameplayStatus.Petrified)) petrifiedHeroes++;
+                if (g.GetComponent<IHero>().GetHeroStatus().Contains(GameplayStatus.Stoned)) unabledHeroes++;
             }
             else if(g.GetComponent<IEnemy>() != null)
             {
                 enemyHealth += g.GetComponent<IEnemy>().GetEnemyHealth();
-                if (g.GetComponent<IEnemy>().GetEnemyStatus().Contains(GameplayStatus.Petrified)) petrifiedEnemies++;
+                if (g.GetComponent<IEnemy>().GetEnemyPermanentStatus().ContainsKey(SpellEffects.Stone)) unabledEnemies++;
+                if (g.GetComponent<IEnemy>().GetEnemyPermanentStatus().ContainsKey(SpellEffects.Paralize)) unabledEnemies++;
+                if (g.GetComponent<IEnemy>().GetEnemyPermanentStatus().ContainsKey(SpellEffects.Freeze)) unabledEnemies++;
+                if (g.GetComponent<IEnemy>().GetCurrentStatValue(EnemyStat.INITIATIVE) < 0) unabledEnemies++;
                 enemyCount++;
             }
         }
 
         if (enemyHealth <= 0) return 1;
         if (heroesHealth <= 0) return 2;
-        if(petrifiedHeroes == 4) return 2;
-        if(petrifiedEnemies == enemyCount) return 1;
+        if(unabledHeroes == 4) return 2;
+        if(unabledEnemies == enemyCount) return 1;
 
 
         return 0;
@@ -585,7 +588,7 @@ public class BattleManager : MonoBehaviour
             }
             foreach(int i in toErase)
             {
-                DestroyImmediate(allOpponents[i]);
+                Destroy(allOpponents[i]);
             }
             if (customBattle)
             {

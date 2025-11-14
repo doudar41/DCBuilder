@@ -21,11 +21,13 @@ MonoBehaviour:
     diceSides: 0
     diceBonus: 0
     numberOfTurns: 20
-    magicType: 0
+    magicType: 1
     changedMainStat: 0
     changedDependedStat: 8
     skillStatAdded: 0
     restToBeAbleToCastAgainInTurns: 0
+    SpellDescription: 
+    skillToCheckInCalculations: 0
   spellIcon: {fileID: 21300000, guid: 836b80f047a64074a85f980cf7604a68, type: 3}
   AOE: 1
   OnlyEnemies: 0
@@ -35,3 +37,5 @@ MonoBehaviour:
   equipableSpell: 0
   minDistanceToEnemy: 2
   spellName: Fire Resistance
+  spellPrice: 0
+  spellLevel: 0

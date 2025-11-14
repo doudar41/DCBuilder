@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +25,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     [SerializeField] HealthImage healthSlider, manaSlider; //Reference to health and Mana custom bars
     [SerializeField] List<SpellContainer> heroSpellbook = new List<SpellContainer>(); //This contains all spell owned by hero
     [SerializeField] SpellContainer unarmedSpell; //default hero attack without weapons
+    [SerializeField] List<MagicType> immunityList = new List<MagicType>();
     SpellContainer lastSpell; //The last spell hero used canbe used by pressing "T" or menu button "Last Spell"
     int currentHealth = 100, currentMana = 100; //default health and mana parameters
     int heroID = 0; // hero ID is a hero index in the Party script which will be used for inventory management
@@ -49,6 +51,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     public UnityEvent<SpellContainer> hitTargetEffect;  
 
     MagicType weaponEnchanced = MagicType.None;
+
     private void Awake()
     {
         if (!GameInstance.levelChange)
@@ -248,6 +251,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         //print("spell on hero "+ spellToApply);
         if (spellToApply == null) { StartCoroutine(AttackDelay()); return; }
 
+       // print("Applying spell to hero " + heroName + " spell name " + spellToApply.spellName+ "hero health  "+currentHealth);
         foreach (Spell s in spellToApply.spells)
         {
             SingleSpellApply(s, spellToApply);
@@ -256,28 +260,61 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         if (GameInstance.playerController.playerState == PlayerState.Battle && !spellToApply.AOE) StartCoroutine(AttackDelay());
     }
 
+    private int CalculateIncomingDamage(Spell s, int dice)
+    {
 
+        int amount = GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides);
+        amount += s.diceBonus;
+       //HealthDamage(amount);
+        if (dice == 20)
+        {
+            amount = GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides);
+            amount += s.diceBonus;
+        }
+
+        return amount;
+    }
 
     public void SingleSpellApply(Spell s, SpellContainer spellToApply)
     {
+
+
+        int attackRoll = 0;
+        int evaderoll = 0;
+        int attackrollbonus = 0;
+
+        if (immunityList.Contains(s.magicType)) // skip magic attack if enemy has a total immunity to it 
+        {
+            //hitTargetEffect.Invoke(immunityspell); // Event for showing immunity animation
+            return;
+        }
+
+        int dice = GameInstance.DiceRollingBiggestNumber(1, 20); //attackroll and evaderoll random generation
+        attackRoll = dice + attackrollbonus;
+        evaderoll = GameInstance.DiceRollingBiggestNumber(1, 20) + GetDependedStat(DependedStat.evasion);
+
+        //results.Add(attackRoll.ToString()); results.Add(evaderoll.ToString()); // attackroll and evaderoll added to list to be used in the battle log
+
+        if (evaderoll > attackRoll) return; //if evasion is successful and dice is not equal 20 spell is ignored
+
+        int pureDamageAmount = CalculateIncomingDamage(s, dice);
+
+        //if (GetDependedStat(DependedStat.evasion) >= attackRoll) return;
+
         switch (s.spellEffect)
         {
             case SpellEffects.PhysicalDamage:
 
-                int attackRoll = GameInstance.DiceRollingBiggestNumber(1, 20);
-                if (GetDependedStat(DependedStat.evasion) <= attackRoll)
-                {
-                    int amount = GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides);
-                    //amount of damage - 
-                    healthDecrease(amount);
-                }
+                int amount = pureDamageAmount - GetDependedStat(DependedStat.defence);
+                healthDecrease(amount);
 
                 break;
+
             case SpellEffects.MagicDamage:
                 switch (s.magicType)
                 {
                     case MagicType.Fire:
-                        //print(" fire resistence " + GetDependedStat(DependedStat.FireResistance));
+
                         break;
                     case MagicType.Water:
                         break;
@@ -410,6 +447,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     public void healthDecrease(int amount)
     {
+
         currentHealth = Mathf.Clamp(currentHealth - amount, 0, GetDependedStat(DependedStat.maxHealth)); 
         healthSlider.ProgressBarFill((float)currentHealth / (float)GetDependedStat(DependedStat.maxHealth));
         if (currentHealth <= 0) portrait.sprite = deadSprite;
@@ -417,7 +455,9 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         {
             if(GameInstance.party.CheckForDeadHeroes()) GameInstance.LoadGameMainMenu();
         }
+        print(heroName + " health decrease amount " + amount + " current health"+currentHealth);
     }
+
     public void ManaDecrease(int amount)
     {
         currentMana = Mathf.Clamp(currentMana - amount, 0, GetDependedStat(DependedStat.maxMana));
@@ -555,7 +595,8 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     {
         if (dependedStatsCurrent.Count == 0) return 0;
         skillsStatsCurrent.TryGetValue(skillStat, out int st);
-        int statInt = 0; statInt += st;
+        int statInt = 0; 
+        statInt += st;
         switch (skillStat)
         {
             case SkillsStat.BluntWeapons:
@@ -789,7 +830,6 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                     healthDecrease(1);
                 }
             }
-
         }
 
         //print("hero time changes");
@@ -881,7 +921,6 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     private void OnDestroy()
     {
         GameInstance.progress -= TimePassBy;
-        StopCoroutine(GameInstance.TimeStep());
         GameInstance.battleManager.battlePassTime -= BattleTimeChanges;
     }
 
@@ -922,11 +961,12 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     }
 
 
-    public int MagicDamage(SkillsStat skillStat)
+    public int MagicDamageModifier(SkillsStat skillStat) // calculate magic damage from skills and main stat mind
     {
         int amount = 0;
-        amount += GetSkillsStat(skillStat)/5;
+        amount += GetSkillsStat(skillStat) / 5; 
         amount += GetMainStat(MainStat.Mind) / 5;
+        amount += GetDependedStat(DependedStat.maxMana) / 5;
 
         return amount;
     }
@@ -959,7 +999,7 @@ public interface IHero
     public int GetDependedStat(DependedStat dependedStat);
     public int GetSkillsStat(SkillsStat skillStat);
 
-    public int MagicDamage(SkillsStat skillStat);
+    public int MagicDamageModifier(SkillsStat skillStat);
     public List<GameplayStatus> GetHeroStatus();
 
     public MagicType GetWeaponMagicType();
@@ -997,7 +1037,8 @@ public enum DependedStat
     CarryingCapacity,
     Hunger,
     meleeDamage,
-    rangeDamage
+    rangeDamage,
+    IceResistance
 }
 
 public enum SkillsStat
@@ -1025,7 +1066,9 @@ public enum GameplayStatus
     Poisoned,
     Stunned,
     Petrified,
-    Dead
+    Dead,
+    Stoned,
+    Paralized
 }
 
 [System.Serializable]

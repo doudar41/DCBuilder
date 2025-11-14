@@ -16,4 +16,5 @@ public class SpellContainer : ScriptableObject
     public string spellName;
     public int spellPrice;
     public int spellLevel;
+    public string animationTriggerName;
 }

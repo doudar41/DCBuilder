@@ -52,5 +52,6 @@ public class SpellAnimationList
     public bool onEnemy = false;
     public SpellEffects spellEffect;
     public MagicType magicType = MagicType.None;
+    public Animator aspriteAnim;
     public List<Sprite> animationList = new List<Sprite>();
 }

@@ -45,7 +45,9 @@ public enum SpellEffects
     Petrify,
     Immunity,
     Poison,
-    LevelUp
+    LevelUp,
+    Burn,
+    Freeze
 }
 
 public enum MagicType

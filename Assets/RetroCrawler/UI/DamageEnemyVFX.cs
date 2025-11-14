@@ -1,27 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class DamageEnemyVFX : MonoBehaviour
 {
     [SerializeField] List<SpellAnimationList> spellAnimationLists = new List<SpellAnimationList>();
+    
     [SerializeField] SpriteRenderer image;
     [SerializeField] Sprite emptySprite;
+    [SerializeField] Animator animator;
+    string currentAnimationName = "";
 
+    private void Start()
+    {
+        animator.StartPlayback();
+        animator.gameObject.SetActive(true);
+        animator.speed = 0.5f;
+    }
+
+
+    void ChangeAnimation(string animationStateName)
+    {
+        animator.CrossFade(animationStateName, 0.1f);
+    }
 
     public void PlaySpellEffect(SpellContainer spell)
     {
-        foreach (SpellAnimationList anims in spellAnimationLists)
-        {
-            if (anims.spellEffect == spell.spells[0].spellEffect)
-            {
-                if (anims.magicType == spell.spells[0].magicType)
-                {
-                    PlayAnimation(anims.animationList, 1);
-
-                }
-            }
-        }
+        ChangeAnimation(spell.animationTriggerName);
     }
 
     public void PlayAnimation(List<Sprite> sprites, int times)

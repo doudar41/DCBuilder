@@ -191,6 +191,7 @@ public static class GameInstance
             gameTimeInNormalTime[1]= (timeProgress / 1440) + savedGameTimeInNormalTime[1];
             gameTimeInNormalTime[2]= (timeProgress / 43200) + savedGameTimeInNormalTime[2];
         }
+        Debug.Log("time coroutine stops");
         yield return null;
     }
 
