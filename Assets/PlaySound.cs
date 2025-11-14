@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class PlaySound : StateMachineBehaviour
 {
 
     [SerializeField] AudioClip soundEffect;
+    [SerializeField] AudioMixerGroup mixerGroup;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
@@ -16,8 +18,17 @@ public class PlaySound : StateMachineBehaviour
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (soundEffect == null) return;
-        if (animator.GetComponent<AudioSource>() == null) animator.AddComponent<AudioSource>().PlayOneShot(soundEffect);
-        else animator.GetComponent<AudioSource>().PlayOneShot(soundEffect);
+
+        if (animator.GetComponent<AudioSource>() == null)
+        {
+            AudioSource audio = animator.AddComponent<AudioSource>();
+            audio.outputAudioMixerGroup = mixerGroup;
+            audio.PlayOneShot(soundEffect);
+        }
+        else 
+        { 
+            animator.GetComponent<AudioSource>().PlayOneShot(soundEffect); 
+        }
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
