@@ -28,6 +28,21 @@ MonoBehaviour:
     restToBeAbleToCastAgainInTurns: 0
     SpellDescription: Ice damage 4/4 +5
     skillToCheckInCalculations: 9
+  - spellEffect: 24
+    amount: 0
+    agroPoints: 1
+    manaCost: 5
+    diceRollsNumber: 1
+    diceSides: 1
+    diceBonus: 0
+    numberOfTurns: 0
+    magicType: 7
+    changedMainStat: 0
+    changedDependedStat: 0
+    skillStatAdded: 0
+    restToBeAbleToCastAgainInTurns: 0
+    SpellDescription: Ice damage 4/4 +5
+    skillToCheckInCalculations: 9
   spellIcon: {fileID: 21300000, guid: 86280c9a7c218ee41874799a5a345f1f, type: 3}
   AOE: 0
   OnlyEnemies: 0

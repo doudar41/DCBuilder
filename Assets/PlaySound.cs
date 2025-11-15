@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -18,7 +19,7 @@ public class PlaySound : StateMachineBehaviour
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (soundEffect == null) return;
-
+        Debug.Log("playing sound effect"+ soundEffect.name);
         if (animator.GetComponent<AudioSource>() == null)
         {
             AudioSource audio = animator.AddComponent<AudioSource>();

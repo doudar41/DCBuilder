@@ -114,6 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 8300000, guid: dbe7161010b129e4ca060637cd0fbeeb, type: 3}
+  mixerGroup: {fileID: -1781885666704511271, guid: 768292766ce96aa488426411dd56de1f, type: 2}
 --- !u!1101 &-2365153764076612938
 AnimatorStateTransition:
   m_ObjectHideFlags: 1

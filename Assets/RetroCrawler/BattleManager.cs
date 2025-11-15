@@ -73,6 +73,7 @@ public class BattleManager : MonoBehaviour
     List<int> listOfTheDead = new List<int>();
 
 
+
     private void Awake()
     {
         GameInstance.battleManager = this;
@@ -87,8 +88,6 @@ public class BattleManager : MonoBehaviour
         {
             // This will notify player that Battle begun
             enemyTurn.Invoke("Battle");
-            //Stop game time and start battle time
-            //StopCoroutine(GameInstance.TimeStep());
             GameInstance.party.SetTimerForHeroes(true);
             //Spawn enemies and add them to allopponents list
             SpawnEnemies(level01Enemies, 2, spawnPointsRaw01, 1);
@@ -244,22 +243,14 @@ public class BattleManager : MonoBehaviour
         GameInstance.playerController.transform.rotation = playerBattlePlace.rotation;
     }
 
-/*    IEnumerator RecheckPositionRotation(Transform customBattleGround)
-    {
-        yield return new WaitForSeconds(0.3f);
-        GameInstance.playerController.beforeBattleTransformRot = GameInstance.playerController.gameObject.transform.rotation;
-        GameInstance.playerController.transform.position = customBattleGround.position;
-        GameInstance.playerController.transform.rotation = customBattleGround.rotation;
-    }*/
-
-
     void EnemyAutoAttack()
     {
         if (quarrySorted[quarrySortedKey].GetComponent<IEnemy>() == null) AttackEnding();
 
         //print("attacker name " + quarrySorted[quarrySortedKey].GetComponent<IEnemy>().GetEnemyName() + "/"+ quarrySortedKey);
-
+        
         IEnemy attacker = quarrySorted[quarrySortedKey].GetComponent<IEnemy>();
+        if (!CheckEnemyState(attacker)) { AttackEnding(); return; }
         // Notify player that it's a enemy turn
         enemyTurn.Invoke("Enemy turn");
 
@@ -299,6 +290,32 @@ public class BattleManager : MonoBehaviour
             //Apply attack spell from enemy to chosen hero
             targetHero.ApplySpellToHero(attacker.enemyAttack(), allOpponents[targetIndexInOpponents]);
         }
+    }
+
+    public bool CheckEnemyState(IEnemy _enemy)
+    { 
+
+        var enemystatus = _enemy.GetEnemyPermanentStatus();
+        if (enemystatus.ContainsKey(SpellEffects.Stone))
+        {
+            enemyTurn.Invoke(_enemy.GetEnemyName() + " is turned to stone and can't move!");
+
+            return false;
+        }
+        if (enemystatus.ContainsKey(SpellEffects.Paralize))
+        {
+            enemyTurn.Invoke(_enemy.GetEnemyName() + " is paralyzed and can't move!");
+
+            return false;
+        }
+        if (enemystatus.ContainsKey(SpellEffects.Freeze))
+        {
+            enemyTurn.Invoke(_enemy.GetEnemyName() + " is frozen and can't move!");
+
+            return false;
+        }
+
+        return true; 
     }
 
 

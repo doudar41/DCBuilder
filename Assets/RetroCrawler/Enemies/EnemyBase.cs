@@ -324,8 +324,8 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                 if (diceToCompare > _spell.diceSides / 2)
                 {
                     appliedPermanentDebuffs.TryAdd(SpellEffects.Freeze, 0);
-                    if (enemySprites.GetStatePortrait(GameplayStatus.Frozen, out Sprite stateSpriteFrozen)) enemyFace.sprite = stateSpriteFrozen;
-                }
+                        playStatusAnimation.Invoke("Freeze");
+                    }
                 break;
 
             }
