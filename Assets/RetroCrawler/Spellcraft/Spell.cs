@@ -20,13 +20,12 @@ public class Spell
     public SkillsStat skillToCheckInCalculations = SkillsStat.None;
 }
 
-
 public enum SpellEffects
 {
-    PhysicalDamage, //weapon use it
-    MagicDamage,
-    MainStatModify,
-    DependedStatModify,
+    PDmg, //Physical Damage
+    MDmg, //Magical Damage
+    MSMod,//Main Stat Modify
+    DSMod,//Depended Stat Modify
     Recall,
     Mark,
     Paralize, //Modify turn order
@@ -47,7 +46,8 @@ public enum SpellEffects
     Poison,
     LevelUp,
     Burn,
-    Freeze
+    Freeze,
+    Vampirism
 }
 
 public enum MagicType

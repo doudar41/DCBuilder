@@ -28,9 +28,8 @@ public class Spellbook : MonoBehaviour
     Dictionary<Spell, int> spellTimeActive = new Dictionary<Spell, int>(); //Saved time of time based spell is lasting
     
     public UnityEvent<GameObject> spellTargetEvent;
-    public UnityEvent<List<string>, List<string>> battlelogEvent;
+    public UnityEvent<List<string>, List<ResultMsg>> battlelogEvent;
     public UnityEvent<SpellContainer> hitTargetEffect; 
-
 
     private void Awake() 
     {
@@ -317,7 +316,6 @@ public class Spellbook : MonoBehaviour
 
     public void GetGameObjectTarget(GameObject target)
     {
-        //print("weapon spell hero check" + target);
         if (target.GetComponent<IHero>() != null) 
         {
             IHero ihero =  target.GetComponent<IHero>();
@@ -332,22 +330,30 @@ public class Spellbook : MonoBehaviour
             IEnemy ienemy = target.GetComponent<IEnemy>();
             if (ienemy.GetEnemyRow() <= spellWaitToRelease.minDistanceToEnemy) // Spell range check
             {
-               List<string> results =  ienemy.ApplySpellToEnemy(spellWaitToRelease, GameInstance.party.activeHero.GetThisHero().gameObject);
-               battlelogEvent.Invoke(new List<string>() { GameInstance.party.activeHero.HeroName(), target.name, spellWaitToRelease.spellName }, results);
+               List<ResultMsg> results =  ienemy.ApplySpellToEnemy(spellWaitToRelease, GameInstance.party.activeHero.GetThisHero().gameObject);
+                if(target.GetComponent<IEnemy>() != null)
+                {
+                    battlelogEvent.Invoke(new List<string>() 
+                    { GameInstance.party.activeHero.HeroName(), target.GetComponent<IEnemy>().GetEnemyName(), spellWaitToRelease.spellName }, results);
+                }
+              
             }
             else
             {
                 StartCoroutine(AttackDelay());
-                battlelogEvent.Invoke(new List<string>() { GameInstance.party.activeHero.HeroName(), target.name, "no spell casted" }, null);
+                battlelogEvent.Invoke(new List<string>() { GameInstance.party.activeHero.HeroName(), "spell failed" }, null);
             }
 
         }
 
-        /*        if (target.GetComponent<IInteractable>() != null)
+        /*
+        if (target.GetComponent<IInteractable>() != null)
             {
                 IInteractable interactable = target.GetComponent<IInteractable>();
                 interactable.ApplySpellToItem(spellWaitToRelease);
-            }*/
+            }
+        */
+
         foreach (Spell s in spellWaitToRelease.spells)
         {
             GameInstance.party.activeHero.ManaDecrease(s.manaCost);

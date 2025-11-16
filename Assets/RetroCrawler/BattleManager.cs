@@ -632,12 +632,10 @@ public class BattleManager : MonoBehaviour
         //battleInputDelay = true;
         if (quarrySorted[quarrySortedKey] == null)
         {
-            
             return;
         }
         if (quarrySorted[quarrySortedKey].GetComponent<IHero>() == null) 
         {
-
             return; 
         }
         //print("switch hero" + quarrySorted[quarrySortedKey].GetComponent<IHero>().HeroName());

@@ -303,14 +303,14 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
         switch (s.spellEffect)
         {
-            case SpellEffects.PhysicalDamage:
+            case SpellEffects.PDmg:
 
                 int amount = pureDamageAmount - GetDependedStat(DependedStat.defence);
-                healthDecrease(amount);
+                HealthDecrease(amount);
 
                 break;
 
-            case SpellEffects.MagicDamage:
+            case SpellEffects.MDmg:
                 switch (s.magicType)
                 {
                     case MagicType.Fire:
@@ -329,7 +329,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 }
 
                 break;
-            case SpellEffects.MainStatModify:
+            case SpellEffects.MSMod:
                 if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, s.numberOfTurns);
                 else spellsAttached[s] = s.numberOfTurns;
                 if (buffPanels != null) 
@@ -340,7 +340,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
 
                 break;
-            case SpellEffects.DependedStatModify:
+            case SpellEffects.DSMod:
                 if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, s.numberOfTurns);
                 else spellsAttached[s] = s.numberOfTurns;
                 if (buffPanels != null)
@@ -445,7 +445,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         GameInstance.battleManager.AttackEnding();
     }
 
-    public void healthDecrease(int amount)
+    public void HealthDecrease(int amount)
     {
 
         currentHealth = Mathf.Clamp(currentHealth - amount, 0, GetDependedStat(DependedStat.maxHealth)); 
@@ -827,7 +827,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 dependedStatsCurrent[DependedStat.Hunger] = dependedStatsCurrent[DependedStat.Hunger] - 1;
                 if (dependedStatsCurrent[DependedStat.Hunger] <= 0)
                 {
-                    healthDecrease(1);
+                    HealthDecrease(1);
                 }
             }
         }
@@ -853,13 +853,13 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         {
             switch (s.spellEffect)
             {
-                case SpellEffects.PhysicalDamage:
+                case SpellEffects.PDmg:
                     break;
-                case SpellEffects.MagicDamage:
+                case SpellEffects.MDmg:
                     break;
-                case SpellEffects.MainStatModify:
+                case SpellEffects.MSMod:
                     break;
-                case SpellEffects.DependedStatModify:
+                case SpellEffects.DSMod:
                     break;
                 case SpellEffects.Recall:
                     break;
@@ -1006,6 +1006,7 @@ public interface IHero
 
     public int GetHeroIndex();
     public int GetHeroWeight();
+    public void HealthDecrease(int amount);
 }
 
 public enum MainStat

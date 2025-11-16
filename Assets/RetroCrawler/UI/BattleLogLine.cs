@@ -23,7 +23,7 @@ public class BattleLogLine : MonoBehaviour, IPointerClickHandler
     }
 
 
-    public void LogTexts(List<string> texts, List<string> digits)
+    public void LogTexts(List<string> texts, List<ResultMsg> results)
     {
         if (GameInstance.playerController.playerState != PlayerState.Battle) return;
         GameObject g  = Instantiate(textbox,textsParent);
@@ -35,8 +35,8 @@ public class BattleLogLine : MonoBehaviour, IPointerClickHandler
         {
             textLog.text = textLog.text + " " + s;
         }
-        if (digits ==null) return;
-        for(int i = 0; i < digits.Count; i+=3)
+        if (results == null) return;
+/*        for(int i = 0; i < digits.Count; i+=3)
         {
             if (i + 1 >= digits.Count ) break;
             if (int.Parse(digits[i]) >= int.Parse(digits[i+1]))
@@ -46,8 +46,22 @@ public class BattleLogLine : MonoBehaviour, IPointerClickHandler
                 textLog.text = textLog.text + " damage " + digits[i+2];
             }
             else textLog.text = textLog.text + " miss ";
+        }*/
+        foreach(ResultMsg r in results)
+        {
+            switch (r.msgType)
+            {
+                case "i":
+                    textLog.text = textLog.text + " " + r.msgInt;
+                    break;
+                    case "f":   
+                    textLog.text = textLog.text + " " + r.msgFloat;
+                    break;
+                    case "s":
+                    textLog.text = textLog.text + " " + r.msgString;
+                    break;
+            }
         }
-
 
 
 
