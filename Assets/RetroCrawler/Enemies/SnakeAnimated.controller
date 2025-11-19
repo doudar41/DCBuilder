@@ -40,6 +40,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efb8c26776f3a6a40b2230ab2e550c02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-1800206163044799853
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79d630441215a8b41a2ada729b6447aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundID:
+    ID: 1073741839
+    _sourceAsset: {fileID: 11400000, guid: b57e0d2f91771b34d8c0a49ba7faee85, type: 2}
+    <DebugObject>k__BackingField: {fileID: 0}
 --- !u!1102 &-1055408987156469926
 AnimatorState:
   serializedVersion: 6
@@ -132,7 +148,8 @@ AnimatorState:
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: -1800206163044799853}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1

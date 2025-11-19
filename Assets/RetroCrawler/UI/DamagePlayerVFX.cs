@@ -1,49 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DamagePlayerVFX : MonoBehaviour
 {
-    [SerializeField] List<SpellAnimationList> spellAnimationLists = new List<SpellAnimationList>();
-    [SerializeField] UnityEngine.UI.Image image;
+    [SerializeField] Image image;
     [SerializeField] Sprite emptySprite;
+    [SerializeField] Animator animator;
 
+    private void Start()
+    {
+        animator.StartPlayback();
+        animator.gameObject.SetActive(true);
+        animator.speed = 0.5f;
+    }
 
+    void ChangeAnimation(string animationStateName)
+    {
+        animator.CrossFade(animationStateName, 0.1f);
+    }
     public void PlaySpellEffect(SpellContainer spell)
     {
-        foreach (SpellAnimationList anims in spellAnimationLists)
-        {
-            if(anims.spellEffect == spell.spells[0].spellEffect)
-            {
-                if(anims.magicType == spell.spells[0].magicType)
-                {
-                    PlayAnimation(anims.animationList, 1);
-                }
-            }
-        }
+        ChangeAnimation(spell.animationTriggerName);
     }
 
 
-    public void PlayAnimation(List<Sprite> sprites, int times)
-    {
-
-        StartCoroutine(Play(sprites, times));
-    }
-    
-    IEnumerator Play(List<Sprite> sprites, int times)
-    {
-        for (int i = 0; i < times; i++)
-        {
-
-        foreach(Sprite s in sprites)
-            {
-                image.sprite = s;
-                yield return new WaitForSeconds(0.05f);
-            }
-        }
-        image.sprite = emptySprite;
-        yield return null;
-    }
 }
 
 [System.Serializable]

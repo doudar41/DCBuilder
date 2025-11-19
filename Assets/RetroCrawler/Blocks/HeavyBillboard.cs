@@ -7,6 +7,8 @@ public class HeavyBillboard : MonoBehaviour
     [SerializeField] GameObject picture;
     void Update()
     {
-        picture.transform.LookAt(GameInstance.playerController.gameObject.transform.position);
+        picture.transform.LookAt(new Vector3(GameInstance.playerController.gameObject.transform.position.x, picture.transform.position.y, GameInstance.playerController.gameObject.transform.position.z));
+
+
     }
 }

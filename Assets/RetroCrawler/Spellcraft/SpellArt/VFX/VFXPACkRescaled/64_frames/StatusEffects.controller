@@ -89,8 +89,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79d630441215a8b41a2ada729b6447aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundEffect: {fileID: 8300000, guid: 7eeea1898b3671243b772deae6a67cb6, type: 3}
-  mixerGroup: {fileID: -1781885666704511271, guid: 768292766ce96aa488426411dd56de1f, type: 2}
+  soundID:
+    ID: 1073741838
+    _sourceAsset: {fileID: 11400000, guid: b57e0d2f91771b34d8c0a49ba7faee85, type: 2}
+    <DebugObject>k__BackingField: {fileID: 0}
 --- !u!1102 &4212078889067886671
 AnimatorState:
   serializedVersion: 6
@@ -129,8 +131,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79d630441215a8b41a2ada729b6447aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundEffect: {fileID: 8300000, guid: dbe7161010b129e4ca060637cd0fbeeb, type: 3}
-  mixerGroup: {fileID: -1781885666704511271, guid: 768292766ce96aa488426411dd56de1f, type: 2}
+  soundID:
+    ID: 1073741840
+    _sourceAsset: {fileID: 11400000, guid: b57e0d2f91771b34d8c0a49ba7faee85, type: 2}
+    <DebugObject>k__BackingField: {fileID: 0}
 --- !u!1102 &9120732546168078010
 AnimatorState:
   serializedVersion: 6

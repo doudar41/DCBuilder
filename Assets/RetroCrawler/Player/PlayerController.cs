@@ -887,6 +887,8 @@ public class PlayerController : MonoBehaviour
                     chooseShop.ChooseShopOfType( wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<OnBlockPlacement>().GetShopIndex());
                     shopIsOpened = true;
 
+
+
                     if (interactableList.Contains(InteractablesEnum.DIALOGUE)) break;
                     else return false;
                 case InteractablesEnum.DIALOGUE:

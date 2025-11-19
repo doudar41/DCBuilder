@@ -10,32 +10,33 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 952abe7f1dd111d4980f1c198ca3b4ce, type: 3}
-  m_Name: Weapon+1
+  m_Name: Slow
   m_EditorClassIdentifier: 
   spells:
-  - spellEffect: 0
-    amount: 1
-    agroPoints: 2
-    manaCost: 0
+  - spellEffect: 3
+    amount: 0
+    agroPoints: 0
+    manaCost: 5
     diceRollsNumber: 1
-    diceSides: 6
+    diceSides: 1
     diceBonus: 0
-    numberOfTurns: 0
+    numberOfTurns: 10
     magicType: 0
     changedMainStat: 0
-    changedDependedStat: 0
+    changedDependedStat: 4
     skillStatAdded: 0
     restToBeAbleToCastAgainInTurns: 0
     SpellDescription: 
-    skillToCheckInCalculations: 0
-  spellIcon: {fileID: 21300000, guid: 887a71df4455e5140bef901ed513ec20, type: 3}
+    skillToCheckInCalculations: 9
+  spellIcon: {fileID: 21300000, guid: ca62bebb048ed30408a28d181bf19333, type: 3}
   AOE: 0
-  OnlyEnemies: 0
+  OnlyEnemies: 1
   OnlyParty: 0
   gameplaySpell: 0
-  battleSpell: 1
+  battleSpell: 0
   equipableSpell: 0
-  minDistanceToEnemy: 1
-  spellName: Knife
+  minDistanceToEnemy: 2
+  spellName: Slow
   spellPrice: 0
   spellLevel: 0
+  animationTriggerName: Slow

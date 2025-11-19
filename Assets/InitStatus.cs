@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//This will play status animations continuously to show enemy status effect
+
 public class InitStatus : MonoBehaviour
 {
     [SerializeField]Animator animator;
@@ -17,7 +19,6 @@ public class InitStatus : MonoBehaviour
 
     public void PlayStatusAnimation(string statusName)
     {
-        print("burning burning burning burning ");
         animator.CrossFade(statusName,0.1f);
     }
 }

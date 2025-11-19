@@ -966,7 +966,8 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         int amount = 0;
         amount += GetSkillsStat(skillStat) / 5; 
         amount += GetMainStat(MainStat.Mind) / 5;
-        amount += GetDependedStat(DependedStat.maxMana) / 5;
+        // if magic skills of a hero are high enough, he can get bonus to magic damage from mana pool
+        //amount += (int)Mathf.Pow((float)(GetDependedStat(DependedStat.maxMana) / 50), 2);
 
         return amount;
     }

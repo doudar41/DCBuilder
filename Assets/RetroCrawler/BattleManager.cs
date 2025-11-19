@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Ami.BroAudio;
 
 
 
@@ -62,6 +63,9 @@ public class BattleManager : MonoBehaviour
 
     //This class contains textures of several available bioms to choose depend on battle ground environment enum of the block
     [SerializeField] BattleGroundGraphics battleGroundGraphics;
+    [SerializeField] SoundID battleMusic, exploreMusic;
+
+
     //if it's scripted battle
     bool customBattle = false;
 
@@ -77,6 +81,7 @@ public class BattleManager : MonoBehaviour
     private void Awake()
     {
         GameInstance.battleManager = this;
+        BroAudio.Play(exploreMusic);
     }
 
 
@@ -120,9 +125,10 @@ public class BattleManager : MonoBehaviour
         }
         //Open UI elements which need for battle 
         battleStarts.Invoke();
-
+        
         _defeatedList.ClearList();
- 
+        BroAudio.Play(battleMusic);
+        BroAudio.SetVolume(exploreMusic, 0,0.3f);
     }
 
     //This one starts scripted battle 
@@ -251,6 +257,8 @@ public class BattleManager : MonoBehaviour
         
         IEnemy attacker = quarrySorted[quarrySortedKey].GetComponent<IEnemy>();
         if (!CheckEnemyState(attacker)) { AttackEnding(); return; }
+        if(attacker.GetCurrentStatValue(EnemyStat.INITIATIVE) <= 0) { AttackEnding(); return; }
+        print("enemy initiative" + attacker.GetCurrentStatValue(EnemyStat.INITIATIVE));
         // Notify player that it's a enemy turn
         enemyTurn.Invoke("Enemy turn");
 
@@ -481,8 +489,8 @@ public class BattleManager : MonoBehaviour
     }
 
 
-    //Check if all enemies or heroes are dead 
-    int WhoWon()
+    
+    int WhoWon()// 1-enemies 2-heroes 0-no one
     {
         int enemyHealth = 0;
         int heroesHealth = 0;
@@ -533,6 +541,8 @@ public class BattleManager : MonoBehaviour
                 {
                     sortList.Add(g.GetComponent<IBattle>().GetInitiativeInBattle());
                     g.GetComponent<IEnemy>().MoveBackAfterAttack();
+
+
                 }
             }
             if (g.GetComponent<IHero>() != null)
@@ -621,7 +631,8 @@ public class BattleManager : MonoBehaviour
         allOpponents.Clear();
         GameInstance.playerController.SetPlayerState(PlayerState.Explore);
         GameInstance.playerController.ReturnToPreBattlePosition();
-
+        BroAudio.SetVolume(exploreMusic,1f,0.3f);
+        BroAudio.SetVolume(battleMusic,0, 0.3f);
         StartCoroutine(GameInstance.TimeStep());
         GameInstance.party.SetTimerForHeroes(false);
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using Ami.BroAudio;
 
 public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IBattle
 {
@@ -37,8 +38,6 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
     [SerializeField] List<MagicType> magicTypeImmunityList = new List<MagicType>();
     [SerializeField] List<SpellEffects> spellEffectImmunityList = new List<SpellEffects>();
 
-    [SerializeField] Animator animator;
-    [SerializeField] GameObject figure;
 
     Dictionary<SpellEffects,int> appliedPermanentDebuffs= new Dictionary<SpellEffects, int>();
 
@@ -49,7 +48,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
     public UnityEvent<string> playStatusAnimation;
 
     [SerializeField] SpellContainer immunityspell;
-
+    [SerializeField] SoundID upFrontSound, attackSound;
 
     Dictionary<EnemyStat, Vector3Int> currentStats = new Dictionary<EnemyStat, Vector3Int>();
 
@@ -112,8 +111,8 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
         transform.localPosition = new Vector3(savedPosition.x, savedPosition.y, savedPosition.z - 0.05f);
         transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
         StartCoroutine(WaitAndBack());
-
-
+        BroAudio.Play(upFrontSound);
+        BroAudio.Play(attackSound);
         //animator.SetTrigger("Attack");
 
     }
@@ -160,7 +159,6 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
 
         if (spellcaster.GetComponent<IHero>() != null) 
         {
-
             attackrollbonus = hero.GetDependedStat(DependedStat.accuracy);  // agillity modifier + endurance modifier of attacker
         }
 
@@ -189,10 +187,10 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                 results.Add(new() { msgType = "s", msgString = "missed"});
                 continue; 
             }//if evasion is successful and dice is not equal 20 spell is ignored
-            results.Add(new() { msgType = "s", msgString = enemyName+" damaged " });
+
 
             int damageAmountDiceSumResult = CalculateIncomingDamage(_spell, dice); // calculating damage according to dice rolls
-
+            
             int diceToCompare = GameInstance.DiceRollingBiggestNumber(_spell.diceRollsNumber, _spell.diceSides); // dice to compare with spell effect application chance
 
             switch (_spell.spellEffect) //spellEffects is enum used to list all spell effects 
@@ -228,17 +226,15 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                     // If weapon enchanced with element all damage become an elemental damage
 
                     damageAmountDiceSumResult = ApplyMagicResistanceToWeapon(spellcaster, damageAmountDiceSumResult);
-
+                    results.Add(new() { msgType = "s", msgString = enemyName + " damaged " });
                     results.Add(new() { msgType = "i", msgInt = damageAmountDiceSumResult }); // adding final damage amount to the results list
                     HealthDamage(damageAmountDiceSumResult); // applying damage to enemy health
                     break;
 
-                case SpellEffects.MDmg: 
+                case SpellEffects.MDmg:
 
-                    damageAmountDiceSumResult += spellcaster.GetComponent<IHero>().MagicDamageModifier(_spell.skillToCheckInCalculations);
-                    damageAmountDiceSumResult = ApplyMagicResistanceToSpell(_spell, damageAmountDiceSumResult, spellcaster);
-                    results.Add(new() { msgType = "i", msgInt = damageAmountDiceSumResult }); ;
-                    HealthDamage(damageAmountDiceSumResult);
+                    damageAmountDiceSumResult = MagicDamageApply(spellcaster, _spell, damageAmountDiceSumResult);
+                    results.Add(new() { msgType = "i", msgInt = damageAmountDiceSumResult });
                     break;
 
                 case SpellEffects.DSMod: // if spell is modifying depended stat of enemy (ex. accuracy, evasion, resistances etc.)
@@ -248,18 +244,21 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                         continue; // if rolled damage is less than half of maximum possible damage debuff is not applied
                     }
                     damageAmountDiceSumResult += spellcaster.GetComponent<IHero>().MagicDamageModifier(_spell.skillToCheckInCalculations);
-
+                    print("damage calculated " + damageAmountDiceSumResult);
                     switch (_spell.changedDependedStat)
                     {
                         case DependedStat.initiative:
                             currentStats[EnemyStat.INITIATIVE] = new Vector3Int(currentStats[EnemyStat.INITIATIVE].x, currentStats[EnemyStat.INITIATIVE].x - damageAmountDiceSumResult, _spell.numberOfTurns);
+                            print("slow enemy "+ currentStats[EnemyStat.INITIATIVE].x +"/"+ currentStats[EnemyStat.INITIATIVE].y);
+                            results.Add(new() { msgType = "s", msgString = enemyName + " slowdown " });
                             break;
                         case DependedStat.accuracy:
                             currentStats[EnemyStat.ACCURACY] = new Vector3Int(currentStats[EnemyStat.ACCURACY].x, Mathf.Clamp( currentStats[EnemyStat.ACCURACY].x - damageAmountDiceSumResult,0,int.MaxValue), _spell.numberOfTurns);
-
+                            results.Add(new() { msgType = "s", msgString = enemyName + " accuracy decreased " });
                             break;
                         case DependedStat.defence:
                             currentStats[EnemyStat.DEFENCE] = new Vector3Int(currentStats[EnemyStat.DEFENCE].x, Mathf.Clamp(currentStats[EnemyStat.DEFENCE].x - damageAmountDiceSumResult, 0, int.MaxValue), _spell.numberOfTurns);
+                            
                             break;
                         case DependedStat.evasion:
                             currentStats[EnemyStat.EVASION] = new Vector3Int(currentStats[EnemyStat.EVASION].x, Mathf.Clamp(currentStats[EnemyStat.EVASION].x - damageAmountDiceSumResult, 0, int.MaxValue), _spell.numberOfTurns);
@@ -359,6 +358,14 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
         return results;
     }
 
+    private int MagicDamageApply(GameObject spellcaster,  Spell _spell, int damageAmountDiceSumResult)
+    {
+        damageAmountDiceSumResult += spellcaster.GetComponent<IHero>().MagicDamageModifier(_spell.skillToCheckInCalculations);
+        damageAmountDiceSumResult = ApplyMagicResistanceToSpell(_spell, damageAmountDiceSumResult, spellcaster);
+        HealthDamage(damageAmountDiceSumResult);
+        return damageAmountDiceSumResult;
+    }
+
     private int ApplyMagicResistanceToWeapon(GameObject spellcaster, int amount)
     {
         switch (spellcaster.GetComponent<IHero>().GetWeaponMagicType())
@@ -418,6 +425,11 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                 break;
             case MagicType.Air:
                 amount = CompareElementalSkillAndResistance(amount, elementalSkill, EnemyStat.AIR_RESISTANCE);
+                if (appliedPermanentDebuffs.ContainsKey(SpellEffects.Freeze))
+                {
+                    //appliedPermanentDebuffs.Remove(SpellEffects.Freeze); // removing freeze debuff if fire spell is applied
+                    MagicDamageApply(spellcaster,  _spell, GameInstance.DiceRollingSum(_spell.diceRollsNumber, _spell.diceSides));
+                }
                 break;
             case MagicType.Earth:
                 amount = CompareElementalSkillAndResistance(amount, elementalSkill, EnemyStat.EARTH_RESISTANCE);
@@ -499,34 +511,23 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (health <= 0) return;
+        if (outlineRenderer != null)
+        {
+            outlineRenderer.gameObject.SetActive(true);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         if (health <= 0) return;
-/*        if (outlineRenderer != null)
+        if (outlineRenderer != null)
         {
             outlineRenderer.gameObject.SetActive(false);
-        }*/
+        }
 
     }
 
-    IEnumerator SpriteFadeOut()
-    {
-        /*        if (outlineRenderer != null) outlineRenderer.color = Color.clear;
-                for (byte f = 255; f > 0; f--)
-                {
 
-                    Color32 b = new Color32(f,f,f,f);
-                    enemyFace.color = b;
-                    outlineRenderer.color = b;
-                    yield return new WaitForSeconds(0.1f*Time.deltaTime);
-                }*/
-
-        //StartCoroutine(AttackDelay());
-
-        yield return null;
-    }
 
     public string GetEnemyName()
     {
@@ -571,8 +572,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
 
         transform.parent = spawnPlace.transform;
         transform.localPosition = Vector3.zero;
-        //figure.transform.localPosition = Vector3.zero;
-       // animator.Play("SnakeAttack",0,0);
+
     }
     public int GetEnemyAccuracy()
     {
@@ -587,19 +587,26 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
 
     void Timepassed(int minite)
     {
-
+        
         foreach(EnemyStat es in System.Enum.GetValues(typeof(EnemyStat)))
         {
 
-           if(currentStats.ContainsKey(es)) currentStats[es] = new Vector3Int(currentStats[es].x, currentStats[es].y,currentStats[es].z-1);
-            if (currentStats.ContainsKey(es))
-            {
-                if (currentStats[es].z <= 0)
+
+
+            if (currentStats.ContainsKey(es) && currentStats[es].z > 0)
+            {  
+                print("battle time passes" + currentStats[EnemyStat.INITIATIVE].y);
+                currentStats[es] = new Vector3Int(currentStats[es].x, currentStats[es].y, currentStats[es].z - 1);
+
+                if (currentStats.ContainsKey(es))
                 {
-                    currentStats[es] = new Vector3Int(currentStats[es].x, currentStats[es].x, 0); // resetting stat to initial value when debuff time is over
+                    if (currentStats[es].z <= 0)
+                    {
+                        print("back to normal ");
+                        currentStats[es] = new Vector3Int(currentStats[es].x, currentStats[es].x, 0); // resetting stat to initial value when debuff time is over
+                    }
                 }
             }
-
 
         }
         

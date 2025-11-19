@@ -4,12 +4,12 @@ using Unity.VisualScripting;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.Audio;
+using Ami.BroAudio;
 
 public class PlaySound : StateMachineBehaviour
 {
 
-    [SerializeField] AudioClip soundEffect;
-    [SerializeField] AudioMixerGroup mixerGroup;
+    [SerializeField] SoundID soundID = default;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
@@ -18,18 +18,7 @@ public class PlaySound : StateMachineBehaviour
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (soundEffect == null) return;
-        Debug.Log("playing sound effect"+ soundEffect.name);
-        if (animator.GetComponent<AudioSource>() == null)
-        {
-            AudioSource audio = animator.AddComponent<AudioSource>();
-            audio.outputAudioMixerGroup = mixerGroup;
-            audio.PlayOneShot(soundEffect);
-        }
-        else 
-        { 
-            animator.GetComponent<AudioSource>().PlayOneShot(soundEffect); 
-        }
+        BroAudio.Play(soundID); 
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

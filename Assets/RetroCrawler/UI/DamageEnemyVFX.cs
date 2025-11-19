@@ -5,12 +5,10 @@ using UnityEngine;
 
 public class DamageEnemyVFX : MonoBehaviour
 {
-    [SerializeField] List<SpellAnimationList> spellAnimationLists = new List<SpellAnimationList>();
-    
+
     [SerializeField] SpriteRenderer image;
     [SerializeField] Sprite emptySprite;
     [SerializeField] Animator animator;
-    string currentAnimationName = "";
 
     private void Start()
     {
@@ -30,25 +28,8 @@ public class DamageEnemyVFX : MonoBehaviour
         ChangeAnimation(spell.animationTriggerName);
     }
 
-    public void PlayAnimation(List<Sprite> sprites, int times)
-    {
-        StartCoroutine(Play(sprites, times));
-    }
-    
-    IEnumerator Play(List<Sprite> sprites, int times)
-    {
-        for (int i = 0; i < times; i++)
-        {
 
-        foreach(Sprite s in sprites)
-            {
-                
-                image.sprite = s;
-                yield return new WaitForSeconds(0.05f);
-            }
-        }
-        image.sprite = emptySprite;
-        yield return null;
-    }
+    
+
 }
 

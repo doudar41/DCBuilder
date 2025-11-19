@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
+using Ami.BroAudio;
 
 public class ItemShop : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class ItemShop : MonoBehaviour
     List<int> itemsToSellKeys = new List<int>();
     int sellItemIndexStart = 0;
     ShopState shopState = ShopState.SellToPlayer;
-
+    [SerializeField]  SoundID closeShopSound;
 
     public UnityEvent closeShopPanel;
 
@@ -30,6 +31,7 @@ public class ItemShop : MonoBehaviour
         cam.depth = 1;
         GetPlayersCoins();
         sellItemIndexStart = 0;
+
     }
 
     private void Start()
@@ -147,7 +149,7 @@ public class ItemShop : MonoBehaviour
         CameraOut();
         GameInstance.playerController.shopIsOpened = false;
         gameObject.SetActive(false);
-
+        BroAudio.Play(closeShopSound);
     }
 
     public void GetPlayersCoins()

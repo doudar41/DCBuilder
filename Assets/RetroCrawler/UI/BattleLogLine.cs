@@ -36,17 +36,7 @@ public class BattleLogLine : MonoBehaviour, IPointerClickHandler
             textLog.text = textLog.text + " " + s;
         }
         if (results == null) return;
-/*        for(int i = 0; i < digits.Count; i+=3)
-        {
-            if (i + 1 >= digits.Count ) break;
-            if (int.Parse(digits[i]) >= int.Parse(digits[i+1]))
-            {
-                if (i + 2 >= digits.Count || i + 3 >= digits.Count) break;
-                textLog.text = textLog.text + " success ";
-                textLog.text = textLog.text + " damage " + digits[i+2];
-            }
-            else textLog.text = textLog.text + " miss ";
-        }*/
+
         foreach(ResultMsg r in results)
         {
             switch (r.msgType)
