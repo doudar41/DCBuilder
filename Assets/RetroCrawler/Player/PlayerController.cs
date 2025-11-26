@@ -86,6 +86,9 @@ public class PlayerController : MonoBehaviour
 
     bool menuOpened = false;
 
+    [SerializeField] PlayerTakeInteractInterface takeInteractInterface;
+
+
     private void Awake()
     {
         GameInstance.playerController = this;
@@ -105,6 +108,7 @@ public class PlayerController : MonoBehaviour
         _input.CrawlerStandart.Attack.started += ReceiveAttackInput;
         _input.CrawlerStandart.LastSpell.started += ReceiveLastSpellInput;
         _input.CrawlerStandart.Cancel.started += ReleaseSpellWithoutCasting;
+        _input.CrawlerStandart.TakeInteract.started += TakeInteract;
         leftMouse.action.started += MouseRaycast;
         countdownToEncounter = Random.Range(rangeOfEnCounter.x, rangeOfEnCounter.y);
 
@@ -112,13 +116,14 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnDestroy()
-    {
+    { 
         _input.CrawlerStandart.Move.performed -= MovementUpdate;
         _input.CrawlerStandart.Turn.performed -= TurnAround;
         _input.CrawlerStandart.Inventory.started -= OpenCloseInventory;
         _input.CrawlerStandart.Attack.started -= ReceiveAttackInput;
         _input.CrawlerStandart.LastSpell.started -= ReceiveLastSpellInput;
         _input.CrawlerStandart.Cancel.started -= ReleaseSpellWithoutCasting;
+        _input.CrawlerStandart.TakeInteract.started -= TakeInteract;
         leftMouse.action.started -= MouseRaycast;
         GameInstance.progress -= TimeEvents;
         _input.Disable();
@@ -1002,6 +1007,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+
+    void TakeInteract(InputAction.CallbackContext context)
+    {
+        if (cursorHoveringUI) return;
+        print("pressing Space to interact");
+        CheckBlockInterfaces(CardinalDir.GetNewPoint(currentforwardDirection, currentposition, moveTilemap));
+        takeInteractInterface.SwitchOnCollider();
+    }
 
 }
 

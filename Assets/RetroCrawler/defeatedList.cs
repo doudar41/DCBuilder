@@ -21,7 +21,7 @@ public class defeatedList : MonoBehaviour
             {
                 foreach(GameObject g in t)
                 {
-                    DestroyImmediate(g);
+                    Destroy(g);
                 }
             }
         }

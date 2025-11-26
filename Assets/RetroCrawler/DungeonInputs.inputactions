@@ -7,7 +7,7 @@
             "actions": [
                 {
                     "name": "Move",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "e07ce3ba-3f7a-4a98-998c-baadf8c36473",
                     "expectedControlType": "",
                     "processors": "",
@@ -81,6 +81,15 @@
                     "name": "Cancel",
                     "type": "Button",
                     "id": "0e3713bd-b10c-415d-a485-571e05340270",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "TakeInteract",
+                    "type": "Button",
+                    "id": "94c777fd-21f3-45e5-94dd-3abbd8630bfc",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -415,6 +424,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bd9cbec0-0cc1-4650-8d68-17996b3d67ed",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "TakeInteract",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

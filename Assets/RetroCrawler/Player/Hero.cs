@@ -389,7 +389,11 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
                 if(spellToApply.minDistanceToEnemy == 1) pureDamageAmount += GameInstance.DiceRollingBiggestNumber(2, attacker.GetCurrentStatValue(EnemyStat.MELEE_DAMAGE));
                 if(spellToApply.minDistanceToEnemy > 1 && attacker.GetEnemyRow()>1) pureDamageAmount += GameInstance.DiceRollingBiggestNumber(2, attacker.GetCurrentStatValue(EnemyStat.RANGE_DAMAGE));
-                if (spellToApply.minDistanceToEnemy > 1 && attacker.GetEnemyRow() < 1) pureDamageAmount -= GameInstance.DiceRollingBiggestNumber(2, attacker.GetCurrentStatValue(EnemyStat.RANGE_DAMAGE));
+                if (spellToApply.minDistanceToEnemy > 1 && attacker.GetEnemyRow() < 1) 
+                { 
+                    pureDamageAmount -= GameInstance.DiceRollingBiggestNumber(2, attacker.GetCurrentStatValue(EnemyStat.RANGE_DAMAGE)); 
+                    if (pureDamageAmount < 0) pureDamageAmount = 0;
+                }
                 
                 
                 int physicalDamage= pureDamageAmount - GetDependedStat(DependedStat.defence);

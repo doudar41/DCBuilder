@@ -218,6 +218,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                         else
                         {
                             damageAmountDiceSumResult -= hero.GetDependedStat(DependedStat.rangeDamage);// if enemy is in the front row range damage is subtracted from total damage
+                            if(damageAmountDiceSumResult<0) damageAmountDiceSumResult = 0;
                         }
                     }
                     else

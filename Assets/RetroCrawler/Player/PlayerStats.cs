@@ -12,6 +12,10 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] Slider carryingWeight;
     [SerializeField] Slider hungerLevel;
     [SerializeField] TextMeshProUGUI weightHero, weightParty;
+    [SerializeField] TextMeshProUGUI hungerText;
+    [SerializeField] TextMeshProUGUI expPoints;
+    [SerializeField] TextMeshProUGUI partyLevel;
+    [SerializeField] TextMeshProUGUI moneyInCoins;
 
     private void Start()
     {

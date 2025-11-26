@@ -93,7 +93,7 @@ public partial class @DungeonInputs: IInputActionCollection2, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Move"",
-                    ""type"": ""Value"",
+                    ""type"": ""Button"",
                     ""id"": ""e07ce3ba-3f7a-4a98-998c-baadf8c36473"",
                     ""expectedControlType"": """",
                     ""processors"": """",
@@ -167,6 +167,15 @@ public partial class @DungeonInputs: IInputActionCollection2, IDisposable
                     ""name"": ""Cancel"",
                     ""type"": ""Button"",
                     ""id"": ""0e3713bd-b10c-415d-a485-571e05340270"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TakeInteract"",
+                    ""type"": ""Button"",
+                    ""id"": ""94c777fd-21f3-45e5-94dd-3abbd8630bfc"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -503,6 +512,17 @@ public partial class @DungeonInputs: IInputActionCollection2, IDisposable
                     ""action"": ""Cancel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bd9cbec0-0cc1-4650-8d68-17996b3d67ed"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard"",
+                    ""action"": ""TakeInteract"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -526,6 +546,7 @@ public partial class @DungeonInputs: IInputActionCollection2, IDisposable
         m_CrawlerStandart_RightClick = m_CrawlerStandart.FindAction("RightClick", throwIfNotFound: true);
         m_CrawlerStandart_Point = m_CrawlerStandart.FindAction("Point", throwIfNotFound: true);
         m_CrawlerStandart_Cancel = m_CrawlerStandart.FindAction("Cancel", throwIfNotFound: true);
+        m_CrawlerStandart_TakeInteract = m_CrawlerStandart.FindAction("TakeInteract", throwIfNotFound: true);
     }
 
     ~@DungeonInputs()
@@ -615,6 +636,7 @@ public partial class @DungeonInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_CrawlerStandart_RightClick;
     private readonly InputAction m_CrawlerStandart_Point;
     private readonly InputAction m_CrawlerStandart_Cancel;
+    private readonly InputAction m_CrawlerStandart_TakeInteract;
     /// <summary>
     /// Provides access to input actions defined in input action map "CrawlerStandart".
     /// </summary>
@@ -662,6 +684,10 @@ public partial class @DungeonInputs: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "CrawlerStandart/Cancel".
         /// </summary>
         public InputAction @Cancel => m_Wrapper.m_CrawlerStandart_Cancel;
+        /// <summary>
+        /// Provides access to the underlying input action "CrawlerStandart/TakeInteract".
+        /// </summary>
+        public InputAction @TakeInteract => m_Wrapper.m_CrawlerStandart_TakeInteract;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -715,6 +741,9 @@ public partial class @DungeonInputs: IInputActionCollection2, IDisposable
             @Cancel.started += instance.OnCancel;
             @Cancel.performed += instance.OnCancel;
             @Cancel.canceled += instance.OnCancel;
+            @TakeInteract.started += instance.OnTakeInteract;
+            @TakeInteract.performed += instance.OnTakeInteract;
+            @TakeInteract.canceled += instance.OnTakeInteract;
         }
 
         /// <summary>
@@ -753,6 +782,9 @@ public partial class @DungeonInputs: IInputActionCollection2, IDisposable
             @Cancel.started -= instance.OnCancel;
             @Cancel.performed -= instance.OnCancel;
             @Cancel.canceled -= instance.OnCancel;
+            @TakeInteract.started -= instance.OnTakeInteract;
+            @TakeInteract.performed -= instance.OnTakeInteract;
+            @TakeInteract.canceled -= instance.OnTakeInteract;
         }
 
         /// <summary>
@@ -869,5 +901,12 @@ public partial class @DungeonInputs: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnCancel(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "TakeInteract" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnTakeInteract(InputAction.CallbackContext context);
     }
 }
