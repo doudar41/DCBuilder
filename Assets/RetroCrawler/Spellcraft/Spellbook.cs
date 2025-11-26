@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using Ami.BroAudio;
 
 // Summary
 // This script handles  
@@ -17,25 +18,30 @@ public class Spellbook : MonoBehaviour
     [SerializeField] List<SpellPage> spellSchoolScripts = new List<SpellPage>(); //Spell page is a script which contains spell buttons 
     [SerializeField] Toggle spellbookSwitch; //Switch between main magic schools Elemental, Light and Dark
     [SerializeField] List<GameObject> objectToClose = new List<GameObject>(); // List of menus to meant to be closed when spellbook opened or closed
-    [SerializeField] Texture2D cursorTargetGraphics, cursorNormal;
+    [SerializeField] Texture2D cursorTargetGraphics, cursorNormal, cursorIdentify;
     [SerializeField] Camera mapCamera, mapMini;
     [SerializeField] GameObject stateIconPanel; //time based spells icons panel 
+
+    [SerializeField] ParticleSystem meteorShower, thunderstorm;
+    [SerializeField] SoundID thunderSound;
+    bool identifyMode = false; // Indicate if spellbook is in identify item mode
+
 
     SpellContainer spellWaitToRelease; //Saved Spell to use after clicking on target 
     int lastOpenedPage = 0; // School of magic last opened 
     List<Image> massSpellIcons = new List<Image>(); // Spell icons list to fade in and out on have time based spell active
     bool SpellCharged = false; // Indicates if saved spell is ready to cast 
     Dictionary<Spell, int> spellTimeActive = new Dictionary<Spell, int>(); //Saved time of time based spell is lasting
-    
+
     public UnityEvent<GameObject> spellTargetEvent;
     public UnityEvent<List<string>, List<ResultMsg>> battlelogEvent;
-    public UnityEvent<SpellContainer> hitTargetEffect; 
+    public UnityEvent<SpellContainer> hitTargetEffect;
 
-    private void Awake() 
+    private void Awake()
     {
         GameInstance.spellbook = this; // Make reference in GameInstance 
         GameInstance.progress += TimeLimitSpellCount; // Using GameInstance time delegate to manage countdown of time based spells 
-        foreach (Image i in stateIconPanel.transform.GetComponentsInChildren<Image>()) 
+        foreach (Image i in stateIconPanel.transform.GetComponentsInChildren<Image>())
         {
             massSpellIcons.Add(i); // Get image components from time based spell panel gameobject, probably will be changed to new class 
         }
@@ -51,13 +57,13 @@ public class Spellbook : MonoBehaviour
     }
 
     public void OpenSpellbook(bool active) // Method is switching spellbook on and off by using UI toggle on right side menu (GameMenu)
-        // it also switch to last magic school opened
+                                           // it also switch to last magic school opened
     {
         GetPagesReady(); //Check spells available for a specific player and on and off them on spell pages
         foreach (GameObject g in objectToClose)
         {
             g.SetActive(true);
-            if (g.GetComponent<SpellPageButton>() != null) g.GetComponent<SpellPageButton>().OnUncheckPage(); 
+            if (g.GetComponent<SpellPageButton>() != null) g.GetComponent<SpellPageButton>().OnUncheckPage();
         }
         if (active) spellSchoolScripts[lastOpenedPage].OpenSpellPage(true);
         else CloseSpellbook();
@@ -67,21 +73,22 @@ public class Spellbook : MonoBehaviour
 
     public void CloseSpellbook() // Close spellbook interface, switch off toggle and allows player to move
     {
-        foreach (SpellPage sp in spellSchoolScripts) 
+        foreach (SpellPage sp in spellSchoolScripts)
         {
             sp.OpenSpellPage(false);
         }
-        foreach(GameObject g in objectToClose)
+        foreach (GameObject g in objectToClose)
         {
             g.SetActive(false);
         }
         spellbookSwitch.isOn = false;
         GameInstance.playerController.ExitHover();
+
     }
 
     public void GetPagesReady() //Check spells available for a specific player and on and off them on spell pages
     {
-        foreach(SpellPage sp in spellSchoolScripts)
+        foreach (SpellPage sp in spellSchoolScripts)
         {
             sp.SetPageAvailableSpells(GameInstance.party.activeHero.GetActiveHeroSpellbook());
         }
@@ -112,7 +119,7 @@ public class Spellbook : MonoBehaviour
         return spellWaitToRelease != null;
     }
 
-    public void CastSpell(SpellContainer spellToCast)  
+    public void CastSpell(SpellContainer spellToCast)
     {
         // Checking is a spell is explore based Light, Waterwalk, Lavawalk etc. and immediately start it as a time based spell.
         // Add it to spellTimeActive dictionary for a timepassed check in TimeLimitSpellCount(int count)
@@ -132,14 +139,14 @@ public class Spellbook : MonoBehaviour
                         if (spellTimeActive.ContainsKey(s)) break;
                         mapCamera.cullingMask |= 1 << 10;
                         mapMini.cullingMask |= 1 << 10;
-                        spellTimeActive.Add(s,s.numberOfTurns);
+                        spellTimeActive.Add(s, s.numberOfTurns);
                         massSpellIcons[1].color = Color.white;
                         break;
                     case SpellEffects.Waterwalk:
-                        if (spellTimeActive.ContainsKey(s)) 
+                        if (spellTimeActive.ContainsKey(s))
                         {
                             spellTimeActive[s] = s.numberOfTurns;
-                            break; 
+                            break;
                         }
                         spellTimeActive.Add(s, s.numberOfTurns);
                         massSpellIcons[3].color = Color.white;
@@ -170,9 +177,9 @@ public class Spellbook : MonoBehaviour
                         massSpellIcons[2].color = Color.white;
                         break;
                 }
-                GameInstance.party.activeHero.ManaDecrease(s.manaCost); 
+                GameInstance.party.activeHero.ManaDecrease(s.manaCost);
             }
-            
+
             CloseSpellbook();
 
             return;
@@ -181,35 +188,52 @@ public class Spellbook : MonoBehaviour
 
         if (spellToCast.AOE)
         {
-            if((!spellToCast.OnlyEnemies & !spellToCast.OnlyParty) || (spellToCast.OnlyEnemies & spellToCast.OnlyParty))
+            if ((!spellToCast.OnlyEnemies & !spellToCast.OnlyParty) || (spellToCast.OnlyEnemies & spellToCast.OnlyParty))
             {
                 print("AOE spell everyone");
             }
             if (spellToCast.OnlyEnemies)
             {
                 print("AOE spell enemy only");
+                foreach (IEnemy e in GameInstance.battleManager.GetEnemies())
+                {
+                    List<ResultMsg> results = e.ApplySpellToEnemy(spellToCast, GameInstance.party.activeHero.GetThisHero().gameObject);
+                    battlelogEvent.Invoke(new List<string>() { GameInstance.party.activeHero.HeroName(), e.GetEnemyName(), spellToCast.spellName }, results);
+                }
+
+
+                if (GameInstance.playerController.playerState == PlayerState.Battle)
+                {
+                    if (spellToCast.spellName == "Missile Shower") meteorShower.Play();
+                    if (spellToCast.spellName == "Thunderstorm") { thunderstorm.Play(); BroAudio.Play(thunderSound); }
+                    GameInstance.battleManager.AttackEnding();
+                }
+                CloseSpellbook();
             }
             if (spellToCast.OnlyParty)
             {
                 List<Hero> heroList = GameInstance.party.GetHeroList();
-                foreach(Hero h in heroList)
+                foreach (Hero h in heroList)
                 {
-                    h.ApplySpellToHero(spellToCast, GameInstance.party.activeHero.GetThisHero().gameObject );
+                    List<ResultMsg> results = h.ApplySpellToHero(spellToCast, GameInstance.party.activeHero.GetThisHero().gameObject);
+                    battlelogEvent.Invoke(new List<string>() { GameInstance.party.activeHero.HeroName(), h.HeroName(), spellToCast.spellName }, results);
                 }
-                CloseSpellbook();
-                if (!spellToCast.gameplaySpell)
+
+
+                if (GameInstance.playerController.playerState == PlayerState.Battle)
                 {
-                    battlelogEvent.Invoke(new List<string>() { GameInstance.party.activeHero.HeroName(), "Whole Party", spellToCast.spellName }, null);
-                }
-                if(GameInstance.playerController.playerState == PlayerState.Battle)
-                {
+                    //if(spellToCast.spellName == "Missile Shower") meteorShower.Play();
                     GameInstance.battleManager.AttackEnding();
                 }
+                CloseSpellbook();
+
             }
             foreach (Spell s in spellToCast.spells)
             {
                 GameInstance.party.activeHero.ManaDecrease(s.manaCost);
             }
+            // if (GameInstance.playerController.playerState == PlayerState.Battle) StartCoroutine(AttackDelay());
+            return;
         }
         else
         {
@@ -218,13 +242,13 @@ public class Spellbook : MonoBehaviour
             spellWaitToRelease = spellToCast;
             spellTargetEvent.AddListener(GetGameObjectTarget);
             SpellCharged = true;
-            GameInstance.SetMouseCursor(cursorTargetGraphics);
+            GameInstance.SetMouseCursor(cursorTargetGraphics, new Vector2(0,0));
             CloseSpellbook();
-        
+
         }
         if (GameInstance.playerController.playerState == PlayerState.Battle)
         {
-            foreach(Spell s in spellToCast.spells)
+            foreach (Spell s in spellToCast.spells)
             {
                 GameInstance.battleManager.BattleSpellAgro(s.agroPoints);
             }
@@ -234,10 +258,10 @@ public class Spellbook : MonoBehaviour
     public void SaveContinousSpells() //This method saves exploration time based spells to GameInstance to be loaded on different level or from the save file
     {
         SavedSpellsAttached savedSpellsAttached = new SavedSpellsAttached();
-        foreach (KeyValuePair< Spell,int> s in spellTimeActive)
+        foreach (KeyValuePair<Spell, int> s in spellTimeActive)
         {
             savedSpellsAttached.spell.Add(s.Key);
-            savedSpellsAttached.timesToFinish.Add(s.Value);        
+            savedSpellsAttached.timesToFinish.Add(s.Value);
             //print("save continous spells " + s.Key.spellEffect+"/"+s.Value);
         }
         GameInstance.spellsFromSpellbook.Add(savedSpellsAttached);
@@ -250,7 +274,7 @@ public class Spellbook : MonoBehaviour
         {
 
 
-            for (int i=0;i< savedspell.spell.Count; i++)
+            for (int i = 0; i < savedspell.spell.Count; i++)
             {
                 //print("save continous spells " + savedspell.spell[i].spellEffect + "/" + savedspell.timesToFinish[i]);
                 switch (savedspell.spell[i].spellEffect)
@@ -309,9 +333,23 @@ public class Spellbook : MonoBehaviour
             }
 
         }
-
     }
 
+    public void SpellIdentify(bool _identify)
+    {
+        
+        if (_identify)
+        {
+            if (GameInstance.playerController.IsCursorBusy()) return;
+            identifyMode = true;
+            GameInstance.SetMouseCursor(cursorIdentify, new Vector2(7,5));
+        }
+        else
+        {
+            identifyMode = false;
+            GameInstance.SetMouseCursor(cursorNormal, new Vector2(0,0));
+        }
+    }
 
 
     public void GetGameObjectTarget(GameObject target)
@@ -319,11 +357,14 @@ public class Spellbook : MonoBehaviour
         if (target.GetComponent<IHero>() != null) 
         {
             IHero ihero =  target.GetComponent<IHero>();
-            ihero.ApplySpellToHero(spellWaitToRelease, GameInstance.party.activeHero.GetThisHero().gameObject);
+            List<ResultMsg> results = ihero.ApplySpellToHero(spellWaitToRelease, GameInstance.party.activeHero.GetThisHero().gameObject);
             foreach(Spell s in spellWaitToRelease.spells)
             {
                 hitTargetEffect.Invoke(spellWaitToRelease);
             }
+            battlelogEvent.Invoke(new List<string>()
+                    { GameInstance.party.activeHero.HeroName(), target.GetComponent<IHero>().HeroName(), spellWaitToRelease.spellName }, results);
+
         }
         if (target.GetComponent<IEnemy>() != null)
         {
@@ -336,7 +377,6 @@ public class Spellbook : MonoBehaviour
                     battlelogEvent.Invoke(new List<string>() 
                     { GameInstance.party.activeHero.HeroName(), target.GetComponent<IEnemy>().GetEnemyName(), spellWaitToRelease.spellName }, results);
                 }
-              
             }
             else
             {
@@ -361,7 +401,7 @@ public class Spellbook : MonoBehaviour
         SpellCharged = false;
         spellTargetEvent.RemoveAllListeners();
         spellWaitToRelease = null;
-        GameInstance.SetMouseCursor(cursorNormal);
+        GameInstance.SetMouseCursor(cursorNormal, new Vector2(0,0));
     }
 
 
@@ -370,7 +410,7 @@ public class Spellbook : MonoBehaviour
         SpellCharged = false;
         spellTargetEvent.RemoveAllListeners();
         spellWaitToRelease = null;
-        GameInstance.SetMouseCursor(cursorNormal);
+        GameInstance.SetMouseCursor(cursorNormal, new Vector2(0, 0));
     }
 
     IEnumerator AttackDelay() // Delay for spell animation 
@@ -383,7 +423,7 @@ public class Spellbook : MonoBehaviour
     {
         spellWaitToRelease = null;
         spellTargetEvent.RemoveAllListeners();
-        GameInstance.SetMouseCursor(cursorNormal);
+        GameInstance.SetMouseCursor(cursorNormal, new Vector2(0, 0));
     }
 
 
@@ -453,5 +493,15 @@ public class Spellbook : MonoBehaviour
         }
     }
 
+    public void ResultsToBattleLog(List<string> logStrings, List<ResultMsg> results)
+    {
+        battlelogEvent.Invoke(logStrings, results);
+    }
+
+
+    public bool IdentifyModeActive()
+    {
+        return identifyMode;
+    }
 
 }

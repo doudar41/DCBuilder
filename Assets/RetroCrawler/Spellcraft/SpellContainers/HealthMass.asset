@@ -19,13 +19,15 @@ MonoBehaviour:
     manaCost: 10
     diceRollsNumber: 4
     diceSides: 6
-    diceBonus: 0
+    diceBonus: 5
     numberOfTurns: 0
     magicType: 5
     changedMainStat: 0
     changedDependedStat: 0
     skillStatAdded: 0
     restToBeAbleToCastAgainInTurns: 0
+    SpellDescription: 
+    skillToCheckInCalculations: 7
   spellIcon: {fileID: 21300000, guid: c9917ec37c22b3a418fa737ff8dd3b84, type: 3}
   AOE: 1
   OnlyEnemies: 0
@@ -35,3 +37,6 @@ MonoBehaviour:
   equipableSpell: 0
   minDistanceToEnemy: 10
   spellName: Mass Heal
+  spellPrice: 0
+  spellLevel: 2
+  animationTriggerName: 

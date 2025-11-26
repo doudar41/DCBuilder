@@ -127,6 +127,8 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables, IPointerClickHand
 
     private void OnCollisionEnter(Collision other)
     {
+        //CheckWeight();
+
         SplineAnimate anim = GetComponent<SplineAnimate>();
         if (anim == null) return;
         anim.Pause();
@@ -271,6 +273,7 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables, IPointerClickHand
 
     public void OnPointerClick(PointerEventData eventData)
     {
+
         GameInstance.playerController.GetInterfaceFromItem(gameObject);
     }
 }

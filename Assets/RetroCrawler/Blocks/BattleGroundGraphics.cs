@@ -41,5 +41,6 @@ public enum BattleGroundEnvironment
 {
     WOOD,
     HOUSE,
-    STONE
+    STONE,
+    CAVE
 }

@@ -23,7 +23,7 @@ public static class HeroStatsDefault
 
         { DependedStat.meleeDamage, 0},
         { DependedStat.rangeDamage, 0},
-        { DependedStat.defence, 1},
+        { DependedStat.defence, 0},
         { DependedStat.initiative, 1},
         { DependedStat.accuracy, 1},
         { DependedStat.evasion, 1},

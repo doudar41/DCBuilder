@@ -24,5 +24,7 @@ MonoBehaviour:
   twoHanded: 1
   price: 500
   itemDescription: 'Big Stick '
-  itemLevel: 1
+  itemLevel: 0
   keyType: 0
+  journalEntry: 
+  dialogueKeys: 

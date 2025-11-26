@@ -25,6 +25,7 @@ public class DialoguePanel : MonoBehaviour
     int dialoguePhraseIndex = 0;
 
     public UnityEvent<UniqueDialogueName> deleteDialogueOption;
+    public UnityEvent<List<string>, List<ResultMsg>> textToLog;
 
     private void Awake()
     {
@@ -153,6 +154,9 @@ public class DialoguePanel : MonoBehaviour
         {
             dialoguePhraseIndex = 0;
             dialogueText.text = dialogue.dialogue_phrases[dialoguePhraseIndex].dialogueTexts;
+/*            List<ResultMsg> results = new List<ResultMsg>();
+            results.Add(new() { msgType = "s", msgString = dialogueText.text });*/
+            textToLog.Invoke(new () { dialogueText.text }, null);
             portrait.sprite = dialogue.dialogue_phrases[dialoguePhraseIndex].portraits; 
         }
 
@@ -181,6 +185,7 @@ public class DialoguePanel : MonoBehaviour
         if (GameInstance.dataBase.GetDialogue(currentdialogue) == null) return;
         dialoguePhraseIndex = Mathf.Clamp(dialoguePhraseIndex + 1, 0, GameInstance.dataBase.GetDialogue(currentdialogue).dialogue_phrases.Count - 1);
         dialogueText.text = GameInstance.dataBase.GetDialogue(currentdialogue).dialogue_phrases[dialoguePhraseIndex].dialogueTexts;
+        textToLog.Invoke(new() { dialogueText.text }, null);
         var dialogue = GameInstance.dataBase.GetDialogue(currentdialogue);
         if (dialoguePhraseIndex == GameInstance.dataBase.GetDialogue(currentdialogue).dialogue_phrases.Count - 1)
         {

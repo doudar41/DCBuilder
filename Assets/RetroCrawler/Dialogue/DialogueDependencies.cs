@@ -20,6 +20,7 @@ public class DialogueDependencies: ScriptableObject
     public List<ItemScriptableContainer> itemsAddToParty = new List<ItemScriptableContainer>();
     public List<KeyToLocks> keysAddToParty = new List<KeyToLocks>();
     public int goldAmount = 0; 
+    public int experiencePoints = 0;
 }
 
 [System.Serializable]

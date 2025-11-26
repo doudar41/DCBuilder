@@ -13,7 +13,7 @@ public class ItemShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     [SerializeField] GameObject descriptionPrefab;
     ItemScriptableContainer itemToSell;
     SpellContainer spellToSell;
-    public float sellMultiplier =1;
+    public float sellMultiplier = 1;
     GameObject desc;
     public ShopState shopState = ShopState.SellToPlayer;
     public int inventorySlotForSell = -1;

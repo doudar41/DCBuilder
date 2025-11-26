@@ -66,6 +66,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] SoundID battleMusic, exploreMusic;
 
 
+
     //if it's scripted battle
     bool customBattle = false;
 
@@ -81,7 +82,12 @@ public class BattleManager : MonoBehaviour
     private void Awake()
     {
         GameInstance.battleManager = this;
-        BroAudio.Play(exploreMusic);
+        BroAudio.Play(exploreMusic).SetVolume(0.4f);
+    }
+
+    public void SetExplorationMusicIndex(SoundID _id)
+    {
+        exploreMusic = _id;
     }
 
 
@@ -128,7 +134,18 @@ public class BattleManager : MonoBehaviour
         
         _defeatedList.ClearList();
         BroAudio.Play(battleMusic);
-        BroAudio.SetVolume(exploreMusic, 0,0.3f);
+        BroAudio.Stop(exploreMusic, 0.3f);
+    }
+
+
+    public void SetListOfEnemies(List<EnemySized> enemies)
+    {
+        level01Enemies.Clear();
+        foreach(EnemySized es in enemies)
+        {
+            level01Enemies.Add(es);
+        }
+
     }
 
     //This one starts scripted battle 
@@ -145,9 +162,17 @@ public class BattleManager : MonoBehaviour
         //StopCoroutine(GameInstance.TimeStep());
         GameInstance.party.SetTimerForHeroes(true);
         //Add enemies
-        SpawnEnemies(_level01Enemies, 2, spawnPointsRaw01, 1);
-        SpawnEnemies(_level01Enemies, 2, spawnPointsRaw02, 2);
-        
+        if(_level01Enemies != null)
+        {
+            SpawnEnemies(_level01Enemies, 2, spawnPointsRaw01, 1);
+            SpawnEnemies(_level01Enemies, 2, spawnPointsRaw02, 2);
+        }
+        else
+        {
+            SpawnEnemies(level01Enemies, 2, spawnPointsRaw01, 1);
+            SpawnEnemies(level01Enemies, 2, spawnPointsRaw02, 2);
+        }
+
         BattleStart();
     }
 
@@ -256,9 +281,13 @@ public class BattleManager : MonoBehaviour
         //print("attacker name " + quarrySorted[quarrySortedKey].GetComponent<IEnemy>().GetEnemyName() + "/"+ quarrySortedKey);
         
         IEnemy attacker = quarrySorted[quarrySortedKey].GetComponent<IEnemy>();
+
         if (!CheckEnemyState(attacker)) { AttackEnding(); return; }
+
         if(attacker.GetCurrentStatValue(EnemyStat.INITIATIVE) <= 0) { AttackEnding(); return; }
-        print("enemy initiative" + attacker.GetCurrentStatValue(EnemyStat.INITIATIVE));
+
+
+
         // Notify player that it's a enemy turn
         enemyTurn.Invoke("Enemy turn");
 
@@ -272,6 +301,22 @@ public class BattleManager : MonoBehaviour
             return;
         }
 
+        int maxspelldistance =0;
+        foreach (SpellContainer spell in attacker.GetEnemyAttackSpell())
+        {
+            if(spell.minDistanceToEnemy > maxspelldistance)
+            {
+                maxspelldistance = spell.minDistanceToEnemy;
+            }
+        }
+
+        if(maxspelldistance < attacker.GetEnemyRow())
+        {
+            // Enemy can't reach any hero to attack
+            //enemyTurn.Invoke(attacker.GetEnemyName() + " can't reach any hero to attack!");
+            AttackEnding();
+            return;
+        }
         //Play animation of moving forward
         attacker.MoveAheadOnAttack();
 
@@ -296,7 +341,9 @@ public class BattleManager : MonoBehaviour
         {
             IHero targetHero = allOpponents[targetIndexInOpponents].GetComponent<IHero>();
             //Apply attack spell from enemy to chosen hero
-            targetHero.ApplySpellToHero(attacker.enemyAttack(), allOpponents[targetIndexInOpponents]);
+            List<ResultMsg> resultMsgs = targetHero.ApplySpellToHero(attacker.enemyAttack(attacker.GetEnemyRow()), quarrySorted[quarrySortedKey]);
+            GameInstance.spellbook.ResultsToBattleLog(new List<string> { "enemy "} ,resultMsgs);
+
         }
     }
 
@@ -345,6 +392,8 @@ public class BattleManager : MonoBehaviour
         {
             if(g.GetComponent<IEnemy>() != null)
             {
+                if(g.GetComponent<IEnemy>().GetEnemyHealth()>0 && !g.GetComponent<IEnemy>().GetEnemyPermanentStatus().ContainsKey( SpellEffects.Stone))
+
                 enemiesList.Add(g.GetComponent<IEnemy>());
             }
         }
@@ -610,6 +659,7 @@ public class BattleManager : MonoBehaviour
             {
                 if(allOpponents[i].GetComponent<IEnemy>() != null)
                 {
+                    GameInstance.party.addExperiencePoints(allOpponents[i].GetComponent<IEnemy>().ExperienceReward());
                     toErase.Add(i);
                 }
             }
@@ -631,10 +681,11 @@ public class BattleManager : MonoBehaviour
         allOpponents.Clear();
         GameInstance.playerController.SetPlayerState(PlayerState.Explore);
         GameInstance.playerController.ReturnToPreBattlePosition();
-        BroAudio.SetVolume(exploreMusic,1f,0.3f);
+        BroAudio.Play(exploreMusic).SetVolume(0.4f);
         BroAudio.SetVolume(battleMusic,0, 0.3f);
         StartCoroutine(GameInstance.TimeStep());
         GameInstance.party.SetTimerForHeroes(false);
+
     }
     
     public void ReceiveAttackInput()

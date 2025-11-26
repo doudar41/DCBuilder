@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.atmoky.truespatial": {
+      "version": "file:C:/Users/Test/Downloads/atmokyTrueSpatial_Unity_v1.5.3/com.atmoky.truespatial-1.5.3.tgz",
+      "depth": 0,
+      "source": "local-tarball",
+      "dependencies": {}
+    },
     "com.coffee.softmask-for-ugui": {
       "version": "file:src",
       "depth": 0,

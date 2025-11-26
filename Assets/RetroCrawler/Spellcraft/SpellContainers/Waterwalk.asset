@@ -38,4 +38,5 @@ MonoBehaviour:
   minDistanceToEnemy: 2
   spellName: Water Walk
   spellPrice: 0
-  spellLevel: 0
+  spellLevel: 1
+  animationTriggerName: 

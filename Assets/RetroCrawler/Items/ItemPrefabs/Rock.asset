@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830199137178dfd4c92369ded1b83b63, type: 3}
+  m_Name: Rock
+  m_EditorClassIdentifier: 
+  itemType: 17
+  itemName: Rock
+  texture2DMouse: {fileID: 2800000, guid: d4911fcd8f8f4c84ead32890ed55b20c, type: 3}
+  InventorySprite: {fileID: 21300000, guid: 1aa101dbf68062c4e8e8e35918eb4cc1, type: 3}
+  worldSprite: {fileID: 21300000, guid: 1aa101dbf68062c4e8e8e35918eb4cc1, type: 3}
+  prefab: {fileID: 2885720944578253258, guid: f6d7257b50422cb42ad1f9f2e67d80a2, type: 3}
+  weight: 20
+  spellContainer: {fileID: 0}
+  weaponType: 0
+  twoHanded: 0
+  price: 0
+  itemDescription: Rock
+  itemLevel: 0
+  keyType: 0
+  journalEntry: 
+  dialogueKeys: 

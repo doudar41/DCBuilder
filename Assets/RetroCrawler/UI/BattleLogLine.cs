@@ -12,7 +12,8 @@ public class BattleLogLine : MonoBehaviour, IPointerClickHandler
     [SerializeField] Transform textsParent;
     [SerializeField] TMP_FontAsset font;
     [SerializeField] GameObject textbox;
- 
+    [SerializeField] ScrollRect scrollRect;
+
     private void Start()
     {
         /*        foreach(TextMeshProUGUI t in textsParent.GetComponentsInChildren<TextMeshProUGUI>())
@@ -25,10 +26,10 @@ public class BattleLogLine : MonoBehaviour, IPointerClickHandler
 
     public void LogTexts(List<string> texts, List<ResultMsg> results)
     {
-        if (GameInstance.playerController.playerState != PlayerState.Battle) return;
+       // if (GameInstance.playerController.playerState != PlayerState.Battle) return;
         GameObject g  = Instantiate(textbox,textsParent);
         TextMeshProUGUI textLog = g.GetComponent<TextMeshProUGUI>();
-        g.transform.SetAsFirstSibling();
+        //g.transform.SetAsFirstSibling();
         textLog.text = textLog.text + " " + System.DateTime.Now.Hour+"." + System.DateTime.Now.Minute + "." + System.DateTime.Now.Second; 
 
         foreach (string s in texts)
@@ -52,8 +53,7 @@ public class BattleLogLine : MonoBehaviour, IPointerClickHandler
                     break;
             }
         }
-
-
+        
 
     }
 

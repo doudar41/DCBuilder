@@ -20,7 +20,6 @@ public class LoadLevelOrder : MonoBehaviour
                 if(h.Value.level == GameInstance.GetLevelName())
                 {                    
                     listToMake.Add(h.Key,h.Value); 
-
                 }
             }
             foreach(KeyValuePair<string, HeroInventoryItem> h in listToMake)

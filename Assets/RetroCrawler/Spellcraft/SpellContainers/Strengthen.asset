@@ -38,4 +38,5 @@ MonoBehaviour:
   minDistanceToEnemy: 2
   spellName: Strengthen
   spellPrice: 0
-  spellLevel: 0
+  spellLevel: 1
+  animationTriggerName: 

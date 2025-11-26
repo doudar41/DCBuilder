@@ -108,10 +108,10 @@ public static class GameInstance
     }
 
 
-    public static void SetMouseCursor(Texture2D norm)
+    public static void SetMouseCursor(Texture2D norm, Vector2 hotspot)
     {
         cursorNormal = norm;
-        Cursor.SetCursor(cursorNormal, normalHotSpot, cursorMode);
+        Cursor.SetCursor(cursorNormal, hotspot, cursorMode);
     }
 
     public static void LoadGameMainMenu()
@@ -158,6 +158,12 @@ public static class GameInstance
         timeStamp = timeProgress + (60*8);
 
 
+    }
+
+
+    public static int GetUnformattedTime()
+    {
+        return timeProgress;
     }
 
     public static int[] GetNormalTime()

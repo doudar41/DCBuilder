@@ -32,7 +32,7 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables
     [SerializeField] List<UniqueDialogueName> afterBattleDialogue = new List<UniqueDialogueName>();
     [SerializeField] int goldAmount = 0;
     [SerializeField] GameObject characterSprite;
-
+    int blockLevel = 0;
 
     private void Awake()
     {
@@ -284,7 +284,15 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables
         GameInstance.party.MoneyGoes(-goldAmount);
         //
     }
+    public int BlockLevel()
+    {
+        return blockLevel;
+    }
 
+    public BattleGroundEnvironment GetBattleGroundEnvironment()
+    {
+        return battleGroundEnvironment;
+    }
 }
 
 
@@ -326,4 +334,7 @@ public interface IBlock
 
     public void SetCustomBattle();
     public void FinishTheBattle();
+    public int BlockLevel();
+
+    public BattleGroundEnvironment GetBattleGroundEnvironment();
 }

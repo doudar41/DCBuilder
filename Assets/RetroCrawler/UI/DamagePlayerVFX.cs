@@ -11,6 +11,7 @@ public class DamagePlayerVFX : MonoBehaviour
 
     private void Start()
     {
+        if (animator == null) return;
         animator.StartPlayback();
         animator.gameObject.SetActive(true);
         animator.speed = 0.5f;

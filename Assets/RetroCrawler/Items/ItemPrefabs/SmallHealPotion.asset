@@ -24,7 +24,7 @@ MonoBehaviour:
   twoHanded: 0
   price: 100
   itemDescription: Small Heal Potion
-  itemLevel: 1
+  itemLevel: 0
   keyType: 0
   journalEntry: 
   dialogueKeys: 

@@ -1,13 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using TMPro;
 
 
-public class ItemSlot : MonoBehaviour, IPointerClickHandler
+public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
 {
 
     int stackAmount = 1;
@@ -17,7 +14,10 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     Sprite emptySlotSprite;
     [SerializeField]
     TextMeshProUGUI amountText;
-    
+    [SerializeField] GameObject describePrefab;
+    GameObject describeInstance;
+
+
     private void Awake()
     {
         GameInstance.getInventoryItem += SaveInventoryItemsToGameInstance;
@@ -32,6 +32,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     {
         //print(eventData.button + " "+ eventData.clickCount);
         int clickCount = eventData.clickCount;
+
+        if (GameInstance.spellbook.IdentifyModeActive()) { return; }
+
         if (eventData.button == PointerEventData.InputButton.Right)
         {
             if (inventoryItem == null) { print("no more clicking"); return; }
@@ -125,8 +128,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
                 }
             }
         }
-
- 
     }
 
     public bool AddItemInSlot(HeroInventoryItem itemTemp, int amount)
@@ -184,5 +185,47 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         inventoryItem = null;
         itemAvatar.sprite = emptySlotSprite;
         amountText.text = stackAmount.ToString();
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if(!GameInstance.spellbook.IdentifyModeActive()) { return; }
+        if (inventoryItem == null) return;
+        if (describeInstance == null) describeInstance = Instantiate(describePrefab, transform.parent.parent);
+        else describeInstance.SetActive(true);
+
+        describeInstance.gameObject.SetActive(true);
+        describeInstance.GetComponent<RectTransform>().localPosition = gameObject.GetComponent<RectTransform>().localPosition+(new Vector3(1,-1,0)*15);
+
+        TextMeshProUGUI textDesc = describeInstance.GetComponentInChildren<TextMeshProUGUI>();
+
+        if (textDesc != null)
+        {
+            ItemScriptableContainer itemToDesc = GameInstance.dataBase.GetItemFromBaseByIndex(inventoryItem.container);
+
+            if(itemToDesc.itemLevel > GameInstance.party.activeHero.GetSkillsStat(SkillsStat.Identify)/3)
+            {
+                textDesc.color = Color.red;
+                textDesc.text = "Can't identify";
+            }
+            else
+            {
+                textDesc.color = Color.green;
+                string spellTexts = "";
+                foreach (Spell s in itemToDesc.spellContainer.spells)
+                {
+                    spellTexts += "\n" + s.SpellDescription;
+                }
+                textDesc.text = itemToDesc.itemDescription + spellTexts + "\n" + "Price: " + ((int)(itemToDesc.price)).ToString();
+            }
+
+
+
+        }
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        if (describeInstance != null) describeInstance.SetActive(false);
     }
 }

@@ -1,7 +1,10 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
-#if (UNITY_EDITOR) 
+using UnityEngine.SceneManagement;
+
+#if (UNITY_EDITOR)
 using UnityEditor.Tilemaps;
+using UnityEditor.SceneManagement;
 
 // This is game object brush and it should have a attached gameobject with OnBlockPlacement script and 4 walls 
 
@@ -49,7 +52,7 @@ public override void Paint(GridLayout gridLayout, GameObject brushTarget, Vector
                                                                           // If it finds other block on neighbor tile it deactivates 
                                                                           // walls between them. If dev needs wall between tiles it need to be 
                                                                           // made manually. 
-
+            Debug.Log("current scene name "+SceneManager.GetActiveScene().name);
         }
     }
 }

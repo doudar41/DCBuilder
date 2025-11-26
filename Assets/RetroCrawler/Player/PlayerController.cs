@@ -343,6 +343,13 @@ public class PlayerController : MonoBehaviour
         MovementUpdateFuther(Vector2.right);
     }
 
+
+    public void SetEncounter(bool onOff)
+    {
+        noEncounter = onOff;
+    }
+
+
     void MovementUpdateFuther(Vector2 moveInput)
     {
         if (!noEncounter)
@@ -357,7 +364,7 @@ public class PlayerController : MonoBehaviour
                 //Look for free block near 
                 playerState = PlayerState.Battle;
                 busyWalking = false;
-                GameInstance.battleManager.BattleStart();
+                GameInstance.battleManager.CustomBattleStart(null, currentWallBlock,currentWallBlock.GetBattleGroundEnvironment());
                 countdownToEncounter = Random.Range(rangeOfEnCounter.x, rangeOfEnCounter.y);
 
             }
@@ -690,9 +697,12 @@ public class PlayerController : MonoBehaviour
     public  void  GetInterfaceFromItem(GameObject hitObject)
     {
         if (cursorBusy || cursorHoveringUI) return;
+
         if (Vector3.Distance(transform.position, hitObject.transform.position) > blockSize) return;
+        print("click on item " + hitObject.name);
         IItem iItem = hitObject.GetComponent<IItem>();
         cursorItemScriptable = iItem.WhatItem();
+
         SetPlayerCursorBusy(cursorItemScriptable);
         iItem.RemoveFromTheWorld();
 
@@ -748,11 +758,13 @@ public class PlayerController : MonoBehaviour
 
     public void SetPlayerCursorBusy(HeroInventoryItem heroInventoryItem)
     {
+        print("set cursor busy " + heroInventoryItem.itemType);
         if (GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).itemType == ItemType.Key)
         {
             GameInstance.inventory.SaveKeyToList(GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).keyType);
             return;
         }
+
         heroInventoryItem.heroIndex = -1;
         cursorItemScriptable = heroInventoryItem;
         stackAmountCursor = heroInventoryItem.stackAmount;

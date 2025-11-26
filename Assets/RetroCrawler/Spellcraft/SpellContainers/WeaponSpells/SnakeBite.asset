@@ -19,7 +19,7 @@ MonoBehaviour:
     manaCost: 0
     diceRollsNumber: 1
     diceSides: 6
-    diceBonus: 0
+    diceBonus: 2
     numberOfTurns: 0
     magicType: 0
     changedMainStat: 0
@@ -28,7 +28,22 @@ MonoBehaviour:
     restToBeAbleToCastAgainInTurns: 0
     SpellDescription: 
     skillToCheckInCalculations: 0
-  spellIcon: {fileID: 21300000, guid: 887a71df4455e5140bef901ed513ec20, type: 3}
+  - spellEffect: 21
+    amount: 1
+    agroPoints: 2
+    manaCost: 0
+    diceRollsNumber: 1
+    diceSides: 6
+    diceBonus: 2
+    numberOfTurns: 0
+    magicType: 0
+    changedMainStat: 0
+    changedDependedStat: 0
+    skillStatAdded: 0
+    restToBeAbleToCastAgainInTurns: 0
+    SpellDescription: 
+    skillToCheckInCalculations: 0
+  spellIcon: {fileID: 21300000, guid: f19a531209288e84b92996de1bf1f022, type: 3}
   AOE: 0
   OnlyEnemies: 0
   OnlyParty: 0

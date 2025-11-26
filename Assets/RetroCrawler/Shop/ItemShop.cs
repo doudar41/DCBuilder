@@ -17,20 +17,21 @@ public class ItemShop : MonoBehaviour
     [SerializeField] List<TextMeshProUGUI> heroesCoinsText;
     [SerializeField] TextMeshProUGUI textOfShopState;
     [SerializeField] GameObject[] arrowsItems;
+    [SerializeField] GameObject shopInsides;
     Dictionary<int, HeroInventoryItem> itemsToSell = new Dictionary<int, HeroInventoryItem>();
     List<int> itemsToSellKeys = new List<int>();
     int sellItemIndexStart = 0;
     ShopState shopState = ShopState.SellToPlayer;
-    [SerializeField]  SoundID closeShopSound;
+    [SerializeField]  SoundID closeShopSound, voicePhrase, openShopPhrase, ambience = default, moneyGoesSound;
+    int coinsSpent = 0;
+
 
     public UnityEvent closeShopPanel;
 
     private void OnEnable()
     {
         //NewItems();
-        cam.depth = 1;
-        GetPlayersCoins();
-        sellItemIndexStart = 0;
+
 
     }
 
@@ -38,6 +39,27 @@ public class ItemShop : MonoBehaviour
     {
         arrowsItems[0].SetActive(false);
         arrowsItems[1].SetActive(false);
+    }
+
+
+    public void OpenShop()
+    {
+        backGroundImage.enabled = true;
+        shopInsides.SetActive(true);
+        cam.depth = 1;
+        var money = GameInstance.party.GetCoinsForUI();
+        for (int i = 0; i < money.Count; i++)
+        {
+            heroesCoinsText[i].text = money[i].ToString();
+        }
+        sellItemIndexStart = 0;
+        NewItemsToSell();
+    }
+
+    public void PlayerCoins(int coins)
+    {
+        coinsSpent = coins;
+        BroAudio.Play(ambience);
     }
 
     public void NewItemsToSell()
@@ -150,15 +172,31 @@ public class ItemShop : MonoBehaviour
         GameInstance.playerController.shopIsOpened = false;
         gameObject.SetActive(false);
         BroAudio.Play(closeShopSound);
+        if (GameInstance.party.SellBuyMoneyCheck(coinsSpent) != 0)
+        {
+            BroAudio.Play(voicePhrase).SetVelocity(Random.Range(3,6));
+        }
+        else
+        {
+            BroAudio.Play(voicePhrase).SetVelocity(Random.Range(0, 3));
+        }
+        BroAudio.Stop(openShopPhrase);
+        BroAudio.Stop(ambience,0.3f);
+        backGroundImage.enabled = false;
+        shopInsides.SetActive(false);
     }
 
     public void GetPlayersCoins()
     {
+
         var money = GameInstance.party.GetCoinsForUI();
         for (int i=0;i< money.Count;i++)
         {
             heroesCoinsText[i].text = money[i].ToString();
         }
+        //print("ask for money");
+
+        BroAudio.Play(moneyGoesSound);
     }
 
     public void SwitchToSellToPlayer()

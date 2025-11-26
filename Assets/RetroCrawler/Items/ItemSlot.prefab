@@ -340,6 +340,7 @@ MonoBehaviour:
   itemAvatar: {fileID: 3768645754372429995}
   emptySlotSprite: {fileID: 21300000, guid: 8b6c269e8a48a874cb89a11d7649676a, type: 3}
   amountText: {fileID: 7138342876901773788}
+  describePrefab: {fileID: 2565946923563995138, guid: f95424f670e48fe4d9ea7e64649342c1, type: 3}
 --- !u!222 &3190833188091319584
 CanvasRenderer:
   m_ObjectHideFlags: 0

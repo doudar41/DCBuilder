@@ -1,8 +1,8 @@
-using System.Collections;
+using Ami.BroAudio;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using TMPro;
 using UnityEngine.UI;
 
 public class SpellShop : MonoBehaviour
@@ -10,24 +10,47 @@ public class SpellShop : MonoBehaviour
     [SerializeField] Image backGroundImage;
     [SerializeField] List<ItemShopSlot> spellSlots = new List<ItemShopSlot>();
     [SerializeField] List<MagicType> magicTypes = new List<MagicType>();
-    [SerializeField] List<ItemType> itemsTypesToSell = new List<ItemType>();
     [SerializeField] List<TextMeshProUGUI> heroesCoinsText;
     [SerializeField] float sellMultiplier = 1;
     [SerializeField] Vector2Int itemsLevel = new Vector2Int(0,1);
-    //[SerializeField] int shopIndex = 1;
     [SerializeField] Camera cam;
     [SerializeField] TextMeshProUGUI textOfShopState;
+    [SerializeField] SoundID closeShopSound, voicePhrase, openShopPhrase;
+    [SerializeField] GameObject openSwitch;
+    int coinsSpent = 0;
+    int refreshSellsTime = -100;
+    
 
-    ShopState shopState = ShopState.SellToPlayer;
     public UnityEvent closeShopPanel;
-    private void OnEnable()
+    private void Start()
     {
-        cam.depth = 1;
-        GetPlayersCoins();
-        textOfShopState.text = "Spells";
+        
     }
 
+    public void OpenSpellShop()
+    {
 
+        backGroundImage.enabled = true;
+        openSwitch.SetActive(true);
+        cam.depth = 1;
+        var money = GameInstance.party.GetCoinsForUI();
+        for (int i = 0; i < money.Count; i++)
+        {
+            heroesCoinsText[i].text = money[i].ToString();
+        }
+        textOfShopState.text = "Spells";
+        if (GameInstance.GetUnformattedTime() > refreshSellsTime)
+        {
+            //print("refresh spells ");
+            RefreshSoldSpells();
+            refreshSellsTime = GameInstance.GetUnformattedTime() + 1440;
+        }
+    }
+
+    public void PlayerCoins(int coins)
+    {
+        coinsSpent = coins;
+    }
     public void GetPlayersCoins()
     {
         var money = GameInstance.party.GetCoinsForUI();
@@ -38,21 +61,9 @@ public class SpellShop : MonoBehaviour
     }
     public void RefreshSoldSpells()
     {
-
         for (int i = 0; i < spellSlots.Count; i++)
         {
             spellSlots[i].SetSpellToSell(RandomSpellToSell(magicTypes[Random.Range(0, magicTypes.Count)]));
-        }
-    }
-
-    public void NewItemsToSell()
-    {
-        ClearSlots();
-        for (int i = 0; i < spellSlots.Count; i++)
-        {
-            spellSlots[i].SetItemToSell(RandomItemsToSell(itemsTypesToSell[Random.Range(0, itemsTypesToSell.Count)]));
-            spellSlots[i].sellMultiplier = sellMultiplier;
-            spellSlots[i].shopState = shopState;
         }
     }
 
@@ -70,29 +81,14 @@ public class SpellShop : MonoBehaviour
         {
             if (spell.spells[0].magicType == magicType)
             {
-                spellOfType.Add(spell);
+                if (spell.spellLevel>= itemsLevel.x && spell.spellLevel <= itemsLevel.y)
+                {
+                    spellOfType.Add(spell);
+                }
             }
         }
 
         return spellOfType[Random.Range(0, spellOfType.Count)];
-    }
-
-
-    public ItemScriptableContainer RandomItemsToSell(ItemType itemType)
-    {
-        List<ItemScriptableContainer> itemsOfType = new List<ItemScriptableContainer>();
-
-        foreach (ItemScriptableContainer item in GameInstance.dataBase.GetWholeItemDatabase())
-        {
-            if (item.itemType == itemType)
-            {
-                itemsOfType.Add(item);
-            }
-        }
-        List<ItemScriptableContainer> randomItems = new List<ItemScriptableContainer>();
-
-
-        return itemsOfType[Random.Range(0, itemsOfType.Count)];
     }
 
 
@@ -102,7 +98,21 @@ public class SpellShop : MonoBehaviour
         CameraOut();
         GameInstance.playerController.shopIsOpened = false;
         gameObject.SetActive(false);
+
+        BroAudio.Play(closeShopSound);
+        if (GameInstance.party.SellBuyMoneyCheck(coinsSpent) < 0)
+        {
+            BroAudio.Play(voicePhrase).SetVelocity(Random.Range(3, 6));
+        }
+        else
+        {
+            BroAudio.Play(voicePhrase).SetVelocity(Random.Range(0, 3));
+        }
+        BroAudio.Stop(openShopPhrase);
+        backGroundImage.enabled = false;
+        openSwitch.SetActive(false);
     }
+
     public void ClearSlots()
     {
         for (int i = 0; i < spellSlots.Count; i++)
@@ -111,18 +121,6 @@ public class SpellShop : MonoBehaviour
             spellSlots[i].ClearSlot();
         }
     }
-    public void SwitchToSellPotions()
-    {
-        shopState = ShopState.SellToPlayer;
-        NewItemsToSell();
-        textOfShopState.text = "Potions";
-    }
 
-    public void SwitchToSellSpell()
-    {
-        shopState = ShopState.SellToPlayer;
-        RefreshSoldSpells();
-        textOfShopState.text = "Spells";
-    }
 
 }

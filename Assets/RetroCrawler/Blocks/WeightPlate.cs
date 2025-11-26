@@ -7,7 +7,6 @@ public class WeightPlate : MonoBehaviour
     GameObject player;
     [SerializeField] GameObject interactionTarget;
     [SerializeField] OnBlockPlacement block;
-    [SerializeField] Sprite animationSprites;
     [SerializeField] int weightToOpen;
 
     public void CheckBlockForWeight(int amount)

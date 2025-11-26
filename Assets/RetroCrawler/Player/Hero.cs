@@ -1,9 +1,10 @@
-using System;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 /// <summary>
@@ -21,11 +22,12 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     [SerializeField] Image portrait; 
     [SerializeField] Sprite deadSprite; // The same for all players
     [SerializeField] PortraitContainer portraits; // Each hero can have a picture representing state their in, poisoned, stunned etc.
-    [SerializeField] List<SpellContainer> debuffSpells; //List of debuff spells which removed by restoration spell
+    [SerializeField] List<Spell> debuffSpells; //List of debuff spells which removed by restoration spell
     [SerializeField] HealthImage healthSlider, manaSlider; //Reference to health and Mana custom bars
     [SerializeField] List<SpellContainer> heroSpellbook = new List<SpellContainer>(); //This contains all spell owned by hero
     [SerializeField] SpellContainer unarmedSpell; //default hero attack without weapons
     [SerializeField] List<MagicType> immunityList = new List<MagicType>();
+    [SerializeField] int foodConsumptionRate = 1; // How much food hero consumes per time unit
     SpellContainer lastSpell; //The last spell hero used canbe used by pressing "T" or menu button "Last Spell"
     int currentHealth = 100, currentMana = 100; //default health and mana parameters
     int heroID = 0; // hero ID is a hero index in the Party script which will be used for inventory management
@@ -51,6 +53,8 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     public UnityEvent<SpellContainer> hitTargetEffect;  
 
     MagicType weaponEnchanced = MagicType.None;
+
+    int poisonDamage = 0;
 
     private void Awake()
     {
@@ -83,8 +87,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         }
 
         mainStatContainer = GameInstance.ConvertSavedMainStats(heroID);
-        currentHealth = GetDependedStat(DependedStat.maxHealth);
-        currentMana = GetDependedStat(DependedStat.maxMana);
+
 
         foreach (SkillsStat s in System.Enum.GetValues(typeof(SkillsStat)))
         {
@@ -125,6 +128,10 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
             }
 
         }
+        currentHealth = GetDependedStat(DependedStat.maxHealth);
+        currentMana = GetDependedStat(DependedStat.maxMana);
+        print("hero "+ heroName+ "current health "+currentHealth + " max health "+ GetDependedStat(DependedStat.maxHealth));
+        healthSlider.ProgressBarFill((float)currentHealth / (float)GetDependedStat(DependedStat.maxHealth));
     }
 
     
@@ -135,7 +142,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     public void AddSpellToSpellAttached(Spell spell, int timesToFinish)
     {
-        SingleSpellApply(spell, null);
+        //SingleSpellApply(spell, null, null,null);
        // spellsAttached.Add(spell, timesToFinish);
 
     }
@@ -165,7 +172,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 statInt += (GetMainStat(MainStat.Agility) / 5) + (GetMainStat(MainStat.Endurance) / 5);
                 break;
             case DependedStat.defence:
-                statInt += 10 + (GetMainStat(MainStat.Endurance) / 5);
+                statInt += (GetMainStat(MainStat.Endurance) / 5);
                 break;
             case DependedStat.FireResistance:
                 break;
@@ -246,26 +253,48 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         return heroSpellbook;
     }
 
-    public void ApplySpellToHero(SpellContainer spellToApply, GameObject spellcaster)
+    public List<ResultMsg> ApplySpellToHero(SpellContainer spellToApply, GameObject spellcaster)
     {
-        //print("spell on hero "+ spellToApply);
-        if (spellToApply == null) { StartCoroutine(AttackDelay()); return; }
+        if (spellToApply == null) { StartCoroutine(AttackDelay()); return null; }
+        List<ResultMsg> results = new List<ResultMsg>();
 
-       // print("Applying spell to hero " + heroName + " spell name " + spellToApply.spellName+ "hero health  "+currentHealth);
-        foreach (Spell s in spellToApply.spells)
+        IHero hero = spellcaster.GetComponent<IHero>();
+        if (spellcaster.GetComponent<IHero>() != null)
         {
-            SingleSpellApply(s, spellToApply);
+            print("hero attack");
+
+            foreach (Spell s in spellToApply.spells)
+            {
+                SingleSpellApply(s, spellToApply, results, spellcaster.GetComponent<IHero>());
+            }
+            //hitTargetEffect.Invoke(spellToApply);
+            print("results "+results.Count);
+            if (GameInstance.playerController.playerState == PlayerState.Battle)StartCoroutine(AttackDelay());
+            return results;
         }
-        hitTargetEffect.Invoke(spellToApply);
-        if (GameInstance.playerController.playerState == PlayerState.Battle && !spellToApply.AOE) StartCoroutine(AttackDelay());
+
+        if(spellcaster.GetComponent<IEnemy>() != null)
+        {
+
+            foreach (Spell s in spellToApply.spells)
+            {
+                SingleSpellApply(s, spellToApply, results, spellcaster.GetComponent<IEnemy>());
+            }
+            hitTargetEffect.Invoke(spellToApply);
+            StartCoroutine(AttackDelay());
+            return results;
+        }
+
+        return results;
     }
 
-    private int CalculateIncomingDamage(Spell s, int dice)
+    private int CalculateDiceSumDamage(Spell s, int dice)
     {
 
         int amount = GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides);
         amount += s.diceBonus;
-       //HealthDamage(amount);
+        print("enemy damage from spell "+amount);
+        //HealthDamage(amount);
         if (dice == 20)
         {
             amount = GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides);
@@ -275,9 +304,54 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         return amount;
     }
 
-    public void SingleSpellApply(Spell s, SpellContainer spellToApply)
-    {
 
+    public List<ResultMsg> SingleSpellApply(Spell s, SpellContainer spellToApply, List<ResultMsg> results, IHero attacker)
+    {
+        switch (s.spellEffect)
+        {
+
+            case SpellEffects.Heal:
+                if (currentHealth <= 0) break;
+                int healroll = GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides);
+                healroll += GetSkillsStat(SkillsStat.LightMagic) + GetMainStat(MainStat.Mind) + s.diceBonus;
+                currentHealth = Mathf.Clamp(currentHealth + healroll + (int)(Mathf.Pow((float)(GetMainStat(MainStat.Survival) / 4), 2)), 0, GetDependedStat(DependedStat.maxHealth));
+
+                results.Add(new() { msgType = "s", msgString = heroName + " healed " + healroll });
+                HealHero(healroll);
+                break;
+
+
+            case SpellEffects.Restoration:
+
+
+                foreach (Spell sc in debuffSpells)
+                {
+                    buffPanels.RemoveBuffFromList(sc);
+                }
+
+                foreach (GameplayStatus st in System.Enum.GetValues(typeof(GameplayStatus)))
+                {
+                    if (st != GameplayStatus.Dead)
+                    {
+                        gameplayStatuses.Remove(st);
+
+                    }
+                }
+
+                if (portraits.GetStatePortrait(GameplayStatus.None, out Sprite stateSpriteWell)) portrait.sprite = stateSpriteWell;
+
+                //HealHero(GetDependedStat(DependedStat.maxHealth));
+                poisonDamage = 0;
+                results.Add(new() { msgType = "s", msgString = heroName + " restored" });
+                break;
+        }
+        return results;
+    }
+
+
+
+    public List<ResultMsg> SingleSpellApply(Spell s, SpellContainer spellToApply, List<ResultMsg> results, IEnemy attacker)
+    {
 
         int attackRoll = 0;
         int evaderoll = 0;
@@ -286,27 +360,46 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         if (immunityList.Contains(s.magicType)) // skip magic attack if enemy has a total immunity to it 
         {
             //hitTargetEffect.Invoke(immunityspell); // Event for showing immunity animation
-            return;
+            return null;
         }
+        attackrollbonus = attacker.GetCurrentStatValue(EnemyStat.ACCURACY);  // agillity modifier + endurance modifier of attacker
 
         int dice = GameInstance.DiceRollingBiggestNumber(1, 20); //attackroll and evaderoll random generation
         attackRoll = dice + attackrollbonus;
         evaderoll = GameInstance.DiceRollingBiggestNumber(1, 20) + GetDependedStat(DependedStat.evasion);
 
+
+
         //results.Add(attackRoll.ToString()); results.Add(evaderoll.ToString()); // attackroll and evaderoll added to list to be used in the battle log
+        results.Add(new() { msgType = "s", msgString = "AR " + s.spellEffect });
+        results.Add(new() { msgType = "i", msgInt = attackRoll });
 
-        if (evaderoll > attackRoll) return; //if evasion is successful and dice is not equal 20 spell is ignored
+        results.Add(new() { msgType = "s", msgString = "/" });
+        results.Add(new() { msgType = "i", msgInt = evaderoll });
 
-        int pureDamageAmount = CalculateIncomingDamage(s, dice);
+        if (evaderoll > attackRoll) return results; //if evasion is successful and dice is not equal 20 spell is ignored
 
-        //if (GetDependedStat(DependedStat.evasion) >= attackRoll) return;
+        int pureDamageAmount = CalculateDiceSumDamage(s, dice);
+        bool applyEffectSpell = GameInstance.DiceRollingBiggestNumber(s.diceRollsNumber, s.diceSides) >= s.diceSides/2;
 
         switch (s.spellEffect)
         {
             case SpellEffects.PDmg:
 
-                int amount = pureDamageAmount - GetDependedStat(DependedStat.defence);
-                HealthDecrease(amount);
+
+                if(spellToApply.minDistanceToEnemy == 1) pureDamageAmount += GameInstance.DiceRollingBiggestNumber(2, attacker.GetCurrentStatValue(EnemyStat.MELEE_DAMAGE));
+                if(spellToApply.minDistanceToEnemy > 1 && attacker.GetEnemyRow()>1) pureDamageAmount += GameInstance.DiceRollingBiggestNumber(2, attacker.GetCurrentStatValue(EnemyStat.RANGE_DAMAGE));
+                if (spellToApply.minDistanceToEnemy > 1 && attacker.GetEnemyRow() < 1) pureDamageAmount -= GameInstance.DiceRollingBiggestNumber(2, attacker.GetCurrentStatValue(EnemyStat.RANGE_DAMAGE));
+                
+                
+                int physicalDamage= pureDamageAmount - GetDependedStat(DependedStat.defence);
+                results.Add(new() { msgType = "s", msgString = " damage " + pureDamageAmount+" vs. defence "+ GetDependedStat(DependedStat.defence) });
+                //print("physical damage spell applied " + pureDamageAmount + "/ defence " + GetDependedStat(DependedStat.defence));
+
+                results.Add(new() { msgType = "s", msgString = heroName + " damage " });
+                results.Add(new() { msgType = "i", msgInt = physicalDamage }); // adding final damage amount to the results list
+                if (physicalDamage < 0) physicalDamage = 0;
+                HealthDecrease(physicalDamage);
 
                 break;
 
@@ -314,21 +407,58 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 switch (s.magicType)
                 {
                     case MagicType.Fire:
-
+                        if(immunityList.Contains(MagicType.Fire))
+                        {
+                            return null;
+                        }
+                         int fireDamage = pureDamageAmount - (GetDependedStat(DependedStat.FireResistance) + (GetMainStat(MainStat.Willpower)/5));
+                        HealthDecrease(fireDamage);
                         break;
                     case MagicType.Water:
+                        if (immunityList.Contains(MagicType.Water))
+                        {
+                            return null;
+                        }
+                        int waterDamage = pureDamageAmount - (GetDependedStat(DependedStat.WaterResistance) + (GetMainStat(MainStat.Willpower) / 5));
+                        HealthDecrease(waterDamage);
+
                         break;
                     case MagicType.Air:
+                        if (immunityList.Contains(MagicType.Air))
+                        {
+                            return null;
+                        }
+                        int airDamage = pureDamageAmount - (GetDependedStat(DependedStat.WaterResistance) + (GetMainStat(MainStat.Willpower) / 5));
+                        HealthDecrease(airDamage);
                         break;
                     case MagicType.Earth:
+                        if (immunityList.Contains(MagicType.Earth))
+                        {
+                            return null;
+                        }
+                        int earthDamage = pureDamageAmount - (GetDependedStat(DependedStat.EarthResistance) + (GetMainStat(MainStat.Willpower) / 5));
+                        HealthDecrease(earthDamage);
                         break;
                     case MagicType.Light:
+                        if (immunityList.Contains(MagicType.Light))
+                        {
+                            return null;
+                        }
+                        int lightDamage = pureDamageAmount - (GetDependedStat(DependedStat.DarkResistance) + (GetMainStat(MainStat.Willpower) / 5));
+                        HealthDecrease(lightDamage);
+
                         break;
                     case MagicType.Dark:
+                        if (immunityList.Contains(MagicType.Dark))
+                        {
+                            return null;
+                        }
+                        int darkDamage = pureDamageAmount - (GetDependedStat(DependedStat.DarkResistance) + (GetMainStat(MainStat.Willpower) / 5));
+                        HealthDecrease(darkDamage);
                         break;
                 }
-
                 break;
+
             case SpellEffects.MSMod:
                 if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, s.numberOfTurns);
                 else spellsAttached[s] = s.numberOfTurns;
@@ -350,42 +480,18 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 }
 
                 break;
+
+
             case SpellEffects.Restoration:
-
-                foreach(SpellContainer sc in debuffSpells)
-                {
-                    if (buffPanels != null) 
-                    { 
-                        foreach(Spell sp in sc.spells)
-                        {
-                            buffPanels.RemoveBuffFromList(sp);
-                        }
-
-                    }
-                }
-
-                foreach (GameplayStatus st in System.Enum.GetValues(typeof(GameplayStatus)))
-                {
-                    if (st != GameplayStatus.Dead)
-                    {
-                        gameplayStatuses.Remove(st);
-
-                    }
-                }
-
-                if (portraits.GetStatePortrait(GameplayStatus.None, out Sprite stateSpriteWell)) portrait.sprite = stateSpriteWell;
+                
                 break;
 
 
             case SpellEffects.Identify:
                 break;
 
-            case SpellEffects.Heal:
-                if (currentHealth <= 0) break;
-                int healroll = GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides);
-                healroll += GetSkillsStat(SkillsStat.LightMagic) + GetMainStat(MainStat.Mind) + s.diceBonus + s.amount;
-                HealHero(healroll);
-                break;
+
+
             case SpellEffects.ElementalWeapon:
                 weaponEnchanced = s.magicType;
                 if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, s.numberOfTurns);
@@ -395,11 +501,8 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                     if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
                     else buffPanels.AddBuffToList(s);
                 }
-
                 break;
-            case SpellEffects.Poison:
 
-                break;
             case SpellEffects.ElementalResistance:
 
                 if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, s.numberOfTurns);
@@ -411,29 +514,58 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 }
 
                 break;
+
+
+            case SpellEffects.Poison:
+                if (!gameplayStatuses.Contains(GameplayStatus.Poisoned))
+                {
+                    poisonDamage = pureDamageAmount - GetDependedStat(DependedStat.DarkResistance);
+                    if (applyEffectSpell)
+                    {
+                        gameplayStatuses.Add(GameplayStatus.Poisoned);
+                        if (portraits.GetStatePortrait(GameplayStatus.Poisoned, out Sprite stateSpritePoisoned)) portrait.sprite = stateSpritePoisoned;
+                        if (buffPanels != null)
+                        {
+                            if (!debuffSpells.Contains(s)) debuffSpells.Add(s);
+                            if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
+                            else buffPanels.AddBuffToList(s);
+                        }
+                    }
+                }
+                break;
+
             case SpellEffects.Petrify:
                 if (!gameplayStatuses.Contains(GameplayStatus.Petrified))
                 {
-                    gameplayStatuses.Add(GameplayStatus.Petrified);
-                    if (portraits.GetStatePortrait(GameplayStatus.Petrified, out Sprite stateSpritePetrified)) portrait.sprite = stateSpritePetrified;
+                    if (applyEffectSpell)
+                    {
+                        gameplayStatuses.Add(GameplayStatus.Petrified); 
+                        if (portraits.GetStatePortrait(GameplayStatus.Petrified, out Sprite stateSpritePetrified)) portrait.sprite = stateSpritePetrified;
+                    
+                    if (buffPanels != null)
+                        {
+                            if (!debuffSpells.Contains(s)) debuffSpells.Add(s);
+                            if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
+                            else buffPanels.AddBuffToList(s);
+                        }
+
+                    }
+                    
                 }
-                if (buffPanels != null)
-                {
-                    if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
-                    else buffPanels.AddBuffToList(s);
-                }
+
                 break;
+
+
         }
-
+        return results;
     }
-
-
 
     void HealHero(int amount)
     {
         //print("heal " + amount);
-        currentHealth = Mathf.Clamp(currentHealth + amount, 0, GetDependedStat(DependedStat.maxHealth));
+        
         healthSlider.ProgressBarFill((float)currentHealth / (float)GetDependedStat(DependedStat.maxHealth));
+        
         //if (currentHealth <= 0) portrait.sprite = deadSprite;
     }
 
@@ -463,8 +595,6 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         currentMana = Mathf.Clamp(currentMana - amount, 0, GetDependedStat(DependedStat.maxMana));
         manaSlider.ProgressBarFill((float)currentMana / (float)GetDependedStat(DependedStat.maxMana));
     }
-
-
 
     public int GetMainStat(MainStat mainStat)
     {
@@ -531,7 +661,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 statInt += (GetMainStat(MainStat.Agility) / 5) + (GetMainStat(MainStat.Endurance) / 5);
                 break;
             case DependedStat.defence:
-                statInt += 10 + (GetMainStat(MainStat.Endurance) / 5);
+                statInt += (GetMainStat(MainStat.Endurance) / 5);
                 break;
             case DependedStat.FireResistance:
                 break;
@@ -821,16 +951,31 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
         if (GameInstance.playerController.playerState != PlayerState.Battle)
         {
-
-            if (dependedStatsCurrent.ContainsKey(DependedStat.Hunger))
+            foodConsumptionRate++;
+            if (foodConsumptionRate >= 30) // hero consumes food every hour
             {
-                dependedStatsCurrent[DependedStat.Hunger] = dependedStatsCurrent[DependedStat.Hunger] - 1;
-                if (dependedStatsCurrent[DependedStat.Hunger] <= 0)
+                if (dependedStatsCurrent.ContainsKey(DependedStat.Hunger))
                 {
-                    HealthDecrease(1);
+                    if (GameInstance.party.EatPartyFood(1) <= 0)
+                    {
+                        dependedStatsCurrent[DependedStat.Hunger] = dependedStatsCurrent[DependedStat.Hunger] - 1;
+                        if (dependedStatsCurrent[DependedStat.Hunger] <= 0)
+                        {
+                            HealthDecrease(1);
+                        }
+                    }
                 }
+                foodConsumptionRate = 0;
             }
         }
+        if (gameplayStatuses.Contains(GameplayStatus.Poisoned))
+        {
+
+            int _poisonDamage = GameInstance.DiceRollingBiggestNumber(1, poisonDamage);
+            HealthDecrease(_poisonDamage);
+            GameInstance.spellbook.ResultsToBattleLog(new() { "" }, new List<ResultMsg>() { new() { msgType = "s", msgString = heroName + " takes "+_poisonDamage.ToString()+" poison damage." } });
+        }
+
 
         //print("hero time changes");
         if (spellsAttached.Count <= 0) return;
@@ -847,6 +992,8 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
             int x = spellsAttached[s];
             spellsAttached[s] = x - 1;
         }
+
+
 
 
         foreach (Spell s in listToDelete)
@@ -897,6 +1044,8 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 case SpellEffects.Immunity:
                     break;
                 case SpellEffects.Poison:
+                    
+
                     break;
             }
             if (buffPanels != null)buffPanels.RemoveBuffFromList(s);
@@ -981,7 +1130,7 @@ public interface IHero
     public bool AddEquipmentToCharacter(HeroInventoryItem heroInventoryItem);
     public void RemoveItemFromEquipment(ItemType itemType);
     public void MakeHeroActive(bool active);
-    public void ApplySpellToHero(SpellContainer spellToApply, GameObject spellcaster);
+    public List<ResultMsg> ApplySpellToHero(SpellContainer spellToApply, GameObject spellcaster);
     public void ManaDecrease(int amount);
 
     public Dictionary<MainStat, int> GetMainStatsForUI();

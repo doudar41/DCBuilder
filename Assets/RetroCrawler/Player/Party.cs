@@ -14,17 +14,43 @@ public class Party : MonoBehaviour
     int moneyCollected = 1000;
 
     public List<UniqueDialogueName> currentUniqueDialogueNames = new List<UniqueDialogueName>(); 
+    int partyLevel = 1;
+    int skillPoints = 0;
+    int extraskillPoints = 0;
+
+    [SerializeField] int partyFood = 100; 
+
+    [SerializeField] int experienceToNextLevel = 100;
+    [SerializeField] float experienceCoeficient = 1.3f;
+    int currentexp = 0;
+
+    public int addExperiencePoints(int exp)
+    {
+        currentexp += exp;
+        print("party exp " + currentexp);
+        if (currentexp >= experienceToNextLevel)
+        {
+            experienceToNextLevel = (int)(Mathf.Pow( experienceToNextLevel, experienceCoeficient));
+            partyLevel++;
+            print("party level "+partyLevel);
+            //level up heroes
+            skillPoints += 40; //base levelup skill points, additional extra points will be added for something else)) 
+            extraskillPoints = UnityEngine.Random.Range(0, 10);
+            // ten point per hero 
+            //extra point can be added to any hero
+        }
+        return currentexp;
+    }
 
     private void OnEnable()
     {
         GameInstance.party = this;
     }
+
     private void Start()
     {
-
         StartCoroutine(GameInstance.TimeStep());
         SetTimerForHeroes(false);
-
     }
 
     public  void SetTimerForHeroes(bool battleOnOf)
@@ -45,6 +71,14 @@ public class Party : MonoBehaviour
         return heroes;
     }
 
+
+    public int EatPartyFood(int amount)
+    {
+        partyFood -= amount;
+        if(partyFood < 0) partyFood = 0;
+        return partyFood;
+    }
+
     public void PartyHeroInit()
     {
         heroes[0].MakeHeroActive(true);
@@ -52,7 +86,6 @@ public class Party : MonoBehaviour
         GameInstance.spellbook.GetPagesReady();
         //RefreshUI.Invoke();
     }
-
 
 
     public void SetActiveHero(Hero hero)

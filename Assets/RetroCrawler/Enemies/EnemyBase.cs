@@ -49,6 +49,8 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
 
     [SerializeField] SpellContainer immunityspell;
     [SerializeField] SoundID upFrontSound, attackSound;
+    [SerializeField] int experienceReward = 50;
+
 
     Dictionary<EnemyStat, Vector3Int> currentStats = new Dictionary<EnemyStat, Vector3Int>();
 
@@ -130,15 +132,23 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
         transform.localScale = new Vector3(1, 1, 1);
     }
 
-    public SpellContainer enemyAttack()
+    public SpellContainer enemyAttack(int distanceToHero)
     {
+        foreach(SpellContainer sc in attackSpells)
+        {
+            if(sc.minDistanceToEnemy >= distanceToHero)
+            {
+                return sc;
+            }
+        }
+
         return attackSpells[Random.Range(0, attackSpells.Count)];
     }
 
     IEnumerator AttackDelay()
     {
         yield return new WaitForSeconds(0.5f);
-        print("stop attacking enemy");
+        //print("stop attacking enemy");
         GameInstance.battleManager.AttackEnding();
         if(health <= 0)
         {
@@ -150,14 +160,14 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
 
     public List<ResultMsg> ApplySpellToEnemy(SpellContainer spellToApply, GameObject spellcaster) // applying spell to enemy and calculating damage and effects
     {
-        if (spellToApply == null) { StartCoroutine(AttackDelay()); return null; }
+        if (spellToApply == null) { if (!spellToApply.AOE) StartCoroutine(AttackDelay()); return null; }
         List<ResultMsg> results = new List<ResultMsg>();
         int attackRoll = 0;
         int attackrollbonus = 0, evaderoll = 0;
 
         IHero hero = spellcaster.GetComponent<IHero>();
 
-        if (spellcaster.GetComponent<IHero>() != null) 
+        if (hero != null) 
         {
             attackrollbonus = hero.GetDependedStat(DependedStat.accuracy);  // agillity modifier + endurance modifier of attacker
         }
@@ -354,7 +364,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
             if (evaderoll <= attackRoll || dice == 20) hitTargetEffect.Invoke(spellToApply);
         }
 
-        StartCoroutine(AttackDelay());
+        if(!spellToApply.AOE)StartCoroutine(AttackDelay());
         return results;
     }
 
@@ -632,6 +642,10 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
     {
         return currentStats[enemyStat].y;
     }
+
+
+    public List<SpellContainer> GetEnemyAttackSpell() { return attackSpells; }
+    public int ExperienceReward() { return experienceReward; }
 }
 
 
@@ -642,7 +656,7 @@ public interface IEnemy
     public void SetEnemyPlaceSpace(int row, List<int> places);
     public int HealthDamage(int amount);
     public string GetEnemyName();
-    public SpellContainer enemyAttack();
+    public SpellContainer enemyAttack(int distanceToHero);
     public List<ResultMsg> ApplySpellToEnemy(SpellContainer spellToApply, GameObject spellcaster);
     public List<int> CheckForPlaceMatch(List<int> listToCheck);
 
@@ -655,6 +669,8 @@ public interface IEnemy
     public int GetCurrentStatValue(EnemyStat enemyStat);
     public void MoveAheadOnAttack();
     public void MoveBackAfterAttack();
+    public List<SpellContainer> GetEnemyAttackSpell();
+    public int ExperienceReward();
 }
 
 [System.Serializable]
