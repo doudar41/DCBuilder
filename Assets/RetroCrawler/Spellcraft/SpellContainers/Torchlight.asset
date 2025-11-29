@@ -27,6 +27,7 @@ MonoBehaviour:
     skillStatAdded: 0
     restToBeAbleToCastAgainInTurns: 0
     SpellDescription: Torchlight
+    skillToCheckInCalculations: 9
   spellIcon: {fileID: 21300000, guid: 00fabcd842466074b808e57c235343fb, type: 3}
   AOE: 1
   OnlyEnemies: 0
@@ -37,3 +38,5 @@ MonoBehaviour:
   minDistanceToEnemy: 1
   spellName: Torchlight
   spellPrice: 10
+  spellLevel: 0
+  animationTriggerName: 

@@ -27,7 +27,7 @@ MonoBehaviour:
     skillStatAdded: 0
     restToBeAbleToCastAgainInTurns: 0
     SpellDescription: 
-    skillToCheckInCalculations: 0
+    skillToCheckInCalculations: 7
   spellIcon: {fileID: 21300000, guid: 101f21c8402734f43b69116b898ead6c, type: 3}
   AOE: 0
   OnlyEnemies: 0
@@ -39,3 +39,4 @@ MonoBehaviour:
   spellName: WizardEye
   spellPrice: 0
   spellLevel: 0
+  animationTriggerName: 

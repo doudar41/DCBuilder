@@ -28,6 +28,8 @@ public class ChooseShop : MonoBehaviour
         shopToChoose[index].SetActive(true);
         buttonPanels[index].SetActive(true);
 
+
+
         if (shopToChoose[index].GetComponent<ItemShop>() != null)
         {
             BroAudio.Stop(closeShopPhrase);
@@ -55,6 +57,14 @@ public class ChooseShop : MonoBehaviour
 
         }
 
+        if (shopToChoose[index].GetComponent<TrainingShop>() != null)
+        {
+            BroAudio.Stop(closeShopPhrase);
+            BroAudio.Play(openShopSound);
+            BroAudio.Play(voicePhrase);
+            shopToChoose[index].GetComponent<TrainingShop>().OpenTrainingShop();
+
+        }
 
     }
 

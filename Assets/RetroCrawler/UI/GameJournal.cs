@@ -69,7 +69,7 @@ public class GameJournal : MonoBehaviour
 
     void JournalInit()
     {
-        print("gameinstance entries count "+ GameInstance.journalEntries.Count);
+        //print("gameinstance entries count "+ GameInstance.journalEntries.Count);
         if (GameInstance.journalEntries.Count == 0) return;
         foreach(string entry in GameInstance.journalEntries)
         {
@@ -107,7 +107,7 @@ public class GameJournal : MonoBehaviour
                     pages.Add(pageBox1);
                     charCount = 0;
                 }
-                print(charCount);
+                //print(charCount);
             }
             GameObject entryBox = Instantiate(entryTextPrefab, pages[pageOpenedIndex % 2].transform);
             entryBox.GetComponent<TextMeshProUGUI>().text = entryText;

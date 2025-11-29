@@ -203,6 +203,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
             
             int diceToCompare = GameInstance.DiceRollingBiggestNumber(_spell.diceRollsNumber, _spell.diceSides); // dice to compare with spell effect application chance
 
+
             switch (_spell.spellEffect) //spellEffects is enum used to list all spell effects 
             {
                 case SpellEffects.PDmg: // Most weapon damage calculation
@@ -235,17 +236,21 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                     }
 
                     // If weapon enchanced with element all damage become an elemental damage
+                    damageAmountDiceSumResult += GameInstance.DiceRollingBiggestNumber(1, spellcaster.GetComponent<IHero>().GetSkillsStat(_spell.skillToCheckInCalculations));
 
                     damageAmountDiceSumResult = ApplyMagicResistanceToWeapon(spellcaster, damageAmountDiceSumResult);
+
                     results.Add(new() { msgType = "s", msgString = enemyName + " damaged " });
                     results.Add(new() { msgType = "i", msgInt = damageAmountDiceSumResult }); // adding final damage amount to the results list
                     HealthDamage(damageAmountDiceSumResult); // applying damage to enemy health
+                    spellcaster.GetComponent<IHero>().RecordSkillUsed(_spell.skillToCheckInCalculations);
                     break;
 
                 case SpellEffects.MDmg:
 
                     damageAmountDiceSumResult = MagicDamageApply(spellcaster, _spell, damageAmountDiceSumResult);
                     results.Add(new() { msgType = "i", msgInt = damageAmountDiceSumResult });
+                    spellcaster.GetComponent<IHero>().RecordSkillUsed(_spell.skillToCheckInCalculations);
                     break;
 
                 case SpellEffects.DSMod: // if spell is modifying depended stat of enemy (ex. accuracy, evasion, resistances etc.)
@@ -262,6 +267,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                             currentStats[EnemyStat.INITIATIVE] = new Vector3Int(currentStats[EnemyStat.INITIATIVE].x, currentStats[EnemyStat.INITIATIVE].x - damageAmountDiceSumResult, _spell.numberOfTurns);
                             print("slow enemy "+ currentStats[EnemyStat.INITIATIVE].x +"/"+ currentStats[EnemyStat.INITIATIVE].y);
                             results.Add(new() { msgType = "s", msgString = enemyName + " slowdown " });
+
                             break;
                         case DependedStat.accuracy:
                             currentStats[EnemyStat.ACCURACY] = new Vector3Int(currentStats[EnemyStat.ACCURACY].x, Mathf.Clamp( currentStats[EnemyStat.ACCURACY].x - damageAmountDiceSumResult,0,int.MaxValue), _spell.numberOfTurns);

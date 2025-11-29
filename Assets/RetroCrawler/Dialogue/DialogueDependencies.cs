@@ -11,7 +11,6 @@ public class DialogueDependencies: ScriptableObject
     public string journalEnter = "";
     public int priorityIndex = 0;
     public List<DialogueButton> dialogueButtons = new List<DialogueButton>();
-    public bool oneTimeDialogue = true;
     public List<UniqueDialogueName> namesToDeleteFromBlock = new List<UniqueDialogueName>();
     public List<UniqueDialogueName> namesToDeleteFromParty = new List<UniqueDialogueName>();
     public bool deleteDialogue = false;
@@ -49,5 +48,8 @@ public enum UniqueDialogueName //Party would have current list of dialogue names
     CastleGuardsAllowToEnter,
     PeasantInDistress01,
     PeasantInDistress02,
-    PeasantInDistress03
+    PeasantInDistress03,
+    PuzzleOnCaveWall,
+    PassingTheTrial,
+    TheRiddleDoor
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
-
+using System.Collections.Generic;
 
 public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
 {
@@ -43,16 +43,18 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
                 if (stackAmount > 1)
                 {
                     stackAmount--;
-                    GameInstance.party.activeHero.ApplySpellToHero(GameInstance.dataBase.GetItemFromBaseByIndex( inventoryItem.container).spellContainer, null);
+                    List<ResultMsg> results = GameInstance.party.activeHero.ApplySpellToHero(GameInstance.dataBase.GetItemFromBaseByIndex( inventoryItem.container).spellContainer);
                     amountText.text = stackAmount.ToString();
+                    GameInstance.spellbook.battlelogEvent.Invoke(new List<string>() { },results);
                 }
                 else
                 {
-                    GameInstance.party.activeHero.ApplySpellToHero(GameInstance.dataBase.GetItemFromBaseByIndex(inventoryItem.container).spellContainer, null);
+                    List<ResultMsg> results = GameInstance.party.activeHero.ApplySpellToHero(GameInstance.dataBase.GetItemFromBaseByIndex(inventoryItem.container).spellContainer);
                     stackAmount = 0;
                     inventoryItem = null;
                     itemAvatar.sprite = emptySlotSprite;
                     amountText.text = stackAmount.ToString();
+                    GameInstance.spellbook.battlelogEvent.Invoke(new List<string>() { }, results);
                 }
                 return;
             }
@@ -113,6 +115,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
                         amountText.text = stackAmount.ToString();
                         //exchange items in a slot
                     }
+
                     amountText.text = stackAmount.ToString();
                     return;
                 }

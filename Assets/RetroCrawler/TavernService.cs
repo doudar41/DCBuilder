@@ -44,7 +44,7 @@ public class TavernService : MonoBehaviour
     {
         if (GameInstance.party.SellBuyMoneyCheck(buyFood) >= 0)
         {
-            //add food to inventory
+            GameInstance.party.AddSomeFood(96);
         }
     }
 

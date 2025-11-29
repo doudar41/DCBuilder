@@ -107,6 +107,44 @@ public static class GameInstance
         return result; //sum of all random numbers from dice
     }
 
+    public static int GetAdditionalSkillPoints(Dictionary<SkillsStat,int> skillsUsed, out List<SkillsStat> winSkills) 
+        // Player can get up to 5 additional skill points during levelup for using specific two skills
+    {
+        if (skillsUsed.Count == 0) { winSkills = null; return 0; }
+        int total = 0;
+        List<int> usedNums = new List<int>();
+        List<SkillsStat> usedskills = new List<SkillsStat>();   
+        foreach(KeyValuePair<SkillsStat, int> sNum in skillsUsed)
+        {
+            total += sNum.Value;
+            usedNums.Add(sNum.Value);
+
+        }
+        if (total == 0) { winSkills = null; return 0; }
+
+        usedNums.Sort();
+
+        foreach (int i in usedNums)
+        {
+            foreach (KeyValuePair<SkillsStat, int> sNum in skillsUsed)
+            {
+                if(i==sNum.Value)usedskills.Add(sNum.Key);
+            }
+        }
+        Dictionary<SkillsStat, float> percentage = new Dictionary<SkillsStat, float>();
+
+        foreach (KeyValuePair<SkillsStat, int> sNum in skillsUsed)
+        {
+            percentage.Add(sNum.Key, ((float)sNum.Value/(float)total) );
+        }
+
+        int resultPercent = (int)((percentage[usedskills[0]] * 100) / 20);
+        if(skillsUsed.Count == 2) resultPercent += (int)((percentage[usedskills[1]] * 100) / 20);
+        winSkills = new List<SkillsStat>();
+        winSkills.Add(usedskills[0]);
+        if (skillsUsed.Count == 2) winSkills.Add(usedskills[1]);
+        return resultPercent; 
+    } 
 
     public static void SetMouseCursor(Texture2D norm, Vector2 hotspot)
     {

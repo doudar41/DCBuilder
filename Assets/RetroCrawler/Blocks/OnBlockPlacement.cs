@@ -4,7 +4,7 @@ using UnityEngine.Tilemaps;
 using TMPro;
 
 
-public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables
+public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
 {
 
     public TextMeshPro coordinatesTextOn; //Shown only in Editor
@@ -328,13 +328,19 @@ public interface IBlock
     public OnBlockPlacement GetOnBlock();
     public void AddWeightToBlock(int amount);
     public int CheckWeightInBlock();
-    public List<UniqueDialogueName> RunDialogue();
-    public void DeleteDialogueOption(UniqueDialogueName uniqueDialogueName);
-    public void DeleteDialogue();
+
 
     public void SetCustomBattle();
     public void FinishTheBattle();
     public int BlockLevel();
 
     public BattleGroundEnvironment GetBattleGroundEnvironment();
+}
+
+
+public interface IDialogue
+{
+    public List<UniqueDialogueName> RunDialogue();
+    public void DeleteDialogueOption(UniqueDialogueName uniqueDialogueName);
+    public void DeleteDialogue();
 }

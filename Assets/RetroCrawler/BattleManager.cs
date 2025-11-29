@@ -132,7 +132,7 @@ public class BattleManager : MonoBehaviour
         //Open UI elements which need for battle 
         battleStarts.Invoke();
         
-        _defeatedList.ClearList();
+        
         BroAudio.Play(battleMusic);
         BroAudio.Stop(exploreMusic, 0.3f);
     }
@@ -685,7 +685,7 @@ public class BattleManager : MonoBehaviour
         BroAudio.SetVolume(battleMusic,0, 0.3f);
         StartCoroutine(GameInstance.TimeStep());
         GameInstance.party.SetTimerForHeroes(false);
-
+        //_defeatedList.ClearList();
     }
     
     public void ReceiveAttackInput()

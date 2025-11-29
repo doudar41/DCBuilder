@@ -13,13 +13,12 @@ public class DialoguePanel : MonoBehaviour
     [SerializeField] TextMeshProUGUI dialogueText;
     [SerializeField] GameObject buttonPanel;
     [SerializeField] List<DialogueButtonUI> dialogueButtons = new List<DialogueButtonUI>();
-    [SerializeField] Button nextButton;
     [SerializeField] Button letMeGoQuitTalk;
     [SerializeField] Camera cameraUI;
     List<TextMeshProUGUI> buttonsTextFields = new List<TextMeshProUGUI>();
     UniqueDialogueName currentdialogue;
     bool dialogueFinished = false;
-    IBlock blockWithUniqueNames;
+    IDialogue iDialogueWithUniqueNames;
 
     List<UniqueDialogueName> dialogueTreeForRemove = new List<UniqueDialogueName>();
     int dialoguePhraseIndex = 0;
@@ -35,10 +34,7 @@ public class DialoguePanel : MonoBehaviour
         {
             buttonsTextFields.Add(b.GetComponentInChildren<TextMeshProUGUI>());
         }
-
-        //gameObject.SetActive(false);
         letMeGoQuitTalk.onClick.AddListener(CloseDialogue);
-        
     }
 
     void CloseDialogue()
@@ -47,6 +43,7 @@ public class DialoguePanel : MonoBehaviour
         { 
             NextDialoguePhrase(); return; 
         }
+        print("finishing dialogue ");
 
         buttonPanel.SetActive(false);
         var dialogue = GameInstance.dataBase.GetDialogue(currentdialogue);
@@ -56,14 +53,14 @@ public class DialoguePanel : MonoBehaviour
             if (dialogue.deleteDialogue)
             {
 
-                blockWithUniqueNames.DeleteDialogue();
+                iDialogueWithUniqueNames.DeleteDialogue();
             }
 
             foreach(UniqueDialogueName un in dialogue.namesToDeleteFromBlock)
             {
-                if (blockWithUniqueNames != null)
+                if (iDialogueWithUniqueNames != null)
                 {
-                    blockWithUniqueNames.DeleteDialogueOption(un);
+                    iDialogueWithUniqueNames.DeleteDialogueOption(un);
                 }
                 if (!GameInstance.dialoguesFinished.Contains(un)) GameInstance.dialoguesFinished.Add(un);
             }
@@ -82,11 +79,6 @@ public class DialoguePanel : MonoBehaviour
             GameInstance.party.MoneyGoes(-dialogue.goldAmount);
             if(dialogue.journalEnter !="") GameInstance.gameJournal.AddEntryToJournal(dialogue.journalEnter);
         }
-
-
-
-
-
         currentdialogue = UniqueDialogueName.None;
         dialogueText.text = "";
         portrait.sprite = noPortrait;
@@ -98,20 +90,23 @@ public class DialoguePanel : MonoBehaviour
         dialoguePhraseIndex = 0;
     }
 
-    public void SetIBlock(IBlock iblock)
+    public void SetIDialogue(IDialogue idialogue)
     {
-        blockWithUniqueNames = iblock;
+        iDialogueWithUniqueNames = idialogue;
     }
 
     public void ActivateFirstDialogue()
     {
-        List<UniqueDialogueName> nameDialogue = blockWithUniqueNames.RunDialogue();
+        dialogueFinished=false;
+        letMeGoQuitTalk.interactable = false;
+        letMeGoQuitTalk.GetComponentInChildren<TextMeshProUGUI>().text = "Next";
+
+        List<UniqueDialogueName> nameDialogue = iDialogueWithUniqueNames.RunDialogue();
         UniqueDialogueName un = GameInstance.dataBase.CheckPriority(nameDialogue);
         if(un == UniqueDialogueName.None && nameDialogue.Count>0) 
         {
             GameInstance.playerController.dialogueIsOpened = false;
             return;
-            //GameInstance.dialoguePanel.ActivateDialogue(nameDialogue[0]); return; 
         }
         if (GameInstance.party.currentUniqueDialogueNames.Contains(un) && un != UniqueDialogueName.None) GameInstance.dialoguePanel.ActivateDialogue(un);
     }
@@ -120,16 +115,15 @@ public class DialoguePanel : MonoBehaviour
     {
 
         if (GameInstance.dataBase.GetDialogue(uniqueDialogueName) == null)
-            { print("dialogue is not in a base"); CloseDialogue(); return; }
+            { print("dialogue is not in a base " + uniqueDialogueName); CloseDialogue(); return; }
 
         dialoguePanelUI.SetActive(true);
-
         buttonPanel.SetActive(true);
         cameraUI.depth = 2;
         var dialogue = GameInstance.dataBase.GetDialogue(uniqueDialogueName);
         currentdialogue = uniqueDialogueName;
-
-        foreach(DialogueButtonUI b in  dialogueButtons)
+        dialogueFinished = false;
+        foreach (DialogueButtonUI b in  dialogueButtons)
         {
             b.gameObject.SetActive(false);
         }
@@ -147,6 +141,8 @@ public class DialoguePanel : MonoBehaviour
                     dialogueButtons[i].getDialogueName.AddListener(NextDialogue);
                 }
             }
+
+            GameInstance.party.addExperiencePoints(GameInstance.dataBase.GetDialogue(currentdialogue).experiencePoints);
         }
 
 
@@ -154,8 +150,6 @@ public class DialoguePanel : MonoBehaviour
         {
             dialoguePhraseIndex = 0;
             dialogueText.text = dialogue.dialogue_phrases[dialoguePhraseIndex].dialogueTexts;
-/*            List<ResultMsg> results = new List<ResultMsg>();
-            results.Add(new() { msgType = "s", msgString = dialogueText.text });*/
             textToLog.Invoke(new () { dialogueText.text }, null);
             portrait.sprite = dialogue.dialogue_phrases[dialoguePhraseIndex].portraits; 
         }
@@ -163,7 +157,7 @@ public class DialoguePanel : MonoBehaviour
         if (dialoguePhraseIndex == dialogue.dialogue_phrases.Count - 1) 
         { 
             letMeGoQuitTalk.GetComponentInChildren<TextMeshProUGUI>().text = dialogue.lastButtonText;
-            dialogueFinished = true;
+            if (dialogue.dialogueButtons.Count == 0) { letMeGoQuitTalk.interactable = true; dialogueFinished = true; }
         }
         else
         {
@@ -181,15 +175,14 @@ public class DialoguePanel : MonoBehaviour
 
     public void NextDialoguePhrase()
     {
-        print("dialogue to open" + currentdialogue);
         if (GameInstance.dataBase.GetDialogue(currentdialogue) == null) return;
+
         dialoguePhraseIndex = Mathf.Clamp(dialoguePhraseIndex + 1, 0, GameInstance.dataBase.GetDialogue(currentdialogue).dialogue_phrases.Count - 1);
         dialogueText.text = GameInstance.dataBase.GetDialogue(currentdialogue).dialogue_phrases[dialoguePhraseIndex].dialogueTexts;
         textToLog.Invoke(new() { dialogueText.text }, null);
         var dialogue = GameInstance.dataBase.GetDialogue(currentdialogue);
         if (dialoguePhraseIndex == GameInstance.dataBase.GetDialogue(currentdialogue).dialogue_phrases.Count - 1)
         {
-            //GameInstance.dataBase.GetDialogue(currentdialogue).dialogueDone = true;
             if(GameInstance.dataBase.GetDialogue(currentdialogue).dialogueButtons.Count == 0)
             {
                 letMeGoQuitTalk.GetComponentInChildren<TextMeshProUGUI>().text = dialogue.lastButtonText;
@@ -205,6 +198,7 @@ public class DialoguePanel : MonoBehaviour
                     dialogueButtons[i].getDialogueName.AddListener(NextDialogue);
                 }
             }
+            GameInstance.party.addExperiencePoints(GameInstance.dataBase.GetDialogue(currentdialogue).experiencePoints);
         }
     }
 
@@ -213,8 +207,7 @@ public class DialoguePanel : MonoBehaviour
     {
         if (deleteRepeating)
         {
-            print("delete " + uniqueDialogueName + blockWithUniqueNames);
-            blockWithUniqueNames.DeleteDialogueOption(uniqueDialogueName);
+            iDialogueWithUniqueNames.DeleteDialogueOption(uniqueDialogueName);
         }
 
 

@@ -17,8 +17,8 @@ MonoBehaviour:
     amount: 10
     agroPoints: 0
     manaCost: 0
-    diceRollsNumber: 0
-    diceSides: 0
+    diceRollsNumber: 2
+    diceSides: 12
     diceBonus: 0
     numberOfTurns: 0
     magicType: 0
@@ -27,6 +27,7 @@ MonoBehaviour:
     skillStatAdded: 0
     restToBeAbleToCastAgainInTurns: 0
     SpellDescription: Heals 10 points of Health
+    skillToCheckInCalculations: 0
   spellIcon: {fileID: 0}
   AOE: 0
   OnlyEnemies: 0
@@ -37,3 +38,5 @@ MonoBehaviour:
   minDistanceToEnemy: 2
   spellName: Small Hel Potion
   spellPrice: 10
+  spellLevel: 0
+  animationTriggerName: 

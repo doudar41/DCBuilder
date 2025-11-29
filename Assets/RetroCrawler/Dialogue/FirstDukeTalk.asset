@@ -33,8 +33,11 @@ MonoBehaviour:
     stock up on rations and some weapons before heading out."
   priorityIndex: 2
   dialogueButtons: []
-  oneTimeDialogue: 1
   namesToDeleteFromBlock: 010000000200000003000000
   namesToDeleteFromParty: 010000000200000003000000
-  deleteDialogue: 1
+  deleteDialogue: 0
   lastButtonText: Thank you
+  namesAddToParty: 0b000000
+  itemsAddToParty: []
+  goldAmount: 1000
+  experiencePoints: 0

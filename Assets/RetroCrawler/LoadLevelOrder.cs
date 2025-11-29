@@ -73,7 +73,7 @@ public class LoadLevelOrder : MonoBehaviour
 
         GameInstance.party.RestoreSpellsAttached(GameInstance.spellsAttachedToHeroes);
         GameInstance.party.PartyHeroInit();
-        print("no spellbook");
+        //print("no spellbook");
         GameInstance.spellbook.RestoreContinousSpells();
     }
 }

@@ -22,6 +22,7 @@ public class SpellShop : MonoBehaviour
     
 
     public UnityEvent closeShopPanel;
+
     private void Start()
     {
         

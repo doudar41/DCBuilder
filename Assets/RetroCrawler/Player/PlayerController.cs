@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
     public bool shopIsOpened = false;
     public bool dialogueIsOpened = false;
     UniqueDialogueName startingDialogueName;
-    IBlock textblock;
+    IDialogue textblock;
     public bool attackAllowed = false;
 
     bool menuOpened = false;
@@ -141,7 +141,7 @@ public class PlayerController : MonoBehaviour
 
         if(walls.Length != wallsAccess.Count)
         {
-            print("map blocks positions are broken");
+            //print("map blocks positions are broken");
             wallsAccess.Clear();
             foreach (OnBlockPlacement w in walls)
             {
@@ -167,7 +167,7 @@ public class PlayerController : MonoBehaviour
 
     public void CheckIfLevelLoaded()
     {
-        print("wallaccess count "+wallsAccess.Count);
+        //print("wallaccess count "+wallsAccess.Count);
         if (GameInstance.levelChange)
         {
             transform.position = new Vector3(moveTilemap.GetCellCenterWorld(GameInstance.nextLevelPosition).x, 3, moveTilemap.GetCellCenterWorld(GameInstance.nextLevelPosition).z);
@@ -704,7 +704,16 @@ public class PlayerController : MonoBehaviour
         if (cursorBusy || cursorHoveringUI) return;
 
         if (Vector3.Distance(transform.position, hitObject.transform.position) > blockSize) return;
-        print("click on item " + hitObject.name);
+        //print("click on item " + hitObject.name);
+        if(hitObject.GetComponent<ItemModel>() != null)
+        {
+            GameInstance.spellbook.battlelogEvent.Invoke(
+                                                    new List<string>() { "item taken  " },
+                                                    new List<ResultMsg>() { new ResultMsg() { msgType = "s", msgString = GameInstance.dataBase.GetItemFromBaseByIndex(hitObject.GetComponent<ItemModel>().WhatItem().container).itemName } }
+                                                    );
+        }
+
+
         IItem iItem = hitObject.GetComponent<IItem>();
         cursorItemScriptable = iItem.WhatItem();
 
@@ -763,7 +772,7 @@ public class PlayerController : MonoBehaviour
 
     public void SetPlayerCursorBusy(HeroInventoryItem heroInventoryItem)
     {
-        print("set cursor busy " + heroInventoryItem.itemType);
+       // print("set cursor busy " + heroInventoryItem.itemType);
         if (GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).itemType == ItemType.Key)
         {
             GameInstance.inventory.SaveKeyToList(GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).keyType);
@@ -820,6 +829,13 @@ public class PlayerController : MonoBehaviour
                             UniqueDialogueName un =  hit.collider.GetComponent<DialogueKey>().GetUniqueDialogueName();
                             if(!GameInstance.party.currentUniqueDialogueNames.Contains(un)) GameInstance.party.currentUniqueDialogueNames.Add(un);
                             GameObject.DestroyImmediate(hit.collider.gameObject);
+                            return false;
+                        case InteractablesEnum.DIALOGUE:
+
+                            textblock = hit.collider.GetComponent<IDialogue>();
+                            GameInstance.dialoguePanel.SetIDialogue(textblock);
+                            dialogueIsOpened = true;
+                            GameInstance.dialoguePanel.ActivateFirstDialogue();
                             return false;
 
                     }
@@ -909,8 +925,8 @@ public class PlayerController : MonoBehaviour
                     if (interactableList.Contains(InteractablesEnum.DIALOGUE)) break;
                     else return false;
                 case InteractablesEnum.DIALOGUE:
-                    textblock = wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<IBlock>();
-                    GameInstance.dialoguePanel.SetIBlock(textblock);
+                    textblock = wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<IDialogue>();
+                    GameInstance.dialoguePanel.SetIDialogue(textblock);
                     dialogueIsOpened = true;
                     GameInstance.dialoguePanel.ActivateFirstDialogue();
                     return false;

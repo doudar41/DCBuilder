@@ -5,6 +5,8 @@ using TMPro;
 
 public class PlayerStats : MonoBehaviour
 {
+    [SerializeField] TextMeshProUGUI heroName;
+
     [SerializeField] MainStatTextUI mainStatsUITexts;
     [SerializeField] DependedStatTextUI dependedStatsUIText;
     [SerializeField] SkillsStatTextUI skillsStatsUIText;
@@ -12,10 +14,10 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] Slider carryingWeight;
     [SerializeField] Slider hungerLevel;
     [SerializeField] TextMeshProUGUI weightHero, weightParty;
-    [SerializeField] TextMeshProUGUI hungerText;
+    [SerializeField] TextMeshProUGUI foodText;
     [SerializeField] TextMeshProUGUI expPoints;
     [SerializeField] TextMeshProUGUI partyLevel;
-    [SerializeField] TextMeshProUGUI moneyInCoins;
+    [SerializeField] List<TextMeshProUGUI> moneyInCoins;
 
     private void Start()
     {
@@ -62,6 +64,15 @@ public class PlayerStats : MonoBehaviour
         carryingWeight.value = GameInstance.inventory.GetCurrentHeroWeight();
         weightHero.text = GameInstance.party.activeHero.GetDependedStat(DependedStat.CarryingCapacity).ToString()+"/"+ GameInstance.party.activeHero.GetHeroWeight().ToString();
         weightParty.text = GameInstance.party.GetPartyWeight().ToString();
+        hungerLevel.value = GameInstance.party.activeHero.GetHungerLevelPercents();
+        foodText.text = GameInstance.party.CheckFoodSupply(0).ToString();
+        expPoints.text = GameInstance.party.addExperiencePoints(0).ToString();
+        for (int i=0;i< moneyInCoins.Count;i++)
+        {
+            moneyInCoins[i].text = GameInstance.party.GetCoinsForUI()[i].ToString();
+        }
+        heroName.text = GameInstance.party.activeHero.HeroName();
+        partyLevel.text = GameInstance.party.GetPartyLevel().ToString();
     }
 }
 

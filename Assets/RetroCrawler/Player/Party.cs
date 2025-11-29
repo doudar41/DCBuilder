@@ -10,36 +10,49 @@ public class Party : MonoBehaviour
 
     public IHero activeHero;
     public UnityEvent RefreshUI;
+    public UnityEvent SwitchHeroTraining;
 
     int moneyCollected = 1000;
 
     public List<UniqueDialogueName> currentUniqueDialogueNames = new List<UniqueDialogueName>(); 
     int partyLevel = 1;
-    int skillPoints = 0;
-    int extraskillPoints = 0;
 
     [SerializeField] int partyFood = 100; 
 
     [SerializeField] int experienceToNextLevel = 100;
     [SerializeField] float experienceCoeficient = 1.3f;
     int currentexp = 0;
+    int timeToLevelUp = 0;
 
     public int addExperiencePoints(int exp)
     {
         currentexp += exp;
-        print("party exp " + currentexp);
+        //print("party exp " + currentexp);
         if (currentexp >= experienceToNextLevel)
         {
-            experienceToNextLevel = (int)(Mathf.Pow( experienceToNextLevel, experienceCoeficient));
+            //print("next level");
+            experienceToNextLevel = (int)(Mathf.Pow(experienceToNextLevel, experienceCoeficient));
             partyLevel++;
-            print("party level "+partyLevel);
-            //level up heroes
-            skillPoints += 40; //base levelup skill points, additional extra points will be added for something else)) 
-            extraskillPoints = UnityEngine.Random.Range(0, 10);
-            // ten point per hero 
-            //extra point can be added to any hero
+            foreach (var hero in heroes)
+            {
+                hero.AddExtraSkillPoints(10);
+            }
+
+            timeToLevelUp++;
+
+            GameInstance.spellbook.battlelogEvent.Invoke(new List<string>() { "party level up " },
+                                                            new List<ResultMsg> { new ResultMsg { msgType = "i", msgInt = partyLevel } } );
         }
+        if(timeToLevelUp> 10000) return 0;
+
+        if (currentexp > experienceToNextLevel) addExperiencePoints(0); 
+
         return currentexp;
+    }
+
+    public int GetPartyLevel()
+    {
+        return partyLevel;
     }
 
     private void OnEnable()
@@ -66,18 +79,11 @@ public class Party : MonoBehaviour
 
     }
 
-    public List<Hero> GetPartyMembers()
-    {
-        return heroes;
-    }
+    public List<Hero> GetPartyMembers()  {  return heroes;  }
 
+    public int CheckFoodSupply(int amount) { return partyFood - amount; }
 
-    public int EatPartyFood(int amount)
-    {
-        partyFood -= amount;
-        if(partyFood < 0) partyFood = 0;
-        return partyFood;
-    }
+    public void FoodGoes(int amount) { partyFood -= amount; if (partyFood < 0) partyFood = 0; }
 
     public void PartyHeroInit()
     {
@@ -103,12 +109,12 @@ public class Party : MonoBehaviour
                 GameInstance.spellbook.GetPagesReady();
                 GameInstance.inventory.GetEquipmentFromHero(activeHero.GetHeroEquipment());
                 RefreshUI.Invoke();
+                SwitchHeroTraining.Invoke();
             }
             else h.MakeHeroActive(false);
-
         }
-
     }
+
     public void GetItemFromEquipmentSlot(HeroInventoryItem heroInventoryItem, ItemType itemType)
     {
         if (heroInventoryItem == null)
@@ -278,6 +284,15 @@ public class Party : MonoBehaviour
         }
         return health <= 0;
 
+    }
+
+    public void AddSomeFood(int amount)
+    {
+        partyFood += amount;
+        foreach(Hero hero in heroes)
+        {
+            hero.FeedHero();
+        }
     }
 
 }

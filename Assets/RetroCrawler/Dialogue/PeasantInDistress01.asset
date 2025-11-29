@@ -19,7 +19,7 @@ MonoBehaviour:
   - portraits: {fileID: 21300000, guid: 499c211661d268c4d8317df9ac6d907e, type: 3}
     dialogueTexts: My home is full of snakes.I guess they come from the Western Cave.
       Can you get rid of them, please?
-  journalEnter: 
+  journalEnter: Giant want us to get rid of snakes in his house
   priorityIndex: 2
   dialogueButtons: []
   oneTimeDialogue: 1
@@ -30,3 +30,4 @@ MonoBehaviour:
   namesAddToParty: 09000000
   itemsAddToParty: []
   goldAmount: 0
+  experiencePoints: 0
