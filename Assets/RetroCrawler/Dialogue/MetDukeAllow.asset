@@ -10,17 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8fc4bf8bed5e41a4fa66bd7300eb3474, type: 3}
-  m_Name: GuardsProhibit
+  m_Name: MetDukeAllow
   m_EditorClassIdentifier: 
-  uniqueName: 6
+  uniqueName: 19
   dialogue_phrases:
-  - portraits: {fileID: 21300000, guid: 9dc5abcbf07c4604698d63aa6d4907d2, type: 3}
-    dialogueTexts: Halt, No Entrance!
+  - portraits: {fileID: 21300000, guid: a4cfc0969ee71c048b3ebc08dccf35e4, type: 3}
+    dialogueTexts: Hope you're ready
   journalEnter: 
-  priorityIndex: 1
+  priorityIndex: 2
   dialogueButtons: []
-  oneTimeDialogue: 0
-  namesToDeleteFromBlock: 
-  namesToDeleteFromParty: 
-  deleteDialogue: 0
-  lastButtonText: Step Back
+  namesToDeleteFromBlock: 1200000013000000
+  namesToDeleteFromParty: 1200000013000000
+  deleteDialogue: 1
+  lastButtonText: Yes, we are
+  namesAddToParty: 
+  itemsAddToParty: []
+  goldAmount: 0
+  experiencePoints: 0

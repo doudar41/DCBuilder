@@ -209,7 +209,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
             if(itemToDesc.itemLevel > GameInstance.party.activeHero.GetSkillsStat(SkillsStat.Identify)/3)
             {
                 textDesc.color = Color.red;
-                textDesc.text = "Can't identify";
+                textDesc.text = "\n."+  " Can't identify   "+ "\n.";
             }
             else
             {

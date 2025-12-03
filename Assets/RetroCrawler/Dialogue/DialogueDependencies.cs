@@ -51,5 +51,11 @@ public enum UniqueDialogueName //Party would have current list of dialogue names
     PeasantInDistress03,
     PuzzleOnCaveWall,
     PassingTheTrial,
-    TheRiddleDoor
+    TheRiddleDoor,
+    FirstGuardAllow,
+    FirstGuardDeny,
+    SecondGuardAllow,
+    SecondGuardDeny,
+    MeetDukeFirstDeny,
+    MetDukeAllow
 }

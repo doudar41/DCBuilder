@@ -31,11 +31,6 @@ public class LoadFileNames : MonoBehaviour
     private void Start()
     {
         fileNameInput.onEndEdit.AddListener(AddFileNameToList);
-/*        foreach(var g in saveLoadTransform.transform)
-        {
-            listOfFiles.Add(g.GetComponent<SaveFileToggleContainer>());
-            g.GetComponent<SaveFileToggleContainer>().fileNameToggle = "";
-        }*/
     }
 
     private void AddFileNameToList(string fileName)
@@ -64,11 +59,13 @@ public class LoadFileNames : MonoBehaviour
     {
         List<string> list  = GameInstance.GetFileNameList();
         print(" list of files " + list.Count);
+
         for (int i = 0; i< list.Count;i++)
         {
             if (i < (listOfFiles.Count - 1))
             {
-            listOfFiles[i].SetFileName(list[i]);
+                listOfFiles[i].Visibility(true);
+                listOfFiles[i].SetFileName(list[i]);
             }
             else
             {
@@ -76,6 +73,7 @@ public class LoadFileNames : MonoBehaviour
                 newToggle.GetComponent<SaveFileToggleContainer>().SetFileName(list[i]);
                 newToggle.GetComponent<Toggle>().group = toggleGroup;
                 listOfFiles.Add(newToggle.GetComponent<SaveFileToggleContainer>());
+                newToggle.GetComponent<SaveFileToggleContainer>().Visibility(true);
             }
         }
         if(list.Count< listOfFiles.Count)
@@ -83,6 +81,7 @@ public class LoadFileNames : MonoBehaviour
             for (int i = list.Count; i < listOfFiles.Count; i++)
             {
                 listOfFiles[i].SetFileName("");
+                listOfFiles[i].Visibility(false);
             }
         }
     }

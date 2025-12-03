@@ -33,7 +33,7 @@ MonoBehaviour:
   namesToDeleteFromParty: 0c0000000d000000
   deleteDialogue: 0
   lastButtonText: And to the tomb...
-  namesAddToParty: 07000000
+  namesAddToParty: 0e00000010000000
   itemsAddToParty: []
   goldAmount: 0
   experiencePoints: 0

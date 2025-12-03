@@ -42,14 +42,13 @@ public static class GameInstance
 
     // Heroes data
 
-
-
     public static List<HeroInventoryItem> equipmentHeroesSavedWithGUID = new List<HeroInventoryItem>();
     public static List<HeroInventoryItem> inventoryItemsSaved = new List<HeroInventoryItem>();
     public static Dictionary<string, HeroInventoryItem> itemsOnLevelSavedWithGUID = new Dictionary<string,HeroInventoryItem>();
 
     public static List<string> levelsVisited = new List<string>();
     public static List<visitedBlock> visitedBlocks = new List<visitedBlock>();
+
     //SpellAttachedSaved 
 
     public static Vector3Int playerPositionSaved, nextLevelPosition;
@@ -238,6 +237,8 @@ public static class GameInstance
         Debug.Log("time coroutine stops");
         yield return null;
     }
+
+
 
 
     /// <summary>

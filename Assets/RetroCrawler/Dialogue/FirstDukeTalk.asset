@@ -36,8 +36,8 @@ MonoBehaviour:
   namesToDeleteFromBlock: 010000000200000003000000
   namesToDeleteFromParty: 010000000200000003000000
   deleteDialogue: 0
-  lastButtonText: Thank you
-  namesAddToParty: 0b000000
+  lastButtonText: To caves then...
+  namesAddToParty: 0b00000013000000
   itemsAddToParty: []
   goldAmount: 1000
   experiencePoints: 0

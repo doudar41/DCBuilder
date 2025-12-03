@@ -82,7 +82,7 @@ public class BattleManager : MonoBehaviour
     private void Awake()
     {
         GameInstance.battleManager = this;
-        BroAudio.Play(exploreMusic).SetVolume(0.4f);
+        if(!BroAudio.HasAnyPlayingInstances(exploreMusic)) BroAudio.Play(exploreMusic).SetVolume(0.4f);
     }
 
     public void SetExplorationMusicIndex(SoundID _id)

@@ -34,6 +34,9 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
     [SerializeField] GameObject characterSprite;
     int blockLevel = 0;
 
+
+
+
     private void Awake()
     {
         GameInstance.initItems += BlockInit;
@@ -59,7 +62,9 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
         if (dialogues.Count == 0)
         {
             if (blockInteractables.Contains(InteractablesEnum.DIALOGUE)) blockInteractables.Remove(InteractablesEnum.DIALOGUE);
+
         }
+        
 
 
     }
