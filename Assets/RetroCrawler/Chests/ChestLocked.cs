@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -67,6 +68,7 @@ public class ChestLocked : MonoBehaviour, IPointerClickHandler
             newItem.level = "Level01";
             newItem.levelOfIdenifySaved = 0;
             inventoryInsideChest.Add(newItem);
+           
         }
     }
 
@@ -80,6 +82,7 @@ public class ChestLocked : MonoBehaviour, IPointerClickHandler
             foreach (HeroInventoryItem item in inventoryInsideChest)
             {
                 GameInstance.inventory.FindEmptySlotAndPutItem(item, item.stackAmount);
+                GameInstance.spellbook.BattleLogMessage(new List<string>() { "item added " + GameInstance.dataBase.GetItemFromBaseByIndex(item.container).itemName }, null);
             }
             StartCoroutine(AnimateOpen());
             inventoryInsideChest.Clear();
@@ -92,6 +95,7 @@ public class ChestLocked : MonoBehaviour, IPointerClickHandler
                 foreach (HeroInventoryItem item in inventoryInsideChest)
                 {
                     GameInstance.inventory.FindEmptySlotAndPutItem(item, item.stackAmount);
+                    GameInstance.spellbook.BattleLogMessage(new List<string>() { "item added " + GameInstance.dataBase.GetItemFromBaseByIndex(item.container).itemName }, null);
                 }
                 StartCoroutine(AnimateOpen());
                 inventoryInsideChest.Clear();

@@ -810,7 +810,7 @@ Camera:
   field of view: 93
   orthographic: 0
   orthographic size: 5
-  m_Depth: 3
+  m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 32
@@ -5666,8 +5666,9 @@ GameObject:
   - component: {fileID: 6686528924771360270}
   - component: {fileID: 501135104153289906}
   - component: {fileID: 6724185650139746802}
+  - component: {fileID: 758393992241520270}
   m_Layer: 6
-  m_Name: StepSoundSource
+  m_Name: SoundManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5734,6 +5735,26 @@ MonoBehaviour:
   _overrideGroup: {fileID: 0}
   _positionMode: 0
   _delay: 0
+--- !u!114 &758393992241520270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6737629253302243203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e08fb0c5aa215824e8dec4bea5191a2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  battleMusic:
+    ID: 268435458
+    _sourceAsset: {fileID: 11400000, guid: a4dbd3420acce304ea11a0f5b982f3e9, type: 2}
+    <DebugObject>k__BackingField: {fileID: 6737629253302243203}
+  exploreMusic:
+    ID: 268435459
+    _sourceAsset: {fileID: 11400000, guid: a4dbd3420acce304ea11a0f5b982f3e9, type: 2}
+    <DebugObject>k__BackingField: {fileID: 6737629253302243203}
 --- !u!1 &6744005074527758198
 GameObject:
   m_ObjectHideFlags: 0

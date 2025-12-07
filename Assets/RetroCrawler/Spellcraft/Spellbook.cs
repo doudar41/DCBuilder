@@ -112,7 +112,31 @@ public class Spellbook : MonoBehaviour
         }
     }
 
+    public void BattleLogMessage(List<string> _string, List<ResultMsg> _messageStruct)
+    {
+        List<string> _stringList = new List<string>();
+        List < ResultMsg > _messageList = new List<ResultMsg>();
+        if (_string==null)
+        {
+            _stringList.Add("");
+        }
+        else
+        {
+            _stringList = _string;
+        }
+        if (_messageStruct == null)
+        {
 
+            _messageList.Add(new ResultMsg() { msgString = string.Empty });
+        }
+        else
+        {
+            _messageList = _messageStruct;
+
+        }
+
+        battlelogEvent.Invoke(_stringList, _messageList);
+    }
 
     public bool SpellWaiting() //Check if there is a spell waiting for release by clicking target or pressing cast button in battle menu
     {

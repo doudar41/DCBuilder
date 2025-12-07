@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.Splines;
+using TMPro;
 
 
 [RequireComponent(typeof(SplineAnimate))]
@@ -34,6 +35,7 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables, IPointerClickHand
     public UnityEvent AnimComplete;
 
     [SerializeField] PhysicMaterial frictionMaterial;
+    [SerializeField] TextMeshPro itemNameInEditor;
 
     public void OnValidate()
     {
@@ -42,6 +44,8 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables, IPointerClickHand
             _guid = System.Guid.NewGuid();
             GUIDString = _guid.ToString();
         }
+
+       if(itemScriptableLocal!=null) itemNameInEditor.text = itemScriptableLocal.itemName;
     }
 
     private void OnEnable()
@@ -57,6 +61,7 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables, IPointerClickHand
         //GameInstance.itemsFound.Add(GUIDString);
         GameInstance.initItems += LevelEnterInit;
         GameInstance.checkWeight += CheckWeight;
+        itemNameInEditor.gameObject.SetActive(false);
     }
     private void OnDestroy()
     {

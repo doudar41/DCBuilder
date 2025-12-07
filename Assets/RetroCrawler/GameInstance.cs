@@ -15,6 +15,7 @@ public static class GameInstance
     public static Database dataBase;
     public static DialoguePanel dialoguePanel;
     public static GameJournal gameJournal;
+    public static SoundManager soundManager;
 
     static Texture2D cursorTargetGraphics, cursorNormal;
     static CursorMode cursorMode = CursorMode.Auto;

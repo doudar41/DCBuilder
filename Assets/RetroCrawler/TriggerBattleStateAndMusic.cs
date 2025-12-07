@@ -11,12 +11,7 @@ public class TriggerBattleStateAndMusic : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         GameInstance.playerController.SetEncounter(noEncounter);
-        if (!BroAudio.HasAnyPlayingInstances(exploreMusicLocal))
-        {
-            BroAudio.Stop(previousExploreMusic, 0.5f);
-            BroAudio.Play(exploreMusicLocal, 0.5f);
-            GameInstance.battleManager.SetExplorationMusicIndex(exploreMusicLocal);
-        }
+
         if(!noEncounter)
         {
            GameInstance.battleManager.SetListOfEnemies(listOfEnemies);

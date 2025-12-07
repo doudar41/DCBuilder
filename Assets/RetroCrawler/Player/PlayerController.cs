@@ -311,7 +311,7 @@ public class PlayerController : MonoBehaviour
 
     void TurnAround(InputAction.CallbackContext context)
     {
-        if (cursorHoveringUI) return;
+        if (menuOpened) { return; }
         if (playerState == PlayerState.Battle) { /*print("battle state");*/ return; }
         TurnAroundFloat(context.ReadValue<float>());
     }

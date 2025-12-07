@@ -15,7 +15,7 @@ MonoBehaviour:
   uniqueName: 14
   dialogue_phrases:
   - portraits: {fileID: 21300000, guid: 9dc5abcbf07c4604698d63aa6d4907d2, type: 3}
-    dialogueTexts: You may enter
+    dialogueTexts: You may pass
   journalEnter: 
   priorityIndex: 2
   dialogueButtons: []

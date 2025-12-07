@@ -63,7 +63,7 @@ public class BattleManager : MonoBehaviour
 
     //This class contains textures of several available bioms to choose depend on battle ground environment enum of the block
     [SerializeField] BattleGroundGraphics battleGroundGraphics;
-    [SerializeField] SoundID battleMusic, exploreMusic;
+
 
 
 
@@ -82,13 +82,9 @@ public class BattleManager : MonoBehaviour
     private void Awake()
     {
         GameInstance.battleManager = this;
-        if(!BroAudio.HasAnyPlayingInstances(exploreMusic)) BroAudio.Play(exploreMusic).SetVolume(0.4f);
+
     }
 
-    public void SetExplorationMusicIndex(SoundID _id)
-    {
-        exploreMusic = _id;
-    }
 
 
     //This is start of battle after random time passed in explore state. Player Controller has NoEncounter bool which on/off time based encounter
@@ -131,10 +127,8 @@ public class BattleManager : MonoBehaviour
         }
         //Open UI elements which need for battle 
         battleStarts.Invoke();
-        
-        
-        BroAudio.Play(battleMusic);
-        BroAudio.Stop(exploreMusic, 0.3f);
+
+
     }
 
 
@@ -157,6 +151,7 @@ public class BattleManager : MonoBehaviour
 
 
         battleGroundGraphics.SetBattleGround(battleGroundEnvironment);
+        GameInstance.soundManager.LaunchBattleMusic(battleGroundEnvironment);
         GameInstance.playerController.StartCustomBattle();
         enemyTurn.Invoke("Battle");
         //StopCoroutine(GameInstance.TimeStep());
@@ -681,8 +676,7 @@ public class BattleManager : MonoBehaviour
         allOpponents.Clear();
         GameInstance.playerController.SetPlayerState(PlayerState.Explore);
         GameInstance.playerController.ReturnToPreBattlePosition();
-        BroAudio.Play(exploreMusic).SetVolume(0.4f);
-        BroAudio.SetVolume(battleMusic,0, 0.3f);
+        GameInstance.soundManager.BackToCurrentExploreMusic();
         StartCoroutine(GameInstance.TimeStep());
         GameInstance.party.SetTimerForHeroes(false);
         //_defeatedList.ClearList();

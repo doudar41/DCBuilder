@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Rendering;
 
 public class BattleLogLine : MonoBehaviour, IPointerClickHandler
 {
@@ -12,7 +13,7 @@ public class BattleLogLine : MonoBehaviour, IPointerClickHandler
     [SerializeField] Transform textsParent;
     [SerializeField] TMP_FontAsset font;
     [SerializeField] GameObject textbox;
-    [SerializeField] ScrollRect scrollRect;
+
 
     private void Start()
     {
@@ -67,4 +68,11 @@ public class BattleLogLine : MonoBehaviour, IPointerClickHandler
     {
         gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(gameObject.GetComponent<RectTransform>().anchoredPosition.x, -590);
     }
+
+    public void Visible(bool onOff)
+    {
+        if(onOff) textsParent.gameObject.SetActive(true);
+        else textsParent.gameObject.SetActive(false);
+    }
+
 }
