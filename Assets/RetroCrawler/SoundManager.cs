@@ -47,7 +47,8 @@ public class SoundManager : MonoBehaviour
 
     public void BackToCurrentExploreMusic()
     {
-        BroAudio.Stop(currentExploreMusic, 0.5f);
+        BroAudio.Stop(battleMusic, 0.5f);
+        BroAudio.Play(currentExploreMusic, 0.5f);
     }
 
 

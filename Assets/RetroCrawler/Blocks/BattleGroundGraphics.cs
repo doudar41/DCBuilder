@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class BattleGroundGraphics : MonoBehaviour
 {
-    [SerializeField] List<MeshRenderer> wallMeshes = new List<MeshRenderer>();
-    [SerializeField] List<MeshRenderer> groundMeshes = new List<MeshRenderer>();
+    [SerializeField] List<SpriteRenderer> wallMeshes = new List<SpriteRenderer>();
+    [SerializeField] List<SpriteRenderer> groundMeshes = new List<SpriteRenderer>();
     [SerializeField] List<MeshRenderer> ceilingMeshes = new List<MeshRenderer>();
-    [SerializeField] List<Material> wallMaterials = new List<Material>();
-    [SerializeField] List<Material> groundMaterials = new List<Material>();
+    [SerializeField] List<Sprite> wallMaterials = new List<Sprite>();
+    [SerializeField] List<Sprite> groundMaterials = new List<Sprite>();
     [SerializeField] List<Material> ceilingMaterials = new List<Material>();
 
 
@@ -16,13 +16,13 @@ public class BattleGroundGraphics : MonoBehaviour
     {
         print("set walls to " + (int)battleGroundEnvironment);
 
-        foreach (MeshRenderer mr in wallMeshes)
+        foreach (SpriteRenderer mr in wallMeshes)
         {
-            mr.material = wallMaterials[(int)battleGroundEnvironment];
+            mr.sprite = wallMaterials[(int)battleGroundEnvironment];
         }
-        foreach (MeshRenderer mr in groundMeshes)
+        foreach (SpriteRenderer mr in groundMeshes)
         {
-            mr.material = groundMaterials[(int)battleGroundEnvironment];
+            mr.sprite = groundMaterials[(int)battleGroundEnvironment];
         }
         foreach (MeshRenderer mr in ceilingMeshes)
         {

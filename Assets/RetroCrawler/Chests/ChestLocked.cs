@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ChestLocked : MonoBehaviour, IPointerClickHandler
+public class ChestLocked : MonoBehaviour, IPointerClickHandler, IChestLocked
 {
     System.Guid _guid;
     [SerializeField] string GUIDString = "";
@@ -77,6 +76,11 @@ public class ChestLocked : MonoBehaviour, IPointerClickHandler
     {
         if (inventoryInsideChest.Count == 0) return;
         if (Vector3.Distance(GameInstance.playerController.gameObject.transform.position, transform.position) > 7) return;
+        OpenChest();
+    }
+
+    public void OpenChest()
+    {
         if (isOpen)
         {
             foreach (HeroInventoryItem item in inventoryInsideChest)
@@ -114,7 +118,21 @@ public class ChestLocked : MonoBehaviour, IPointerClickHandler
 
         yield return null;
     }
+    public bool IsLocked()
+    {
+        return !isOpen;
+    }
 
+    public KeyType GetKeyType()
+    {
+        return keyType;
+    }
 }
 
 
+public interface IChestLocked
+{
+    public KeyType GetKeyType();
+    public bool IsLocked();
+    public void OpenChest();
+}

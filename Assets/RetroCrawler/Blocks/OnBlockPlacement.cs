@@ -32,6 +32,8 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
     [SerializeField] List<UniqueDialogueName> afterBattleDialogue = new List<UniqueDialogueName>();
     [SerializeField] int goldAmount = 0;
     [SerializeField] GameObject characterSprite;
+    [SerializeField] List<GameObject> interactableObjectsInBlock = new List<GameObject>();
+    public List<GameObject> InteractableObjectsInBlock { get; }
     int blockLevel = 0;
 
 
@@ -298,6 +300,11 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
     {
         return battleGroundEnvironment;
     }
+
+/*    public List<GameObject> InteractableObjectsInBlock()
+    {
+        return interactableObjectsInBlock;
+    }*/
 }
 
 
@@ -340,6 +347,8 @@ public interface IBlock
     public int BlockLevel();
 
     public BattleGroundEnvironment GetBattleGroundEnvironment();
+
+    public List<GameObject> InteractableObjectsInBlock { get; }
 }
 
 

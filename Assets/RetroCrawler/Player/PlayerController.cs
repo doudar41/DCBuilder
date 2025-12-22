@@ -687,7 +687,9 @@ public class PlayerController : MonoBehaviour
                         case InteractablesEnum.PICKABLE:
                             //GetInterfaceFromItem(hit.collider.gameObject);
                             break;
+
                     }
+
                 }
             }
         }
@@ -868,6 +870,27 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    GameObject CheckBlockInteractables(Vector3 v) 
+    {
+        IBlock iblock;
+        if (wallsAccess.ContainsKey(moveTilemap.WorldToCell(v)))
+        { iblock = wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<IBlock>(); }
+        else return null;
+
+        foreach (GameObject g in iblock.InteractableObjectsInBlock)
+        {
+            if (g != null)
+            {
+
+                print("found interactable " + g.name);
+            }
+        }
+
+
+        return null;
+    }
+
+
     bool CheckBlockInterfaces(Vector3 v)
     {
         IInteractables iblock;
@@ -910,9 +933,7 @@ public class PlayerController : MonoBehaviour
                 case InteractablesEnum.TRAP:
                     // get trap interface 
                     break;
-                case InteractablesEnum.STORY:
-                    // get story interface getting a text of a message, delete story from interactablesEnum list
-                    break;
+
                 case InteractablesEnum.WALL:
                     return false;
                 case InteractablesEnum.STORE:
@@ -1028,9 +1049,11 @@ public class PlayerController : MonoBehaviour
     void TakeInteract(InputAction.CallbackContext context)
     {
         if (cursorHoveringUI) return;
-        print("pressing Space to interact");
+        //print("pressing Space to interact");
         CheckBlockInterfaces(CardinalDir.GetNewPoint(currentforwardDirection, currentposition, moveTilemap));
+        RaycastOnMovement(Vector3.forward);
         takeInteractInterface.SwitchOnCollider();
+
     }
 
 }

@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 8.899994, y: 0.000034570694}
+  m_AnchoredPosition: {x: 8.899994, y: 0.000014662743}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &8069741111807412642
@@ -145,6 +145,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   letMeGoQuitTalk: {fileID: 0}
+  cameraUI: {fileID: 0}
   deleteDialogueOption:
     m_PersistentCalls:
       m_Calls: []

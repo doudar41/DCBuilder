@@ -11,7 +11,7 @@ public class ItemShop : MonoBehaviour
     [SerializeField] Image backGroundImage;
     [SerializeField] List<ItemShopSlot> itemsSlots = new List<ItemShopSlot>();
     [SerializeField] List<ItemType> itemsTypesToSell = new List<ItemType>();
-    [SerializeField] Camera cam;
+    [SerializeField] CameraOrder cam;
     [SerializeField] float sellMultiplier = 1;
     [SerializeField] Vector2Int itemsLevel = new Vector2Int(0,1);
     [SerializeField] List<TextMeshProUGUI> heroesCoinsText;
@@ -46,7 +46,7 @@ public class ItemShop : MonoBehaviour
     {
         backGroundImage.enabled = true;
         shopInsides.SetActive(true);
-        cam.depth = 1;
+        //cam.depth = 1;
         var money = GameInstance.party.GetCoinsForUI();
         for (int i = 0; i < money.Count; i++)
         {
@@ -142,7 +142,7 @@ public class ItemShop : MonoBehaviour
 
     public void CameraOut()
     {
-        cam.depth = -2;
+        cam.BattleLogWithGameplay();
     }
 
     public ItemScriptableContainer RandomItemsToSell(ItemType itemType)
@@ -186,7 +186,7 @@ public class ItemShop : MonoBehaviour
         shopInsides.SetActive(false);
     }
 
-    public void GetPlayersCoins()
+    void GetPlayersCoins()
     {
 
         var money = GameInstance.party.GetCoinsForUI();
@@ -194,9 +194,9 @@ public class ItemShop : MonoBehaviour
         {
             heroesCoinsText[i].text = money[i].ToString();
         }
-        //print("ask for money");
+        print("ask for money");
 
-        BroAudio.Play(moneyGoesSound);
+        if(!BroAudio.HasAnyPlayingInstances(moneyGoesSound)) BroAudio.Play(moneyGoesSound);
     }
 
     public void SwitchToSellToPlayer()

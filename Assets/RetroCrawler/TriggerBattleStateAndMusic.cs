@@ -15,8 +15,11 @@ public class TriggerBattleStateAndMusic : MonoBehaviour
         if(!noEncounter)
         {
            GameInstance.battleManager.SetListOfEnemies(listOfEnemies);
+           
         }
 
+
+        GameInstance.soundManager.SetExplorationMusicIndex(exploreMusicLocal);
     }
     
 }

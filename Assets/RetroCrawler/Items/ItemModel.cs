@@ -8,8 +8,6 @@ using UnityEngine.Splines;
 using TMPro;
 
 
-[RequireComponent(typeof(SplineAnimate))]
-
 public class ItemModel : MonoBehaviour, IItem, IInteractables, IPointerClickHandler
 {
 
@@ -24,7 +22,6 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables, IPointerClickHand
 
     HeroInventoryItem heroInventoryLocalItem;
 
-    SplineAnimate anim;
     SphereCollider col;
 
     public Vector3 itemPosition;
@@ -36,6 +33,7 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables, IPointerClickHand
 
     [SerializeField] PhysicMaterial frictionMaterial;
     [SerializeField] TextMeshPro itemNameInEditor;
+    [SerializeField] SpriteRenderer itemIconInEditor;
 
     public void OnValidate()
     {
@@ -45,7 +43,11 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables, IPointerClickHand
             GUIDString = _guid.ToString();
         }
 
-       if(itemScriptableLocal!=null) itemNameInEditor.text = itemScriptableLocal.itemName;
+        if (itemScriptableLocal != null) 
+        { 
+            itemNameInEditor.text = itemScriptableLocal.itemName;
+            itemIconInEditor.sprite = itemScriptableLocal.InventorySprite;
+        }
     }
 
     private void OnEnable()
@@ -61,7 +63,11 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables, IPointerClickHand
         //GameInstance.itemsFound.Add(GUIDString);
         GameInstance.initItems += LevelEnterInit;
         GameInstance.checkWeight += CheckWeight;
-        itemNameInEditor.gameObject.SetActive(false);
+        if (itemScriptableLocal != null)
+        {
+            itemNameInEditor.gameObject.SetActive(false);
+            itemIconInEditor.gameObject.SetActive(false);
+        }
     }
     private void OnDestroy()
     {
@@ -97,11 +103,7 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables, IPointerClickHand
         {
             col = gameObject.AddComponent<SphereCollider>();
             col.radius = 1f;
-            /*            Rigidbody rb = gameObject.AddComponent<Rigidbody>();
-                        col.material = frictionMaterial;
-                        rb.freezeRotation = true;
-                        rb.constraints = RigidbodyConstraints.FreezePositionX;
-                        rb.constraints = RigidbodyConstraints.FreezePositionZ;*/
+
         }
         else
         {
@@ -169,11 +171,8 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables, IPointerClickHand
         }
 
         GameInstance.RemoveItemFromLevel(GUIDString, heroInventoryLocalItem);
-        DestroyImmediate(gameObject);
+        Destroy(gameObject);
     }
-
-    
-
 
 
     public List<InteractablesEnum> WhatIsIt()
@@ -204,13 +203,7 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables, IPointerClickHand
         {
             col = gameObject.AddComponent<SphereCollider>();
             col.radius = 1f;
-/*            Rigidbody rb = gameObject.AddComponent<Rigidbody>();
-            rb.drag = 1;
-            col.material = frictionMaterial;
-            rb.freezeRotation = true;
-            rb.constraints = RigidbodyConstraints.FreezePositionX;
-            rb.constraints = RigidbodyConstraints.FreezePositionZ;*/
-            //rb.useGravity = false;
+
         }
         transform.position = pos;
         heroInventoryLocalItem = CreateNewHeroInventoryItem();
@@ -230,7 +223,11 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables, IPointerClickHand
                 }
             }
         }
-
+        if (itemScriptableLocal != null)
+        {
+            itemNameInEditor.gameObject.SetActive(false);
+            itemIconInEditor.gameObject.SetActive(false);
+        }
     }
 
     public void SetPrefab(ItemScriptableContainer itemScriptable)

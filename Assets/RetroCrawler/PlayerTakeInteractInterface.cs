@@ -1,7 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+
+
 using UnityEngine;
+
 
 public class PlayerTakeInteractInterface : MonoBehaviour
 {
@@ -55,11 +56,17 @@ public class PlayerTakeInteractInterface : MonoBehaviour
                 {
                     case InteractablesEnum.PICKABLE:
                         Debug.Log("Player triggered a pickable item.");
-                        // Implement logic for picking up the item
+                        IItem iitem = other.GetComponent<IItem>();
+                        HeroInventoryItem item = other.GetComponent<IItem>().WhatItem();
+                        GameInstance.inventory.FindEmptySlotAndPutItem(item, item.stackAmount);
+                        _collider.enabled = false;
+                        iitem.RemoveFromTheWorld();
+
                         break;
 
                     case InteractablesEnum.SWITCH:
                         Debug.Log("Player triggered a switch item.");
+                        other.gameObject.GetComponent<ISwitch>().ToggleSwitch();
                         break;
 
                     default:
@@ -67,6 +74,13 @@ public class PlayerTakeInteractInterface : MonoBehaviour
                         break;
                 }
             }
+        }
+
+        if(other.gameObject.TryGetComponent<IChestLocked>(out IChestLocked chest))
+        {
+            Debug.Log("Chest found");
+            chest.OpenChest();
+            // Implement logic for enemy encounter
         }
     }
 

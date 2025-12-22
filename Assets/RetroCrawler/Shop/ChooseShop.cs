@@ -8,7 +8,7 @@ public class ChooseShop : MonoBehaviour
 {
     [SerializeField] List<GameObject> shopToChoose = new List<GameObject>();
     [SerializeField] List<GameObject> buttonPanels = new List<GameObject>();
-    [SerializeField] Camera cameraUI;
+    [SerializeField] CameraOrder cameraUI;
     [SerializeField] SoundID openShopSound = default, voicePhrase = default, closeShopPhrase = default;
     
 
@@ -23,7 +23,7 @@ public class ChooseShop : MonoBehaviour
             g.SetActive(false);
 
         }
-        cameraUI.depth = 2;
+        cameraUI.ShopWithoutBattlelog();
         //switchOnPanel.Invoke();
         shopToChoose[index].SetActive(true);
         buttonPanels[index].SetActive(true);

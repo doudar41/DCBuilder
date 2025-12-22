@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddfd44122e30510459500a9821657727, type: 3}
+  m_Name: GobboArcher
+  m_EditorClassIdentifier: 
+  portraits:
+  - state: 0
+    sprite: {fileID: 21300000, guid: da011739af6fc5041a5ed696423b62d5, type: 3}
+  - state: 5
+    sprite: {fileID: 21300000, guid: 3b7a3fe108074ac4e88bf580c2aec70e, type: 3}
+  - state: 6
+    sprite: {fileID: 21300000, guid: 2c5d2b246dae25b47bd48bfde894b72a, type: 3}

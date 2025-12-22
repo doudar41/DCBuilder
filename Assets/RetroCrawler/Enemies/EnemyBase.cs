@@ -93,6 +93,8 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
             health = 0;
             if(enemySprites.GetStatePortrait(GameplayStatus.Dead, out Sprite deadSprite))
             {
+                outlineRenderer.gameObject.SetActive(false);
+                enemyFace.gameObject.SetActive(true);
                 enemyFace.sprite = deadSprite;
             }
         }
@@ -530,6 +532,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
         if (health <= 0) return;
         if (outlineRenderer != null)
         {
+            enemyFace.gameObject.SetActive(false);
             outlineRenderer.gameObject.SetActive(true);
         }
     }
@@ -540,6 +543,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
         if (outlineRenderer != null)
         {
             outlineRenderer.gameObject.SetActive(false);
+            enemyFace.gameObject.SetActive(true);
         }
 
     }

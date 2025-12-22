@@ -13,7 +13,7 @@ public class SpellShop : MonoBehaviour
     [SerializeField] List<TextMeshProUGUI> heroesCoinsText;
     [SerializeField] float sellMultiplier = 1;
     [SerializeField] Vector2Int itemsLevel = new Vector2Int(0,1);
-    [SerializeField] Camera cam;
+    [SerializeField] CameraOrder cam;
     [SerializeField] TextMeshProUGUI textOfShopState;
     [SerializeField] SoundID closeShopSound, voicePhrase, openShopPhrase;
     [SerializeField] GameObject openSwitch;
@@ -33,7 +33,7 @@ public class SpellShop : MonoBehaviour
 
         backGroundImage.enabled = true;
         openSwitch.SetActive(true);
-        cam.depth = 1;
+        //cam.depth = 1;
         var money = GameInstance.party.GetCoinsForUI();
         for (int i = 0; i < money.Count; i++)
         {
@@ -71,7 +71,7 @@ public class SpellShop : MonoBehaviour
 
     public void CameraOut()
     {
-        cam.depth = -2;
+        cam.BattleLogWithGameplay();
     }
 
     public SpellContainer RandomSpellToSell(MagicType magicType)

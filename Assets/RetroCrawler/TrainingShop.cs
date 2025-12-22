@@ -17,7 +17,7 @@ public class TrainingShop : MonoBehaviour
     [SerializeField] TextMeshProUGUI fireResText, waterResText, iceResText, earthResText, areResText, darkResText;
     [SerializeField] TextMeshProUGUI heroSkillPoints;
     [SerializeField] int moneyForSkills = 100;
-    [SerializeField] Camera cam;
+    [SerializeField] CameraOrder  cameraOrder;
     int skillsToSpend = 0;
     List<int> mainstatup = new List<int>();
 
@@ -140,7 +140,7 @@ public class TrainingShop : MonoBehaviour
     }
     public void CameraOut()
     {
-        cam.depth = -2;
+        cameraOrder.BattleLogWithGameplay();
     }
 
     public void CloseShop()

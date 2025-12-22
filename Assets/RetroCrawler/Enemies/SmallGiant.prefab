@@ -475,21 +475,52 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f4fa4b7b38e93f1479ee66a0623916e9, type: 2}
   col: {fileID: 3969115660850817174}
   enemySize: 5
-  initiative: 1
-  defence: 1
-  magicDefence: 0
-  accuracy: 0
-  evasion: 0
-  immunityList: 
-  EffectSprite: {fileID: 0}
+  enemyStatInitAmounts:
+  - enemyStat: 0
+    initialAmount: 1
+  - enemyStat: 3
+    initialAmount: 0
+  - enemyStat: 4
+    initialAmount: 1
+  - enemyStat: 2
+    initialAmount: 0
+  - enemyStat: 5
+    initialAmount: 0
+  - enemyStat: 6
+    initialAmount: 0
+  - enemyStat: 7
+    initialAmount: 0
+  - enemyStat: 9
+    initialAmount: 0
+  - enemyStat: 10
+    initialAmount: 0
+  - enemyStat: 8
+    initialAmount: 0
+  - enemyStat: 12
+    initialAmount: 0
+  - enemyStat: 13
+    initialAmount: 0
+  magicTypeImmunityList: 
+  spellEffectImmunityList: 
   healthNormalized:
     m_PersistentCalls:
       m_Calls: []
-  hitTargetEffecct:
+  hitTargetEffect:
+    m_PersistentCalls:
+      m_Calls: []
+  playStatusAnimation:
     m_PersistentCalls:
       m_Calls: []
   immunityspell: {fileID: 0}
-  spellResistance: 
+  upFrontSound:
+    ID: 0
+    _sourceAsset: {fileID: 0}
+    <DebugObject>k__BackingField: {fileID: 7685056643058129021}
+  attackSound:
+    ID: 0
+    _sourceAsset: {fileID: 0}
+    <DebugObject>k__BackingField: {fileID: 7685056643058129021}
+  experienceReward: 50
 --- !u!65 &3969115660850817174
 BoxCollider:
   m_ObjectHideFlags: 0

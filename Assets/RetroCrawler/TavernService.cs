@@ -12,6 +12,7 @@ public class TavernService : MonoBehaviour
     [SerializeField] GameObject tavernButtons;
     [SerializeField] SoundID closeShopSound, voicePhrase, openShopPhrase, background, backgroundMusic;
     [SerializeField] int coinsForDrink = 5, rentForRoom = 10, buyFood = 10;
+    [SerializeField] CameraOrder cameraOrder;
     public UnityEvent exitTavern;
 
 
@@ -60,6 +61,7 @@ public class TavernService : MonoBehaviour
         closeButton.SetActive(false);
         GameInstance.playerController.shopIsOpened = false;
         BroAudio.SetVolume(backgroundMusic, 1.0f, 0.5f);
+        cameraOrder.BattleLogWithGameplay();
     }
 
 }

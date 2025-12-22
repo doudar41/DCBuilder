@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8404828522102059495}
   - component: {fileID: 3067825057947292770}
-  - component: {fileID: 3471527628127265239}
   m_Layer: 7
   m_Name: EmptyItemForGameInstanceDelegatre
   m_TagString: Untagged
@@ -61,29 +60,7 @@ MonoBehaviour:
       m_Calls: []
   frictionMaterial: {fileID: 13400000, guid: 74f9dc01713ee3342a7908f1450ffa04, type: 2}
   itemNameInEditor: {fileID: 2348852843265952538}
---- !u!114 &3471527628127265239
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1721648657876067462}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29a074d529cf945029ef7cf40540c9df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Target: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_LoopMode: 0
-  m_Method: 0
-  m_Duration: 1
-  m_MaxSpeed: 10
-  m_EasingMode: 0
-  m_AlignmentMode: 0
-  m_ObjectForwardAxis: 2
-  m_ObjectUpAxis: 1
-  m_StartOffset: 0
+  itemIconInEditor: {fileID: 0}
 --- !u!1 &3210695657914851783
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using TMPro;
 
 public class TempleServices : MonoBehaviour
 {
-    [SerializeField] Camera cam;
+    [SerializeField] CameraOrder cameraOrder;
     [SerializeField] TextMeshProUGUI textOfShopState;
     
 
@@ -13,7 +13,6 @@ public class TempleServices : MonoBehaviour
     public UnityEvent closeShopPanel;
     private void Start()
     {
-        //cam.depth = 2;
 
         textOfShopState.text = "Temple Services";
     }
@@ -66,7 +65,7 @@ public class TempleServices : MonoBehaviour
     }
     public void CameraOut()
     {
-        cam.depth = -2;
+        cameraOrder.BattleLogWithGameplay();
     }
     public void CloseShop()
     {

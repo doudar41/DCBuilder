@@ -14,7 +14,7 @@ public class DialoguePanel : MonoBehaviour
     [SerializeField] GameObject buttonPanel;
     [SerializeField] List<DialogueButtonUI> dialogueButtons = new List<DialogueButtonUI>();
     [SerializeField] Button letMeGoQuitTalk;
-    //[SerializeField] Camera cameraUI;
+    [SerializeField] CameraOrder cameraUI;
     List<TextMeshProUGUI> buttonsTextFields = new List<TextMeshProUGUI>();
     UniqueDialogueName currentdialogue;
     bool dialogueFinished = false;
@@ -83,7 +83,8 @@ public class DialoguePanel : MonoBehaviour
         dialogueText.text = "";
         portrait.sprite = noPortrait;
         GameInstance.playerController.dialogueIsOpened = false;
-        //if(!GameInstance.playerController.shopIsOpened) cameraUI.depth = -1;
+        if(!GameInstance.playerController.shopIsOpened) cameraUI.BattleLogWithGameplay();
+        else cameraUI.ShopWithoutBattlelog();
         dialoguePanelUI.SetActive(false);
         dialogueFinished = false;
         dialogueTreeForRemove.Clear();
@@ -119,7 +120,7 @@ public class DialoguePanel : MonoBehaviour
 
         dialoguePanelUI.SetActive(true);
         buttonPanel.SetActive(true);
-       // cameraUI.depth = 2;
+        cameraUI.ShopWithDialogue();
         var dialogue = GameInstance.dataBase.GetDialogue(uniqueDialogueName);
         currentdialogue = uniqueDialogueName;
         dialogueFinished = false;
