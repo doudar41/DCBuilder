@@ -16,7 +16,7 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
 
     [SerializeField] OnBlockPlacement portalDestination;
 
-    [SerializeField] GameObject mapGraphics;
+    [SerializeField] GameObject mapGraphics ,ceiling;
     [SerializeField] GroundType groundType;
     [SerializeField] Vector3Int nextLevelPosition;
     [SerializeField] CardinalDirections nextLevelDirection;
@@ -42,6 +42,7 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
     private void Awake()
     {
         GameInstance.initItems += BlockInit;
+        if(ceiling !=null)ceiling.SetActive(true);
     }
 
     private void OnDestroy()

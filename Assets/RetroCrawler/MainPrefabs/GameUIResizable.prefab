@@ -14453,7 +14453,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  currentUniqueDialogueNames: 0f000000110000000800000012000000
+  currentUniqueDialogueNames: 0f00000011000000080000001200000006000000
   partyFood: 100
   experienceToNextLevel: 100
   experienceCoeficient: 1.2
