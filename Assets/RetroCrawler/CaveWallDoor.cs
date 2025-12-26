@@ -10,6 +10,7 @@ public class CaveWallDoor : MonoBehaviour, IDoor, IInteractables
     [SerializeField] ParticleSystem wallFall1, wallFall2;
     [SerializeField] Collider _collider;
     [SerializeField] Animator doorAnimator;
+    [SerializeField] float openSpeed = 0.1f;
     [SerializeField] SoundID doorSound;
     bool _isOpen = false;
 
@@ -19,7 +20,8 @@ public class CaveWallDoor : MonoBehaviour, IDoor, IInteractables
         _collider.enabled = true;
         _isOpen = false;
 
-        doorAnimator.CrossFade("CloseCaveDoor",0.3f);
+        doorAnimator.CrossFade("CloseCaveDoor", openSpeed);
+        doorAnimator.speed = openSpeed;
         BroAudio.Play(doorSound, transform);
     }
 
@@ -36,11 +38,13 @@ public class CaveWallDoor : MonoBehaviour, IDoor, IInteractables
 
     public void OpenDoor()
     {
+
         wallFall1.Play(); wallFall2.Play();
         _collider.enabled = false;
         _isOpen = true;
 
-        doorAnimator.CrossFade("OpenCaveDoor", 0.3f);
+        doorAnimator.CrossFade("OpenCaveDoor", openSpeed);
+        doorAnimator.speed = openSpeed;
         BroAudio.Play(doorSound, transform);
     }
 
