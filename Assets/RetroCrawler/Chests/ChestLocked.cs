@@ -1,3 +1,4 @@
+using Ami.BroAudio;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,7 @@ public class ChestLocked : MonoBehaviour, IPointerClickHandler, IChestLocked
     [SerializeField] List<Sprite> openAnimation = new List<Sprite>();
     [SerializeField] SpriteRenderer chestPicture;
     [SerializeField] KeyType keyType;
+    [SerializeField] SoundID openSound;
 
     public void OnValidate()
     {
@@ -106,6 +108,7 @@ public class ChestLocked : MonoBehaviour, IPointerClickHandler, IChestLocked
                 GameInstance.SaveItemState(GUIDString, SavedState.Opened, null);
             }
         }
+        BroAudio.Play(openSound,transform);
     }
 
     IEnumerator AnimateOpen()

@@ -75,6 +75,11 @@ public static class GameInstance
     public static List<UniqueDialogueName> dialoguesFinished = new List<UniqueDialogueName>(); //delete dialogue names on load level
 
     public static List<string> journalEntries = new List<string>();
+    public static List<UniqueDialogueName> currentUniqueDialogueNames = new List<UniqueDialogueName>();
+
+
+    //Chest and doors
+
 
     public static int DiceRollingBiggestNumber(int diceNumber, int diceSides)
     {
@@ -308,10 +313,13 @@ public static class GameInstance
         saveData.playerPosition = playerController.GetCurrentPosition();
         saveData.playercardinalDirection = playerController.GetCurrentDirection();
         saveData.heroesEquipment = equipmentHeroesSavedWithGUID;
+        inventory.SaveInvetoryItemsToGameInstance();
         saveData.inventoryItemsSaved = inventoryItemsSaved;
         saveData.visitedBlocks = visitedBlocks;
 
+        mainStatsAdded = party.ConvertHeroesMainStatsToSave();
         saveData.mainStatsAdded = mainStatsAdded;
+        skillStatSaves = party.ConvertHeroesSkillsToSave();
         saveData.skillStatSaves = skillStatSaves;
         saveData.heroesPortraits = heroesPortraits;
         saveData.heroesNames = heroesNames;
@@ -325,6 +333,8 @@ public static class GameInstance
         savedGameTimeInNormalTime[2] = gameTimeInNormalTime[2];
         saveData.savedGameTimeInNormalTime = savedGameTimeInNormalTime;
         saveData.dialoguesFinished = dialoguesFinished;
+        party.SaveDialoguesToInstance();
+        saveData.partyDialogues = currentUniqueDialogueNames;
         saveData.journalEntries = journalEntries;
         string path = Application.persistentDataPath + "/" + fileName;
         Gley.AllPlatformsSave.API.Save(saveData, path, DataWasSaved, false);
@@ -371,7 +381,10 @@ public static class GameInstance
             spellsAttachedToHeroes = saveData.heroesSpellsAttachedSaved;
             spellsFromSpellbook = saveData.spellsFromSpellbook;
             journalEntries = saveData.journalEntries;
+            currentUniqueDialogueNames = saveData.partyDialogues;
 
+            mainStatsAdded = saveData.mainStatsAdded;
+            skillStatSaves = saveData.skillStatSaves;
 
             SceneManager.LoadScene(saveData.levelName, LoadSceneMode.Single); 
         }
@@ -577,7 +590,8 @@ public class SaveData
     public List<SavedSpellsAttached> spellsFromSpellbook = new List<SavedSpellsAttached>();
     public List<int> savedGameTimeInNormalTime = new List<int>();
     public int timeProgress;
-    public List<UniqueDialogueName> dialoguesFinished = new List<UniqueDialogueName>();
+    public List<UniqueDialogueName> dialoguesFinished = new List<UniqueDialogueName>();    
+    public List<UniqueDialogueName> partyDialogues = new List<UniqueDialogueName>();
     public List<string> journalEntries = new List<string>();
 }
 

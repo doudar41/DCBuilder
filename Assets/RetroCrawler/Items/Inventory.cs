@@ -126,6 +126,21 @@ public class Inventory : MonoBehaviour
     }
 
 
+    public void SaveInvetoryItemsToGameInstance() {         
+        
+        GameInstance.inventoryItemsSaved.Clear();
+        ItemSlot[] slots = slotsParent.GetComponentsInChildren<ItemSlot>();
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].GetItemFromSlot() != null)
+            {
+                GameInstance.inventoryItemsSaved.Add(slots[i].GetItemFromSlot());
+            }
+        }
+    }
+    
+
+
     public void RemoveItemFromInventory(int slotIndex)
     {
         ItemSlot[] slots = slotsParent.GetComponentsInChildren<ItemSlot>();

@@ -295,4 +295,70 @@ public class Party : MonoBehaviour
         }
     }
 
+
+    public void LoadDialoguesFromInstance()
+    {
+        currentUniqueDialogueNames.Clear();
+
+        foreach(UniqueDialogueName ud in  GameInstance.currentUniqueDialogueNames)
+        {
+            currentUniqueDialogueNames.Add(ud);
+        }
+
+    }
+
+    public void SaveDialoguesToInstance()
+    {
+        GameInstance.currentUniqueDialogueNames.Clear();
+        foreach (UniqueDialogueName ud in currentUniqueDialogueNames)
+        {
+            print(ud);
+            GameInstance.currentUniqueDialogueNames.Add(ud);
+        }
+
+
+    }
+
+
+    public  List<MainStatsSave> ConvertHeroesMainStatsToSave()
+    {
+        List<MainStatsSave> newmainsave = new List<MainStatsSave>();
+
+        
+        for (int i=0;i<heroes.Count;i++)
+        {
+            foreach (KeyValuePair<MainStat, int> mainStat in heroes[i].GetMainStatsForUI())
+            {
+                MainStatsSave savemaintemp = new MainStatsSave();
+                savemaintemp.heroIndex = i;
+                savemaintemp.mainStat = mainStat.Key;
+                savemaintemp.amount = mainStat.Value;
+                newmainsave.Add(savemaintemp);
+            }
+        }
+
+        return newmainsave;
+    }
+
+
+    public List<SkillStatSave> ConvertHeroesSkillsToSave()
+    {
+        List<SkillStatSave> newskillsSave = new List<SkillStatSave>();
+
+
+        for (int i = 0; i < heroes.Count; i++)
+        {
+            foreach (KeyValuePair<SkillsStat, int> skillStat in heroes[i].GetSkillStatsForUI())
+            {
+                SkillStatSave saveskilltemp = new SkillStatSave();
+                saveskilltemp.heroIndex = i;
+                saveskilltemp.skill = skillStat.Key;
+                saveskilltemp.amount = skillStat.Value;
+                newskillsSave.Add(saveskilltemp);
+            }
+        }
+
+        return newskillsSave;
+    }
+
 }

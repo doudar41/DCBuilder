@@ -45,7 +45,7 @@ public class CharacterCreationPanel : MonoBehaviour
             }
 
             pointsLeft[i] = pointsGiven;
-            mainS.Add(i, newMainStat);
+            if(!mainS.ContainsKey(i)) mainS.Add(i, newMainStat);
         }
         pointsTextField.text = pointsLeft[heroIndex].ToString();
         minStat = HeroStatsDefault.GetFullMinStats()[(MainStat)1];
@@ -401,5 +401,32 @@ public class CharacterCreationPanel : MonoBehaviour
         }
 
     }
+
+    public void QuickGameStart()
+    {
+
+        mainS.Clear();
+        skillsChosen.Clear();
+        
+        for (int i = 0; i < 4; i++)
+        {
+            mainS.Add (i,new Dictionary<MainStat, int>() {  { MainStat.Strength, 10}, 
+                                                            { MainStat.Agility, 10 }, 
+                                                            { MainStat.Mind, 10 }, 
+                                                            { MainStat.Endurance, 10 }, 
+                                                            { MainStat.Willpower, 10 },
+                                                            { MainStat.Survival, 10}});
+            skillsChosen.Add(i, new List<SkillsStat>() { SkillsStat.BladedWeapons, SkillsStat.ElementalMagic});
+            ChooseSpell(GameInstance.dataBase.GetSpellByIndex(3));
+            ChooseSpell(GameInstance.dataBase.GetSpellByIndex(1));
+            weaponChosen.Add(i, i);
+        }
+        GameInstance.heroesPortraits = new List<int>() { 1, 2, 3, 4 };
+        GameInstance.heroesNames = new List<string>() { "Jim", "John", "Jeremy", "Jason" };
+        SendStatsToGameInstance();
+        GameInstance.LoadGameFromStart();
+    }
+
+
 
 }

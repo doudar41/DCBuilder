@@ -30,13 +30,12 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
     [SerializeField] List<ItemScriptableContainer> afterBattleLoot = new List<ItemScriptableContainer>();
     [SerializeField] List<KeyToLocks> afterBattleKeys = new List<KeyToLocks>();
     [SerializeField] List<UniqueDialogueName> afterBattleDialogue = new List<UniqueDialogueName>();
+    [SerializeField] List<UniqueDialogueName> afterBattleDialogueRemoveFromParty = new List<UniqueDialogueName>();
     [SerializeField] int goldAmount = 0;
     [SerializeField] GameObject characterSprite;
     [SerializeField] List<GameObject> interactableObjectsInBlock = new List<GameObject>();
     public List<GameObject> InteractableObjectsInBlock { get; }
     int blockLevel = 0;
-
-
 
 
     private void Awake()
@@ -64,12 +63,16 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
         }
         if (dialogues.Count == 0)
         {
-            if (blockInteractables.Contains(InteractablesEnum.DIALOGUE)) blockInteractables.Remove(InteractablesEnum.DIALOGUE);
+            if (blockInteractables.Contains(InteractablesEnum.DIALOGUE)) 
+            { 
+                blockInteractables.Remove(InteractablesEnum.DIALOGUE); 
 
+            }
+            if (blockInteractables.Contains(InteractablesEnum.CUSTOMBATTLE))
+            {
+                blockInteractables.Remove(InteractablesEnum.CUSTOMBATTLE);
+            }
         }
-        
-
-
     }
     public void InitPosition(Tilemap tilemap)
     {
@@ -254,13 +257,20 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
 
     public void DeleteDialogueOption(UniqueDialogueName uniqueDialogueName)
     {
-        if(dialogues.Contains(uniqueDialogueName)) dialogues.Remove(uniqueDialogueName);
-        if (afterBattleDialogue.Contains(uniqueDialogueName)) 
-        { 
+        if (dialogues.Contains(uniqueDialogueName)) dialogues.Remove(uniqueDialogueName);
+        if (afterBattleDialogue.Contains(uniqueDialogueName))
+        {
             afterBattleDialogue.Remove(uniqueDialogueName);
             blockInteractables.Remove(InteractablesEnum.CUSTOMBATTLE);
+
+        }
+
+        foreach (UniqueDialogueName un in afterBattleDialogueRemoveFromParty)
+        {
+            if (GameInstance.party.currentUniqueDialogueNames.Contains(un)) GameInstance.party.currentUniqueDialogueNames.Remove(un);
         }
     }
+
     public void DeleteDialogue()
     {
 

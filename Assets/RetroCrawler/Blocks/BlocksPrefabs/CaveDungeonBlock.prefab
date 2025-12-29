@@ -1206,7 +1206,7 @@ MonoBehaviour:
   weightPlate: {fileID: 0}
   dialogues: 
   enemyList: []
-  battleGroundEnvironment: 0
+  battleGroundEnvironment: 3
   afterBattleLoot: []
   afterBattleDialogue: 
   goldAmount: 0
