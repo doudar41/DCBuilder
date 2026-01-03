@@ -1,8 +1,9 @@
+using Ami.BroAudio;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using Ami.BroAudio;
+
 
 public class ChooseShop : MonoBehaviour
 {
@@ -10,10 +11,20 @@ public class ChooseShop : MonoBehaviour
     [SerializeField] List<GameObject> buttonPanels = new List<GameObject>();
     [SerializeField] CameraOrder cameraUI;
     [SerializeField] SoundID openShopSound = default, voicePhrase = default, closeShopPhrase = default;
-    
+    bool isNight = false;
 
 
     public UnityEvent switchOnPanel;
+
+    private void Awake()
+    {
+        GameInstance.progress += NightClosed;
+    }
+
+    private void OnDestroy()
+    {
+        GameInstance.progress -= NightClosed;
+    }
 
     public void ChooseShopOfType(int index)
     {
@@ -21,7 +32,7 @@ public class ChooseShop : MonoBehaviour
         foreach (GameObject g in shopToChoose)
         {
             g.SetActive(false);
-
+            
         }
         cameraUI.ShopWithoutBattlelog();
         //switchOnPanel.Invoke();
@@ -32,6 +43,17 @@ public class ChooseShop : MonoBehaviour
 
         if (shopToChoose[index].GetComponent<ItemShop>() != null)
         {
+            if(isNight)
+            {
+                //print("shop closed for night");
+                GameInstance.spellbook.BattleLogMessage(new List<string>() {"This shop is closed till 6.00 AM"}, null);
+                shopToChoose[index].SetActive(false);
+                buttonPanels[index].SetActive(false);
+                cameraUI.BattleLogWithGameplay();
+                GameInstance.playerController.shopIsOpened = false;
+
+                return;
+            }
             BroAudio.Stop(closeShopPhrase);
             BroAudio.Play(openShopSound);
             BroAudio.Play(voicePhrase);
@@ -67,7 +89,19 @@ public class ChooseShop : MonoBehaviour
         }
 
     }
+    void NightClosed(int count)
+    {
+        //print(GameInstance.GetNormalTime()[1].ToString() + ":" + GameInstance.GetNormalTime()[2].ToString()+":"+GameInstance.GetNormalTime()[3].ToString());
+        if (GameInstance.GetNormalTime()[1] >= 6 && GameInstance.GetNormalTime()[1] < 20)
+        {
+            isNight = false;
+        }
+        else
+        {
+            isNight = true;
 
+        }
+    }
 
 
 }

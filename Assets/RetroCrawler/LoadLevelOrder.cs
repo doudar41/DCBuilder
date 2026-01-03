@@ -76,5 +76,6 @@ public class LoadLevelOrder : MonoBehaviour
         //print("no spellbook");
         GameInstance.spellbook.RestoreContinousSpells();
         GameInstance.party.LoadDialoguesFromInstance();
+        GameInstance.playerController.SetEncounter(GameInstance.onEncounter);
     }
 }

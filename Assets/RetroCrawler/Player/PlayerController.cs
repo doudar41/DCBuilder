@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
 using UnityEngine.Tilemaps;
+using OldCode;
 
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] Tilemap moveTilemap;
-    [SerializeField] Light torchlight;
+    [SerializeField] TorchFlicker torchlight;
 
     Vector3Int startposition;
     Vector3Int currentposition;
@@ -18,7 +19,8 @@ public class PlayerController : MonoBehaviour
     CardinalDirections currentforwardDirection;
     Dictionary<Vector3Int, OnBlockPlacement> wallsAccess = new Dictionary<Vector3Int, OnBlockPlacement>();
 
-    public UnityEvent noWay, stepSound, turnAround, portalTransfer;
+    public UnityEvent noWay, turnAround, portalTransfer;
+    public UnityEvent<GroundType> stepSound;
     public UnityEvent<CardinalDirections> cardinalDirectionToUI;
 
     List<visitedBlock> visitedBlocks = new  List<visitedBlock>();
@@ -155,7 +157,7 @@ public class PlayerController : MonoBehaviour
         {
             print("blocks quantity checked");
         }
-
+       
     }
 
     public OnBlockPlacement GetBlockByCoordinatesOnStart(Vector3Int coords)
@@ -193,8 +195,15 @@ public class PlayerController : MonoBehaviour
 
     public void LightARoom(float amount)
     {
-        intensivity = amount;
-        torchlight.intensity = intensivity;
+        if(amount>0)
+        torchlight.isOn = true;
+        else torchlight.isOn = false;
+    }
+
+
+    public bool IsTorchIsOn()
+    {
+        return torchlight.isOn;
     }
 
 
@@ -282,7 +291,8 @@ public class PlayerController : MonoBehaviour
         }
         currentWallBlock = wallsAccess[currentposition];
         RotateToCardinalLocation();
-
+        //print("Initializing controller and launching music");
+        GameInstance.soundManager.ChangeExploreMusicOnBattleGround(GameInstance.playerController.GetBattleGroundEnvironment());
     }
 
     void OpenBlocksForMap(List<Vector3Int> blocksVisited)
@@ -354,6 +364,16 @@ public class PlayerController : MonoBehaviour
         noEncounter = onOff;
     }
 
+    public bool GetEncounterState()
+    {
+        return noEncounter;
+    }
+
+    public BattleGroundEnvironment GetBattleGroundEnvironment()
+    {
+               return currentWallBlock.GetBattleGroundEnvironment();
+    }
+
 
     void MovementUpdateFuther(Vector2 moveInput)
     {
@@ -377,7 +397,7 @@ public class PlayerController : MonoBehaviour
 
 
         if (playerState == PlayerState.Battle) { /*print("battle state");*/ return; }
-        if (!lightBusy) StartCoroutine(LightFlickering());
+        //if (!lightBusy) StartCoroutine(LightFlickering());
 
         if (moveInput.y > 0)
         {
@@ -412,6 +432,18 @@ public class PlayerController : MonoBehaviour
         //GameInstance.battleManager.CustomBattleStart();
         countdownToEncounter = Random.Range(rangeOfEnCounter.x, rangeOfEnCounter.y);
     }
+    public void StartCustomBattle(Transform inPlace)
+    {
+        playerState = PlayerState.Battle;
+        busyWalking = false;
+    }
+
+    public void BlockMovement(bool onOff)
+    {
+        shopIsOpened = onOff;
+    }
+
+
 
     public void ReturnToPreBattlePosition()
     {
@@ -431,13 +463,14 @@ public class PlayerController : MonoBehaviour
     {
         if (!currentWallBlock.IfWallOpened(currentforwardDirection)) { noWay.Invoke(); return; }
         if (!RaycastOnMovement(Vector3.forward)) return;
-        //print(transform.rotation.eulerAngles);
+
         if (busyWalking) return;
         if (shopIsOpened) return;        
         if (dialogueIsOpened) return;
         Vector3 v = CardinalDir.GetNewPoint(currentforwardDirection, currentposition, moveTilemap);
         if (!CheckBlockInterfaces(v)) return;
-        stepSound.Invoke();
+        //print("Passed all checks");
+        stepSound.Invoke(currentGroundType);
         StartCoroutine(SmoothWalk(currentforwardDirection, v));
     }
 
@@ -450,7 +483,7 @@ public class PlayerController : MonoBehaviour
         if (dialogueIsOpened) return;
         var v = CardinalDir.GetNewPoint(CardinalDir.GetOpposite(currentforwardDirection), currentposition, moveTilemap);
         if (!CheckBlockInterfaces(v)) return;
-        stepSound.Invoke();
+        stepSound.Invoke(currentGroundType);
         StartCoroutine(SmoothWalk(CardinalDir.GetOpposite(currentforwardDirection), v));
     }
 
@@ -463,7 +496,7 @@ public class PlayerController : MonoBehaviour
         if (dialogueIsOpened) return;
         var v = CardinalDir.GetNewPoint(CardinalDir.GetRightDir(currentforwardDirection), currentposition, moveTilemap);
         if (!CheckBlockInterfaces(v)) return;
-        stepSound.Invoke();
+        stepSound.Invoke(currentGroundType);
         StartCoroutine(SmoothWalk(CardinalDir.GetRightDir(currentforwardDirection), v));
 
     }
@@ -477,7 +510,7 @@ public class PlayerController : MonoBehaviour
         if (dialogueIsOpened) return;
         var v = CardinalDir.GetNewPoint(CardinalDir.GetOpposite(CardinalDir.GetRightDir(currentforwardDirection)), currentposition, moveTilemap);
         if (!CheckBlockInterfaces(v)) return;
-        stepSound.Invoke();
+        stepSound.Invoke(currentGroundType);
         StartCoroutine(SmoothWalk(CardinalDir.GetOpposite(CardinalDir.GetRightDir(currentforwardDirection)), v));
     }
 
@@ -924,6 +957,7 @@ public class PlayerController : MonoBehaviour
                     break;
                 case InteractablesEnum.PORTAL:
                     OnBlockPlacement portalDest =  wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<IBlock>().GetPortalPoint();
+
                     transform.position = portalDest.gameObject.transform.position;
                     currentposition = portalDest.GetBlockCoordinate(); return false;
 
@@ -938,8 +972,9 @@ public class PlayerController : MonoBehaviour
                     return false;
                 case InteractablesEnum.STORE:
                     //print("open a store");
-                    chooseShop.ChooseShopOfType( wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<OnBlockPlacement>().GetShopIndex());
                     shopIsOpened = true;
+                    chooseShop.ChooseShopOfType( wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<OnBlockPlacement>().GetShopIndex());
+
 
 
 
@@ -1003,7 +1038,7 @@ public class PlayerController : MonoBehaviour
         //print("hover off  " + cursorHoveringUI + " cursor busy " + cursorBusy);
     }
 
-    IEnumerator LightFlickering()
+/*    IEnumerator LightFlickering()
     {
         lightBusy = true;
         //Vector3 pos = torchlight.gameObject.transform.position;
@@ -1017,7 +1052,7 @@ public class PlayerController : MonoBehaviour
         }
         torchlight.gameObject.transform.position =  transform.position;
         lightBusy = false;
-    }
+    }*/
 
     void TimeEvents(int count)
     {

@@ -7,6 +7,8 @@ public class Partyrest : MonoBehaviour
  public void StartRest()
     {
         GameInstance.RestTime();
+
+
     }
 
 }

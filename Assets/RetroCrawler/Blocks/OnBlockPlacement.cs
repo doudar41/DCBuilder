@@ -68,10 +68,10 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
                 blockInteractables.Remove(InteractablesEnum.DIALOGUE); 
 
             }
-            if (blockInteractables.Contains(InteractablesEnum.CUSTOMBATTLE))
+/*            if (blockInteractables.Contains(InteractablesEnum.CUSTOMBATTLE))
             {
                 blockInteractables.Remove(InteractablesEnum.CUSTOMBATTLE);
-            }
+            }*/
         }
     }
     public void InitPosition(Tilemap tilemap)

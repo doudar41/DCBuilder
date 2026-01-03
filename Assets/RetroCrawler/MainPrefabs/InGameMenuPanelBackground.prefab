@@ -6651,6 +6651,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: BlockMovement
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &5611346153937346250
 GameObject:
   m_ObjectHideFlags: 0
@@ -7610,7 +7622,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ee608e46d3e4bb6419962ae2ce4da894, type: 3}
   panelImage: {fileID: 2641322169083339707}
   group: {fileID: 7809180758429098590}
-  cam: {fileID: 0}
+  cameraOrder: {fileID: 0}
 --- !u!1 &6555510356043568035
 GameObject:
   m_ObjectHideFlags: 0

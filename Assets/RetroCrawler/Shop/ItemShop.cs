@@ -24,7 +24,7 @@ public class ItemShop : MonoBehaviour
     ShopState shopState = ShopState.SellToPlayer;
     [SerializeField]  SoundID closeShopSound, voicePhrase, openShopPhrase, ambience = default, moneyGoesSound;
     int coinsSpent = 0;
-
+    bool isNight = false;
 
     public UnityEvent closeShopPanel;
 
@@ -34,6 +34,12 @@ public class ItemShop : MonoBehaviour
 
 
     }
+
+    private void Awake()
+    {
+
+    }
+
 
     private void Start()
     {
@@ -213,6 +219,9 @@ public class ItemShop : MonoBehaviour
         textOfShopState.text = "Sell";
     }
 
+
+
+    
 
 }
 

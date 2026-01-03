@@ -1,8 +1,9 @@
+using Ami.BroAudio;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using Ami.BroAudio;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 
 
@@ -77,7 +78,7 @@ public class BattleManager : MonoBehaviour
     //List of defeated enemies
     List<int> listOfTheDead = new List<int>();
 
-
+    GameObject customBattleObject;
 
     private void Awake()
     {
@@ -171,6 +172,46 @@ public class BattleManager : MonoBehaviour
         BattleStart();
     }
 
+
+
+    public void CustomBattleInPlace(EnemySized _enemy, Transform enemyPosition, GameObject _object)
+    {
+        //With this bool == true the InteractablesEnum "CUSTOMBATTLE" in blockInteractables list will be removed after winning battle so the battle will not be repeated
+        customBattle = true;
+        customBattleObject = _object;
+        if (_enemy.enemies !=null)
+            {
+                GameObject enemy = Instantiate(_enemy.enemies[0], enemyPosition);
+
+                allOpponents.Add(enemy);
+                enemy.GetComponent<IEnemy>().SetEnemyPlaceSpace(0, new List<int> { 0,1,2,3,4 });
+            }
+        
+
+        foreach (Hero h in GameInstance.party.GetHeroList())
+        {
+            allOpponents.Add(h.gameObject);
+        }
+
+        SortingOpponents();
+
+        targetIndexInOpponents = -1;
+        quarrySortedKey = 0;
+
+        //Check if the first member of a quarry is enemy
+        if (IfActiveOpponentIsEnemy())
+        {
+            EnemyAutoAttack();
+        }
+        else
+        {
+            GameInstance.playerController.attackAllowed = true;
+        }
+        //Open UI elements which need for battle 
+        battleStarts.Invoke();
+
+
+    }
 
     //Spawn enemies logic 
     void SpawnEnemies(List<EnemySized> enemies, int randomRange, List<GameObject> spawnRow, int row)
@@ -664,7 +705,15 @@ public class BattleManager : MonoBehaviour
             }
             if (customBattle)
             {
-                customBattleBlock.FinishTheBattle();
+                if (customBattleBlock != null) { customBattleBlock.FinishTheBattle(); customBattleBlock = null; }
+                else
+                {
+                    if(customBattleObject.GetComponent<ChestLocked>() != null)
+                    {
+                        customBattleObject.GetComponent<ChestLocked>().OpenMimic();
+
+                    }
+                }
             }
         }
         else
@@ -675,7 +724,7 @@ public class BattleManager : MonoBehaviour
         quarrySorted.Clear();
         allOpponents.Clear();
         GameInstance.playerController.SetPlayerState(PlayerState.Explore);
-        GameInstance.playerController.ReturnToPreBattlePosition();
+        if (customBattleObject.GetComponent<ChestLocked>() == null) GameInstance.playerController.ReturnToPreBattlePosition();
         GameInstance.soundManager.BackToCurrentExploreMusic();
         StartCoroutine(GameInstance.TimeStep());
         GameInstance.party.SetTimerForHeroes(false);

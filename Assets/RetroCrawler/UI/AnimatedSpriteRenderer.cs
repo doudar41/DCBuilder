@@ -8,8 +8,18 @@ public class AnimatedSpriteRenderer : MonoBehaviour
     [SerializeField] int playTimes = 0;
     [SerializeField] float delayMultiplier;
     [SerializeField] List<Sprite> sprites = new List<Sprite>();
+    [SerializeField] bool dayNightCycle = false;
     int count = 0, countsnapshot = 0, countplays, countSprites;
+    bool isNight = true;
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        if (dayNightCycle)
+        {
+            GameInstance.progress += DayNightChange;
+        }
+    }
     void Start()
     {
         countplays = playTimes* sprites.Count;
@@ -17,7 +27,7 @@ public class AnimatedSpriteRenderer : MonoBehaviour
 
     void Update()
     {
-        //print(count + " " + countsnapshot);
+        if (isNight == false) { renderer.sprite = sprites[sprites.Count-1];  return; }
         if (count - countsnapshot >= (delayMultiplier/Time.deltaTime)*10)
         {
             
@@ -43,5 +53,22 @@ public class AnimatedSpriteRenderer : MonoBehaviour
         countSprites++;
         if (countSprites >= int.MaxValue - 100) countSprites = 0;
     }
+
+    void DayNightChange(int count)
+    {
+
+        //print(GameInstance.GetNormalTime()[1].ToString() + ":" + GameInstance.GetNormalTime()[2].ToString()+":"+GameInstance.GetNormalTime()[3].ToString());
+        if (GameInstance.GetNormalTime()[1] >= 6 && GameInstance.GetNormalTime()[1] < 20)
+        {
+            isNight = false;
+        }
+        else
+        {
+            isNight = true;
+        }
+    }
+
+
+
 
 }

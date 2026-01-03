@@ -42,5 +42,11 @@ public enum BattleGroundEnvironment
     WOOD,
     HOUSE,
     STONE,
-    CAVE
+    CAVE,
+    CITY,
+    TEMPLE,
+    TOMB,
+    CASTLE,
+    ICECAVE,
+    NONE
 }

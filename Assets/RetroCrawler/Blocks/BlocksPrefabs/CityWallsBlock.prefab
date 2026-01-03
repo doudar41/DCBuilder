@@ -1197,6 +1197,7 @@ MonoBehaviour:
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 6875184470371475370}
+  ceiling: {fileID: 0}
   groundType: 0
   nextLevelPosition: {x: 0, y: 0, z: 0}
   nextLevelDirection: 0
@@ -1205,9 +1206,10 @@ MonoBehaviour:
   weightPlate: {fileID: 0}
   dialogues: 
   enemyList: []
-  battleGroundEnvironment: 2
+  battleGroundEnvironment: 4
   afterBattleLoot: []
   afterBattleDialogue: 
+  afterBattleDialogueRemoveFromParty: 
   goldAmount: 0
   characterSprite: {fileID: 0}
   interactableObjectsInBlock: []

@@ -7,7 +7,7 @@ public class GameMenuToggle : MonoBehaviour
     [SerializeField] List<Sprite> gameMenuSprites = new List<Sprite>();
     [SerializeField] Image panelImage;
     [SerializeField] ToggleGroup group;
-    [SerializeField] Camera cam;
+    [SerializeField] CameraOrder cameraOrder;
 
     public void SwitchToSprite()
     {
@@ -17,20 +17,20 @@ public class GameMenuToggle : MonoBehaviour
         }
         if (group.GetFirstActiveToggle() == null) 
         { 
-            panelImage.sprite = gameMenuSprites[5]; 
-            cam.depth = -2;
+            panelImage.sprite = gameMenuSprites[5];
+            cameraOrder.BattleLogWithGameplay();
             GameInstance.playerController.MenuOpened(false);
             return;  
         }
 
-        panelImage.sprite = gameMenuSprites[group.GetFirstActiveToggle().transform.GetSiblingIndex()]; 
-        cam.depth = 1;
+        panelImage.sprite = gameMenuSprites[group.GetFirstActiveToggle().transform.GetSiblingIndex()];
+        cameraOrder.ShopWithoutBattlelog();
         GameInstance.playerController.MenuOpened(true);
     }
 
 
     public void MoveCamUpFront()
     {
-        cam.depth = 1;
+        cameraOrder.ShopWithoutBattlelog();
     }
 }

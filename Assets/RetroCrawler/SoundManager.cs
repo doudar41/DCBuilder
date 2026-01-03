@@ -3,10 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using Ami.BroAudio;
 
+
 public class SoundManager : MonoBehaviour
 {
     [SerializeField] SoundID battleMusic, exploreMusic;
+    [SerializeField] List<ExploreMusicFromEnvironment> exploreMusicFromEnvironments = new List<ExploreMusicFromEnvironment>();
     SoundID currentExploreMusic;
+    BattleGroundEnvironment currentExploreEnvironment = BattleGroundEnvironment.NONE;
+    [SerializeField] List<SoundID> footstepSounds = new List<SoundID>();
+
+
+#if BroAudio_InitManually
+        public static void Init()
+        {
+            SoundManager.Init();
+        }
+#endif
 
     private void Awake()
     {
@@ -14,8 +26,31 @@ public class SoundManager : MonoBehaviour
     }
     private void Start()
     {
-        if (!BroAudio.HasAnyPlayingInstances(exploreMusic)) BroAudio.Play(exploreMusic).SetVolume(0.4f);
-        currentExploreMusic = exploreMusic;
+        /*        if (!BroAudio.HasAnyPlayingInstances(exploreMusic)) BroAudio.Play(exploreMusic).SetVolume(0.4f);
+                currentExploreMusic = exploreMusic;*/
+        //ChangeMusicOnStep(GameInstance.playerController.GetBattleGroundEnvironment());
+
+
+    }
+
+    private void OnDestroy()
+    {
+        BroAudio.Stop(battleMusic);
+        BroAudio.Stop(currentExploreMusic);
+    }
+
+    public void ChangeExploreMusicOnBattleGround(BattleGroundEnvironment battleGroundEnvironment)
+    {
+        if (battleGroundEnvironment == currentExploreEnvironment) return;
+        currentExploreEnvironment = battleGroundEnvironment;
+        foreach (ExploreMusicFromEnvironment emfe in exploreMusicFromEnvironments)
+        {
+            if (emfe.battleGroundEnvironment == battleGroundEnvironment)
+            {
+                SetExplorationMusicIndex(emfe.exploreMusicID);
+                return;
+            }
+        }
     }
 
     public void StartMusic()
@@ -54,9 +89,11 @@ public class SoundManager : MonoBehaviour
 
     public void PlayFootsteps(GroundType groundType)
     {
+        ChangeExploreMusicOnBattleGround(GameInstance.playerController.GetBattleGroundEnvironment());
         switch (groundType)
         {
             case GroundType.Concrete:
+                BroAudio.Play(footstepSounds[0]);
                 break;
             case GroundType.Sand:
                 break;
@@ -81,4 +118,11 @@ public class SoundManager : MonoBehaviour
             BroAudio.Play(_id);
         }
     }
+}
+
+[System.Serializable]
+public struct ExploreMusicFromEnvironment
+{
+    public BattleGroundEnvironment battleGroundEnvironment;
+    public SoundID exploreMusicID;
 }

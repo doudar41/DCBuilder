@@ -25,6 +25,18 @@ namespace OldCode
         // Smoothing array
         private float[] smoothing;
 
+        bool isNight = true;
+
+        private void Awake()
+        {
+            GameInstance.progress += DayNightChange;
+        }
+
+        private void OnDestroy()
+        {
+            GameInstance.progress -= DayNightChange;
+        }
+
         // Start is called before the first frame update
         void Start()
         {
@@ -49,7 +61,11 @@ namespace OldCode
         // Call the flicker separately since we want parameters
         void FlickerAway()
         {
-            FlickerLight(ShadingSteps, light.intensity);
+           if(isNight) FlickerLight(ShadingSteps, light.intensity);
+            else
+            {
+                light.intensity = 0;
+            }
         }
 
 
@@ -79,5 +95,25 @@ namespace OldCode
             // Compute the average of the array and assign it to the light intensity
             light.intensity = intensity / smoothing.Length;
         }
+
+
+        void DayNightChange(int count)
+        {
+
+            //print(GameInstance.GetNormalTime()[1].ToString() + ":" + GameInstance.GetNormalTime()[2].ToString()+":"+GameInstance.GetNormalTime()[3].ToString());
+            if (GameInstance.GetNormalTime()[1] >= 6 && GameInstance.GetNormalTime()[1] < 20)
+            {
+                isNight = false;
+            }
+            else
+            {
+                isNight = true;
+            }
+        }
+
+
     }
+
+
+
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public static class GameInstance
 {
     public static PlayerController playerController;
@@ -25,7 +26,7 @@ public static class GameInstance
     public static TimeProgress progress;
     static int timeProgress = 1;
     static int timeStamp = 0;
-    static float gameTimeFrame = 1;
+    static float gameTimeFrame = 0.1f;
     public static int[] gameTimeInNormalTime = new int[3];
     static List<int> savedGameTimeInNormalTime = new List<int> (){0,0,0 };
 
@@ -77,7 +78,7 @@ public static class GameInstance
     public static List<string> journalEntries = new List<string>();
     public static List<UniqueDialogueName> currentUniqueDialogueNames = new List<UniqueDialogueName>();
 
-
+    public static bool onEncounter = true;
     //Chest and doors
 
 
@@ -280,7 +281,20 @@ public static class GameInstance
         else savedItemsState.Add(_guid, _state);
 
     }
-    
+
+
+    public static void SaveItemState(string _guid, SavedState _state)
+    {
+
+        if (savedItemsState.ContainsKey(_guid))
+        {
+            savedItemsState[_guid] = _state;
+            Debug.Log(" item guid " + _guid + savedItemsState[_guid]);
+        }
+        else savedItemsState.Add(_guid, _state);
+
+    }
+
 
     public static void ClearAllSaves()
     {
@@ -336,6 +350,8 @@ public static class GameInstance
         party.SaveDialoguesToInstance();
         saveData.partyDialogues = currentUniqueDialogueNames;
         saveData.journalEntries = journalEntries;
+        saveData.encounterOn =  playerController.GetEncounterState();
+
         string path = Application.persistentDataPath + "/" + fileName;
         Gley.AllPlatformsSave.API.Save(saveData, path, DataWasSaved, false);
     }
@@ -385,6 +401,7 @@ public static class GameInstance
 
             mainStatsAdded = saveData.mainStatsAdded;
             skillStatSaves = saveData.skillStatSaves;
+            onEncounter = saveData.encounterOn;
 
             SceneManager.LoadScene(saveData.levelName, LoadSceneMode.Single); 
         }
@@ -593,6 +610,8 @@ public class SaveData
     public List<UniqueDialogueName> dialoguesFinished = new List<UniqueDialogueName>();    
     public List<UniqueDialogueName> partyDialogues = new List<UniqueDialogueName>();
     public List<string> journalEntries = new List<string>();
+    public bool encounterOn = false;
+    
 }
 
 [System.Serializable]
