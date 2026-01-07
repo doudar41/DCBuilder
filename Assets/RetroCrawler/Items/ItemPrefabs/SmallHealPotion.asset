@@ -28,3 +28,4 @@ MonoBehaviour:
   keyType: 0
   journalEntry: 
   dialogueKeys: 
+  stackable: 1

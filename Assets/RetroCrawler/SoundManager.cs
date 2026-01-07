@@ -8,6 +8,7 @@ public class SoundManager : MonoBehaviour
 {
     [SerializeField] SoundID battleMusic, exploreMusic;
     [SerializeField] List<ExploreMusicFromEnvironment> exploreMusicFromEnvironments = new List<ExploreMusicFromEnvironment>();
+    Dictionary<BattleGroundEnvironment, SoundID> exploreMusicDict = new Dictionary<BattleGroundEnvironment, SoundID>();
     SoundID currentExploreMusic;
     BattleGroundEnvironment currentExploreEnvironment = BattleGroundEnvironment.NONE;
     [SerializeField] List<SoundID> footstepSounds = new List<SoundID>();
@@ -23,6 +24,10 @@ public class SoundManager : MonoBehaviour
     private void Awake()
     {
         GameInstance.soundManager = this;
+        foreach (ExploreMusicFromEnvironment emfe in exploreMusicFromEnvironments)
+        {
+            exploreMusicDict.Add(emfe.battleGroundEnvironment, emfe.exploreMusicID);
+        }
     }
     private void Start()
     {
@@ -43,14 +48,7 @@ public class SoundManager : MonoBehaviour
     {
         if (battleGroundEnvironment == currentExploreEnvironment) return;
         currentExploreEnvironment = battleGroundEnvironment;
-        foreach (ExploreMusicFromEnvironment emfe in exploreMusicFromEnvironments)
-        {
-            if (emfe.battleGroundEnvironment == battleGroundEnvironment)
-            {
-                SetExplorationMusicIndex(emfe.exploreMusicID);
-                return;
-            }
-        }
+        SetExplorationMusicIndex(exploreMusicDict[battleGroundEnvironment]);
     }
 
     public void StartMusic()

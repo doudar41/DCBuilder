@@ -1,17 +1,19 @@
 
+using TMPro;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
-using TMPro;
+using UnityEngine.UI;
 
 public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public ItemType itemType;
 
-    HeroInventoryItem ItemScriptable;
+    HeroInventoryItem itemScriptable = new HeroInventoryItem();
     [SerializeField] Image itemAvatar;
     [SerializeField] Sprite emptySlotSprite;
+    [SerializeField] equipmentSlot shieldSlot, weaponSlot;
 
     public UnityEvent<HeroInventoryItem, ItemType> sendItemToParty;
 
@@ -24,110 +26,155 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     {
         if(item != null)
         {
-            ItemScriptable = item;
-            itemAvatar.sprite = GameInstance.dataBase.GetItemFromBaseByIndex( ItemScriptable.container).InventorySprite;
+
+                
+            itemScriptable = item;
+            itemAvatar.sprite = GameInstance.dataBase.GetItemFromBaseByIndex( itemScriptable.container).InventorySprite;
             sendItemToParty.Invoke(item, itemType);
         }
         else
         {
             itemAvatar.sprite = emptySlotSprite;
-            ItemScriptable = null;
+            itemScriptable = null;
             sendItemToParty.Invoke(null, itemType);
         }
     }
 
+    public void CheckWeaponSlot()
+    {
+        if (itemScriptable != null) return;
+        if (weaponSlot == null) return;
+        if(weaponSlot.itemScriptable == null) return;
+        if (GameInstance.dataBase.GetItemFromBaseByIndex(weaponSlot.itemScriptable.container).twoHanded) 
+        {
+            PlacePlaceholderOfItem(weaponSlot.itemScriptable);
+        }
+    }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (IsEmpty())
-        {  
-            HeroInventoryItem slotStruct = GameInstance.playerController.GetItemFromCursor();
+        HeroInventoryItem itemFromCursor = GameInstance.playerController.GetItemFromCursor();
 
-            if (slotStruct != null)
-            {
-                if (GameInstance.dataBase.GetItemFromBaseByIndex(slotStruct.container).itemType == itemType)
-                {
-                    slotStruct.heroIndex = GameInstance.party.activeHero.GetHeroIndex();
-                    ItemScriptable = slotStruct;
-                    itemAvatar.sprite = GameInstance.dataBase.GetItemFromBaseByIndex(ItemScriptable.container).InventorySprite;
-                    sendItemToParty.Invoke(ItemScriptable, itemType);
-                    if(itemType == ItemType.WEAPON)
-                    {
-                        if (GameInstance.dataBase.GetItemFromBaseByIndex(ItemScriptable.container).twoHanded) 
-                        {
-                            //Shield diabled
-                        }
-                    }
-                    //Two handed weapons and range weapons should 
-                }
-                else
-                {
-                    if (slotStruct.stackAmount == 1) 
-                    {
-                        slotStruct.stackAmount = 1;
-                        GameInstance.playerController.SetPlayerCursorBusy(slotStruct); 
-                    }
-                }
-
-                if (slotStruct.stackAmount > 1) 
-                { 
-                    slotStruct.stackAmount = slotStruct.stackAmount - 1;
-                    GameInstance.playerController.SetPlayerCursorBusy(slotStruct);
-                    GameInstance.inventory.FindEmptySlotAndPutItem(slotStruct, slotStruct.stackAmount - 1);
-                }
-            }
-
-        }
-        else
+        if (itemFromCursor == null)
         {
-            HeroInventoryItem slotStruct = GameInstance.playerController.GetItemFromCursor();
-            //if (slotStruct.stackAmount > 1) return; // it's not possible to exchange multiple items to one, possible to take 1 rest return to inventory
-            HeroInventoryItem itemTemp = slotStruct;
-            print("item is full "+ slotStruct);
-            if (itemTemp != null)
+            
+            if (!IsEmpty())
             {
-                if (itemTemp.itemType == itemType)
+                if (GameInstance.dataBase.GetItemFromBaseByIndex(itemScriptable.container).twoHanded) shieldSlot.ClearSlot();
+                GiveBackItemToCursor(itemScriptable);
+                return;
+            }
+            else 
+            {
+                return;
+            }
+        }
+
+        print("clicked equipment slot" + itemFromCursor.itemType);
+
+        if (itemFromCursor.itemType != itemType) { GiveBackItemToCursor(itemFromCursor); return; }
+        if (IsEmpty()) 
+        {
+            if (CheckForTwohandedWeapon(itemFromCursor)) return;
+            FillSlotWithItem(itemFromCursor); return;
+            // check if cursor has item of the same type as equipment slot
+        }
+        if(!IsEmpty())
+        {
+            if (!CheckForTwohandedWeapon(itemFromCursor))
+            {
+                //GiveBackItemToCursor(itemScriptable);
+                FillSlotWithItem(itemFromCursor);
+            }
+        }
+    }
+
+
+    bool CheckForTwohandedWeapon(HeroInventoryItem itemFromCursor)
+    {
+        if (itemFromCursor.itemType == ItemType.WEAPON)
+        {
+            if (GameInstance.dataBase.GetItemFromBaseByIndex(itemFromCursor.container).twoHanded)
+            {
+
+                if (!shieldSlot.IsEmpty())
                 {
-                    if(ItemScriptable == itemTemp)
-                    {
-
-                        GameInstance.playerController.SetPlayerCursorBusy(slotStruct);
-
-                    }
-                    else
-                    {
-                        GameInstance.playerController.SetPlayerCursorBusy(ItemScriptable);
-                        sendItemToParty.Invoke(ItemScriptable, itemType);
-                        itemTemp.stackAmount = 1;
-                        ItemScriptable = itemTemp;
-                        itemAvatar.sprite = GameInstance.dataBase.GetItemFromBaseByIndex(ItemScriptable.container).InventorySprite;
-
-                    }
-
-                    if (slotStruct.stackAmount > 1) GameInstance.inventory.FindEmptySlotAndPutItem(slotStruct, slotStruct.stackAmount - 1);
+                    GiveBackItemToCursor(itemFromCursor);
+                    return true;
                 }
-                else
+                //print("check shield");
+                if (shieldSlot.IsEmpty())
                 {
-                    if (slotStruct.stackAmount == 1)
-                    {
-                        GameInstance.playerController.SetPlayerCursorBusy(slotStruct);
-                    }
-                    if (slotStruct.stackAmount > 1)
-                    {
-                        GameInstance.playerController.SetPlayerCursorBusy(slotStruct);
-                    }
+                    FillSlotWithItem(itemFromCursor);
+                    shieldSlot.PlacePlaceholderOfItem(itemFromCursor);
+                    return true;
                 }
             }
             else
             {
-                if (ItemScriptable == null) return;
-                GameInstance.playerController.SetPlayerCursorBusy(ItemScriptable);
-                ItemScriptable = null;
-                itemAvatar.sprite = emptySlotSprite;
-                sendItemToParty.Invoke(null, itemType);
+                if (itemScriptable != null)
+                {
+                    if (GameInstance.dataBase.GetItemFromBaseByIndex(itemScriptable.container).twoHanded)
+                    {
+                        shieldSlot.ClearSlot();
+                        return false;
+                    }
+                }
             }
         }
+
+
+        if (itemFromCursor.itemType == ItemType.SHIELD)
+        {
+            if (weaponSlot.IsEmpty())
+            {
+                FillSlotWithItem(itemFromCursor); return true;
+            }
+            if (GameInstance.dataBase.GetItemFromBaseByIndex(weaponSlot.itemScriptable.container).twoHanded)
+            {
+                GiveBackItemToCursor(itemFromCursor); return true;
+            }
+            else FillSlotWithItem(itemFromCursor); return  true;
+        }
+
+        return false;
     }
+
+    void FillSlotWithItem(HeroInventoryItem itemToFill)
+    {
+        if(itemScriptable !=null) GiveBackItemToCursor(itemScriptable);
+        itemScriptable = itemToFill;
+        itemAvatar.sprite = GameInstance.dataBase.GetItemFromBaseByIndex(itemScriptable.container).InventorySprite;
+        sendItemToParty.Invoke(itemScriptable, itemType);
+    }
+
+    void GiveBackItemToCursor(HeroInventoryItem itemToGiveBack)
+    {
+
+        GameInstance.playerController.SetPlayerCursorBusy(itemToGiveBack);
+        itemScriptable = null;
+        itemAvatar.sprite = emptySlotSprite;
+        sendItemToParty.Invoke(null, itemType);
+
+    }
+    
+    public void PlacePlaceholderOfItem(HeroInventoryItem itemToPlace)
+    {
+        itemAvatar.sprite = GameInstance.dataBase.GetItemFromBaseByIndex(itemToPlace.container).InventorySprite;
+    }
+
+
+    public void ClearSlot()
+    {
+        //GameInstance.playerController.SetPlayerCursorBusy(itemScriptable);
+        itemScriptable = null;
+        itemAvatar.sprite = emptySlotSprite;
+        //sendItemToParty.Invoke(null, itemType);
+    }
+
+
+
+
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -146,7 +193,7 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
     public bool IsEmpty()
     {
-        return ItemScriptable == null;
+        return itemScriptable == null;
     }
 
 

@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
     bool menuOpened = false;
 
     [SerializeField] PlayerTakeInteractInterface takeInteractInterface;
-
+    Dictionary<Vector3Int,BattleGroundEnvironment> groundValues = new Dictionary<Vector3Int, BattleGroundEnvironment>();
 
     private void Awake()
     {
@@ -148,7 +148,11 @@ public class PlayerController : MonoBehaviour
             foreach (OnBlockPlacement w in walls)
             {
                 w.InitPosition(moveTilemap);
-                if (!wallsAccess.ContainsKey(w.blockPosition)) { wallsAccess.Add(w.blockPosition, w); }
+                if (!wallsAccess.ContainsKey(w.blockPosition)) 
+                { 
+                    wallsAccess.Add(w.blockPosition, w);
+                    groundValues.Add(w.blockPosition, w.GetBattleGroundEnvironment());
+                }
             }
 
 
@@ -195,7 +199,8 @@ public class PlayerController : MonoBehaviour
 
     public void LightARoom(float amount)
     {
-        if(amount>0)
+       // print("light a room " + amount);
+        if (amount>0)
         torchlight.isOn = true;
         else torchlight.isOn = false;
     }
@@ -371,7 +376,7 @@ public class PlayerController : MonoBehaviour
 
     public BattleGroundEnvironment GetBattleGroundEnvironment()
     {
-               return currentWallBlock.GetBattleGroundEnvironment();
+               return groundValues[currentposition];
     }
 
 

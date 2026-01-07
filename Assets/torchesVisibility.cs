@@ -25,7 +25,7 @@ public class torchesVisibility : MonoBehaviour
 
     public  void OnStep()
     {
-        float minDistance = 0f;
+/*        float minDistance = 0f;
         foreach (Light light in lights)
         {
             float distance = Vector3.Distance(light.transform.position, GameInstance.playerController.transform.position);
@@ -34,7 +34,7 @@ public class torchesVisibility : MonoBehaviour
         }
         print("find light " + distanceMax);
         if (lights.Count == 0) minDistance = triggerCollider.radius;
-        maxDistanceToTorch.Invoke(ClampDistance(minDistance));
+        maxDistanceToTorch.Invoke(0.16f);*/
     }
 
 
@@ -44,7 +44,7 @@ public class torchesVisibility : MonoBehaviour
         { 
             other.gameObject.GetComponentInChildren<Light>().enabled = false;
             if (lights.Contains(other.gameObject.GetComponentInChildren<Light>())) lights.Remove(other.gameObject.GetComponentInChildren<Light>());
-            print("lose light "+ lights.Count);
+            //print("lose light "+ lights.Count);
             if (lights.Count == 0) distanceMax = 0.55f;
         }
     }

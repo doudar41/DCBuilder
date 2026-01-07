@@ -77,5 +77,6 @@ public class LoadLevelOrder : MonoBehaviour
         GameInstance.spellbook.RestoreContinousSpells();
         GameInstance.party.LoadDialoguesFromInstance();
         GameInstance.playerController.SetEncounter(GameInstance.onEncounter);
+        GameInstance.dayNightChange.InitDayNightShift();
     }
 }

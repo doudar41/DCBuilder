@@ -711,7 +711,6 @@ public class BattleManager : MonoBehaviour
                     if(customBattleObject.GetComponent<ChestLocked>() != null)
                     {
                         customBattleObject.GetComponent<ChestLocked>().OpenMimic();
-
                     }
                 }
             }
@@ -720,11 +719,14 @@ public class BattleManager : MonoBehaviour
         {
             GameInstance.LoadGameMainMenu();
         }
+        customBattle = false;
         BattleEnd.Invoke();
         quarrySorted.Clear();
         allOpponents.Clear();
         GameInstance.playerController.SetPlayerState(PlayerState.Explore);
-        if (customBattleObject.GetComponent<ChestLocked>() == null) GameInstance.playerController.ReturnToPreBattlePosition();
+        if (customBattleObject !=null) { customBattleObject = null; }
+        else { print("battle's over let's back to explore"); GameInstance.playerController.ReturnToPreBattlePosition(); }
+
         GameInstance.soundManager.BackToCurrentExploreMusic();
         StartCoroutine(GameInstance.TimeStep());
         GameInstance.party.SetTimerForHeroes(false);

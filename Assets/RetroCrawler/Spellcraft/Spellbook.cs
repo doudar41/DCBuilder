@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using Ami.BroAudio;
+using JetBrains.Annotations;
 
 // Summary
 // This script handles  
@@ -196,7 +197,8 @@ public class Spellbook : MonoBehaviour
                         break;
                     case SpellEffects.LightARoom:
                         if (spellTimeActive.ContainsKey(s)) { spellTimeActive[s] = s.numberOfTurns; break; }
-                        GameInstance.playerController.LightARoom(1);
+                        //GameInstance.playerController.LightARoom(1);
+                        CheckHeroesForLightSource(new KeyValuePair<int, bool>(0, true));
                         spellTimeActive.Add(s, s.numberOfTurns);
                         massSpellIcons[2].color = Color.white;
                         break;
@@ -500,7 +502,7 @@ public class Spellbook : MonoBehaviour
                     massSpellIcons[1].color = Color.clear;
                     break;
                 case SpellEffects.LightARoom:
-                    GameInstance.playerController.LightARoom(0);
+                    lightsourceCount.Remove(0);
                     massSpellIcons[2].color = Color.clear;
                     break;
                 case SpellEffects.Waterwalk:
@@ -515,6 +517,9 @@ public class Spellbook : MonoBehaviour
 
             spellTimeActive.Remove(s);
         }
+
+
+        
     }
 
     public void ResultsToBattleLog(List<string> logStrings, List<ResultMsg> results)
@@ -526,6 +531,21 @@ public class Spellbook : MonoBehaviour
     public bool IdentifyModeActive()
     {
         return identifyMode;
+    }
+
+    Dictionary<int,bool> lightsourceCount = new Dictionary<int, bool>() { { 0,false}, { 1, false }, { 2, false }, { 3, false } };
+    public void CheckHeroesForLightSource(KeyValuePair<int, bool> heroLight)
+    {
+        lightsourceCount[heroLight.Key] = heroLight.Value;
+        foreach (KeyValuePair<int, bool> k in lightsourceCount)
+        {
+            if (k.Value) 
+            {
+                GameInstance.playerController.LightARoom(1);
+                return;
+            }
+        }
+        GameInstance.playerController.LightARoom(0);
     }
 
 }

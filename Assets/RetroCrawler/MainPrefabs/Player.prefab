@@ -5203,13 +5203,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8401239608972103385}
+  - component: {fileID: 6817842122084812898}
   - component: {fileID: 1496219445587111411}
   - component: {fileID: 6741050162320066438}
   - component: {fileID: 4321903718796009969}
   - component: {fileID: 2149720968499307167}
   - component: {fileID: 3272455123317456365}
   - component: {fileID: 568289017121912160}
-  - component: {fileID: 6817842122084812898}
   m_Layer: 6
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5232,6 +5232,110 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5456401373171684207}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6817842122084812898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6150952769770457864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f4acad1fecefc04f831831a8c9fa9e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeframe: 0.1
+  dayMaterial: {fileID: 2100000, guid: 5804ab80474f6bf41883dbb186a8a67b, type: 2}
+  nightMaterial: {fileID: 2100000, guid: 6611c3f939b50364b829e3bad5497368, type: 2}
+  dayTexture: {fileID: 2800000, guid: df6ea1fa602902849a8735edb5e95207, type: 3}
+  dayNightTransitionTextures:
+  - {fileID: 2800000, guid: f90ab149b55d9694c9003fcc33844a35, type: 3}
+  - {fileID: 2800000, guid: 1a3787a643a6f4341a4db671ee29dbb4, type: 3}
+  - {fileID: 2800000, guid: 96d79a3de1073a347979a6dfb7eb28cb, type: 3}
+  - {fileID: 2800000, guid: a48367d4c7456154dad396e8065fd753, type: 3}
+  - {fileID: 2800000, guid: 5110019b4f197844dbb68c1f9d892c6d, type: 3}
+  - {fileID: 2800000, guid: dce3a852ed4aaf74a9264de7027214a9, type: 3}
+  - {fileID: 2800000, guid: ffb44251792cfed4ab41cd2a3a1fe71d, type: 3}
+  - {fileID: 2800000, guid: a4aab3b10ee32534c955699a967d88d9, type: 3}
+  - {fileID: 2800000, guid: a20ceea3a9ef7684ca59efccf64d9b09, type: 3}
+  - {fileID: 2800000, guid: c6675a5634d7909428ea019efb1a84d2, type: 3}
+  - {fileID: 2800000, guid: 24cfa1263c348574899f93383c8fa3cc, type: 3}
+  - {fileID: 2800000, guid: c00f8021b69ba0246bc5bc340ce8c33d, type: 3}
+  - {fileID: 2800000, guid: 2acaaaa26bf62c4458e9ce54f4f67980, type: 3}
+  - {fileID: 2800000, guid: 43a35a2d33bfc47479f54fae22445d1a, type: 3}
+  - {fileID: 2800000, guid: a830828274d2e3b48b8a5cf1549fa055, type: 3}
+  - {fileID: 2800000, guid: 7cdf3d1b01e25c64babcdaf0d5800b27, type: 3}
+  - {fileID: 2800000, guid: ab430c93303c95f4484f25b2426685e0, type: 3}
+  skyTintGraph:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  ambientColorShift:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -0.016666668
+      outSlope: -0.016666668
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 60
+      value: 0
+      inSlope: -0.016666668
+      outSlope: -0.016666668
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  fogDensityGraph:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.006921282
+      outSlope: 0.006921282
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.051477708
+    - serializedVersion: 3
+      time: 60
+      value: 0.2
+      inSlope: 0.0033333334
+      outSlope: 0.0033333334
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  testColor: {r: 0, g: 0, b: 0, a: 0}
+  gameClock:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: gameClock, Assembly-CSharp
+        m_MethodName: UpdateClock
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!20 &1496219445587111411
 Camera:
   m_ObjectHideFlags: 0
@@ -5402,20 +5506,6 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   priority: 0
---- !u!114 &6817842122084812898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6150952769770457864}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f4acad1fecefc04f831831a8c9fa9e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dayMaterial: {fileID: 2100000, guid: 5804ab80474f6bf41883dbb186a8a67b, type: 2}
-  nightMaterial: {fileID: 2100000, guid: 6611c3f939b50364b829e3bad5497368, type: 2}
 --- !u!1 &6290941104377211518
 GameObject:
   m_ObjectHideFlags: 0
@@ -5525,6 +5615,7 @@ Transform:
   - {fileID: 3353886751106080741}
   - {fileID: 6543748152473864156}
   - {fileID: 5028650246481307765}
+  - {fileID: 8077345009540566476}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &176130215390523170
@@ -5569,6 +5660,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
         m_MethodName: PlayFootsteps
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2032225552994962168}
+        m_TargetAssemblyTypeName: torchesVisibility, Assembly-CSharp
+        m_MethodName: OnStep
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5773,12 +5876,12 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.79166776, b: 0.5424528, a: 1}
   m_Intensity: 0.1
-  m_Range: 4
+  m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: 0
     m_CustomResolution: -1
     m_Strength: 1
@@ -5834,10 +5937,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14e66727741a2194597a1847913e0a22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShadingSteps: 32
-  TargetIntensity: 4
+  ShadingSteps: 8
+  TargetIntensity: 2
   MinimumIntensityDifference: 0.15
-  MaximumIntensityDifference: 1.5
+  MaximumIntensityDifference: 2.5
   FrameRate: 12
   isOn: 0
 --- !u!1 &6682482424573741768
@@ -5886,6 +5989,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frontUICamera: {fileID: 5726600934986906083}
   shopInventoryCamera: {fileID: 1790902450522046704}
+  inventoryWindow: {fileID: 0}
+  statsWindow: {fileID: 0}
+  dialogueWindow: {fileID: 0}
+  battleLogWindow: {fileID: 0}
+  shopWindow: {fileID: 0}
 --- !u!1 &7709660517581010774
 GameObject:
   m_ObjectHideFlags: 0
@@ -5917,3 +6025,89 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5456401373171684207}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8962256109537262849
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8077345009540566476}
+  - component: {fileID: 7768032902816432713}
+  - component: {fileID: 2032225552994962168}
+  m_Layer: 6
+  m_Name: Sphere Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8077345009540566476
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8962256109537262849}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5456401373171684207}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &7768032902816432713
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8962256109537262849}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 30
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2032225552994962168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8962256109537262849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52a87a6ba72bde14c82ca2a5ef09bb20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDistanceToTorch:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6817842122084812898}
+        m_TargetAssemblyTypeName: DayNightChange, Assembly-CSharp
+        m_MethodName: ChangeFogDensity
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  triggerCollider: {fileID: 7768032902816432713}
+  maxFogDensity: 0.45
+  minFogDensity: 0.1

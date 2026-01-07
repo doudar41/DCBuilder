@@ -17,6 +17,7 @@ public static class GameInstance
     public static DialoguePanel dialoguePanel;
     public static GameJournal gameJournal;
     public static SoundManager soundManager;
+    public static DayNightChange dayNightChange;
 
     static Texture2D cursorTargetGraphics, cursorNormal;
     static CursorMode cursorMode = CursorMode.Auto;
@@ -26,7 +27,7 @@ public static class GameInstance
     public static TimeProgress progress;
     static int timeProgress = 1;
     static int timeStamp = 0;
-    static float gameTimeFrame = 0.1f;
+    static float gameTimeFrame = 0.5f;
     public static int[] gameTimeInNormalTime = new int[3];
     static List<int> savedGameTimeInNormalTime = new List<int> (){0,0,0 };
 
@@ -195,6 +196,11 @@ public static class GameInstance
     public static void  ChangeTimeFlow(float amount)
     {
         gameTimeFrame = amount;
+    }
+
+    public static float GetTimeFlow()
+    {
+        return gameTimeFrame;
     }
 
     public static void RestTime()
@@ -652,7 +658,21 @@ public class HeroInventoryItem
     public Vector3 positionReplaced = Vector3.zero;
     public string level = "Level01";
     public int levelOfIdenifySaved = 0;
+    public bool stackable = false;
 
+
+
+    public void FillHeroItemData(HeroInventoryItem heroInventoryItem)
+    {
+        
+        heroIndex = heroInventoryItem.heroIndex;
+        itemType = heroInventoryItem.itemType;
+        container = heroInventoryItem.container;
+        stackAmount = heroInventoryItem.stackAmount;
+        positionReplaced = heroInventoryItem.positionReplaced;
+        level = heroInventoryItem.level;
+        levelOfIdenifySaved = heroInventoryItem.levelOfIdenifySaved;
+    }
 }
 
 

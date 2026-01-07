@@ -910,12 +910,12 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         if (heroInventoryItem == null) return false;
 
         //heroInventoryItem.savedState = SavedState.Equipment;
-
+        
         if (!equipmentWithGUID.TryAdd(GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).itemType, heroInventoryItem))
         {
             heroInventoryItem.heroIndex = heroID;
             equipmentWithGUID[GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).itemType] = heroInventoryItem;
-            
+
         }
         else
         {
@@ -932,6 +932,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     public void RemoveItemFromEquipment(ItemType itemType)
     {
+        if(equipmentSpells.ContainsKey(itemType)) print("remove"+ equipmentSpells[itemType]);
         equipmentSpells.Remove(itemType);
         equipmentWithGUID.Remove(itemType);
     }
@@ -1062,6 +1063,22 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         }
 
 
+        //print("equipment spells "+ equipmentSpells.Count);
+        foreach (ItemType it in equipmentSpells.Keys)
+        {
+
+            foreach (Spell s in equipmentSpells[it].spells)
+            {
+                if(s.spellEffect == SpellEffects.LightARoom)
+                {
+                    GameInstance.spellbook.CheckHeroesForLightSource(new KeyValuePair<int, bool>(heroID, true) );
+                }
+            }
+
+        }
+
+        if (equipmentSpells.Count == 0) GameInstance.spellbook.CheckHeroesForLightSource(new KeyValuePair<int, bool>(heroID, false));
+
         //print("hero time changes");
         if (spellsAttached.Count <= 0) return;
         List<Spell> listToDelete = new List<Spell>();
@@ -1087,6 +1104,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 case SpellEffects.ElementalWeapon:
                     weaponEnchanced = MagicType.None;
                     break;
+
 
             }
             if (buffPanels != null)buffPanels.RemoveBuffFromList(s);

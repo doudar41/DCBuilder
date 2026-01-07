@@ -61,7 +61,10 @@ namespace OldCode
         // Call the flicker separately since we want parameters
         void FlickerAway()
         {
-           if(isNight) FlickerLight(ShadingSteps, light.intensity);
+            if (isNight) 
+            {
+                FlickerLight(ShadingSteps, 1);
+            }
             else
             {
                 light.intensity = 0;
@@ -101,7 +104,7 @@ namespace OldCode
         {
 
             //print(GameInstance.GetNormalTime()[1].ToString() + ":" + GameInstance.GetNormalTime()[2].ToString()+":"+GameInstance.GetNormalTime()[3].ToString());
-            if (GameInstance.GetNormalTime()[1] >= 6 && GameInstance.GetNormalTime()[1] < 20)
+            if (GameInstance.GetNormalTime()[1]%24 >= 6 && GameInstance.GetNormalTime()[1] % 24 < 19)
             {
                 isNight = false;
             }

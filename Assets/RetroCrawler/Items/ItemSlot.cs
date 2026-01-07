@@ -37,12 +37,14 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
 
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            if (inventoryItem == null) { print("no more clicking"); return; }
+            if (inventoryItem == null) 
+            { print("no more clicking"); return; }
             if (inventoryItem.itemType == ItemType.CONSUMABLE)
             {
                 if (stackAmount > 1)
                 {
                     stackAmount--;
+                    inventoryItem.stackAmount = stackAmount;
                     List<ResultMsg> results = GameInstance.party.activeHero.ApplySpellToHero(GameInstance.dataBase.GetItemFromBaseByIndex( inventoryItem.container).spellContainer);
                     amountText.text = stackAmount.ToString();
                     GameInstance.spellbook.battlelogEvent.Invoke(new List<string>() { },results);
@@ -98,9 +100,17 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
                 if (stackAmount >= 1 && GameInstance.playerController.IsCursorBusy())
                 {
                     HeroInventoryItem slotStruct =  GameInstance.playerController.GetItemFromCursor();
-                    if (GameInstance.dataBase.GetItemFromBaseByIndex(slotStruct.container) == GameInstance.dataBase.GetItemFromBaseByIndex(inventoryItem.container)) 
+                    if (GameInstance.dataBase.GetItemFromBaseByIndex(slotStruct.container) == GameInstance.dataBase.GetItemFromBaseByIndex(inventoryItem.container))
                     {
-                        stackAmount += slotStruct.stackAmount;
+                        if (slotStruct.stackable)
+                        {
+                            stackAmount += slotStruct.stackAmount;
+                        }
+                        else
+                        {
+                            GameInstance.playerController.SetPlayerCursorBusy(slotStruct); return;
+                        }
+
                     }
                     else
                     {

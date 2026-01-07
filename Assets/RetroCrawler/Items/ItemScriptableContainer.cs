@@ -21,6 +21,7 @@ public class ItemScriptableContainer : ScriptableObject
     public KeyType keyType;
     public string journalEntry = "";
     public List<UniqueDialogueName> dialogueKeys = new List<UniqueDialogueName>();
+    public bool stackable = false;
 }
 
 

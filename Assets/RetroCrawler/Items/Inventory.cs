@@ -51,20 +51,25 @@ public class Inventory : MonoBehaviour
 
     public void GetEquipmentFromHero(Dictionary<ItemType,HeroInventoryItem> equipmentList)
     {
-        if (true)
+        equipmentSlot shieldSlot = null;
+
+        foreach (equipmentSlot e in equipmentSlotsList)
         {
-            foreach (equipmentSlot e in equipmentSlotsList)
+            if (e.itemType == ItemType.SHIELD)
             {
-                if (equipmentList.TryGetValue(e.itemType, out HeroInventoryItem outItem))
-                {
-                    e.SetEquipmentSlot(outItem);
-                }
-                else
-                {
-                    e.SetEquipmentSlot(null);
-                }
+                shieldSlot = e;
+            }
+            if (equipmentList.TryGetValue(e.itemType, out HeroInventoryItem outItem))
+            {
+                e.SetEquipmentSlot(outItem);
+            }
+            else
+            {                    
+                e.SetEquipmentSlot(null);
             }
         }
+
+        shieldSlot.CheckWeaponSlot();
 
         GameInstance.party.UpdatePartyWeight();
         GameInstance.party.RefreshUI.Invoke();

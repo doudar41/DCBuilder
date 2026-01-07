@@ -26,7 +26,7 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables, IPointerClickHand
 
     public Vector3 itemPosition;
 
-    public bool stackable = true;
+    public bool stackable = false;
 
     public UnityEvent<int, GameObject> OnDestoryedByCursor;
     public UnityEvent AnimComplete;
@@ -47,6 +47,7 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables, IPointerClickHand
         { 
             itemNameInEditor.text = itemScriptableLocal.itemName;
             itemIconInEditor.sprite = itemScriptableLocal.InventorySprite;
+            if(!itemScriptableLocal.stackable) stackAmount = 1;
         }
     }
 
