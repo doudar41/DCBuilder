@@ -2,6 +2,7 @@ using Gley.AllPlatformsSave;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -429,6 +430,7 @@ public static class GameInstance
         fileNamesList.Add(fileName);
         saveNames.fileNames = fileNamesList; 
         Gley.AllPlatformsSave.API.Save(saveNames, path, DataWasSaved, false);
+        
     }
 
     public static void RemoveFileName( string fileName)
@@ -437,6 +439,7 @@ public static class GameInstance
         GameFileSaveNames saveNames = new GameFileSaveNames();
         string path = Application.persistentDataPath + "/" + "LocalFileNames";
         fileNamesList.Remove(fileName);
+        saveNames.fileNames = fileNamesList;
         Gley.AllPlatformsSave.API.Save(saveNames, path, DataWasSaved, false);
         Gley.AllPlatformsSave.API.ClearFile(Application.persistentDataPath + "/" + fileName);
     }
@@ -447,6 +450,7 @@ public static class GameInstance
         GameFileSaveNames saveNames = new GameFileSaveNames();
         string path = Application.persistentDataPath + "/" + "LocalFileNames";
         Gley.AllPlatformsSave.API.Load<GameFileSaveNames>(path, FileNamesLoaded, false);
+
     }
 
 
@@ -458,6 +462,7 @@ public static class GameInstance
         }
         if (result == SaveResult.Success)
         {
+            fileNamesList.Clear();
             fileNamesList = data.fileNames;
         }
     }

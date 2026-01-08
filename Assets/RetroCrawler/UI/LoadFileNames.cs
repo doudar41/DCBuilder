@@ -37,15 +37,17 @@ public class LoadFileNames : MonoBehaviour
     {
         GameInstance.AddNewFileName(fileName);
         GameInstance.SaveFile(fileName);        
-        RefreshFileToggles();
         fileNameInput.gameObject.SetActive(false);
+        RefreshFileToggles();
     }
 
     public void RemoveFileFromList()
     {
-        GameInstance.RemoveFileName(toggleGroup.GetFirstActiveToggle().gameObject.GetComponent<SaveFileToggleContainer>().fileNameToggle);
-        toggleGroup.GetFirstActiveToggle().gameObject.GetComponent<SaveFileToggleContainer>().fileNameToggle = "";
-
+        string filename = toggleGroup.GetFirstActiveToggle().gameObject.GetComponent<SaveFileToggleContainer>().fileNameToggle;
+        print("Remove file "+ filename);
+        GameInstance.RemoveFileName(filename);
+        //toggleGroup.GetFirstActiveToggle().gameObject.GetComponent<SaveFileToggleContainer>().fileNameToggle = "Empty slot";
+        RefreshFileToggles();
     }
 
     public void RemoveAllFiles()
@@ -58,11 +60,15 @@ public class LoadFileNames : MonoBehaviour
     public void RefreshFileToggles()
     {
         List<string> list  = GameInstance.GetFileNameList();
+        foreach (string fname in list)
+        {
+            Debug.Log(fname + "file loaded");
+        }
         print(" list of files " + list.Count);
 
         for (int i = 0; i< list.Count;i++)
         {
-            if (i < (listOfFiles.Count - 1))
+            if (i < (listOfFiles.Count))
             {
                 listOfFiles[i].Visibility(true);
                 listOfFiles[i].SetFileName(list[i]);
@@ -76,11 +82,21 @@ public class LoadFileNames : MonoBehaviour
                 newToggle.GetComponent<SaveFileToggleContainer>().Visibility(true);
             }
         }
+
         if(list.Count< listOfFiles.Count)
         {
+            print(" less toggles than names "+ (listOfFiles.Count - list.Count));
             for (int i = list.Count; i < listOfFiles.Count; i++)
             {
-                listOfFiles[i].SetFileName("");
+                listOfFiles[i].SetFileName("Empty slot");
+                listOfFiles[i].Visibility(false);
+            }
+        }
+        if(list.Count> listOfFiles.Count)
+        {
+            for (int i = listOfFiles.Count; i < list.Count; i++)
+            {
+                listOfFiles[i].SetFileName("Empty slot");
                 listOfFiles[i].Visibility(false);
             }
         }
