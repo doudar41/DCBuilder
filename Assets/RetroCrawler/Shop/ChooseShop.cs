@@ -12,7 +12,7 @@ public class ChooseShop : MonoBehaviour
     [SerializeField] CameraOrder cameraUI;
     [SerializeField] SoundID openShopSound = default, voicePhrase = default, closeShopPhrase = default;
     bool isNight = false;
-
+    int refreshSellsTime = -100;
 
     public UnityEvent switchOnPanel;
 
@@ -32,13 +32,30 @@ public class ChooseShop : MonoBehaviour
         foreach (GameObject g in shopToChoose)
         {
             g.SetActive(false);
-            
+        }
+        if (GameInstance.GetUnformattedTime() > refreshSellsTime)
+        {
+            refreshSellsTime = GameInstance.GetUnformattedTime() + 1440;
+
+            foreach (GameObject g in shopToChoose)
+            {
+                if (g.GetComponent<ItemShop>() != null)
+                {
+                    g.SetActive(true);
+                    g.GetComponent<ItemShop>().NewItemsToSell();
+                    g.SetActive(false);
+                }
+                if (g.GetComponent<SpellShop>() != null)
+                {
+                    g.SetActive(true);
+                    g.GetComponent<SpellShop>().RefreshSoldSpells();
+                    g.SetActive(false);
+                }
+            }
         }
         cameraUI.ShopWithoutBattlelog();
-        //switchOnPanel.Invoke();
         shopToChoose[index].SetActive(true);
         buttonPanels[index].SetActive(true);
-
 
 
 
@@ -89,8 +106,6 @@ public class ChooseShop : MonoBehaviour
         }
 
 
-
-
         if (shopToChoose[index].GetComponent<TrainingShop>() != null)
         {
             BroAudio.Stop(closeShopPhrase);
@@ -107,7 +122,7 @@ public class ChooseShop : MonoBehaviour
     void NightClosed(int count)
     {
         //print(GameInstance.GetNormalTime()[1].ToString() + ":" + GameInstance.GetNormalTime()[2].ToString()+":"+GameInstance.GetNormalTime()[3].ToString());
-        if (GameInstance.GetNormalTime()[1] >= 6 && GameInstance.GetNormalTime()[1] < 20)
+        if (GameInstance.GetNormalTime()[1]%24 >= 6 && GameInstance.GetNormalTime()[1]%24 < 20)
         {
             isNight = false;
         }

@@ -18,7 +18,7 @@ public class SpellShop : MonoBehaviour
     [SerializeField] SoundID closeShopSound, voicePhrase, openShopPhrase;
     [SerializeField] GameObject openSwitch;
     int coinsSpent = 0;
-    int refreshSellsTime = -100;
+
     
 
     public UnityEvent closeShopPanel;
@@ -40,12 +40,7 @@ public class SpellShop : MonoBehaviour
             heroesCoinsText[i].text = money[i].ToString();
         }
         textOfShopState.text = "Spells";
-        if (GameInstance.GetUnformattedTime() > refreshSellsTime)
-        {
-            //print("refresh spells ");
-            RefreshSoldSpells();
-            refreshSellsTime = GameInstance.GetUnformattedTime() + 1440;
-        }
+
     }
 
     public void PlayerCoins(int coins)

@@ -17,9 +17,11 @@ public class ItemShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     GameObject desc;
     public ShopState shopState = ShopState.SellToPlayer;
     public int inventorySlotForSell = -1;
-
-
     public UnityEvent refreshCoins;
+
+    public UnityEvent<ItemScriptableContainer, int> ItemSold;
+    public UnityEvent<ItemScriptableContainer>  itemBought;
+
     private void Awake()
     {
         itemPicture.sprite = emptySprite;
@@ -37,6 +39,7 @@ public class ItemShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                     SellItemFromSlot(itemToSell);
                     GameInstance.party.MoneyGoes(-itemToSell.price);
                     refreshCoins.Invoke();
+                    itemBought.Invoke(itemToSell);
                     itemToSell = null;
                     itemPicture.sprite = emptySprite;
                     GameInstance.inventory.RemoveItemFromInventory(inventorySlotForSell);
@@ -53,9 +56,11 @@ public class ItemShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                         GetItemFromSlot(itemToSell);
                         GameInstance.party.MoneyGoes(itemToSell.price);
                         refreshCoins.Invoke();
-                        itemToSell = null;
+                        ItemSold.Invoke(itemToSell, inventorySlotForSell);
+/*                        itemToSell = null;
                         itemPicture.sprite = emptySprite;
-                        desc.SetActive(false);
+                        desc.SetActive(false);*/
+
                     }
                 }
                 if (spellToSell != null)
@@ -143,10 +148,16 @@ public class ItemShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     }
 
 
-    public void SetItemToSell(ItemScriptableContainer item)
+    public ItemScriptableContainer GetItemInSlot()
+    {
+        return itemToSell;
+    }
+
+    public void SetItemToSell(ItemScriptableContainer item, int index)
     {
         itemToSell = item;
         itemPicture.sprite = itemToSell.InventorySprite;
+        inventorySlotForSell = index;
     }
     public void SetSpellToSell(SpellContainer spell)
     {
@@ -241,6 +252,7 @@ public class ItemShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
         itemToSell = null;
         itemPicture.sprite = emptySprite;
+        if(desc !=null)desc.SetActive(false);
     }
 
 

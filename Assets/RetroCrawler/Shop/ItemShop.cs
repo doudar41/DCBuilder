@@ -25,13 +25,12 @@ public class ItemShop : MonoBehaviour
     [SerializeField]  SoundID closeShopSound, voicePhrase, openShopPhrase, ambience = default, moneyGoesSound;
     int coinsSpent = 0;
     bool isNight = false;
+    List<ItemScriptableContainer> itemsForSale = new List<ItemScriptableContainer>();
 
     public UnityEvent closeShopPanel;
 
     private void OnEnable()
     {
-        //NewItems();
-
 
     }
 
@@ -40,13 +39,17 @@ public class ItemShop : MonoBehaviour
 
     }
 
-
     private void Start()
     {
         arrowsItems[0].SetActive(false);
         arrowsItems[1].SetActive(false);
-    }
 
+        for (int i = 0; i < itemsSlots.Count; i++)
+        {
+            itemsSlots[i].ItemSold.AddListener(ItemSold);
+            itemsSlots[i].itemBought.AddListener(ItemBought);
+        }
+    }
 
     public void OpenShop()
     {
@@ -59,7 +62,8 @@ public class ItemShop : MonoBehaviour
             heroesCoinsText[i].text = money[i].ToString();
         }
         sellItemIndexStart = 0;
-        NewItemsToSell();
+        ReadItemsToSEll();
+        textOfShopState.text = "Buy";
     }
 
     public void PlayerCoins(int coins)
@@ -71,20 +75,57 @@ public class ItemShop : MonoBehaviour
     public void NewItemsToSell()
     {
         ClearSlots();
+        itemsForSale.Clear();
         for (int i = 0; i < itemsSlots.Count; i++)
         {
             ItemScriptableContainer itemToSell = RandomItemsToSell(itemsTypesToSell[Random.Range(0, itemsTypesToSell.Count)]);
             if(itemToSell != null)
             {
-                itemsSlots[i].SetItemToSell(itemToSell);
-                itemsSlots[i].sellMultiplier = sellMultiplier;
-                itemsSlots[i].shopState = shopState;
+                itemsForSale.Add(itemToSell);
             }
         }
+        ReadItemsToSEll();
         arrowsItems[0].SetActive(false);
         arrowsItems[1].SetActive(false);
     }
 
+    public void ReadItemsToSEll()
+    {
+        ClearSlots();
+        if (itemsForSale.Count == 0)
+        {
+            return;
+        }
+
+        //itemsForSale.Clear();
+
+        for (int i = 0; i < itemsSlots.Count; i++)
+        {
+            if (i < itemsForSale.Count)
+            {
+                print("reading items to sell " + itemsForSale[i].itemName);
+                itemsSlots[i].SetItemToSell(itemsForSale[i], i);
+                itemsSlots[i].sellMultiplier = sellMultiplier;
+                itemsSlots[i].shopState = shopState;
+            }
+
+        }
+    }
+
+
+    public void ItemSold(ItemScriptableContainer item, int index)
+    {
+
+        itemsForSale.Remove(item);
+        print("item sold" + itemsForSale.Count);
+        ReadItemsToSEll();
+    }
+
+    public void ItemBought(ItemScriptableContainer item)
+    {
+        if(itemsToSell.Count<itemsSlots.Count)
+        itemsForSale.Add(item);
+    }
 
     public void ClearSlots()
     {
@@ -124,7 +165,7 @@ public class ItemShop : MonoBehaviour
             {
                  print("index " +i+ " modifier "+ sellItemIndexStart + " all items' keys " +itemsToSellKeys.Count); 
 
-                itemsSlots[i].SetItemToSell(GameInstance.dataBase.GetItemFromBaseByIndex(itemsToSell[itemsToSellKeys[i+sellItemIndexStart]].container));
+                itemsSlots[i].SetItemToSell(GameInstance.dataBase.GetItemFromBaseByIndex(itemsToSell[itemsToSellKeys[i+sellItemIndexStart]].container),i);
                 itemsSlots[i].shopState = shopState;
                 itemsSlots[i].inventorySlotForSell = itemsToSellKeys[i + sellItemIndexStart];
             }
@@ -209,8 +250,10 @@ public class ItemShop : MonoBehaviour
     public void SwitchToSellToPlayer()
     {
         shopState = ShopState.SellToPlayer;
-        NewItemsToSell();
+        ReadItemsToSEll();
         textOfShopState.text = "Buy";
+        arrowsItems[0].SetActive(false);
+        arrowsItems[1].SetActive(false);
     }
 
     public void SwitchToBuyFromPlayer()
@@ -220,9 +263,6 @@ public class ItemShop : MonoBehaviour
         textOfShopState.text = "Sell";
     }
 
-
-
-    
 
 }
 
