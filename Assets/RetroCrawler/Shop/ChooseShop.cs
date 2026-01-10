@@ -41,6 +41,8 @@ public class ChooseShop : MonoBehaviour
 
 
 
+
+
         if (shopToChoose[index].GetComponent<ItemShop>() != null)
         {
             if(isNight)
@@ -61,6 +63,9 @@ public class ChooseShop : MonoBehaviour
             shopToChoose[index].GetComponent<ItemShop>().PlayerCoins( (GameInstance.party.SellBuyMoneyCheck(0)));
         }
 
+
+
+
         if (shopToChoose[index].GetComponent<SpellShop>() != null) 
         {
             BroAudio.Stop(closeShopPhrase);
@@ -69,6 +74,9 @@ public class ChooseShop : MonoBehaviour
             shopToChoose[index].GetComponent<SpellShop>().OpenSpellShop();
             shopToChoose[index].GetComponent<SpellShop>().PlayerCoins((GameInstance.party.SellBuyMoneyCheck(0)));
         }
+
+
+
 
         if(shopToChoose[index].GetComponent<TavernService>() != null)
         {
@@ -79,6 +87,9 @@ public class ChooseShop : MonoBehaviour
 
         }
 
+
+
+
         if (shopToChoose[index].GetComponent<TrainingShop>() != null)
         {
             BroAudio.Stop(closeShopPhrase);
@@ -87,6 +98,9 @@ public class ChooseShop : MonoBehaviour
             shopToChoose[index].GetComponent<TrainingShop>().OpenTrainingShop();
 
         }
+
+
+
 
     }
     void NightClosed(int count)

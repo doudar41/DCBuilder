@@ -337,7 +337,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 currentHealth = Mathf.Clamp(currentHealth + healroll + (int)(Mathf.Pow((float)(GetMainStat(MainStat.Survival) / 4), 2)), 0, GetDependedStat(DependedStat.maxHealth));
 
                 results.Add(new() { msgType = "s", msgString = heroName + " healed " + healroll });
-                HealHero(healroll);
+                ProgressBarChange();
                 break;
 
 
@@ -380,7 +380,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 currentHealth = Mathf.Clamp(currentHealth+healroll, 0, GetDependedStat(DependedStat.maxHealth));
 
                 results.Add(new() { msgType = "s", msgString = heroName + " healed " + healroll });
-                HealHero(healroll);
+                ProgressBarChange();
                 break;
 
 
@@ -401,11 +401,29 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                     }
                 }
 
-                if (portraits.GetStatePortrait(GameplayStatus.None, out Sprite stateSpriteWell)) portrait.sprite = stateSpriteWell;
+                if (portraits.GetStatePortrait(GameplayStatus.None, out Sprite stateSpriteWell) && currentHealth > 0) 
+                { 
+                    portrait.sprite = stateSpriteWell; 
+                }
+                else
+                {
+                    if(currentHealth <= 0)
+                    {
+                        portraits.GetStatePortrait(GameplayStatus.Dead, out Sprite deadstate);
+                        portrait.sprite = deadstate;
+                    }
+                }
 
-                //HealHero(GetDependedStat(DependedStat.maxHealth));
-                poisonDamage = 0;
+                    //HealHero(GetDependedStat(DependedStat.maxHealth));
+                    poisonDamage = 0;
                 results.Add(new() { msgType = "s", msgString = heroName + " restored" });
+                break;
+
+                case SpellEffects.Revive:
+                currentHealth = GetDependedStat(DependedStat.maxHealth);
+                ProgressBarChange();
+                portraits.GetStatePortrait(GameplayStatus.None, out Sprite wellState);
+                portrait.sprite = wellState;
                 break;
         }
         return results;
@@ -626,13 +644,10 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         return results;
     }
 
-    void HealHero(int amount)
+    void ProgressBarChange()
     {
-        //print("heal " + amount);
-        
         healthSlider.ProgressBarFill((float)currentHealth / (float)GetDependedStat(DependedStat.maxHealth));
-        
-        //if (currentHealth <= 0) portrait.sprite = deadSprite;
+       
     }
 
     IEnumerator AttackDelay()

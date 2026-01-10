@@ -377,7 +377,6 @@ public class Spellbook : MonoBehaviour
         }
     }
 
-
     public void GetGameObjectTarget(GameObject target)
     {
         if (target.GetComponent<IHero>() != null) 

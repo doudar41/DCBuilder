@@ -7,7 +7,7 @@ public class TempleServices : MonoBehaviour
 {
     [SerializeField] CameraOrder cameraOrder;
     [SerializeField] TextMeshProUGUI textOfShopState;
-    
+    [SerializeField] SpellContainer reviveSpell, restorationSpell;
 
 
     public UnityEvent closeShopPanel;
@@ -51,18 +51,16 @@ public class TempleServices : MonoBehaviour
         {
             foreach (Hero h in heroes)
             {
-                int currentHealth = h.GetHeroHealth();
-                if (currentHealth <= 0)
-                {
-                    h.HealthDecrease(-(currentHealth + h.GetDependedStat(DependedStat.maxHealth)));
-                }
-
+                h.ApplySpellToHero(restorationSpell);
+                h.ApplySpellToHero(reviveSpell);
 
             }
 
             GameInstance.party.MoneyGoes(1000);
         }
     }
+
+
     public void CameraOut()
     {
         cameraOrder.BattleLogWithGameplay();

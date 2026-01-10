@@ -48,7 +48,8 @@ public enum SpellEffects
     Burn,
     Freeze,
     Vampirism,
-    Equipment
+    Equipment,
+    Revive
 }
 
 public enum MagicType
