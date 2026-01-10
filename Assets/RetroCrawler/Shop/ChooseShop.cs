@@ -61,6 +61,7 @@ public class ChooseShop : MonoBehaviour
             BroAudio.Play(voicePhrase);
             shopToChoose[index].GetComponent<ItemShop>().OpenShop();
             shopToChoose[index].GetComponent<ItemShop>().PlayerCoins( (GameInstance.party.SellBuyMoneyCheck(0)));
+            shopToChoose[index].GetComponent<animateUIImage>().StartAnimation();
         }
 
 

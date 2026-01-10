@@ -186,6 +186,7 @@ public class ItemShop : MonoBehaviour
         {
             BroAudio.Play(voicePhrase).SetVelocity(Random.Range(0, 3));
         }
+        GetComponent<animateUIImage>().StopAnimation();
         BroAudio.Stop(openShopPhrase);
         BroAudio.Stop(ambience,0.3f);
         backGroundImage.enabled = false;
