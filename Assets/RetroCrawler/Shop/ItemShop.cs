@@ -17,27 +17,20 @@ public class ItemShop : MonoBehaviour
     [SerializeField] List<TextMeshProUGUI> heroesCoinsText;
     [SerializeField] TextMeshProUGUI textOfShopState;
     [SerializeField] GameObject[] arrowsItems;
-    [SerializeField] GameObject shopInsides;
+    [SerializeField] GameObject shopInsides, buyButton, inventoryButton, sellButton, identifyButton;
+    [SerializeField] 
+    
     Dictionary<int, HeroInventoryItem> itemsToSell = new Dictionary<int, HeroInventoryItem>();
+
     List<int> itemsToSellKeys = new List<int>();
     int sellItemIndexStart = 0;
     ShopState shopState = ShopState.SellToPlayer;
     [SerializeField]  SoundID closeShopSound, voicePhrase, openShopPhrase, ambience = default, moneyGoesSound;
     int coinsSpent = 0;
-    bool isNight = false;
     List<ItemScriptableContainer> itemsForSale = new List<ItemScriptableContainer>();
 
     public UnityEvent closeShopPanel;
 
-    private void OnEnable()
-    {
-
-    }
-
-    private void Awake()
-    {
-
-    }
 
     private void Start()
     {
@@ -54,8 +47,8 @@ public class ItemShop : MonoBehaviour
     public void OpenShop()
     {
         backGroundImage.enabled = true;
-        shopInsides.SetActive(true);
-        //cam.depth = 1;
+
+
         var money = GameInstance.party.GetCoinsForUI();
         for (int i = 0; i < money.Count; i++)
         {
@@ -64,7 +57,26 @@ public class ItemShop : MonoBehaviour
         sellItemIndexStart = 0;
         ReadItemsToSEll();
         textOfShopState.text = "Buy";
+        shopInsides.SetActive(false);
+        buyButton.SetActive(true);
+        inventoryButton.SetActive(true);
+        sellButton.SetActive(false);
+        identifyButton.SetActive(false);
+
+        shopState = ShopState.MainScreen;
     }
+
+    public void SwitchToInventory()
+    {
+        shopInsides.SetActive(false);
+        buyButton.SetActive(false);
+        inventoryButton.SetActive(false);
+        sellButton.SetActive(true);
+        identifyButton.SetActive(true);
+        shopState = ShopState.Inventory;
+    }
+
+
 
     public void PlayerCoins(int coins)
     {
@@ -103,10 +115,10 @@ public class ItemShop : MonoBehaviour
         {
             if (i < itemsForSale.Count)
             {
-                print("reading items to sell " + itemsForSale[i].itemName);
+               // print("reading items to sell " + itemsForSale[i].itemName);
                 itemsSlots[i].SetItemToSell(itemsForSale[i], i);
                 itemsSlots[i].sellMultiplier = sellMultiplier;
-                itemsSlots[i].shopState = shopState;
+                itemsSlots[i].shopState = ShopState.SellToPlayer;
             }
 
         }
@@ -117,7 +129,7 @@ public class ItemShop : MonoBehaviour
     {
 
         itemsForSale.Remove(item);
-        print("item sold" + itemsForSale.Count);
+        //print("item sold" + itemsForSale.Count);
         ReadItemsToSEll();
     }
 
@@ -149,7 +161,7 @@ public class ItemShop : MonoBehaviour
             if (h.Value == null) continue;
             foreach(ItemType it in itemsTypesToSell)
             {
-                print("item "+ GameInstance.dataBase.GetItemFromBaseByIndex(h.Value.container).itemName);
+                //print("item "+ GameInstance.dataBase.GetItemFromBaseByIndex(h.Value.container).itemName);
                 if (h.Value.itemType == it)
                 {
                     itemsToSell.Add(h.Key,h.Value);
@@ -163,10 +175,10 @@ public class ItemShop : MonoBehaviour
         {
             if (i<itemsToSellKeys.Count)
             {
-                 print("index " +i+ " modifier "+ sellItemIndexStart + " all items' keys " +itemsToSellKeys.Count); 
+                // print("index " +i+ " modifier "+ sellItemIndexStart + " all items' keys " +itemsToSellKeys.Count); 
 
                 itemsSlots[i].SetItemToSell(GameInstance.dataBase.GetItemFromBaseByIndex(itemsToSell[itemsToSellKeys[i+sellItemIndexStart]].container),i);
-                itemsSlots[i].shopState = shopState;
+                itemsSlots[i].shopState = ShopState.BuyFromPlayer;
                 itemsSlots[i].inventorySlotForSell = itemsToSellKeys[i + sellItemIndexStart];
             }
 
@@ -214,6 +226,40 @@ public class ItemShop : MonoBehaviour
 
     public void CloseShop()
     {
+        if(shopState== ShopState.Inventory)
+        {
+            shopInsides.SetActive(false);
+            buyButton.SetActive(true);
+            inventoryButton.SetActive(true);
+            sellButton.SetActive(false);
+            identifyButton.SetActive(false);
+            shopState = ShopState.MainScreen;
+            return;
+        }
+
+        if(shopState == ShopState.SellToPlayer)
+        {
+            print("going back to main screen");
+            shopInsides.SetActive(false);
+            buyButton.SetActive(true);
+            inventoryButton.SetActive(true);
+            sellButton.SetActive(false);
+            identifyButton.SetActive(false);
+            shopState = ShopState.MainScreen;
+            return;
+        }
+        if (shopState == ShopState.BuyFromPlayer || shopState == ShopState.Idenify)
+        {
+            shopInsides.SetActive(false);
+            buyButton.SetActive(false);
+            inventoryButton.SetActive(false);
+            sellButton.SetActive(true);
+            identifyButton.SetActive(true);
+            shopState = ShopState.Inventory;
+            return;
+        }
+
+
         closeShopPanel.Invoke();
         CameraOut();
         GameInstance.playerController.shopIsOpened = false;
@@ -249,18 +295,35 @@ public class ItemShop : MonoBehaviour
 
     public void SwitchToSellToPlayer()
     {
-        shopState = ShopState.SellToPlayer;
+
         ReadItemsToSEll();
         textOfShopState.text = "Buy";
         arrowsItems[0].SetActive(false);
         arrowsItems[1].SetActive(false);
+
+        shopInsides.SetActive(true);
+        buyButton.SetActive(false);
+        inventoryButton.SetActive(false);
+        sellButton.SetActive(false);
+        identifyButton.SetActive(false);
+
+        shopState = ShopState.SellToPlayer;
+
     }
 
     public void SwitchToBuyFromPlayer()
     {
-        shopState = ShopState.BuyFromPlayer;
+
         GetItemsFromInventoryToBuy();
         textOfShopState.text = "Sell";
+
+
+        shopInsides.SetActive(true);
+        buyButton.SetActive(false);
+        inventoryButton.SetActive(false);
+        sellButton.SetActive(false);
+        identifyButton.SetActive(false);
+        shopState = ShopState.BuyFromPlayer;
     }
 
 
@@ -274,5 +337,7 @@ public enum ShopState
     Idenify,
     Spell,
     Heal,
-    Ressurect
+    Ressurect,
+    Inventory,
+    MainScreen
 }

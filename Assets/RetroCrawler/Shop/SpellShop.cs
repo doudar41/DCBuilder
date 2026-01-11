@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class SpellShop : MonoBehaviour
 {
     [SerializeField] Image backGroundImage;
-    [SerializeField] List<ItemShopSlot> spellSlots = new List<ItemShopSlot>();
+    [SerializeField] List<SpellShopSlot> spellSlots = new List<SpellShopSlot>();
     [SerializeField] List<MagicType> magicTypes = new List<MagicType>();
     [SerializeField] List<TextMeshProUGUI> heroesCoinsText;
     [SerializeField] float sellMultiplier = 1;
@@ -17,16 +17,13 @@ public class SpellShop : MonoBehaviour
     [SerializeField] TextMeshProUGUI textOfShopState;
     [SerializeField] SoundID closeShopSound, voicePhrase, openShopPhrase;
     [SerializeField] GameObject openSwitch;
+    [SerializeField] GameObject spellsShelf, exitButton, moneyPanel;
+
     int coinsSpent = 0;
 
-    
 
     public UnityEvent closeShopPanel;
 
-    private void Start()
-    {
-        
-    }
 
     public void OpenSpellShop()
     {
@@ -40,8 +37,17 @@ public class SpellShop : MonoBehaviour
             heroesCoinsText[i].text = money[i].ToString();
         }
         textOfShopState.text = "Spells";
-
+        exitButton.SetActive(true);
+        moneyPanel.SetActive(true);
+        spellsShelf.SetActive(false);
     }
+
+
+    public void OpenSpellShelf()
+    {
+        spellsShelf.SetActive(true);
+    }
+
 
     public void PlayerCoins(int coins)
     {
@@ -55,8 +61,10 @@ public class SpellShop : MonoBehaviour
             heroesCoinsText[i].text = money[i].ToString();
         }
     }
+
     public void RefreshSoldSpells()
     {
+        //print("Refreshing sold spells");
         for (int i = 0; i < spellSlots.Count; i++)
         {
             spellSlots[i].SetSpellToSell(RandomSpellToSell(magicTypes[Random.Range(0, magicTypes.Count)]));
@@ -90,6 +98,8 @@ public class SpellShop : MonoBehaviour
 
     public void CloseShop()
     {
+        if (spellsShelf.activeSelf) { spellsShelf.SetActive(false); return; }
+
         closeShopPanel.Invoke();
         CameraOut();
         GameInstance.playerController.shopIsOpened = false;

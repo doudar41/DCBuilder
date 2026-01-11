@@ -1,6 +1,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,7 @@ public class animateUIImage : MonoBehaviour
 
     public void StartAnimation()
     {
+        if(!uiImage.gameObject.activeSelf) uiImage.gameObject.SetActive(true);
         StartCoroutine(AnimateImage());
     }
     public void StopAnimation()

@@ -768,22 +768,15 @@ public class PlayerController : MonoBehaviour
 
         IItem iItem = item.GetComponent<IItem>();
         iItem.ChangeGUID();
-
-       //wallsAccess[currentposition].GetComponent<I>().
-
         iItem.SetPrefab(GameInstance.dataBase.GetItemFromBaseByIndex(cursorItemScriptable.container));
         iItem.SetItemsAmount(stackAmountCursor);
-        //iItem.SetGUID(currentCursorGUID);
         iItem.PlaceCreatedItem(spawnPoint.position);
-
-
-        //iItem.SetTransformPosition(Vector3.zero);
         iItem.RemoveFromParent();
 
 
         if (screenPosition > 600) //throw
         {
-            //print("throw");
+            print("throw");
 /*            SplineAnimate anim = item.GetComponent<SplineAnimate>();//item.AddComponent<SplineAnimate>();
             //anim.Loop = SplineAnimate.LoopMode.Once;
 
@@ -792,7 +785,7 @@ public class PlayerController : MonoBehaviour
             anim.Play();
             playerState = PlayerState.BATTLE;
             anim.Completed += Completeanim;
-            item.GetComponent<ItemModel>().AnimComplete.AddListener(Completeanim);*/
+            item.GetComponent<ItemModel>().AnimComplete.AddListener(Completeanim);*/ 
         }
     }
     void Completeanim()

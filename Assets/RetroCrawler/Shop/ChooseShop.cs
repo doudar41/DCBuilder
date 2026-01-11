@@ -35,7 +35,7 @@ public class ChooseShop : MonoBehaviour
         }
         if (GameInstance.GetUnformattedTime() > refreshSellsTime)
         {
-            refreshSellsTime = GameInstance.GetUnformattedTime() + 1440;
+
 
             foreach (GameObject g in shopToChoose)
             {
@@ -47,11 +47,10 @@ public class ChooseShop : MonoBehaviour
                 }
                 if (g.GetComponent<SpellShop>() != null)
                 {
-                    g.SetActive(true);
                     g.GetComponent<SpellShop>().RefreshSoldSpells();
-                    g.SetActive(false);
                 }
             }
+            refreshSellsTime = GameInstance.GetUnformattedTime() + 1440;
         }
         cameraUI.ShopWithoutBattlelog();
         shopToChoose[index].SetActive(true);
@@ -91,9 +90,8 @@ public class ChooseShop : MonoBehaviour
             BroAudio.Play(voicePhrase);
             shopToChoose[index].GetComponent<SpellShop>().OpenSpellShop();
             shopToChoose[index].GetComponent<SpellShop>().PlayerCoins((GameInstance.party.SellBuyMoneyCheck(0)));
+            shopToChoose[index].GetComponent<animateUIImage>().StartAnimation();
         }
-
-
 
 
         if(shopToChoose[index].GetComponent<TavernService>() != null)
@@ -114,11 +112,8 @@ public class ChooseShop : MonoBehaviour
             shopToChoose[index].GetComponent<TrainingShop>().OpenTrainingShop();
 
         }
-
-
-
-
     }
+
     void NightClosed(int count)
     {
         //print(GameInstance.GetNormalTime()[1].ToString() + ":" + GameInstance.GetNormalTime()[2].ToString()+":"+GameInstance.GetNormalTime()[3].ToString());
