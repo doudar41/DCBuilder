@@ -43,7 +43,15 @@ public class GameJournal : MonoBehaviour
 
     public void OpenJournal(bool open)
     {
-        if(!open)
+
+        if(GameInstance.playerController.shopIsOpened)
+        {
+            cam.depth = -1;
+            journalPanel.SetActive(false); return;
+        }
+
+
+        if (!open)
         {
             cam.depth = -1;
             journalPanel.SetActive(false) ; return;

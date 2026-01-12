@@ -10,7 +10,7 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] MainStatTextUI mainStatsUITexts;
     [SerializeField] DependedStatTextUI dependedStatsUIText;
     [SerializeField] SkillsStatTextUI skillsStatsUIText;
-    [SerializeField] GameObject panelStats;
+    [SerializeField] GameObject panelStats, paperDoll;
     [SerializeField] Slider carryingWeight;
     [SerializeField] Slider hungerLevel;
     [SerializeField] TextMeshProUGUI weightHero, weightParty;
@@ -29,14 +29,22 @@ public class PlayerStats : MonoBehaviour
 
     public void EnableStatPanel(bool active)
     {
+        if (GameInstance.playerController.shopIsOpened)
+        {
+            paperDoll.SetActive(false);
+            panelStats.SetActive(false);
+            return;
+        }
         if (active)
         { 
             panelStats.SetActive(true);
+            paperDoll.SetActive(true);
             RefreshStats();
 
         }
         else
         {
+            paperDoll.SetActive(false);
             panelStats.SetActive(false);
         }
 

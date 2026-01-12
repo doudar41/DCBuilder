@@ -17,7 +17,7 @@ public class ItemShop : MonoBehaviour
     [SerializeField] List<TextMeshProUGUI> heroesCoinsText;
     [SerializeField] TextMeshProUGUI textOfShopState;
     [SerializeField] GameObject[] arrowsItems;
-    [SerializeField] GameObject shopInsides, buyButton, inventoryButton, sellButton, identifyButton;
+    [SerializeField] GameObject shopInsides, buyButton, inventoryButton, sellButton, identifyButton, heroMoney;
     [SerializeField] 
     
     Dictionary<int, HeroInventoryItem> itemsToSell = new Dictionary<int, HeroInventoryItem>();
@@ -62,7 +62,7 @@ public class ItemShop : MonoBehaviour
         inventoryButton.SetActive(true);
         sellButton.SetActive(false);
         identifyButton.SetActive(false);
-
+        heroMoney.SetActive(true);
         shopState = ShopState.MainScreen;
     }
 
@@ -278,6 +278,7 @@ public class ItemShop : MonoBehaviour
         BroAudio.Stop(ambience,0.3f);
         backGroundImage.enabled = false;
         shopInsides.SetActive(false);
+        heroMoney.SetActive(false);
     }
 
     void GetPlayersCoins()

@@ -10,7 +10,7 @@ public class Inventory : MonoBehaviour
     [SerializeField]    GameObject slotsParent;
     [SerializeField]    GameObject slotPrefab;
     [SerializeField]    TextMeshProUGUI weightCapacity;
-    [SerializeField]    GameObject inventorySwitcher;
+    [SerializeField]    GameObject inventorySwitcher, paperDoll;
     [SerializeField] List<TextMeshProUGUI> keyAmountsText = new List<TextMeshProUGUI>();
     Dictionary<KeyType, TextMeshProUGUI> keyTexts = new Dictionary<KeyType, TextMeshProUGUI>();
 
@@ -32,9 +32,16 @@ public class Inventory : MonoBehaviour
  
     public void EnableInventory(bool switchInventory)
     {
+        if (GameInstance.playerController.shopIsOpened)
+        {
+            paperDoll.SetActive(false);
+            inventorySwitcher.SetActive(false);
+            return;
+        }
         if (switchInventory) enableInventory.Invoke();
         isInventoryOpened = switchInventory;
         inventorySwitcher.SetActive(switchInventory);
+        paperDoll.SetActive(switchInventory);
     }
 
     public bool IsOpen()
