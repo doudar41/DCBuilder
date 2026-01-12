@@ -5244,7 +5244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f4acad1fecefc04f831831a8c9fa9e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeframe: 0.1
+  timeframe: 0.5
   dayMaterial: {fileID: 2100000, guid: 5804ab80474f6bf41883dbb186a8a67b, type: 2}
   nightMaterial: {fileID: 2100000, guid: 6611c3f939b50364b829e3bad5497368, type: 2}
   dayTexture: {fileID: 2800000, guid: df6ea1fa602902849a8735edb5e95207, type: 3}
@@ -5268,7 +5268,25 @@ MonoBehaviour:
   - {fileID: 2800000, guid: ab430c93303c95f4484f25b2426685e0, type: 3}
   skyTintGraph:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -0.008333334
+      outSlope: -0.008333334
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 60
+      value: 0.5
+      inSlope: -0.008333334
+      outSlope: -0.008333334
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -5302,17 +5320,17 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0.006921282
-      outSlope: 0.006921282
-      tangentMode: 0
+      inSlope: 0.0026666666
+      outSlope: 0.0026666666
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.051477708
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 60
-      value: 0.2
-      inSlope: 0.0033333334
-      outSlope: 0.0033333334
+      value: 0.16
+      inSlope: 0.0026666666
+      outSlope: 0.0026666666
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -5612,6 +5630,7 @@ Transform:
   - {fileID: 1843412306095487794}
   - {fileID: 1776259566981395736}
   - {fileID: 6012142141809520711}
+  - {fileID: 4318737754846079498}
   - {fileID: 3353886751106080741}
   - {fileID: 6543748152473864156}
   - {fileID: 5028650246481307765}
@@ -5754,7 +5773,7 @@ MonoBehaviour:
   hotSpot: {x: 0, y: 0}
   itemModelPrefab: {fileID: 8463113305200442390, guid: f2f76c5f05449f2449e877b941024850, type: 3}
   dropItemPosition: {fileID: 6012142141809520711}
-  throwItemPosition: {fileID: 6012142141809520711}
+  throwItemPosition: {fileID: 4318737754846079498}
   noEncounter: 1
   rangeOfEnCounter: {x: 15, y: 25}
   EnCounter:
@@ -5780,6 +5799,7 @@ MonoBehaviour:
   dialogueIsOpened: 0
   attackAllowed: 0
   takeInteractInterface: {fileID: 3282794113883905424}
+  splinePrefab: {fileID: 0}
 --- !u!136 &7596246848218951018
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5939,8 +5959,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShadingSteps: 8
   TargetIntensity: 2
-  MinimumIntensityDifference: 0.15
-  MaximumIntensityDifference: 2.5
+  MinimumIntensityDifference: 1.15
+  MaximumIntensityDifference: 1.3
   FrameRate: 12
   isOn: 0
 --- !u!1 &6682482424573741768
@@ -6020,6 +6040,37 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.162, y: -1.066, z: 2.21}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5456401373171684207}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7806711537628619306
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4318737754846079498}
+  m_Layer: 6
+  m_Name: ThrowPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4318737754846079498
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7806711537628619306}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.52, y: 1.49, z: -0.059999943}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

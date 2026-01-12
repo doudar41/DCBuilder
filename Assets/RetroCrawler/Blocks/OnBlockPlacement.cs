@@ -34,6 +34,7 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
     [SerializeField] int goldAmount = 0;
     [SerializeField] GameObject characterSprite;
     [SerializeField] List<GameObject> interactableObjectsInBlock = new List<GameObject>();
+
     public List<GameObject> InteractableObjectsInBlock { get; }
     int blockLevel = 0;
 
@@ -302,6 +303,25 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
         GameInstance.party.MoneyGoes(-goldAmount);
         //
     }
+
+    public void HitByThrownItem(HeroInventoryItem item, int stackAmount, GameObject itemModelPrefab)
+    {
+        print("Hit by thrown item: " + item);
+        GameObject thrownitem = Instantiate(itemModelPrefab, transform);
+        
+        IItem iItem = thrownitem.GetComponent<IItem>();
+        iItem.ChangeGUID();
+        iItem.SetPrefab(GameInstance.dataBase.GetItemFromBaseByIndex(item.container));
+        iItem.SetItemsAmount(stackAmount);
+        iItem.PlaceCreatedItem(new Vector3( transform.position.x-2.0f, transform.position.y - 2.5f, transform.position.z-2.0f));
+
+        
+
+        iItem.RemoveFromParent();
+        thrownitem.transform.localScale = Vector3.one;
+    }
+
+
     public int BlockLevel()
     {
         return blockLevel;

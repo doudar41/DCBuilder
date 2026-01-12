@@ -91,6 +91,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] PlayerTakeInteractInterface takeInteractInterface;
     Dictionary<Vector3Int,BattleGroundEnvironment> groundValues = new Dictionary<Vector3Int, BattleGroundEnvironment>();
 
+    [SerializeField] GameObject splinePrefab;
+
+
     private void Awake()
     {
         GameInstance.playerController = this;
@@ -686,6 +689,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public OnBlockPlacement GetBlockFromVector3(Vector3 position)
+    {
+        if (wallsAccess.TryGetValue(moveTilemap.WorldToCell(position), out OnBlockPlacement block)) { return block; }
+        return null;
+    }
+
 
     void MouseRaycast(InputAction.CallbackContext obj)
     {
@@ -699,9 +708,10 @@ public class PlayerController : MonoBehaviour
         }
         if (cursorBusy)
         {
-            cursorItemScriptable.positionReplaced = throwItemPosition.position;
+            if(playerState == PlayerState.Battle) return;
+            cursorItemScriptable.positionReplaced = dropItemPosition.position;
             //GameInstance.SaveItemState(currentCursorGUID, SavedState.Replaced, cursorItemScriptable);
-            ThrowToTheWorld(throwItemPosition, currentMouse.position.ReadValue().y);
+            ThrowToTheWorld(dropItemPosition, currentMouse.position.ReadValue().y);
             Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
             /*            cursorBusy = false;
                         cursorItemScriptable = null;*/
@@ -764,34 +774,29 @@ public class PlayerController : MonoBehaviour
 
     public void ThrowToTheWorld(Transform spawnPoint, float screenPosition)
     {
-        GameObject item = Instantiate(itemModelPrefab, spawnPoint);
-
-        IItem iItem = item.GetComponent<IItem>();
-        iItem.ChangeGUID();
-        iItem.SetPrefab(GameInstance.dataBase.GetItemFromBaseByIndex(cursorItemScriptable.container));
-        iItem.SetItemsAmount(stackAmountCursor);
-        iItem.PlaceCreatedItem(spawnPoint.position);
-        iItem.RemoveFromParent();
-
-
-        if (screenPosition > 600) //throw
+        if (screenPosition <= 500)
         {
-            print("throw");
-/*            SplineAnimate anim = item.GetComponent<SplineAnimate>();//item.AddComponent<SplineAnimate>();
-            //anim.Loop = SplineAnimate.LoopMode.Once;
+            GameObject item = Instantiate(itemModelPrefab, spawnPoint);
 
-            anim.Container = throwSplines[0];
-            anim.Duration = 0.8f;
-            anim.Play();
-            playerState = PlayerState.BATTLE;
-            anim.Completed += Completeanim;
-            item.GetComponent<ItemModel>().AnimComplete.AddListener(Completeanim);*/ 
+            IItem iItem = item.GetComponent<IItem>();
+            iItem.ChangeGUID();
+            iItem.SetPrefab(GameInstance.dataBase.GetItemFromBaseByIndex(cursorItemScriptable.container));
+            iItem.SetItemsAmount(stackAmountCursor);
+            iItem.PlaceCreatedItem(spawnPoint.position);
+            iItem.RemoveFromParent();
+        }
+
+
+
+        if (screenPosition > 500) 
+        {
+            //print("throw");
+            GameObject splineAhead = Instantiate(splinePrefab, throwItemPosition.position, throwItemPosition.rotation);
+            splineAhead.transform.GetComponentInChildren<ThrownItem>().SetItemAndIcon(cursorItemScriptable, GameInstance.dataBase.GetItemFromBaseByIndex(cursorItemScriptable.container).worldSprite, stackAmountCursor);
+            splineAhead.transform.parent = null;
         }
     }
-    void Completeanim()
-    {
-        playerState = PlayerState.Explore;
-    }
+    
 
     public HeroInventoryItem GetItemFromCursor()
     {
