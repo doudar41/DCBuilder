@@ -184,7 +184,8 @@ public class BattleManager : MonoBehaviour
                 GameObject enemy = Instantiate(_enemy.enemies[0], enemyPosition);
 
                 allOpponents.Add(enemy);
-                enemy.GetComponent<IEnemy>().SetEnemyPlaceSpace(0, new List<int> { 0,1,2,3,4 });
+                var enemyInterface = enemy.GetComponent<IEnemy>();
+                enemyInterface.SetEnemyPlaceSpace(0, enemyInterface.GetEnemyPlace());
             }
         
 
@@ -210,8 +211,56 @@ public class BattleManager : MonoBehaviour
         //Open UI elements which need for battle 
         battleStarts.Invoke();
 
-
+        GameInstance.playerController.StartCustomBattle();
+        GameInstance.soundManager.LaunchBattleMusic(BattleGroundEnvironment.STONE);
     }
+
+
+    public void CustomBattleInPlace(List<GameObject> _enemies, IBlock iblock)
+    {
+        //With this bool == true the InteractablesEnum "CUSTOMBATTLE" in blockInteractables list will be removed after winning battle so the battle will not be repeated
+        customBattle = true;
+        customBattleObject = _enemies[0];
+        customBattleBlock = iblock;
+
+        foreach (GameObject enemyPrefab in _enemies)
+        {
+
+            var enemy = enemyPrefab.GetComponentInChildren<IEnemy>();
+            allOpponents.Add(enemy.GetEnemyGameObject());          
+            enemy.SetEnemyPlaceSpace(0, new List<int> { 0, 1, 2, 3, 4 });
+        }
+
+        foreach (Hero h in GameInstance.party.GetHeroList())
+        {
+            allOpponents.Add(h.gameObject);
+        }
+
+        SortingOpponents();
+
+        targetIndexInOpponents = -1;
+        quarrySortedKey = 0;
+
+        //Check if the first member of a quarry is enemy
+        if (IfActiveOpponentIsEnemy())
+        {
+            EnemyAutoAttack();
+        }
+        else
+        {
+            GameInstance.playerController.attackAllowed = true;
+        }
+        //Open UI elements which need for battle 
+        battleStarts.Invoke();
+
+        GameInstance.playerController.StartCustomBattle();
+        GameInstance.soundManager.LaunchBattleMusic(iblock.GetBattleGroundEnvironment());
+    }
+
+
+
+
+
 
     //Spawn enemies logic 
     void SpawnEnemies(List<EnemySized> enemies, int randomRange, List<GameObject> spawnRow, int row)

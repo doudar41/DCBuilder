@@ -8023,8 +8023,7 @@ MonoBehaviour:
   spellsChosen04:
   - {fileID: 11400000, guid: 930e4a4577b775d4b9373907d7f2b357, type: 2}
   - {fileID: 11400000, guid: 88fb39f7054ce0240ab603a03a19416a, type: 2}
-  tipsField: {fileID: 0}
-  startingUniqueDialogueNames: 0f00000011000000080000001200000006000000
+  startingUniqueDialogueNames: 15000000140000000f00000011000000080000001200000006000000
 --- !u!1 &724559658
 GameObject:
   m_ObjectHideFlags: 0

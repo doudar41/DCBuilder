@@ -93,7 +93,7 @@ public class SpellShopSlot : MonoBehaviour , IPointerEnterHandler, IPointerExitH
                 || spellToSell.spells[0].magicType == MagicType.Earth)
         {
             scrollPicture.sprite = magicSchoolScrollSprites[0];
-            print("setting spell to sell " + spell.spells[0].magicType + " - " + magicSchoolScrollSprites[0]);
+            //print("setting spell to sell " + spell.spells[0].magicType + " - " + magicSchoolScrollSprites[0]);
         }
         if (spellToSell.spells[0].magicType == MagicType.Light)
         {

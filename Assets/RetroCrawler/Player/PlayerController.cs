@@ -997,6 +997,12 @@ public class PlayerController : MonoBehaviour
                     print("start custom battle");
                     wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<IBlock>().SetCustomBattle();
                     return false;
+
+                case InteractablesEnum.CUSTOMBATTLEINPLACE:
+                    StartCustomBattle(transform);
+                    List<GameObject> enemy = wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<OnBlockPlacement>().GetEnemyListForCustomBattle();
+                    GameInstance.battleManager.CustomBattleInPlace(enemy, wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<IBlock>());
+                    return false;
             }
         }
         return true;

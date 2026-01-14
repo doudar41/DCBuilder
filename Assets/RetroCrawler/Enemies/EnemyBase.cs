@@ -657,6 +657,9 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
 
     public List<SpellContainer> GetEnemyAttackSpell() { return attackSpells; }
     public int ExperienceReward() { return experienceReward; }
+
+
+    public GameObject GetEnemyGameObject() { return this.gameObject; }
 }
 
 
@@ -682,6 +685,7 @@ public interface IEnemy
     public void MoveBackAfterAttack();
     public List<SpellContainer> GetEnemyAttackSpell();
     public int ExperienceReward();
+    public GameObject GetEnemyGameObject();
 }
 
 [System.Serializable]

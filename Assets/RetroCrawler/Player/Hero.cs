@@ -1046,7 +1046,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     void TimeChanges(int count)
     {
-       print(GameInstance.GetNormalTime()[0]%60+"/"+ GameInstance.GetNormalTime()[1]+ "/"+GameInstance.GetNormalTime()[2]);
+       //print(GameInstance.GetNormalTime()[0]%60+"/"+ GameInstance.GetNormalTime()[1]+ "/"+GameInstance.GetNormalTime()[2]);
 
         if (GameInstance.playerController.playerState != PlayerState.Battle)
         {

@@ -28,5 +28,6 @@ public enum InteractablesEnum
     STORE,
     DIALOGUE,
     DIALOGUEKEY,
-    CUSTOMBATTLE
+    CUSTOMBATTLE,
+    CUSTOMBATTLEINPLACE
 }

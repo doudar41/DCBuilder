@@ -10,7 +10,7 @@ public class ThrownItem : MonoBehaviour
     SpriteRenderer spriteRenderer;
     [SerializeField] GameObject itemModelPrefab;
     SplineAnimate splineAnimate;
-
+    bool once = true;
     private void Start()
     {
         splineAnimate = GetComponent<SplineAnimate>();
@@ -29,9 +29,9 @@ public class ThrownItem : MonoBehaviour
             }
             else
                 {
-                GameInstance.inventory.FindEmptySlotAndPutItem(item, stackAmount);
+                if (once) { GameInstance.inventory.FindEmptySlotAndPutItem(item, stackAmount); once = false; }
                 Destroy(gameObject.transform.parent.gameObject, 2f);
-            }
+                }
 
         }
     }
@@ -49,7 +49,12 @@ public class ThrownItem : MonoBehaviour
             }
             else
             {
-                               GameInstance.inventory.FindEmptySlotAndPutItem(item, stackAmount);
+                if (once)
+                {
+                    GameInstance.inventory.FindEmptySlotAndPutItem(item, stackAmount);
+                    once = false;
+                }
+
                 Destroy(gameObject.transform.parent.gameObject, 2f);
             }
 

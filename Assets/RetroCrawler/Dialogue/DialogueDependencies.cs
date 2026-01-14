@@ -57,5 +57,7 @@ public enum UniqueDialogueName //Party would have current list of dialogue names
     SecondGuardAllow,
     SecondGuardDeny,
     MeetDukeFirstDeny,
-    MetDukeAllow
+    MetDukeAllow,
+    EnterTheTownGameStart,
+    Tutorial01
 }

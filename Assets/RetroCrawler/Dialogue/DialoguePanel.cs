@@ -76,6 +76,11 @@ public class DialoguePanel : MonoBehaviour
                 if (!GameInstance.party.currentUniqueDialogueNames.Contains(un)) GameInstance.party.currentUniqueDialogueNames.Add(un);
             }
 
+            foreach (ItemScriptableContainer item in dialogue.itemsAddToParty)
+            {
+                GameInstance.inventory.FindEmptySlotAndPutItem( GameInstance.dataBase.HeroInventoryFromITemScriptable(item), 1);
+            }
+
             GameInstance.party.MoneyGoes(-dialogue.goldAmount);
             if(dialogue.journalEnter !="") GameInstance.gameJournal.AddEntryToJournal(dialogue.journalEnter);
         }

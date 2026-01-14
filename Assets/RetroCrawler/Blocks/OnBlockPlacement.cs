@@ -43,6 +43,9 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
     [SerializeField] List<bool> wallsOverided = new List<bool>() { false, false, false, false }; //N,E,S,W
 
     [SerializeField] List<bool> wallsVisibilityOverided = new List<bool>() { false, false, false, false }; //N,E,S,W
+
+    [SerializeField] List<GameObject> enemyInPlace = new List<GameObject>();
+
     private void OnValidate()
     {
         if(overideWalls)
@@ -305,10 +308,16 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
         GameInstance.battleManager.CustomBattleStart(enemyList, gameObject.GetComponent<IBlock>(), battleGroundEnvironment) ;
     }
 
+    public List<GameObject> GetEnemyListForCustomBattle()
+    {
+        return enemyInPlace;
+    }
+
     public void FinishTheBattle()
     {
         blockInteractables.Remove(InteractablesEnum.CUSTOMBATTLE);
-        foreach(ItemScriptableContainer item in afterBattleLoot)
+        blockInteractables.Remove(InteractablesEnum.CUSTOMBATTLEINPLACE);
+        foreach (ItemScriptableContainer item in afterBattleLoot)
         {
             GameInstance.inventory.FindEmptySlotAndPutItem(GameInstance.dataBase.HeroInventoryFromITemScriptable(item), 1);
         }

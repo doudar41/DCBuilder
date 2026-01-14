@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fc4bf8bed5e41a4fa66bd7300eb3474, type: 3}
+  m_Name: EnterTheTownGameStart
+  m_EditorClassIdentifier: 
+  uniqueName: 20
+  dialogue_phrases:
+  - portraits: {fileID: 21300000, guid: 9dc5abcbf07c4604698d63aa6d4907d2, type: 3}
+    dialogueTexts: Welcome travelers, please, no wondering around go straight to
+      the Inn, after the corner turn left. If you're interested in Death Crusaders
+      take this missive.
+  journalEnter: 
+  priorityIndex: 1
+  dialogueButtons: []
+  namesToDeleteFromBlock: 14000000
+  namesToDeleteFromParty: 14000000
+  deleteDialogue: 1
+  lastButtonText: Quit
+  namesAddToParty: 
+  itemsAddToParty:
+  - {fileID: 11400000, guid: 263cb7644106e4f448a1b1fe1c5460e8, type: 2}
+  goldAmount: 0
+  experiencePoints: 100
