@@ -73,10 +73,10 @@ public class LoadLevelOrder : MonoBehaviour
 
         GameInstance.party.RestoreSpellsAttached(GameInstance.spellsAttachedToHeroes);
         GameInstance.party.PartyHeroInit();
-        //print("no spellbook");
         GameInstance.spellbook.RestoreContinousSpells();
         GameInstance.party.LoadDialoguesFromInstance();
         GameInstance.playerController.SetEncounter(GameInstance.onEncounter);
         GameInstance.dayNightChange.InitDayNightShift();
+        StartCoroutine(GameInstance.TimeStep());
     }
 }

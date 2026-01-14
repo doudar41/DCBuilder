@@ -71,9 +71,13 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     }
     private void Start()
     {
-        GameInstance.progress += TimePassBy;
+        GameInstance.playerController.timeForward += TimePassBy;
     }
-
+    private void OnDestroy()
+    {
+        GameInstance.battleManager.battlePassTime -= BattleTimeChanges;
+        GameInstance.playerController.timeForward -= TimePassBy;
+    }
     public void HeroInit()
     {
         
@@ -1015,12 +1019,12 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     {
         if (onOff)
         {
-            GameInstance.progress -= TimePassBy;
+            GameInstance.playerController.timeForward -= TimePassBy;
             GameInstance.battleManager.battlePassTime += BattleTimeChanges;
         }
         else
         {
-            GameInstance.progress += TimePassBy;
+            GameInstance.playerController.timeForward += TimePassBy;
             GameInstance.battleManager.battlePassTime -= BattleTimeChanges;
         }
     }
@@ -1042,7 +1046,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     void TimeChanges(int count)
     {
-       // print(GameInstance.GetNormalTime()[0]%60+"/"+ GameInstance.GetNormalTime()[1]+ "/"+GameInstance.GetNormalTime()[2]);
+       print(GameInstance.GetNormalTime()[0]%60+"/"+ GameInstance.GetNormalTime()[1]+ "/"+GameInstance.GetNormalTime()[2]);
 
         if (GameInstance.playerController.playerState != PlayerState.Battle)
         {
@@ -1139,11 +1143,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         return gameplayStatuses;
     }
 
-    private void OnDestroy()
-    {
-        GameInstance.progress -= TimePassBy;
-        GameInstance.battleManager.battlePassTime -= BattleTimeChanges;
-    }
+
 
     public MagicType GetWeaponMagicType()
     {

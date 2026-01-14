@@ -62,7 +62,7 @@ public class Party : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(GameInstance.TimeStep());
+
         SetTimerForHeroes(false);
     }
 

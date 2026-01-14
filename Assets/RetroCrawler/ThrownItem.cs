@@ -21,8 +21,18 @@ public class ThrownItem : MonoBehaviour
     {
         if(splineAnimate.NormalizedTime >= 1f)
         {
-            GameInstance.playerController.GetBlockFromVector3(transform.position).GetComponent<OnBlockPlacement>().HitByThrownItem(item, stackAmount, itemModelPrefab);
-            Destroy(gameObject.transform.parent.gameObject);
+            if(GameInstance.playerController == null) return;
+            if (GameInstance.playerController.GetBlockFromVector3(transform.position) != null)
+            {
+                GameInstance.playerController.GetBlockFromVector3(transform.position).GetComponent<OnBlockPlacement>().HitByThrownItem(item, stackAmount, itemModelPrefab);
+                Destroy(gameObject.transform.parent.gameObject);
+            }
+            else
+                {
+                GameInstance.inventory.FindEmptySlotAndPutItem(item, stackAmount);
+                Destroy(gameObject.transform.parent.gameObject, 2f);
+            }
+
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -32,8 +42,16 @@ public class ThrownItem : MonoBehaviour
         if(other.gameObject.layer == 11)
         {
             GetComponent<SplineAnimate>().Pause();
-            other.gameObject.transform.parent.parent.gameObject.GetComponent<OnBlockPlacement>().HitByThrownItem(item, stackAmount, itemModelPrefab);
-            Destroy(gameObject.transform.parent.gameObject);
+            if(other.gameObject.transform.parent.parent.gameObject != null)
+            {
+                other.gameObject.transform.parent.parent.gameObject.GetComponent<OnBlockPlacement>().HitByThrownItem(item, stackAmount, itemModelPrefab);
+                Destroy(gameObject.transform.parent.gameObject);
+            }
+            else
+            {
+                               GameInstance.inventory.FindEmptySlotAndPutItem(item, stackAmount);
+                Destroy(gameObject.transform.parent.gameObject, 2f);
+            }
 
         }
         

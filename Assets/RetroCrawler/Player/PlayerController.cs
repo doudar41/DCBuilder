@@ -93,6 +93,9 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] GameObject splinePrefab;
 
+    int timeEventCounter = 0;
+    public delegate void TimeEventDelegate(int timeCounter);
+    public event TimeEventDelegate timeForward;
 
     private void Awake()
     {
@@ -117,7 +120,7 @@ public class PlayerController : MonoBehaviour
         leftMouse.action.started += MouseRaycast;
         countdownToEncounter = Random.Range(rangeOfEnCounter.x, rangeOfEnCounter.y);
 
-        GameInstance.progress += TimeEvents;
+        //GameInstance.progress += TimeEvents;
     }
 
     private void OnDestroy()
@@ -130,7 +133,7 @@ public class PlayerController : MonoBehaviour
         _input.CrawlerStandart.Cancel.started -= ReleaseSpellWithoutCasting;
         _input.CrawlerStandart.TakeInteract.started -= TakeInteract;
         leftMouse.action.started -= MouseRaycast;
-        GameInstance.progress -= TimeEvents;
+        //GameInstance.progress -= TimeEvents;
         _input.Disable();
     }
 
@@ -403,7 +406,8 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-
+        TimeEvents(timeEventCounter);
+        timeForward(timeEventCounter);
         if (playerState == PlayerState.Battle) { /*print("battle state");*/ return; }
         //if (!lightBusy) StartCoroutine(LightFlickering());
 
@@ -1080,6 +1084,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+        timeEventCounter++;
     }
 
 

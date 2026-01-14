@@ -728,7 +728,7 @@ public class BattleManager : MonoBehaviour
         else { print("battle's over let's back to explore"); GameInstance.playerController.ReturnToPreBattlePosition(); }
 
         GameInstance.soundManager.BackToCurrentExploreMusic();
-        StartCoroutine(GameInstance.TimeStep());
+        //StartCoroutine(GameInstance.TimeStep());
         GameInstance.party.SetTimerForHeroes(false);
         //_defeatedList.ClearList();
     }

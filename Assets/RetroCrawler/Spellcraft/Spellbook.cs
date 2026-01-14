@@ -41,7 +41,7 @@ public class Spellbook : MonoBehaviour
     private void Awake()
     {
         GameInstance.spellbook = this; // Make reference in GameInstance 
-        GameInstance.progress += TimeLimitSpellCount; // Using GameInstance time delegate to manage countdown of time based spells 
+        
         foreach (Image i in stateIconPanel.transform.GetComponentsInChildren<Image>())
         {
             massSpellIcons.Add(i); // Get image components from time based spell panel gameobject, probably will be changed to new class 
@@ -51,10 +51,13 @@ public class Spellbook : MonoBehaviour
             sp.InitializeSpellSchoolScript(); // Each spell page script check for availability of a spell and save it into dictionary
         }
     }
-
+    private void Start()
+    {
+        GameInstance.playerController.timeForward += TimeLimitSpellCount; // Using GameInstance time delegate to manage countdown of time based spells 
+    }
     private void OnDestroy()
     {
-        GameInstance.progress -= TimeLimitSpellCount; // sign out from Gameinstance delegate
+        GameInstance.playerController.timeForward -= TimeLimitSpellCount; // sign out from Gameinstance delegate
     }
 
     public void OpenSpellbook(bool active) // Method is switching spellbook on and off by using UI toggle on right side menu (GameMenu)

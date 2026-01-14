@@ -35,8 +35,28 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
     [SerializeField] GameObject characterSprite;
     [SerializeField] List<GameObject> interactableObjectsInBlock = new List<GameObject>();
 
+
     public List<GameObject> InteractableObjectsInBlock { get; }
     int blockLevel = 0;
+
+    [SerializeField] bool overideWalls  = false;
+    [SerializeField] List<bool> wallsOverided = new List<bool>() { false, false, false, false }; //N,E,S,W
+
+    [SerializeField] List<bool> wallsVisibilityOverided = new List<bool>() { false, false, false, false }; //N,E,S,W
+    private void OnValidate()
+    {
+        if(overideWalls)
+        {
+            for(int i=0; i<walls.Length; i++)
+            {
+                if(wallsOverided.Count > i)
+                {
+                    walls[i].SetActive(wallsOverided[i]);
+                    if(walls[i].gameObject.GetComponentInChildren<SpriteRenderer>() !=null) walls[i].gameObject.GetComponentInChildren<SpriteRenderer>().enabled = wallsVisibilityOverided[i];
+                }
+            }
+        }
+    }
 
 
     private void Awake()
@@ -53,7 +73,7 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
     private void Start()
     {
         coordinatesTextOn = GetComponentInChildren<TextMeshPro>();
-        coordinatesTextOn.gameObject.SetActive(false);
+        if(coordinatesTextOn!=null) coordinatesTextOn.gameObject.SetActive(false);
     }
 
     void BlockInit()
