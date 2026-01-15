@@ -80,9 +80,32 @@ public static class GameInstance
     public static List<string> journalEntries = new List<string>();
     public static List<UniqueDialogueName> currentUniqueDialogueNames = new List<UniqueDialogueName>();
 
+    public static Dictionary<Vector3Int,bool> customBattlesInPlaceFinished = new Dictionary<Vector3Int, bool>();
+
     public static bool onEncounter = true;
     //Chest and doors
 
+    public static void ClearAllInstantSavedData()
+    {
+        equipmentHeroesSavedWithGUID.Clear();
+        inventoryItemsSaved.Clear();
+        itemsOnLevelSavedWithGUID.Clear();
+        savedItemsState.Clear();
+        levelsVisited.Clear();
+        visitedBlocks.Clear();
+        mainStatsAdded.Clear();
+        skillStatSaves.Clear();
+        heroesPortraits.Clear();
+        heroesNames.Clear();
+        spellbooksSaved.Clear();
+        keysSaved.Clear();
+        spellsAttachedToHeroes.Clear();
+        spellsFromSpellbook.Clear();
+        dialoguesFinished.Clear();
+        journalEntries.Clear();
+        currentUniqueDialogueNames.Clear();
+        customBattlesInPlaceFinished.Clear();
+    }
 
     public static int DiceRollingBiggestNumber(int diceNumber, int diceSides)
     {
@@ -359,6 +382,14 @@ public static class GameInstance
         saveData.journalEntries = journalEntries;
         saveData.encounterOn =  playerController.GetEncounterState();
 
+        List<Vector3Int> customBattlesFinished = new List<Vector3Int>();
+        foreach (KeyValuePair<Vector3Int, bool> c in customBattlesInPlaceFinished)
+        {
+            if (c.Value == true) customBattlesFinished.Add(c.Key);
+        }
+        saveData.customBattlesInPlaceFinished = customBattlesFinished;
+
+
         string path = Application.persistentDataPath + "/" + fileName;
         Gley.AllPlatformsSave.API.Save(saveData, path, DataWasSaved, false);
     }
@@ -409,6 +440,11 @@ public static class GameInstance
             mainStatsAdded = saveData.mainStatsAdded;
             skillStatSaves = saveData.skillStatSaves;
             onEncounter = saveData.encounterOn;
+            customBattlesInPlaceFinished.Clear();
+            foreach(Vector3Int v in saveData.customBattlesInPlaceFinished)
+            {
+              customBattlesInPlaceFinished.Add(v, true);
+            }
 
             SceneManager.LoadScene(saveData.levelName, LoadSceneMode.Single); 
         }
@@ -612,6 +648,9 @@ public class SaveData
     public List<SkillStatSave> skillStatSaves = new List<SkillStatSave>();
     public List<int> heroesPortraits = new List<int>();
     public List<string> heroesNames = new List<string>();
+    public List<int> heroesCurrentHealth = new List<int>();
+    public List<int> heroesCurrentMana = new List<int>();
+    public List<int> heroesCurrentHunger = new List<int>();
     public List<HeroSpellbookSaved> spellbooksSaved = new List<HeroSpellbookSaved>();
     public List<KeyToLocks> keysSaved = new List<KeyToLocks>();
     public List<SavedSpellsAttached> heroesSpellsAttachedSaved = new List<SavedSpellsAttached>();
@@ -622,7 +661,7 @@ public class SaveData
     public List<UniqueDialogueName> partyDialogues = new List<UniqueDialogueName>();
     public List<string> journalEntries = new List<string>();
     public bool encounterOn = false;
-    
+    public List<Vector3Int> customBattlesInPlaceFinished = new List<Vector3Int>();
 }
 
 [System.Serializable]

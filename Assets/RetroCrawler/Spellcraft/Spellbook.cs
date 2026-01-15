@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using Ami.BroAudio;
-using JetBrains.Annotations;
+
 
 // Summary
 // This script handles  
@@ -37,6 +37,8 @@ public class Spellbook : MonoBehaviour
     public UnityEvent<GameObject> spellTargetEvent;
     public UnityEvent<List<string>, List<ResultMsg>> battlelogEvent;
     public UnityEvent<SpellContainer> hitTargetEffect;
+
+    [SerializeField] SoundID messageToLog;
 
     private void Awake()
     {
@@ -526,6 +528,8 @@ public class Spellbook : MonoBehaviour
 
     public void ResultsToBattleLog(List<string> logStrings, List<ResultMsg> results)
     {
+        //Sound of adding a message to log
+
         battlelogEvent.Invoke(logStrings, results);
     }
 

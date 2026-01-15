@@ -28,12 +28,13 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     [SerializeField] SpellContainer unarmedSpell; //default hero attack without weapons
     [SerializeField] List<MagicType> immunityList = new List<MagicType>();
     [SerializeField] int foodConsumptionRate = 1; // How much food hero consumes per time unit
+    int foodTimeConsumptionCounter = 0;
     SpellContainer lastSpell; //The last spell hero used canbe used by pressing "T" or menu button "Last Spell"
-    int currentHealth = 100, currentMana = 100; //default health and mana parameters
+    int currentHealth = 100, currentMana = 100, currentHunger = 1440; //default health and mana parameters
     int heroID = 0; // hero ID is a hero index in the Party script which will be used for inventory management
 
     Dictionary<MainStat, int> mainStatContainer = new Dictionary<MainStat, int>();  // Container of main attributes held unmodified attributes of a hero
-    Dictionary<DependedStat, int> dependedStatsCurrent = new Dictionary<DependedStat, int>(); // Container of unmodified depended stats of a hero like health and mana 
+    Dictionary<DependedStat, int> dependedStatsDefault = new Dictionary<DependedStat, int>(); // Container of unmodified depended stats of a hero like health and mana 
     Dictionary<SkillsStat, int> skillsStatsCurrent = new Dictionary<SkillsStat, int>(); // Container of unmodified skills of a hero
     Dictionary<ItemType, SpellContainer> equipmentSpells = new Dictionary<ItemType, SpellContainer>(); // Spells on enchanted armor, weapons and accessories saved here
     Dictionary<Spell,int> spellsAttached = new Dictionary<Spell, int>(); // Other spells on player buffs and debuffs
@@ -83,7 +84,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         
         foreach (KeyValuePair<DependedStat,int > dstat in HeroStatsDefault.GetFullDependedStats())
         {
-            dependedStatsCurrent.Add(dstat.Key,dstat.Value);
+            dependedStatsDefault.Add(dstat.Key,dstat.Value);
         }
 
         for (int i = 0; i < GameInstance.party.GetHeroList().Count; i++)
@@ -127,18 +128,19 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
             }
         }
 
-        foreach(DependedStat dstat in System.Enum.GetValues(typeof(DependedStat)))
+/*        foreach(DependedStat dstat in System.Enum.GetValues(typeof(DependedStat)))
         {
-            if (dependedStatsCurrent.ContainsKey(dstat))
+            if (dependedStatsDefault.ContainsKey(dstat))
             {
-                dependedStatsCurrent[dstat] += GetDependedStatModificator(dstat);
+                dependedStatsDefault[dstat] += GetDependedStatModificator(dstat);
             }
-        }
+        }*/
 
-        currentHealth = GetDependedStat(DependedStat.maxHealth);
-        currentMana = GetDependedStat(DependedStat.maxMana);
+        currentHealth = GetMaxDependedStat(DependedStat.maxHealth);
+        currentMana = GetMaxDependedStat(DependedStat.maxMana);
+        currentHunger = GetMaxDependedStat(DependedStat.Hunger);
         //print("hero "+ heroName+ "current health "+currentHealth + " max health "+ GetDependedStat(DependedStat.maxHealth));
-        healthSlider.ProgressBarFill((float)currentHealth / (float)GetDependedStat(DependedStat.maxHealth));
+        healthSlider.ProgressBarFill((float)currentHealth / (float)GetMaxDependedStat(DependedStat.maxHealth));
     }
 
     
@@ -151,13 +153,12 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     {
         //SingleSpellApply(spell, null, null,null);
        // spellsAttached.Add(spell, timesToFinish);
-
     }
 
-    int GetDependedStatModificator(DependedStat dstat)
+    /*int GetDependedStatModificator(DependedStat dstat)
     {
 
-        int statInt = dependedStatsCurrent[dstat];
+        int statInt = 0;
         switch (dstat)
         {
             case DependedStat.heroLevel:
@@ -169,7 +170,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 statInt += (GetMainStat(MainStat.Mind) / 5) * 10;
                 break;
             case DependedStat.initiative:
-                if (GetHeroWeight() < GetDependedStat(DependedStat.CarryingCapacity))
+                if (GetHeroWeight() < GetMaxDependedStat(DependedStat.CarryingCapacity))
                 {
                     statInt += Mathf.Clamp(statInt - currentInitiativeReduction, 0, int.MaxValue);
                     statInt += (GetMainStat(MainStat.Agility) / 5);
@@ -187,7 +188,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 statInt += (GetMainStat(MainStat.Survival) / 5) + (GetMainStat(MainStat.Strength) / 5);
                 break;
             case DependedStat.Hunger:
-                statInt += (GetMainStat(MainStat.Survival) / 5) * 100;
+                statInt += (GetMainStat(MainStat.Survival) / 5) * 100; //Max hunger resistance depends on survival stat
 
                 break;
             case DependedStat.None:
@@ -203,13 +204,13 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
             case DependedStat.DarkResistance:
                 break;
             case DependedStat.meleeDamage:
-                if (GetHeroWeight() < GetDependedStat(DependedStat.CarryingCapacity))
+                if (GetHeroWeight() < GetMaxDependedStat(DependedStat.CarryingCapacity))
                 {
                     statInt += (GetMainStat(MainStat.Strength) / 5) + GetSkillsStat(GetWeaponType());
                 }
                 break;
             case DependedStat.rangeDamage:
-                if (GetHeroWeight() < GetDependedStat(DependedStat.CarryingCapacity))
+                if (GetHeroWeight() < GetMaxDependedStat(DependedStat.CarryingCapacity))
                 {
                     statInt += (GetMainStat(MainStat.Agility) / 5) + GetSkillsStat(GetWeaponType());
                 }
@@ -240,7 +241,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         return Mathf.Clamp(statInt, 0, int.MaxValue);
 
 
-    }
+    }*/
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -338,7 +339,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 if (currentHealth <= 0) break;
                 int healroll = GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides);
                 healroll += GetSkillsStat(SkillsStat.LightMagic) + GetMainStat(MainStat.Mind) + s.diceBonus;
-                currentHealth = Mathf.Clamp(currentHealth + healroll + (int)(Mathf.Pow((float)(GetMainStat(MainStat.Survival) / 4), 2)), 0, GetDependedStat(DependedStat.maxHealth));
+                currentHealth = Mathf.Clamp(currentHealth + healroll + (int)(Mathf.Pow((float)(GetMainStat(MainStat.Survival) / 4), 2)), 0, GetMaxDependedStat(DependedStat.maxHealth));
 
                 results.Add(new() { msgType = "s", msgString = heroName + " healed " + healroll });
                 ProgressBarChange();
@@ -381,7 +382,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 if (currentHealth <= 0) break;
                 int healroll = GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides);
 
-                currentHealth = Mathf.Clamp(currentHealth+healroll, 0, GetDependedStat(DependedStat.maxHealth));
+                currentHealth = Mathf.Clamp(currentHealth+healroll, 0, GetMaxDependedStat(DependedStat.maxHealth));
 
                 results.Add(new() { msgType = "s", msgString = heroName + " healed " + healroll });
                 ProgressBarChange();
@@ -424,7 +425,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 break;
 
                 case SpellEffects.Revive:
-                currentHealth = GetDependedStat(DependedStat.maxHealth);
+                currentHealth = GetMaxDependedStat(DependedStat.maxHealth);
                 ProgressBarChange();
                 portraits.GetStatePortrait(GameplayStatus.None, out Sprite wellState);
                 portrait.sprite = wellState;
@@ -450,7 +451,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
         int dice = GameInstance.DiceRollingBiggestNumber(1, 20); //attackroll and evaderoll random generation
         attackRoll = dice + attackrollbonus;
-        evaderoll = GameInstance.DiceRollingBiggestNumber(1, 20) + GetDependedStat(DependedStat.evasion);
+        evaderoll = GameInstance.DiceRollingBiggestNumber(1, 20) + GetMaxDependedStat(DependedStat.evasion);
 
 
 
@@ -480,8 +481,8 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 }
                 
                 
-                int physicalDamage= pureDamageAmount - GetDependedStat(DependedStat.defence);
-                results.Add(new() { msgType = "s", msgString = " damage " + pureDamageAmount+" vs. defence "+ GetDependedStat(DependedStat.defence) });
+                int physicalDamage= pureDamageAmount - GetMaxDependedStat(DependedStat.defence);
+                results.Add(new() { msgType = "s", msgString = " damage " + pureDamageAmount+" vs. defence "+ GetMaxDependedStat(DependedStat.defence) });
                 //print("physical damage spell applied " + pureDamageAmount + "/ defence " + GetDependedStat(DependedStat.defence));
 
                 results.Add(new() { msgType = "s", msgString = heroName + " damage " });
@@ -499,7 +500,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                         {
                             return null;
                         }
-                         int fireDamage = pureDamageAmount - (GetDependedStat(DependedStat.FireResistance) + (GetMainStat(MainStat.Willpower)/5));
+                         int fireDamage = pureDamageAmount - (GetMaxDependedStat(DependedStat.FireResistance) + (GetMainStat(MainStat.Willpower)/5));
                         HealthDecrease(fireDamage);
                         break;
                     case MagicType.Water:
@@ -507,7 +508,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                         {
                             return null;
                         }
-                        int waterDamage = pureDamageAmount - (GetDependedStat(DependedStat.WaterResistance) + (GetMainStat(MainStat.Willpower) / 5));
+                        int waterDamage = pureDamageAmount - (GetMaxDependedStat(DependedStat.WaterResistance) + (GetMainStat(MainStat.Willpower) / 5));
                         HealthDecrease(waterDamage);
 
                         break;
@@ -516,7 +517,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                         {
                             return null;
                         }
-                        int airDamage = pureDamageAmount - (GetDependedStat(DependedStat.WaterResistance) + (GetMainStat(MainStat.Willpower) / 5));
+                        int airDamage = pureDamageAmount - (GetMaxDependedStat(DependedStat.WaterResistance) + (GetMainStat(MainStat.Willpower) / 5));
                         HealthDecrease(airDamage);
                         break;
                     case MagicType.Earth:
@@ -524,7 +525,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                         {
                             return null;
                         }
-                        int earthDamage = pureDamageAmount - (GetDependedStat(DependedStat.EarthResistance) + (GetMainStat(MainStat.Willpower) / 5));
+                        int earthDamage = pureDamageAmount - (GetMaxDependedStat(DependedStat.EarthResistance) + (GetMainStat(MainStat.Willpower) / 5));
                         HealthDecrease(earthDamage);
                         break;
                     case MagicType.Light:
@@ -532,7 +533,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                         {
                             return null;
                         }
-                        int lightDamage = pureDamageAmount - (GetDependedStat(DependedStat.DarkResistance) + (GetMainStat(MainStat.Willpower) / 5));
+                        int lightDamage = pureDamageAmount - (GetMaxDependedStat(DependedStat.DarkResistance) + (GetMainStat(MainStat.Willpower) / 5));
                         HealthDecrease(lightDamage);
 
                         break;
@@ -541,7 +542,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                         {
                             return null;
                         }
-                        int darkDamage = pureDamageAmount - (GetDependedStat(DependedStat.DarkResistance) + (GetMainStat(MainStat.Willpower) / 5));
+                        int darkDamage = pureDamageAmount - (GetMaxDependedStat(DependedStat.DarkResistance) + (GetMainStat(MainStat.Willpower) / 5));
                         HealthDecrease(darkDamage);
                         break;
                 }
@@ -607,7 +608,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
             case SpellEffects.Poison:
                 if (!gameplayStatuses.Contains(GameplayStatus.Poisoned))
                 {
-                    poisonDamage = pureDamageAmount - GetDependedStat(DependedStat.DarkResistance);
+                    poisonDamage = pureDamageAmount - GetMaxDependedStat(DependedStat.DarkResistance);
                     if (applyEffectSpell)
                     {
                         gameplayStatuses.Add(GameplayStatus.Poisoned);
@@ -650,7 +651,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     void ProgressBarChange()
     {
-        healthSlider.ProgressBarFill((float)currentHealth / (float)GetDependedStat(DependedStat.maxHealth));
+        healthSlider.ProgressBarFill((float)currentHealth / (float)GetMaxDependedStat(DependedStat.maxHealth));
        
     }
 
@@ -665,8 +666,8 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     public void HealthDecrease(int amount)
     {
 
-        currentHealth = Mathf.Clamp(currentHealth - amount, 0, GetDependedStat(DependedStat.maxHealth)); 
-        healthSlider.ProgressBarFill((float)currentHealth / (float)GetDependedStat(DependedStat.maxHealth));
+        currentHealth = Mathf.Clamp(currentHealth - amount, 0, GetMaxDependedStat(DependedStat.maxHealth)); 
+        healthSlider.ProgressBarFill((float)currentHealth / (float)GetMaxDependedStat(DependedStat.maxHealth));
         if (currentHealth <= 0) portrait.sprite = deadSprite;
         if(GameInstance.playerController.playerState != PlayerState.Battle)
         {
@@ -677,8 +678,8 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     public void ManaDecrease(int amount)
     {
-        currentMana = Mathf.Clamp(currentMana - amount, 0, GetDependedStat(DependedStat.maxMana));
-        manaSlider.ProgressBarFill((float)currentMana / (float)GetDependedStat(DependedStat.maxMana));
+        currentMana = Mathf.Clamp(currentMana - amount, 0, GetMaxDependedStat(DependedStat.maxMana));
+        manaSlider.ProgressBarFill((float)currentMana / (float)GetMaxDependedStat(DependedStat.maxMana));
     }
 
     int GetMainStat(MainStat mainStat)
@@ -721,11 +722,11 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     }
 
-    public int GetDependedStat(DependedStat dependedStat)
+    public int GetMaxDependedStat(DependedStat dependedStat)
     {
-        if (dependedStatsCurrent.Count == 0) return 0;
-        if (!dependedStatsCurrent.ContainsKey(dependedStat)) return 0;
-        int statInt = dependedStatsCurrent[dependedStat];
+        if (dependedStatsDefault.Count == 0) return 0;
+        if (!dependedStatsDefault.ContainsKey(dependedStat)) return 0;
+        int statInt = dependedStatsDefault[dependedStat];
         switch (dependedStat)
         {
             case DependedStat.heroLevel:
@@ -737,7 +738,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 statInt += (GetMainStat(MainStat.Mind) / 5)*10;
                 break;
             case DependedStat.initiative:
-                if (GetHeroWeight()<GetDependedStat(DependedStat.CarryingCapacity))
+                if (GetHeroWeight()<GetMaxDependedStat(DependedStat.CarryingCapacity))
                 {
                     statInt += Mathf.Clamp(statInt - currentInitiativeReduction, 0, int.MaxValue);
                     statInt += (GetMainStat(MainStat.Agility) / 5);
@@ -755,6 +756,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 statInt += (GetMainStat(MainStat.Survival) / 5) + (GetMainStat(MainStat.Strength) / 5);
                 break;
             case DependedStat.Hunger:
+                statInt += (GetMainStat(MainStat.Survival) / 5) * 100; //Max hunger resistance depends on survival stat
                 break;
             case DependedStat.None:
                 break;
@@ -769,13 +771,13 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
             case DependedStat.DarkResistance:
                 break;
             case DependedStat.meleeDamage:
-                if (GetHeroWeight() < GetDependedStat(DependedStat.CarryingCapacity))
+                if (GetHeroWeight() < GetMaxDependedStat(DependedStat.CarryingCapacity))
                 {
                     statInt += (GetMainStat(MainStat.Strength) / 5) + GetSkillsStat(GetWeaponType());
                 }
                 break;
             case DependedStat.rangeDamage:
-                if (GetHeroWeight() < GetDependedStat(DependedStat.CarryingCapacity))
+                if (GetHeroWeight() < GetMaxDependedStat(DependedStat.CarryingCapacity))
                 {
                     statInt += (GetMainStat(MainStat.Agility) / 5) + GetSkillsStat(GetWeaponType());
                 }
@@ -819,7 +821,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     public int GetSkillsStat(SkillsStat skillStat)
     {
-        if (dependedStatsCurrent.Count == 0) return 0;
+        if (dependedStatsDefault.Count == 0) return 0;
         skillsStatsCurrent.TryGetValue(skillStat, out int st);
         int statInt = 0; 
         statInt += st;
@@ -878,9 +880,9 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     public void SetDependedStat(DependedStat dependedStat, int amount)
     {
-        if (!dependedStatsCurrent.TryAdd(dependedStat, amount))
+        if (!dependedStatsDefault.TryAdd(dependedStat, amount))
         {
-            dependedStatsCurrent[dependedStat] = dependedStatsCurrent[dependedStat] + amount;
+            dependedStatsDefault[dependedStat] = dependedStatsDefault[dependedStat] + amount;
         }
     }
 
@@ -903,7 +905,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
         foreach (DependedStat d in System.Enum.GetValues(typeof(DependedStat)))
         {
-            if(d != DependedStat.None)statListTemp.Add(d, GetDependedStat(d));
+            if(d != DependedStat.None)statListTemp.Add(d, GetMaxDependedStat(d));
         }
 
         return statListTemp;
@@ -968,7 +970,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     public int GetInitiativeInBattle()
     {
-        return GetDependedStat(DependedStat.initiative);
+        return GetMaxDependedStat(DependedStat.initiative);
     }
 
     public List<GameObject> GetOpponents()
@@ -1046,41 +1048,41 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     void TimeChanges(int count)
     {
-       //print(GameInstance.GetNormalTime()[0]%60+"/"+ GameInstance.GetNormalTime()[1]+ "/"+GameInstance.GetNormalTime()[2]);
-
         if (GameInstance.playerController.playerState != PlayerState.Battle)
         {
-            foodConsumptionRate++;
-            if (foodConsumptionRate >= 30) // hero consumes food every hour
+            foodTimeConsumptionCounter++;
+            if (foodTimeConsumptionCounter >= foodConsumptionRate) // hero consumes food every hour
             {
-                if (dependedStatsCurrent.ContainsKey(DependedStat.Hunger))
+                if (GameInstance.party.CheckFoodSupply(1) < 0)
                 {
-                    if (GameInstance.party.CheckFoodSupply(1) < 0)
+                    print("Check for food" + currentHunger);
+                    currentHunger -=1 ;
+                    if (currentHunger < 0) currentHunger = 0;
+                    if (currentHunger <= 0)
                     {
-                        dependedStatsCurrent[DependedStat.Hunger] = dependedStatsCurrent[DependedStat.Hunger] - 1;
-                        if (dependedStatsCurrent[DependedStat.Hunger] < 0) dependedStatsCurrent[DependedStat.Hunger] = 0;
-                        if (dependedStatsCurrent[DependedStat.Hunger] <= 0)
-                        {
-                            HealthDecrease(1);
-                        }
-                    }
-                    else
-                    {
-                        GameInstance.party.FoodGoes(1);
+                        HealthDecrease(1);
                     }
                 }
-                foodConsumptionRate = 0;
+                else
+                {
+                    GameInstance.party.FoodGoes(1);
+                }
+
+                foodTimeConsumptionCounter = 0;
                 GameInstance.party.RefreshUI.Invoke();
             }
         }
 
         if (gameplayStatuses.Contains(GameplayStatus.Poisoned))
         {
-            int _poisonDamage = GameInstance.DiceRollingBiggestNumber(1, poisonDamage);
-            HealthDecrease(_poisonDamage);
-            GameInstance.spellbook.ResultsToBattleLog(new() { "" }, new List<ResultMsg>() { new() { msgType = "s", msgString = heroName + " takes "+_poisonDamage.ToString()+" poison damage." } });
-        }
+            if (currentHealth > 0)
+            {
+                int _poisonDamage = GameInstance.DiceRollingBiggestNumber(1, poisonDamage);
+                HealthDecrease(_poisonDamage);
+                GameInstance.spellbook.ResultsToBattleLog(new() { "" }, new List<ResultMsg>() { new() { msgType = "s", msgString = heroName + " takes " + _poisonDamage.ToString() + " poison damage." } });
 
+            }
+        }
 
         //print("equipment spells "+ equipmentSpells.Count);
         foreach (ItemType it in equipmentSpells.Keys)
@@ -1193,33 +1195,43 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         return amount;
     }
 
+    int HungerLevel()
+    {
+        int hungerToAdd = GetMaxDependedStat(DependedStat.Hunger) - currentHunger;
+        if (hungerToAdd < 0) hungerToAdd = 0;
+        return hungerToAdd;
+    }
+
 
     public void FeedHero() 
     {         
-        if (dependedStatsCurrent.ContainsKey(DependedStat.Hunger))
+        if (dependedStatsDefault.ContainsKey(DependedStat.Hunger))
         {
-            int hungerToAdd = GetDependedStatModificator(DependedStat.Hunger) - dependedStatsCurrent[DependedStat.Hunger];
-            if (dependedStatsCurrent[DependedStat.Hunger]< GetDependedStatModificator(DependedStat.Hunger))
+            int hungerToAdd = HungerLevel();
+
+            if (hungerToAdd >0)
             {
                 int foodEaten = GameInstance.party.CheckFoodSupply(hungerToAdd);
                 if (foodEaten < 0)
                 {
-                    dependedStatsCurrent[DependedStat.Hunger] = hungerToAdd + foodEaten;
+                    currentHunger = hungerToAdd + foodEaten;
+
                 }
                 else
                 {
-                    dependedStatsCurrent[DependedStat.Hunger] = GetDependedStatModificator(DependedStat.Hunger);
-                }
-            }
+                    currentHunger= GetMaxDependedStat(DependedStat.Hunger);
 
-            GameInstance.party.FoodGoes(hungerToAdd);
+                }
+                GameInstance.party.FoodGoes(hungerToAdd);
+            }
             GameInstance.party.RefreshUI.Invoke() ;
         }
     }
 
     public float GetHungerLevelPercents()
     {
-        return (float)GetDependedStat(DependedStat.Hunger) / (float)GetDependedStatModificator(DependedStat.Hunger);
+        print("hunger level " + GetMaxDependedStat(DependedStat.Hunger)+" - "+ dependedStatsDefault[DependedStat.Hunger]);
+        return (float)currentHunger/(float)GetMaxDependedStat(DependedStat.Hunger);
     }
 
     public int GetSkillPoints()
@@ -1248,7 +1260,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         _mainStats = new Dictionary<MainStat, int>();
         foreach (KeyValuePair<MainStat,int> ms in mainStatContainer) { _mainStats.Add(ms.Key, ms.Value); }
         _dependStats = new Dictionary<DependedStat, int>();
-        foreach (KeyValuePair<DependedStat, int> ds in dependedStatsCurrent) { _dependStats.Add(ds.Key, ds.Value); }
+        foreach (KeyValuePair<DependedStat, int> ds in dependedStatsDefault) { _dependStats.Add(ds.Key, ds.Value); }
 
         _skillStats = new Dictionary<SkillsStat, int>();
         foreach (KeyValuePair<SkillsStat, int> sks in skillsStatsCurrent) { _skillStats.Add(sks.Key, sks.Value); }
@@ -1282,7 +1294,7 @@ public interface IHero
     public SpellContainer GetWeaponSpell();
     public SpellContainer GetInfusedWeaponSpell();
     public string HeroName();
-    public int GetDependedStat(DependedStat dependedStat);
+    public int GetMaxDependedStat(DependedStat dependedStat);
     public int GetSkillsStat(SkillsStat skillStat);
 
     public int MagicDamageModifier(SkillsStat skillStat);

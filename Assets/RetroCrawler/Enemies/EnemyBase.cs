@@ -171,7 +171,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
 
         if (hero != null) 
         {
-            attackrollbonus = hero.GetDependedStat(DependedStat.accuracy);  // agillity modifier + endurance modifier of attacker
+            attackrollbonus = hero.GetMaxDependedStat(DependedStat.accuracy);  // agillity modifier + endurance modifier of attacker
         }
 
 
@@ -216,17 +216,17 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                     {
                         if(rowIndex > 1)
                         {
-                            damageAmountDiceSumResult += hero.GetDependedStat(DependedStat.rangeDamage);// if enemy is in the back rows range damage is used
+                            damageAmountDiceSumResult += hero.GetMaxDependedStat(DependedStat.rangeDamage);// if enemy is in the back rows range damage is used
                         }
                         else
                         {
-                            damageAmountDiceSumResult -= hero.GetDependedStat(DependedStat.rangeDamage);// if enemy is in the front row range damage is subtracted from total damage
+                            damageAmountDiceSumResult -= hero.GetMaxDependedStat(DependedStat.rangeDamage);// if enemy is in the front row range damage is subtracted from total damage
                             if(damageAmountDiceSumResult<0) damageAmountDiceSumResult = 0;
                         }
                     }
                     else
                     {
-                        damageAmountDiceSumResult += hero.GetDependedStat(DependedStat.meleeDamage); // if enemy is in the front row melee damage is used, Spellbook preventing from using melee spells on back rows enemies
+                        damageAmountDiceSumResult += hero.GetMaxDependedStat(DependedStat.meleeDamage); // if enemy is in the front row melee damage is used, Spellbook preventing from using melee spells on back rows enemies
                     }
 
                     // If weapon damage was change to a elemental checking if enemy has an immunity to it

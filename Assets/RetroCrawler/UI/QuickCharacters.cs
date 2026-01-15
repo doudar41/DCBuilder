@@ -26,6 +26,7 @@ public class QuickCharacters : MonoBehaviour
 
     void SendStatsToGameInstance()
     {
+
         GameInstance.mainStatsAdded = GameInstance.ConvertMainStatsToSave(mainS);
 
 
@@ -72,12 +73,11 @@ public class QuickCharacters : MonoBehaviour
             }
             GameInstance.spellbooksSaved.Add(heroSpellbookSaved);
         }
-
     }
 
     public void QuickGameStart()
     {
-
+        GameInstance.ClearAllInstantSavedData();
         mainS.Clear();
         skillsChosenImport.Clear();
         List<List<MainStatsSave>> mainStats = new List<List<MainStatsSave>>() { mainStats01, mainStats02, mainStats03, mainStats04 };

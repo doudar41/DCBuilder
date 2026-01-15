@@ -92,10 +92,21 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
                 blockInteractables.Remove(InteractablesEnum.DIALOGUE); 
 
             }
-/*            if (blockInteractables.Contains(InteractablesEnum.CUSTOMBATTLE))
+
+        }
+        //Check GameInstance for if Custom battle in place took place
+        if (blockInteractables.Contains(InteractablesEnum.CUSTOMBATTLEINPLACE))
+        {
+            if (GameInstance.customBattlesInPlaceFinished.ContainsKey(blockPosition))
             {
-                blockInteractables.Remove(InteractablesEnum.CUSTOMBATTLE);
-            }*/
+                blockInteractables.Remove(InteractablesEnum.CUSTOMBATTLEINPLACE);
+                foreach (GameObject g in enemyInPlace)
+                {
+                    g.SetActive(false);
+                }
+            }
+
+
         }
     }
     public void InitPosition(Tilemap tilemap)
@@ -316,7 +327,12 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
     public void FinishTheBattle()
     {
         blockInteractables.Remove(InteractablesEnum.CUSTOMBATTLE);
-        blockInteractables.Remove(InteractablesEnum.CUSTOMBATTLEINPLACE);
+
+        if (blockInteractables.Contains(InteractablesEnum.CUSTOMBATTLEINPLACE))
+        {
+            if(!GameInstance.customBattlesInPlaceFinished.ContainsKey(blockPosition)) GameInstance.customBattlesInPlaceFinished.Add(blockPosition,true);
+        }
+            blockInteractables.Remove(InteractablesEnum.CUSTOMBATTLEINPLACE);
         foreach (ItemScriptableContainer item in afterBattleLoot)
         {
             GameInstance.inventory.FindEmptySlotAndPutItem(GameInstance.dataBase.HeroInventoryFromITemScriptable(item), 1);

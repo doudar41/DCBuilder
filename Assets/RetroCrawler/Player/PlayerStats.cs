@@ -70,9 +70,10 @@ public class PlayerStats : MonoBehaviour
         }
         //print("equipment weight "+GameInstance.inventory.GetCurrentHeroWeight() + " hero eqquipment capacity "+ GameInstance.party.activeHero.GetDependedStat(DependedStat.CarryingCapacity));
         carryingWeight.value = GameInstance.inventory.GetCurrentHeroWeight();
-        weightHero.text = GameInstance.party.activeHero.GetDependedStat(DependedStat.CarryingCapacity).ToString()+"/"+ GameInstance.party.activeHero.GetHeroWeight().ToString();
+        weightHero.text = GameInstance.party.activeHero.GetMaxDependedStat(DependedStat.CarryingCapacity).ToString()+"/"+ GameInstance.party.activeHero.GetHeroWeight().ToString();
         weightParty.text = GameInstance.party.GetPartyWeight().ToString();
         hungerLevel.value = GameInstance.party.activeHero.GetHungerLevelPercents();
+
         foodText.text = GameInstance.party.CheckFoodSupply(0).ToString();
         expPoints.text = GameInstance.party.addExperiencePoints(0).ToString();
         for (int i=0;i< moneyInCoins.Count;i++)

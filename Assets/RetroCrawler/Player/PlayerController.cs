@@ -1075,7 +1075,7 @@ public class PlayerController : MonoBehaviour
             {
                 foreach(Hero h in GameInstance.party.GetPartyMembers())
                 {
-                    h.HealthDecrease((int)(h.GetDependedStat(DependedStat.maxHealth)*0.3f));
+                    h.HealthDecrease((int)(h.GetMaxDependedStat(DependedStat.maxHealth)*0.1f));
                 }
             }
         }
@@ -1086,7 +1086,7 @@ public class PlayerController : MonoBehaviour
             {
                 foreach(Hero h in GameInstance.party.GetPartyMembers())
                 {
-                    h.HealthDecrease((int)(h.GetDependedStat(DependedStat.maxHealth)*0.3f));
+                    h.HealthDecrease((int)(h.GetMaxDependedStat(DependedStat.maxHealth)*0.3f));
                 }
             }
         }

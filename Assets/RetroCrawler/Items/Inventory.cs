@@ -103,7 +103,7 @@ public class Inventory : MonoBehaviour
             }
 
         }
-        weight = (float)heroWeight / (float)GameInstance.party.activeHero.GetDependedStat(DependedStat.CarryingCapacity);
+        weight = (float)heroWeight / (float)GameInstance.party.activeHero.GetMaxDependedStat(DependedStat.CarryingCapacity);
 
         return weight;
     }
