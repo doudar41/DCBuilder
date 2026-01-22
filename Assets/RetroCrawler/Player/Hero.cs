@@ -117,7 +117,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         }
 
         if (GameInstance.heroesNames.Count> heroID)  heroName = GameInstance.heroesNames[heroID];
-
+        print(heroName + " hero init called id " + heroID);
         heroSpellbook.Clear();
 
         foreach(HeroSpellbookSaved hsb in GameInstance.spellbooksSaved)

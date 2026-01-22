@@ -527649,6 +527649,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 269466874}
     - target: {fileID: 176130215390523170, guid: ce44bcb4375812940a594b469ad95414, type: 3}
+      propertyPath: noEncounter
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 176130215390523170, guid: ce44bcb4375812940a594b469ad95414, type: 3}
       propertyPath: EnCounter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 7230797025423631254}

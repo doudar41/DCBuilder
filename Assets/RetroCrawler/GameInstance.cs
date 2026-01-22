@@ -108,9 +108,9 @@ public static class GameInstance
         journalEntries.Clear();
         currentUniqueDialogueNames.Clear();
         customBattlesInPlaceFinished.Clear();
-/*        gameTimeInNormalTime[0] = 0;
+        gameTimeInNormalTime[0] = 0;
         gameTimeInNormalTime[1] = 0;
-        gameTimeInNormalTime[2] = 0;*/
+        gameTimeInNormalTime[2] = 0;
         savedTimeToEncounter = 0; expPoints = 0; moneyCollected = 0; gemsCollected = 0; partyLevel = 0;
     }
 

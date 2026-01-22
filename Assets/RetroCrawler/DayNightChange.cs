@@ -42,6 +42,7 @@ public class DayNightChange : MonoBehaviour
 
     public void InitDayNightShift()
     {
+        print("check day or night");
         if (isDungeon)
         {
             isDay = false;
@@ -52,6 +53,7 @@ public class DayNightChange : MonoBehaviour
             RenderSettings.fogColor = RenderSettings.ambientLight;
             RenderSettings.fogDensity = 0.18f; return; 
         }
+
         if (GameInstance.playerController.GetBattleGroundEnvironment() == BattleGroundEnvironment.CITY
             || GameInstance.playerController.GetBattleGroundEnvironment() == BattleGroundEnvironment.STONE
             || GameInstance.playerController.GetBattleGroundEnvironment() == BattleGroundEnvironment.WOOD)
@@ -83,7 +85,12 @@ public class DayNightChange : MonoBehaviour
         else
         {
             if (corouting) return;
-            RenderSettings.fogColor = Color.black;
+            isDay = false;
+            RenderSettings.fog = true;
+            RenderSettings.skybox.SetVector("_Tint", new Vector4(0.5f, 0.5f, 0.5f, 1));
+            RenderSettings.skybox.SetTexture("_MainTex", dayNightTransitionTextures[dayNightTransitionTextures.Count - 1]);
+            RenderSettings.ambientLight = Color.black;
+            RenderSettings.fogColor = RenderSettings.ambientLight;
             RenderSettings.fogDensity = 0.16f;
         }
     }

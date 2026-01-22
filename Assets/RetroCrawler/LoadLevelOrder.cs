@@ -83,6 +83,7 @@ public class LoadLevelOrder : MonoBehaviour
         if (!GameInstance.noEncounter) { GameInstance.playerController.SetCountdownToEncounter(GameInstance.savedTimeToEncounter); }
 
         GameInstance.dayNightChange.isDungeon = isDungeonLevel;
+        GameInstance.dayNightChange.InitDayNightShift();
         StartCoroutine(GameInstance.TimeStep());
 
 

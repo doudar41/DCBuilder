@@ -44,7 +44,7 @@ public class QuickCharacters : MonoBehaviour
         }
 
 
-        GameInstance.heroesPortraits = new List<int>() { portraitIndex[0], portraitIndex[1], portraitIndex[2], portraitIndex[3] };
+        //GameInstance.heroesPortraits = new List<int>() { portraitIndex[0], portraitIndex[1], portraitIndex[2], portraitIndex[3] };
 
         for (int i = 0; i < 4; i++)
         {
@@ -58,7 +58,7 @@ public class QuickCharacters : MonoBehaviour
             GameInstance.AddInventoryItem(heroInventoryItem);
         }
 
-        GameInstance.heroesNames = new List<string>() { heroesNames[0], heroesNames[1], heroesNames[2], heroesNames[3] };
+        GameInstance.heroesNames = new List<string>() { heroNamesSerialized[0], heroNamesSerialized[1], heroNamesSerialized[2], heroNamesSerialized[3] };
 
         List<List<SpellContainer>> spellsChosen = new List<List<SpellContainer>>() { spellsChosen01, spellsChosen02, spellsChosen03, spellsChosen04 };
 
@@ -98,7 +98,7 @@ public class QuickCharacters : MonoBehaviour
             weaponChosenImport.Add(i, GameInstance.dataBase.GetItemIndexFromDataBase( weaponsChosen[i]));
         }
         GameInstance.heroesPortraits = new List<int>() { 1, 2, 3, 4 };
-        GameInstance.heroesNames = new List<string>() { heroNamesSerialized[0], heroNamesSerialized[1], heroNamesSerialized[2], heroNamesSerialized[3] };
+       
         GameInstance.currentUniqueDialogueNames = startingUniqueDialogueNames;
 
         SendStatsToGameInstance();
