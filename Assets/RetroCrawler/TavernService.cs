@@ -1,28 +1,29 @@
 using Ami.BroAudio;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Events;
 
 public class TavernService : MonoBehaviour
 {
-    [SerializeField] Image backGroundImage;
-    [SerializeField] GameObject closeButton;
-    [SerializeField] GameObject tavernButtons;
+    [SerializeField] GameObject backGroundImage;
+    [SerializeField] GameObject tavernButtons, heroesMoney;
+    [SerializeField] List<TextMeshProUGUI> heroesCoinsText;
     [SerializeField] SoundID closeShopSound, voicePhrase, openShopPhrase, background, backgroundMusic;
     [SerializeField] int coinsForDrink = 5, rentForRoom = 10, buyFood = 10;
     [SerializeField] CameraOrder cameraOrder;
+    [SerializeField] GameObject restAnimation;
     public UnityEvent exitTavern;
 
 
     public void OpenTavern()
     {
-        backGroundImage.enabled = true;
+        backGroundImage.SetActive(true);
         tavernButtons.SetActive(true);
-        BroAudio.Play(background);
-        closeButton.SetActive(true);
-        BroAudio.SetVolume(backgroundMusic, 0.0f, 0.5f);
+        GameInstance.soundManager.DuckingCurrentMusic(background);
+        heroesMoney.SetActive  (true);
+        GetPlayersCoins();
     }
 
     public void BuyADrink()
@@ -35,33 +36,72 @@ public class TavernService : MonoBehaviour
 
     public void RentARoom()
     {
+        if (restAnimation.activeSelf) return;
+        
         if (GameInstance.party.SellBuyMoneyCheck(rentForRoom) >= 0)
         {
-            //forward time and heal party mass heal
+            restAnimation.SetActive(true);
+            restAnimation.GetComponent<animateUIImage>().StartAnimation();
+            GameInstance.dayNightChange.ChangeTimeFlow(0.001f);
+            GameInstance.party.AddSomeFood(0);
+            GameInstance.party.MoneyGoes(rentForRoom);
+            GetPlayersCoins();
         }
     }
+
+    private void Update()
+    {
+        if (restAnimation.activeSelf)
+        {
+            int hour = GameInstance.GetNormalTime()[1]%24;
+            int minute = GameInstance.GetNormalTime()[0]%60;
+            print("checking sleep" + hour+" "+ minute);
+            if (hour == 5 && (minute >0 && minute <5))
+            {
+                restAnimation.GetComponent<animateUIImage>().StopAnimation();
+                restAnimation.SetActive(false);
+                foreach(Hero h in GameInstance.party.GetHeroList())
+                {
+                    h.HealthDecrease(-h.GetMaxDependedStat(DependedStat.maxHealth));
+                }
+                GameInstance.dayNightChange.ChangeTimeFlow(0.5f);
+            }
+        }
+    }
+
 
     public void BuyFood()
     {
         if (GameInstance.party.SellBuyMoneyCheck(buyFood) >= 0)
         {
-            GameInstance.party.AddSomeFood(96);
+            GameInstance.party.AddSomeFood(100);
+            GameInstance.party.MoneyGoes(buyFood);
+            GetPlayersCoins();
         }
     }
 
+    public void GetPlayersCoins()
+    {
+        var money = GameInstance.party.GetCoinsForUI();
+        for (int i = 0; i < money.Count; i++)
+        {
+            heroesCoinsText[i].text = money[i].ToString();
+        }
+    }
+
+
     public void CloseTavern()
     {
-        backGroundImage.enabled = false;
+        backGroundImage.SetActive(false);
         BroAudio.Play(closeShopSound);
         BroAudio.Play(voicePhrase).SetVelocity(4);
         BroAudio.Stop(openShopPhrase);
         tavernButtons.SetActive(false);
         exitTavern.Invoke();
-        BroAudio.Stop(background, 0.5f);
-        closeButton.SetActive(false);
         GameInstance.playerController.shopIsOpened = false;
-        BroAudio.SetVolume(backgroundMusic, 1.0f, 0.5f);
+        GameInstance.soundManager.UnduckingCurrentMusic(background);
         cameraOrder.BattleLogWithGameplay();
+        heroesMoney.SetActive(false);
     }
 
 }

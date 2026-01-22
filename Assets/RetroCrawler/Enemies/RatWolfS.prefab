@@ -1373,6 +1373,11 @@ MonoBehaviour:
     _sourceAsset: {fileID: 11400000, guid: dbc6c79b4f17ac74aa04749a7917aa73, type: 2}
     <DebugObject>k__BackingField: {fileID: 8822468640820191240}
   experienceReward: 15
+  itemScriptableContainers: []
+  itemsStackAmout: 
+  moneyRandomRange: {x: 0, y: 0}
+  gemsRandomRange: {x: 0, y: 10}
+  randomLootPossibility: {x: 0, y: 1}
 --- !u!65 &5121128967280637355
 BoxCollider:
   m_ObjectHideFlags: 0

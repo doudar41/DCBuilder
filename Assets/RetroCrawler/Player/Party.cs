@@ -1,3 +1,4 @@
+using Ami.BroAudio;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,15 +13,17 @@ public class Party : MonoBehaviour
     public UnityEvent RefreshUI;
     public UnityEvent SwitchHeroTraining;
 
-    int moneyCollected = 1000;
+    int moneyCollected = 0;
+    int gemsCollected = 0;
 
     public List<UniqueDialogueName> currentUniqueDialogueNames = new List<UniqueDialogueName>(); 
     int partyLevel = 1;
 
-    [SerializeField] int partyFood = 100; 
+    [SerializeField] int partyFood = 0; 
 
     [SerializeField] int experienceToNextLevel = 100;
     [SerializeField] float experienceCoeficient = 1.3f;
+    [SerializeField] SoundID moneyGoesSound, gemsGoesSound;
     int currentexp = 0;
     int timeToLevelUp = 0;
 
@@ -214,15 +217,33 @@ public class Party : MonoBehaviour
 
     public int SellBuyMoneyCheck(int amount)
     {
-
         return moneyCollected - amount;
+    }
+
+
+    public int CheckGemsAmountForSell(int amount)
+    {
+        return gemsCollected - amount;
     }
 
     public void MoneyGoes(int amount)
     {
         moneyCollected -= amount; 
+        if(amount !=0)
+        BroAudio.Play(moneyGoesSound);
     }
 
+    public void GemGoes(int amount)
+    {
+        gemsCollected -= amount;
+        if (amount != 0)
+            BroAudio.Play(gemsGoesSound);
+    }
+
+    public int CheckGems(int amount)
+    {
+        return gemsCollected - amount;
+    }
 
     public List<int> GetCoinsForUI()
     {
@@ -289,12 +310,12 @@ public class Party : MonoBehaviour
     public void AddSomeFood(int amount)
     {
         partyFood += amount;
-        foreach(Hero hero in heroes)
+        RefreshUI.Invoke();
+        foreach (Hero hero in heroes)
         {
             hero.FeedHero();
         }
     }
-
 
     public void LoadDialoguesFromInstance()
     {
@@ -312,11 +333,9 @@ public class Party : MonoBehaviour
         GameInstance.currentUniqueDialogueNames.Clear();
         foreach (UniqueDialogueName ud in currentUniqueDialogueNames)
         {
-            print(ud);
+            //print(ud);
             GameInstance.currentUniqueDialogueNames.Add(ud);
         }
-
-
     }
 
 

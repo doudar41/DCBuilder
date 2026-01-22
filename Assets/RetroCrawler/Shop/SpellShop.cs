@@ -10,7 +10,7 @@ public class SpellShop : MonoBehaviour
     [SerializeField] Image backGroundImage;
     [SerializeField] List<SpellShopSlot> spellSlots = new List<SpellShopSlot>();
     [SerializeField] List<MagicType> magicTypes = new List<MagicType>();
-    [SerializeField] List<TextMeshProUGUI> heroesCoinsText;
+    [SerializeField] TextMeshProUGUI heroesGemsText;
     [SerializeField] float sellMultiplier = 1;
     [SerializeField] Vector2Int itemsLevel = new Vector2Int(0,1);
     [SerializeField] CameraOrder cam;
@@ -19,7 +19,7 @@ public class SpellShop : MonoBehaviour
     [SerializeField] GameObject openSwitch;
     [SerializeField] GameObject spellsShelf, exitButton, moneyPanel;
 
-    int coinsSpent = 0;
+    int gemsSpent = 0;
 
 
     public UnityEvent closeShopPanel;
@@ -30,12 +30,10 @@ public class SpellShop : MonoBehaviour
 
         backGroundImage.enabled = true;
         openSwitch.SetActive(true);
-        //cam.depth = 1;
-        var money = GameInstance.party.GetCoinsForUI();
-        for (int i = 0; i < money.Count; i++)
-        {
-            heroesCoinsText[i].text = money[i].ToString();
-        }
+
+        var gemAmount = GameInstance.party.CheckGems(0);
+        heroesGemsText.text = gemAmount.ToString();
+
         textOfShopState.text = "Spells";
         exitButton.SetActive(true);
         moneyPanel.SetActive(true);
@@ -49,17 +47,14 @@ public class SpellShop : MonoBehaviour
     }
 
 
-    public void PlayerCoins(int coins)
+    public void PlayerGems(int coins)
     {
-        coinsSpent = coins;
+        gemsSpent = coins;
     }
-    public void GetPlayersCoins()
+    public void RefreshPlayersCoins()
     {
-        var money = GameInstance.party.GetCoinsForUI();
-        for (int i = 0; i < money.Count; i++)
-        {
-            heroesCoinsText[i].text = money[i].ToString();
-        }
+        var gemAmount = GameInstance.party.CheckGems(0);
+        heroesGemsText.text = gemAmount.ToString();
     }
 
     public void RefreshSoldSpells()
@@ -70,7 +65,6 @@ public class SpellShop : MonoBehaviour
             spellSlots[i].SetSpellToSell(RandomSpellToSell(magicTypes[Random.Range(0, magicTypes.Count)]));
         }
     }
-
 
     public void CameraOut()
     {
@@ -91,7 +85,6 @@ public class SpellShop : MonoBehaviour
                 }
             }
         }
-
         return spellOfType[Random.Range(0, spellOfType.Count)];
     }
 
@@ -106,14 +99,8 @@ public class SpellShop : MonoBehaviour
         gameObject.SetActive(false);
 
         BroAudio.Play(closeShopSound);
-        if (GameInstance.party.SellBuyMoneyCheck(coinsSpent) < 0)
-        {
-            BroAudio.Play(voicePhrase).SetVelocity(Random.Range(3, 6));
-        }
-        else
-        {
-            BroAudio.Play(voicePhrase).SetVelocity(Random.Range(0, 3));
-        }
+        BroAudio.Play(voicePhrase);
+
         BroAudio.Stop(openShopPhrase);
         backGroundImage.enabled = false;
         openSwitch.SetActive(false);

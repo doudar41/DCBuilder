@@ -25,7 +25,7 @@ public class ItemShop : MonoBehaviour
     List<int> itemsToSellKeys = new List<int>();
     int sellItemIndexStart = 0;
     ShopState shopState = ShopState.SellToPlayer;
-    [SerializeField]  SoundID closeShopSound, voicePhrase, openShopPhrase, ambience = default, moneyGoesSound;
+    [SerializeField]  SoundID closeShopSound, voicePhrase, openShopPhrase, ambience = default;
     int coinsSpent = 0;
     List<ItemScriptableContainer> itemsForSale = new List<ItemScriptableContainer>();
 
@@ -289,9 +289,8 @@ public class ItemShop : MonoBehaviour
         {
             heroesCoinsText[i].text = money[i].ToString();
         }
-        print("ask for money");
 
-        if(!BroAudio.HasAnyPlayingInstances(moneyGoesSound)) BroAudio.Play(moneyGoesSound);
+        //if(!BroAudio.HasAnyPlayingInstances(moneyGoesSound)) BroAudio.Play(moneyGoesSound);
     }
 
     public void SwitchToSellToPlayer()

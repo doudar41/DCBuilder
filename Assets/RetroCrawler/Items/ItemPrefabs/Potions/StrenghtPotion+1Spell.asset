@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StrenghtPotion+1Spell
   m_EditorClassIdentifier: 
   spells:
-  - spellEffect: 22
+  - spellEffect: 2
     amount: 1
     agroPoints: 0
     manaCost: 0
@@ -27,6 +27,7 @@ MonoBehaviour:
     skillStatAdded: 0
     restToBeAbleToCastAgainInTurns: 0
     SpellDescription: 
+    skillToCheckInCalculations: 0
   spellIcon: {fileID: 0}
   AOE: 0
   OnlyEnemies: 0
@@ -35,5 +36,7 @@ MonoBehaviour:
   battleSpell: 0
   equipableSpell: 0
   minDistanceToEnemy: 2
-  spellName: StrenghtPotion+1
+  spellName: Strenght Potion +1
   spellPrice: 1000
+  spellLevel: 10
+  animationTriggerName: 

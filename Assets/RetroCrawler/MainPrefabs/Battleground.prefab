@@ -46,12 +46,12 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.79166776, b: 0.5424528, a: 1}
   m_Intensity: 0.1
-  m_Range: 1
+  m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: 0
     m_CustomResolution: -1
     m_Strength: 1
@@ -107,8 +107,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e53e1871bc6606429dcc564dc70ca49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShadingSteps: 32
-  TargetIntensity: 4
+  ShadingSteps: 8
+  TargetIntensity: 2
   MinimumIntensityDifference: 0.15
   MaximumIntensityDifference: 1.5
   FrameRate: 12
@@ -772,12 +772,12 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.79166776, b: 0.5424528, a: 1}
   m_Intensity: 0.1
-  m_Range: 1
+  m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: 0
     m_CustomResolution: -1
     m_Strength: 1
@@ -833,8 +833,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e53e1871bc6606429dcc564dc70ca49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShadingSteps: 32
-  TargetIntensity: 4
+  ShadingSteps: 8
+  TargetIntensity: 2
   MinimumIntensityDifference: 0.15
   MaximumIntensityDifference: 1.5
   FrameRate: 12
@@ -985,6 +985,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 58afa7d0b9a1b304b8cde5cdaa8bb24f, type: 3}
   - {fileID: 21300000, guid: b4c6690b8c303b44b9a042310790a159, type: 3}
   - {fileID: 21300000, guid: 2f929ceff8875924cb831f0cbaff042a, type: 3}
+  dayNightCycle: 0
 --- !u!212 &1475322233318239996
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1486,6 +1487,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 58afa7d0b9a1b304b8cde5cdaa8bb24f, type: 3}
   - {fileID: 21300000, guid: b4c6690b8c303b44b9a042310790a159, type: 3}
   - {fileID: 21300000, guid: 2f929ceff8875924cb831f0cbaff042a, type: 3}
+  dayNightCycle: 0
 --- !u!212 &1119259982183017423
 SpriteRenderer:
   m_ObjectHideFlags: 0

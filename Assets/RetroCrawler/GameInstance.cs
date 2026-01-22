@@ -82,7 +82,10 @@ public static class GameInstance
 
     public static Dictionary<Vector3Int,bool> customBattlesInPlaceFinished = new Dictionary<Vector3Int, bool>();
 
-    public static bool onEncounter = true;
+    public static bool noEncounter = true;
+    public static int savedTimeToEncounter = 0, expPoints = 0, moneyCollected = 0, gemsCollected =0, partyLevel = 0;
+
+
     //Chest and doors
 
     public static void ClearAllInstantSavedData()
@@ -105,6 +108,10 @@ public static class GameInstance
         journalEntries.Clear();
         currentUniqueDialogueNames.Clear();
         customBattlesInPlaceFinished.Clear();
+/*        gameTimeInNormalTime[0] = 0;
+        gameTimeInNormalTime[1] = 0;
+        gameTimeInNormalTime[2] = 0;*/
+        savedTimeToEncounter = 0; expPoints = 0; moneyCollected = 0; gemsCollected = 0; partyLevel = 0;
     }
 
     public static int DiceRollingBiggestNumber(int diceNumber, int diceSides)
@@ -195,6 +202,12 @@ public static class GameInstance
 
     public static void LoadNextLevel(string levelName)
     {
+        moneyCollected = GameInstance.party.SellBuyMoneyCheck(0);
+        gemsCollected = GameInstance.party.CheckGems(0);
+        expPoints = GameInstance.party.addExperiencePoints(0);
+        partyLevel = GameInstance.party.GetPartyLevel();
+        savedTimeToEncounter = playerController.GetCountdownToEncounter();
+
         if (party != null) party.SaveEquipment();
         inventoryItemsSaved.Clear();
         getInventoryItem();
@@ -209,11 +222,17 @@ public static class GameInstance
 
         spellsFromSpellbook.Clear();
         spellbook.SaveContinousSpells();
+        mainStatsAdded.Clear();
+        mainStatsAdded = party.ConvertHeroesMainStatsToSave();
+        skillStatSaves.Clear();
+        skillStatSaves = party.ConvertHeroesSkillsToSave();
 
         currentLevelName = levelName;
         levelChange = true;
         inventory.SaveKeysToGameInstance();
         SceneManager.LoadScene(levelName, LoadSceneMode.Single);
+
+
     }
 
 
@@ -227,11 +246,9 @@ public static class GameInstance
         return gameTimeFrame;
     }
 
-    public static void RestTime()
+    public static int RestTime()
     {
-        timeStamp = timeProgress + (60*8);
-
-
+        return timeProgress + (60*8);
     }
 
 
@@ -381,6 +398,10 @@ public static class GameInstance
         saveData.partyDialogues = currentUniqueDialogueNames;
         saveData.journalEntries = journalEntries;
         saveData.encounterOn =  playerController.GetEncounterState();
+        saveData.moneyCollected = party.SellBuyMoneyCheck(0);
+        saveData.gemsCollected = party.CheckGems(0);
+        saveData.expPoints = party.addExperiencePoints(0);
+        saveData.savedTimeToEncounter = playerController.GetCountdownToEncounter();
 
         List<Vector3Int> customBattlesFinished = new List<Vector3Int>();
         foreach (KeyValuePair<Vector3Int, bool> c in customBattlesInPlaceFinished)
@@ -439,12 +460,17 @@ public static class GameInstance
 
             mainStatsAdded = saveData.mainStatsAdded;
             skillStatSaves = saveData.skillStatSaves;
-            onEncounter = saveData.encounterOn;
+            noEncounter = saveData.encounterOn;
             customBattlesInPlaceFinished.Clear();
             foreach(Vector3Int v in saveData.customBattlesInPlaceFinished)
             {
               customBattlesInPlaceFinished.Add(v, true);
             }
+            moneyCollected = saveData.moneyCollected;
+            gemsCollected = saveData.gemsCollected;
+            expPoints = saveData.expPoints;
+            savedTimeToEncounter = saveData.savedTimeToEncounter;
+
 
             SceneManager.LoadScene(saveData.levelName, LoadSceneMode.Single); 
         }
@@ -662,6 +688,8 @@ public class SaveData
     public List<string> journalEntries = new List<string>();
     public bool encounterOn = false;
     public List<Vector3Int> customBattlesInPlaceFinished = new List<Vector3Int>();
+    public int savedTimeToEncounter = 0, expPoints = 0, moneyCollected = 0, gemsCollected = 0;
+    public bool isDungeon = true;
 }
 
 [System.Serializable]

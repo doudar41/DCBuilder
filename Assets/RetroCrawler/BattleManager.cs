@@ -723,7 +723,7 @@ public class BattleManager : MonoBehaviour
     }
 
 
-    public void BattleIsOver(bool win)
+    public void BattleFinish(bool win)
     {
         enemyTurn.Invoke("");
         PlayerTurn.Invoke();
@@ -745,6 +745,14 @@ public class BattleManager : MonoBehaviour
                 if(allOpponents[i].GetComponent<IEnemy>() != null)
                 {
                     GameInstance.party.addExperiencePoints(allOpponents[i].GetComponent<IEnemy>().ExperienceReward());
+                    allOpponents[i].GetComponent<IEnemy>().GetEnemyLoot(out int money, out int gems, out List<HeroInventoryItem> items);
+                    GameInstance.party.MoneyGoes(-money);
+                    GameInstance.party.GemGoes(-gems);
+                    foreach(HeroInventoryItem item in items)
+                    {
+                        GameInstance.inventory.FindEmptySlotAndPutItem(item, item.stackAmount);
+                    }
+
                     toErase.Add(i);
                 }
             }
@@ -779,6 +787,7 @@ public class BattleManager : MonoBehaviour
         GameInstance.soundManager.BackToCurrentExploreMusic();
         //StartCoroutine(GameInstance.TimeStep());
         GameInstance.party.SetTimerForHeroes(false);
+        StartCoroutine(GameInstance.TimeStep());
         //_defeatedList.ClearList();
     }
     
@@ -835,10 +844,10 @@ public class BattleManager : MonoBehaviour
             //Check for heroes health
             //if ok end of the turn
             
-        if (WhoWon() == 2) BattleIsOver(false);
+        if (WhoWon() == 2) BattleFinish(false);
         if (WhoWon() == 1)
         {
-            BattleIsOver(true);
+            BattleFinish(true);
         }
         //BattleEffect = false;
         if (WhoWon() == 0) EndOfTheTurn();

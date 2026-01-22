@@ -37,6 +37,6 @@ MonoBehaviour:
   equipableSpell: 0
   minDistanceToEnemy: 5
   spellName: Thunderstorm
-  spellPrice: 0
+  spellPrice: 10
   spellLevel: 2
   animationTriggerName: LightningBolt

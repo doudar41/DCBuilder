@@ -39,15 +39,15 @@ public class PlayerController : MonoBehaviour
     float blockSize = 1;
     [SerializeField]
     [Range(0.5f, 3f)]
-    float walkSpeed = 0.05f;
+    float walkSpeed = 1.86f;
 
     [SerializeField]
     [Range(0.5f, 3f)]
-    float rotationSpeed = 0.05f;
+    float rotationSpeed = 1.68f;
 
     [SerializeField]
     [Range(0.001f, 1.0f)]
-    float couroutingDelayinSec = 0.01f;
+    float couroutingDelayinSec = 0.437f;
 
     [SerializeField] Texture2D cursorTexture;
     [SerializeField] CursorMode cursorMode = CursorMode.Auto;
@@ -203,9 +203,28 @@ public class PlayerController : MonoBehaviour
         return visitedBlocks;
     }
 
+    public void ChangeTimeFlow(float multiplier)
+    {
+        GetComponentInChildren<DayNightChange>().ChangeTimeFlow(multiplier);
+    }
+
+    public void ToggleStepSpeed(bool onOff)
+    {
+        if (onOff)
+        {
+            walkSpeed = 3.0f;
+            rotationSpeed = 3f;
+        }
+        else
+        {
+            walkSpeed = 1.86f;
+            rotationSpeed = 1.68f;
+        }
+    }
+
+
     public void LightARoom(float amount)
     {
-       // print("light a room " + amount);
         if (amount>0)
         torchlight.isOn = true;
         else torchlight.isOn = false;
@@ -386,6 +405,16 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    public int GetCountdownToEncounter()
+    {
+        return countdownToEncounter;
+    }
+
+    public void SetCountdownToEncounter(int value)
+    {
+        countdownToEncounter = value;
+    }
+
     void MovementUpdateFuther(Vector2 moveInput)
     {
         if (!noEncounter)
@@ -402,7 +431,7 @@ public class PlayerController : MonoBehaviour
                 busyWalking = false;
                 GameInstance.battleManager.CustomBattleStart(null, currentWallBlock,currentWallBlock.GetBattleGroundEnvironment());
                 countdownToEncounter = Random.Range(rangeOfEnCounter.x, rangeOfEnCounter.y);
-
+                EnCounter.Invoke(countdownToEncounter);
             }
         }
 
@@ -432,8 +461,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-
     public void StartCustomBattle()
     {
         beforeBattleTransformPos = gameObject.transform.position;
@@ -456,11 +483,9 @@ public class PlayerController : MonoBehaviour
     }
 
 
-
     public void ReturnToPreBattlePosition()
     {
         playerState = PlayerState.Explore;
-        //print("go back " + beforeBattleTransformPos);
         EnCounter.Invoke(countdownToEncounter);
         gameObject.transform.position = new Vector3(currentWallBlock.GetLocation().x, beforeBattleTransformPos.y, currentWallBlock.GetLocation().z); ;
 

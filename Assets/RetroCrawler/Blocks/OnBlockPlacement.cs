@@ -31,7 +31,7 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
     [SerializeField] List<KeyToLocks> afterBattleKeys = new List<KeyToLocks>();
     [SerializeField] List<UniqueDialogueName> afterBattleDialogue = new List<UniqueDialogueName>();
     [SerializeField] List<UniqueDialogueName> afterBattleDialogueRemoveFromParty = new List<UniqueDialogueName>();
-    [SerializeField] int goldAmount = 0;
+    [SerializeField] int goldAmount = 0, gemsAmount = 0;
     [SerializeField] GameObject characterSprite;
     [SerializeField] List<GameObject> interactableObjectsInBlock = new List<GameObject>();
 
@@ -346,6 +346,7 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
            if (!GameInstance.party.currentUniqueDialogueNames.Contains(un)) GameInstance.party.currentUniqueDialogueNames.Add(un);
         }
         GameInstance.party.MoneyGoes(-goldAmount);
+        GameInstance.party.GemGoes(-gemsAmount);
         //
     }
 

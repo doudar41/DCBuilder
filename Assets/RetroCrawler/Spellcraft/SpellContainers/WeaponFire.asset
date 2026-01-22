@@ -27,6 +27,7 @@ MonoBehaviour:
     skillStatAdded: 0
     restToBeAbleToCastAgainInTurns: 0
     SpellDescription: Damage of weapon in hand become fire
+    skillToCheckInCalculations: 0
   spellIcon: {fileID: 21300000, guid: 8de884997aafed84bb895064d5612725, type: 3}
   AOE: 0
   OnlyEnemies: 0
@@ -36,4 +37,6 @@ MonoBehaviour:
   equipableSpell: 0
   minDistanceToEnemy: 2
   spellName: Weapon Fire
-  spellPrice: 50
+  spellPrice: 10
+  spellLevel: 0
+  animationTriggerName: 

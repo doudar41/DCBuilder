@@ -37,5 +37,6 @@ MonoBehaviour:
   equipableSpell: 0
   minDistanceToEnemy: 2
   spellName: Fire Resistance
-  spellPrice: 0
+  spellPrice: 1
   spellLevel: 0
+  animationTriggerName: 

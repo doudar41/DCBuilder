@@ -71,12 +71,18 @@ public class LoadLevelOrder : MonoBehaviour
 
         GameInstance.checkWeight();
 
+        GameInstance.party.addExperiencePoints(GameInstance.expPoints);
+        GameInstance.party.MoneyGoes(-GameInstance.moneyCollected);
+        GameInstance.party.GemGoes(-GameInstance.gemsCollected);
+
         GameInstance.party.RestoreSpellsAttached(GameInstance.spellsAttachedToHeroes);
         GameInstance.party.PartyHeroInit();
         GameInstance.spellbook.RestoreContinousSpells();
         GameInstance.party.LoadDialoguesFromInstance();
-        GameInstance.playerController.SetEncounter(GameInstance.onEncounter);
-        GameInstance.dayNightChange.InitDayNightShift();
+        GameInstance.playerController.SetEncounter(GameInstance.noEncounter);
+        if (!GameInstance.noEncounter) { GameInstance.playerController.SetCountdownToEncounter(GameInstance.savedTimeToEncounter); }
         StartCoroutine(GameInstance.TimeStep());
+
+
     }
 }

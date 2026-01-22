@@ -52,6 +52,6 @@ MonoBehaviour:
   equipableSpell: 0
   minDistanceToEnemy: 3
   spellName: Ice Bolt
-  spellPrice: 100
+  spellPrice: 10
   spellLevel: 0
   animationTriggerName: IceBolt

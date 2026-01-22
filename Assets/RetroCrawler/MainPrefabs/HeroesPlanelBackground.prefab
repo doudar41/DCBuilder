@@ -17340,10 +17340,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  currentUniqueDialogueNames: 0f00000011000000080000001200000006000000
-  partyFood: 100
+  currentUniqueDialogueNames: 140000000f00000011000000080000001200000006000000
+  partyFood: 500
   experienceToNextLevel: 100
   experienceCoeficient: 1.2
+  moneyGoesSound:
+    ID: 1073741853
+    _sourceAsset: {fileID: 11400000, guid: e493099cc61ce9144a3ff2cc77217eec, type: 2}
+    <DebugObject>k__BackingField: {fileID: 5147813459903507325}
+  gemsGoesSound:
+    ID: 1073741853
+    _sourceAsset: {fileID: 11400000, guid: e493099cc61ce9144a3ff2cc77217eec, type: 2}
+    <DebugObject>k__BackingField: {fileID: 5147813459903507325}
 --- !u!1 &5182336452612374640
 GameObject:
   m_ObjectHideFlags: 0

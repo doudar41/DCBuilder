@@ -32,16 +32,15 @@ public class SpellShopSlot : MonoBehaviour , IPointerEnterHandler, IPointerExitH
             if (!GameInstance.party.activeHero.GetActiveHeroSpellbook().Contains(spellToSell))
             {
 
-                if (GameInstance.party.SellBuyMoneyCheck(price) >= 0)
+                if (GameInstance.party.CheckGemsAmountForSell(price) >= 0)
                 {
                     GameInstance.party.activeHero.GetActiveHeroSpellbook().Add(spellToSell);
-                    GameInstance.party.MoneyGoes(spellToSell.spellPrice);
+                    GameInstance.party.GemGoes(spellToSell.spellPrice);
                     spellToSell = null;
                     scrollPicture.sprite = emptySprite;
                     refreshCoins.Invoke();
                     if (desc != null) desc.SetActive(false);
                 }
-
             }
             else
             {
@@ -71,7 +70,7 @@ public class SpellShopSlot : MonoBehaviour , IPointerEnterHandler, IPointerExitH
             textObject.text = spellToSell.spellName + "\n" + spellTexts + "\n" + "Price: " + ((int)(spellToSell.spellPrice * sellMultiplier)).ToString();
             spellIcon[1].sprite = spellToSell.spellIcon;
             spellIcon[1].preserveAspect = true;
-            if (GameInstance.party.SellBuyMoneyCheck((int)(spellToSell.spellPrice * sellMultiplier)) >= 0) textObject.color = Color.green;
+            if (GameInstance.party.CheckGemsAmountForSell((int)(spellToSell.spellPrice * sellMultiplier)) >= 0) textObject.color = Color.green;
             else textObject.color = Color.red;
         }
     }

@@ -31,9 +31,6 @@ public class SoundManager : MonoBehaviour
     }
     private void Start()
     {
-        /*        if (!BroAudio.HasAnyPlayingInstances(exploreMusic)) BroAudio.Play(exploreMusic).SetVolume(0.4f);
-                currentExploreMusic = exploreMusic;*/
-        //ChangeMusicOnStep(GameInstance.playerController.GetBattleGroundEnvironment());
 
 
     }
@@ -116,6 +113,21 @@ public class SoundManager : MonoBehaviour
             BroAudio.Play(_id);
         }
     }
+
+
+    public void DuckingCurrentMusic(SoundID forwardTrack) 
+    {         
+        BroAudio.SetVolume(currentExploreMusic, 0.2f, 0.5f);
+        BroAudio.Play(forwardTrack);
+    }
+
+    public void UnduckingCurrentMusic(SoundID forwardTrack)
+    {
+        BroAudio.SetVolume(currentExploreMusic, 1.0f, 0.5f);
+        BroAudio.Stop(forwardTrack, 0.5f);
+    }
+
+
 }
 
 [System.Serializable]

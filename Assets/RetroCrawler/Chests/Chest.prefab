@@ -168,7 +168,7 @@ MonoBehaviour:
   thingsInsideChest:
   - {fileID: 11400000, guid: 39d90ed5a73057a47a54fc83e00c254b, type: 2}
   stackAmounts: 01000000
-  isOpen: 0
+  isOpen: 1
   openAnimation:
   - {fileID: 21300000, guid: b9b14b9cd68049148a4bcb73f94f9578, type: 3}
   - {fileID: 21300000, guid: e9ad4e1dbd5e96343a91edfbc7bfcc68, type: 3}
@@ -189,7 +189,7 @@ MonoBehaviour:
   - size: 5
     enemies:
     - {fileID: 8822468640820191240, guid: f9a8b41fadb31d44ca6696adcf56a97d, type: 3}
-  isMimic: 0
+  isMimic: 1
   chestCollider: {fileID: 4338395805057226923}
   mimicPlace: {fileID: 1512163934413594382}
 --- !u!212 &6822751633261789579

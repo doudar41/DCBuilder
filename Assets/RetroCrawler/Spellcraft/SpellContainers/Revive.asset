@@ -37,6 +37,6 @@ MonoBehaviour:
   equipableSpell: 0
   minDistanceToEnemy: 2
   spellName: Revive
-  spellPrice: 1000
+  spellPrice: 10
   spellLevel: 3
   animationTriggerName: 

@@ -5765,8 +5765,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   blockSize: 5
-  walkSpeed: 1.86
-  rotationSpeed: 1.68
+  walkSpeed: 3
+  rotationSpeed: 3
   couroutingDelayinSec: 0.437
   cursorTexture: {fileID: 2800000, guid: 4deac03f29bc8fd4496331c673da55b4, type: 3}
   cursorMode: 0
@@ -5799,7 +5799,7 @@ MonoBehaviour:
   dialogueIsOpened: 0
   attackAllowed: 0
   takeInteractInterface: {fileID: 3282794113883905424}
-  splinePrefab: {fileID: 0}
+  splinePrefab: {fileID: 1290426206013433223, guid: c53db3856c169654997122bcc5646e3a, type: 3}
 --- !u!136 &7596246848218951018
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5896,7 +5896,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.79166776, b: 0.5424528, a: 1}
   m_Intensity: 0.1
-  m_Range: 10
+  m_Range: 20
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -5958,7 +5958,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShadingSteps: 8
-  TargetIntensity: 2
+  TargetIntensity: 3
   MinimumIntensityDifference: 1.15
   MaximumIntensityDifference: 1.3
   FrameRate: 12

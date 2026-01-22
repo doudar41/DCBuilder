@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class TrainingShop : MonoBehaviour
 {
 
-    [SerializeField] GameObject buttons, menus;
+    [SerializeField] GameObject buttons, menus, infoBlock;
     [SerializeField] List<TextMeshProUGUI> skillsTexts = new List<TextMeshProUGUI>();
     List<int> heroSkillNum = new List<int>();
     [SerializeField] List<Button> plusButtons = new List<Button>();
@@ -16,15 +16,17 @@ public class TrainingShop : MonoBehaviour
     [SerializeField] TextMeshProUGUI hpText, MpText, defenceText, initiativeText, evasionText, accuracyText, meleeText, rangeText;
     [SerializeField] TextMeshProUGUI fireResText, waterResText, iceResText, earthResText, areResText, darkResText;
     [SerializeField] TextMeshProUGUI heroSkillPoints;
-    [SerializeField] int moneyForSkills = 100;
+    [SerializeField] int moneyForSkillsPoint = 100;
+    [SerializeField] AnimationCurve skillRaiseGraph;
     [SerializeField] CameraOrder  cameraOrder;
-    int skillsToSpend = 0;
+    [SerializeField] List<TextMeshProUGUI> moneyTexts = new List<TextMeshProUGUI>();
+    [SerializeField] TextMeshProUGUI heroName;
+    int skillsToSpend = 0, moneySpent = 0;
     List<int> mainstatup = new List<int>();
 
     Dictionary<MainStat, int> mainStatsPure = new Dictionary<MainStat, int>();
     Dictionary<DependedStat, int> dependStatsPure = new Dictionary<DependedStat, int>();
     Dictionary<SkillsStat, int> skillStatsPure = new Dictionary<SkillsStat, int>(); 
-
 
 
     private void Start()
@@ -36,7 +38,7 @@ public class TrainingShop : MonoBehaviour
     public void OpenTrainingShop()
     {
         menus.SetActive(true);
-
+        infoBlock.SetActive(true);
         //Get stats from active hero
         RefreshStatsInTraining();
 
@@ -45,6 +47,8 @@ public class TrainingShop : MonoBehaviour
     public void AddPointToSkill(int skillIndex)
     {
         if(skillsToSpend <= 0) { skillsToSpend = 0; return; }
+        if (GameInstance.party.SellBuyMoneyCheck(moneyForSkillsPoint) < 0) return;
+        GetPlayersCoins();
         skillsToSpend--;
         heroSkillNum[skillIndex] = heroSkillNum[skillIndex] + 1;
         skillsTexts[skillIndex].text = heroSkillNum[skillIndex].ToString();
@@ -106,6 +110,19 @@ public class TrainingShop : MonoBehaviour
                     break;
             }
         }
+
+        GameInstance.party.MoneyGoes((int)(moneyForSkillsPoint * skillRaiseGraph.Evaluate(GameInstance.party.GetPartyLevel())));
+        moneySpent += (int)(moneyForSkillsPoint * skillRaiseGraph.Evaluate(GameInstance.party.GetPartyLevel()));
+
+    }
+
+    void GetPlayersCoins()
+    {
+        var money = GameInstance.party.GetCoinsForUI();
+        for (int i = 0; i < money.Count; i++)
+        {
+            moneyTexts[i].text = money[i].ToString();
+        }
     }
 
     public void RefreshStatsInTraining()
@@ -115,6 +132,8 @@ public class TrainingShop : MonoBehaviour
         dependStatsPure.Clear();
         skillStatsPure.Clear();
         mainstatup.Clear();
+        GameInstance.party.MoneyGoes(-moneySpent);
+        moneySpent = 0;
         foreach (Button button in plusButtons) { mainstatup.Add(0); }
         GameInstance.party.activeHero.GetPureStats( out mainStatsPure, 
                                                     out dependStatsPure, 
@@ -137,6 +156,8 @@ public class TrainingShop : MonoBehaviour
             mainStatTexts[i].text = mainStatsNum[i].ToString();
         }
 
+        heroName.text = GameInstance.party.activeHero.HeroName();
+        GetPlayersCoins();
     }
     public void CameraOut()
     {
@@ -147,8 +168,11 @@ public class TrainingShop : MonoBehaviour
     {
         menus.SetActive(false);
         buttons.SetActive(false);
+        infoBlock.SetActive(false);
         CameraOut();
         GameInstance.playerController.shopIsOpened = false;
+        GameInstance.party.MoneyGoes(-moneySpent);
+        moneySpent = 0;
     }
     
 
@@ -160,10 +184,10 @@ public class TrainingShop : MonoBehaviour
         }
         for (int i = 0; i < mainStatsNum.Count; i++)
         {
-            GameInstance.party.activeHero.SetMainStat((MainStat)i + 1, mainStatsNum[i] - mainStatsPure[(MainStat)i+1]);
+            GameInstance.party.activeHero.AddToMainStat((MainStat)i + 1, mainStatsNum[i] - mainStatsPure[(MainStat)i+1]);
         }
         GameInstance.party.activeHero.SetSkillPoints( skillsToSpend);
-
+        moneySpent = 0;
     }
 
 }

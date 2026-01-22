@@ -89,7 +89,7 @@ public class ChooseShop : MonoBehaviour
             BroAudio.Play(openShopSound);
             BroAudio.Play(voicePhrase);
             shopToChoose[index].GetComponent<SpellShop>().OpenSpellShop();
-            shopToChoose[index].GetComponent<SpellShop>().PlayerCoins((GameInstance.party.SellBuyMoneyCheck(0)));
+            shopToChoose[index].GetComponent<SpellShop>().PlayerGems((GameInstance.party.SellBuyMoneyCheck(0)));
             shopToChoose[index].GetComponent<animateUIImage>().StartAnimation();
         }
 
@@ -100,6 +100,7 @@ public class ChooseShop : MonoBehaviour
             BroAudio.Play(openShopSound);
             BroAudio.Play(voicePhrase);
             shopToChoose[index].GetComponent<TavernService>().OpenTavern();
+            shopToChoose[index].GetComponent<animateUIImage>().StartAnimation();
 
         }
 

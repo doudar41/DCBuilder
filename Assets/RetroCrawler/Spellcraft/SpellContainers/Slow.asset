@@ -37,6 +37,6 @@ MonoBehaviour:
   equipableSpell: 0
   minDistanceToEnemy: 2
   spellName: Slow
-  spellPrice: 0
+  spellPrice: 10
   spellLevel: 0
   animationTriggerName: Slow

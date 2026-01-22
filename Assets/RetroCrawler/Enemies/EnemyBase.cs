@@ -50,11 +50,15 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
     [SerializeField] SpellContainer immunityspell;
     [SerializeField] SoundID upFrontSound, attackSound;
     [SerializeField] int experienceReward = 50;
-
+    [SerializeField] List<ItemScriptableContainer>  itemScriptableContainers = new List<ItemScriptableContainer>();
+    [SerializeField] List<int> itemsStackAmout;
+    [SerializeField] Vector2Int moneyRandomRange, gemsRandomRange, randomLootPossibility;
 
     Dictionary<EnemyStat, Vector3Int> currentStats = new Dictionary<EnemyStat, Vector3Int>();
 
     Vector3 savedPosition;
+
+
 
     private void Awake()
     {
@@ -529,6 +533,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (GameInstance.playerController.playerState == PlayerState.Explore) return;
         if (health <= 0) return;
         if (outlineRenderer != null)
         {
@@ -660,6 +665,31 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
 
 
     public GameObject GetEnemyGameObject() { return this.gameObject; }
+
+    public void GetEnemyLoot(out int money, out int gems, out List<HeroInventoryItem> items)
+    {
+        items = new List<HeroInventoryItem>();
+        money = Random.Range(moneyRandomRange.x, moneyRandomRange.y);
+        gems = Random.Range(gemsRandomRange.x, gemsRandomRange.y);
+
+        if (itemScriptableContainers.Count == 0) return;
+
+        foreach(ItemScriptableContainer isc in itemScriptableContainers)
+        {
+            int i = Random.Range(randomLootPossibility.x, randomLootPossibility.y);
+            if (i == 1)
+            {
+
+                HeroInventoryItem hii = new HeroInventoryItem();
+                hii = GameInstance.dataBase.HeroInventoryFromITemScriptable(isc);
+                if(itemsStackAmout.Count !=0) hii.stackAmount = itemsStackAmout[itemScriptableContainers.IndexOf(isc)];
+                else hii.stackAmount = 1;
+                items.Add(hii);
+            }
+        }
+
+
+    }
 }
 
 
@@ -686,6 +716,7 @@ public interface IEnemy
     public List<SpellContainer> GetEnemyAttackSpell();
     public int ExperienceReward();
     public GameObject GetEnemyGameObject();
+    public void GetEnemyLoot(out int money, out int gems, out List<HeroInventoryItem> item );
 }
 
 [System.Serializable]

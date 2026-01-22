@@ -17,8 +17,8 @@ public class DayNightChange : MonoBehaviour
 
     [SerializeField] AnimationCurve skyTintGraph, ambientColorShift, fogDensityGraph;
     [SerializeField] Color testColor;
-    bool onceReset = false;
-
+    bool onceReset = false, corouting = false;
+    public bool isDungeon { get; set; }
     public UnityEvent<int, int, int> gameClock;
 
 
@@ -34,17 +34,32 @@ public class DayNightChange : MonoBehaviour
     {
         GameInstance.ChangeTimeFlow(timeframe);
     }
-
+    
+    public void ChangeTimeFlow(float _newTime)
+    {
+        timeframe = _newTime;
+    }
 
     public void InitDayNightShift()
     {
+        if (isDungeon)
+        {
+            isDay = false;
+            RenderSettings.fog = true;
+            RenderSettings.skybox.SetVector("_Tint", new Vector4(0.5f, 0.5f, 0.5f, 1));
+            RenderSettings.skybox.SetTexture("_MainTex", dayNightTransitionTextures[dayNightTransitionTextures.Count - 1]);
+            RenderSettings.ambientLight = Color.black;
+            RenderSettings.fogColor = RenderSettings.ambientLight;
+            RenderSettings.fogDensity = 0.18f; return; 
+        }
         if (GameInstance.playerController.GetBattleGroundEnvironment() == BattleGroundEnvironment.CITY
             || GameInstance.playerController.GetBattleGroundEnvironment() == BattleGroundEnvironment.STONE
             || GameInstance.playerController.GetBattleGroundEnvironment() == BattleGroundEnvironment.WOOD)
         {
 
-            if (GameInstance.GetNormalTime()[1] % 24 >= 6 && GameInstance.GetNormalTime()[1] % 24 < 20)
+            if (GameInstance.GetNormalTime()[1] % 24 >= 6 && GameInstance.GetNormalTime()[1] % 24 < 20 && RenderSettings.fogDensity !=0)
             {
+                if (corouting) return;
                 isDay = false;
                 RenderSettings.fog = false;
                 RenderSettings.skybox.SetVector("_Tint", new Vector4(1, 1, 1, 1));
@@ -55,6 +70,7 @@ public class DayNightChange : MonoBehaviour
             }
             else
             {
+                if (corouting) return;
                 isDay = false;
                 RenderSettings.fog = true;
                 RenderSettings.skybox.SetVector("_Tint", new Vector4(0.5f, 0.5f, 0.5f, 1));
@@ -66,6 +82,7 @@ public class DayNightChange : MonoBehaviour
         }
         else
         {
+            if (corouting) return;
             RenderSettings.fogColor = Color.black;
             RenderSettings.fogDensity = 0.16f;
         }
@@ -202,6 +219,7 @@ public class DayNightChange : MonoBehaviour
 
     IEnumerator SmoothSkyRotation(float timeFlow, int division)
     {
+        corouting = true;
         float minTime = timeFlow / (float)division;
 
         for(int i = 0; i < division; i++)
@@ -211,6 +229,7 @@ public class DayNightChange : MonoBehaviour
             RenderSettings.skybox.SetFloat("_Rotation", targetRotation + 1.0f/(float)division);
             yield return new WaitForSeconds(minTime);
         }
+        corouting = false;
         yield return null;
     }
 }

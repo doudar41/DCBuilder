@@ -37,6 +37,6 @@ MonoBehaviour:
   equipableSpell: 0
   minDistanceToEnemy: 2
   spellName: Lavawalking
-  spellPrice: 0
+  spellPrice: 10
   spellLevel: 2
   animationTriggerName: 

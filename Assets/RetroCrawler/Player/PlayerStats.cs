@@ -18,6 +18,7 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] TextMeshProUGUI expPoints;
     [SerializeField] TextMeshProUGUI partyLevel;
     [SerializeField] List<TextMeshProUGUI> moneyInCoins;
+    [SerializeField] TextMeshProUGUI gemsAmount;
 
     private void Start()
     {
@@ -74,7 +75,7 @@ public class PlayerStats : MonoBehaviour
         weightParty.text = GameInstance.party.GetPartyWeight().ToString();
         hungerLevel.value = GameInstance.party.activeHero.GetHungerLevelPercents();
 
-        foodText.text = GameInstance.party.CheckFoodSupply(0).ToString();
+        foodText.text = (GameInstance.party.CheckFoodSupply(0)/10).ToString();
         expPoints.text = GameInstance.party.addExperiencePoints(0).ToString();
         for (int i=0;i< moneyInCoins.Count;i++)
         {
@@ -82,6 +83,7 @@ public class PlayerStats : MonoBehaviour
         }
         heroName.text = GameInstance.party.activeHero.HeroName();
         partyLevel.text = GameInstance.party.GetPartyLevel().ToString();
+        gemsAmount.text = GameInstance.party.CheckGems(0).ToString();   
     }
 }
 
