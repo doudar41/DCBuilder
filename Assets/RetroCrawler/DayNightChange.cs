@@ -46,7 +46,7 @@ public class DayNightChange : MonoBehaviour
         {
             isDay = false;
             RenderSettings.fog = true;
-            RenderSettings.skybox.SetVector("_Tint", new Vector4(0.5f, 0.5f, 0.5f, 1));
+            RenderSettings.skybox.SetVector("_Tint", new Vector4(0.4f, 0.4f, 0.4f, 1));
             RenderSettings.skybox.SetTexture("_MainTex", dayNightTransitionTextures[dayNightTransitionTextures.Count - 1]);
             RenderSettings.ambientLight = Color.black;
             RenderSettings.fogColor = RenderSettings.ambientLight;

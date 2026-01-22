@@ -78,7 +78,7 @@ public class Inventory : MonoBehaviour
 
         shieldSlot.CheckWeaponSlot();
 
-        GameInstance.party.UpdatePartyWeight();
+        //GameInstance.party.UpdatePartyWeight();
         GameInstance.party.RefreshUI.Invoke();
     }
 

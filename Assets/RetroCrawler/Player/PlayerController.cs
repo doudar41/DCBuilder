@@ -97,6 +97,8 @@ public class PlayerController : MonoBehaviour
     public delegate void TimeEventDelegate(int timeCounter);
     public event TimeEventDelegate timeForward;
 
+    IBlock weightPlateIBllock = null;
+
     private void Awake()
     {
         GameInstance.playerController = this;
@@ -958,11 +960,13 @@ public class PlayerController : MonoBehaviour
 
     bool CheckBlockInterfaces(Vector3 v)
     {
-        IInteractables iblock;
+        IInteractables iInteractable;
         if (wallsAccess.ContainsKey(moveTilemap.WorldToCell(v)))
-        { iblock = wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<IInteractables>(); }
+        { iInteractable = wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<IInteractables>(); }
         else return false;
-        List<InteractablesEnum> interactableList = iblock.WhatIsIt();
+        List<InteractablesEnum> interactableList = iInteractable.WhatIsIt();
+
+
 
         foreach (InteractablesEnum i in interactableList)
         {
@@ -1028,7 +1032,19 @@ public class PlayerController : MonoBehaviour
                     List<GameObject> enemy = wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<OnBlockPlacement>().GetEnemyListForCustomBattle();
                     GameInstance.battleManager.CustomBattleInPlace(enemy, wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<IBlock>());
                     return false;
+                case InteractablesEnum.WEIGHTPLATE:
+                    weightPlateIBllock = wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<IBlock>();
+                    weightPlateIBllock.AddWeightToBlock(GameInstance.party.GetPartyWeight());
+                    
+                    break;
             }
+        }
+        if (weightPlateIBllock == null) return true;
+
+        if (weightPlateIBllock != wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<IBlock>())
+        {
+            weightPlateIBllock.AddWeightToBlock(-GameInstance.party.GetPartyWeight());
+            weightPlateIBllock = null;
         }
         return true;
     }

@@ -6,7 +6,7 @@ public class LoadLevelOrder : MonoBehaviour
 {
     [SerializeField]
     GameObject itemModelPrefab;
-
+    [SerializeField] bool isDungeonLevel = false;
     void Start()
     {
         
@@ -81,6 +81,8 @@ public class LoadLevelOrder : MonoBehaviour
         GameInstance.party.LoadDialoguesFromInstance();
         GameInstance.playerController.SetEncounter(GameInstance.noEncounter);
         if (!GameInstance.noEncounter) { GameInstance.playerController.SetCountdownToEncounter(GameInstance.savedTimeToEncounter); }
+
+        GameInstance.dayNightChange.isDungeon = isDungeonLevel;
         StartCoroutine(GameInstance.TimeStep());
 
 

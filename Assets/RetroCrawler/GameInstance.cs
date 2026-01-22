@@ -208,6 +208,9 @@ public static class GameInstance
         partyLevel = GameInstance.party.GetPartyLevel();
         savedTimeToEncounter = playerController.GetCountdownToEncounter();
 
+        if(!levelsVisited.Contains(SceneManager.GetActiveScene().name)) levelsVisited.Add(SceneManager.GetActiveScene().name);
+
+
         if (party != null) party.SaveEquipment();
         inventoryItemsSaved.Clear();
         getInventoryItem();
@@ -470,7 +473,7 @@ public static class GameInstance
             gemsCollected = saveData.gemsCollected;
             expPoints = saveData.expPoints;
             savedTimeToEncounter = saveData.savedTimeToEncounter;
-
+            
 
             SceneManager.LoadScene(saveData.levelName, LoadSceneMode.Single); 
         }

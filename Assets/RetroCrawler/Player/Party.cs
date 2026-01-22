@@ -123,7 +123,6 @@ public class Party : MonoBehaviour
         if (heroInventoryItem == null)
         {
             activeHero.RemoveItemFromEquipment(itemType);
-            UpdatePartyWeight();
             RefreshUI.Invoke();
             return;
         }
@@ -137,14 +136,10 @@ public class Party : MonoBehaviour
         {
             activeHero.RemoveItemFromEquipment(itemType);
         }
-        UpdatePartyWeight();
         RefreshUI.Invoke();
     }
 
-    public void UpdatePartyWeight()
-    {
 
-    }
 
     public void heroEquipmentToInventory()
     {
