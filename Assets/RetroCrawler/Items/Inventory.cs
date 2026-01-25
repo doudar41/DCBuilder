@@ -10,7 +10,7 @@ public class Inventory : MonoBehaviour
     [SerializeField]    GameObject slotsParent;
     [SerializeField]    GameObject slotPrefab;
     [SerializeField]    TextMeshProUGUI weightCapacity;
-    [SerializeField]    GameObject inventorySwitcher, paperDoll;
+    [SerializeField]    GameObject inventorySwitcher, paperDoll, descriptionTab;
     [SerializeField] List<TextMeshProUGUI> keyAmountsText = new List<TextMeshProUGUI>();
     Dictionary<KeyType, TextMeshProUGUI> keyTexts = new Dictionary<KeyType, TextMeshProUGUI>();
     Dictionary<int, ItemScriptableContainer> itemDatabase = new Dictionary<int, ItemScriptableContainer>();
@@ -37,13 +37,21 @@ public class Inventory : MonoBehaviour
         {
             paperDoll.SetActive(false);
             inventorySwitcher.SetActive(false);
+            descriptionTab.SetActive(false);
             return;
         }
         if (switchInventory) enableInventory.Invoke();
         isInventoryOpened = switchInventory;
         inventorySwitcher.SetActive(switchInventory);
+        descriptionTab.SetActive(switchInventory);
         paperDoll.SetActive(switchInventory);
     }
+
+    public Transform GetDescriptionTab()
+    {
+        return descriptionTab.transform;
+    }
+
 
     public bool IsOpen()
     {
@@ -55,6 +63,7 @@ public class Inventory : MonoBehaviour
 
         enableInventory.AddListener(GameInstance.party.heroEquipmentToInventory);
         inventorySwitcher.SetActive(false);
+        descriptionTab.SetActive(false);
     }
 
     public void GetEquipmentFromHero(Dictionary<ItemType,HeroInventoryItem> equipmentList)

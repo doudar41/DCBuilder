@@ -248,6 +248,7 @@ public class ItemShop : MonoBehaviour
             shopState = ShopState.MainScreen;
             return;
         }
+
         if (shopState == ShopState.BuyFromPlayer || shopState == ShopState.Idenify)
         {
             shopInsides.SetActive(false);
@@ -325,6 +326,66 @@ public class ItemShop : MonoBehaviour
         identifyButton.SetActive(false);
         shopState = ShopState.BuyFromPlayer;
     }
+    public void SwitchToIdentify()
+    {
+        shopState = ShopState.Idenify;
+        GetItemsFromInventoryToIdentify();
+        textOfShopState.text = "Identify";
+
+
+        shopInsides.SetActive(true);
+        buyButton.SetActive(false);
+        inventoryButton.SetActive(false);
+        sellButton.SetActive(false);
+        identifyButton.SetActive(false);
+
+    }
+
+    public void GetItemsFromInventoryToIdentify()
+    {
+        ClearSlots();
+        itemsToSell.Clear();
+        itemsToSellKeys.Clear();
+        sellItemIndexStart = 0;
+        if (GameInstance.inventory.GetItemsFromInventory().Count == 0) return;
+        foreach (KeyValuePair<int, HeroInventoryItem> h in GameInstance.inventory.GetItemsFromInventory())
+        {
+            if (h.Value == null) continue;
+            foreach (ItemType it in itemsTypesToSell)
+            {
+                if (h.Value.itemType == it)
+                {
+                    if (!GameInstance.CheckIFItemIdentified(h.Value.container))
+                    {
+                        itemsToSell.Add(h.Key, h.Value);
+                        itemsToSellKeys.Add(h.Key);
+                    }
+
+                }
+            }
+        }
+
+
+        for (int i = 0; i < itemsSlots.Count; i++)
+        {
+            if (i < itemsToSellKeys.Count)
+            {
+                // print("index " +i+ " modifier "+ sellItemIndexStart + " all items' keys " +itemsToSellKeys.Count); 
+
+                itemsSlots[i].SetItemToSell(GameInstance.dataBase.GetItemFromBaseByIndex(itemsToSell[itemsToSellKeys[i + sellItemIndexStart]].container), i);
+                itemsSlots[i].shopState = ShopState.Idenify;
+                itemsSlots[i].inventorySlotForSell = itemsToSellKeys[i + sellItemIndexStart];
+            }
+
+        }
+        if (itemsToSell.Count > itemsSlots.Count)
+        {
+            arrowsItems[0].SetActive(true);
+            arrowsItems[1].SetActive(true);
+        }
+
+    }
+
 
 
 }

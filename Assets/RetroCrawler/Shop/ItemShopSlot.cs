@@ -10,6 +10,7 @@ public class ItemShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     [SerializeField] Image itemPicture;
     [SerializeField] Sprite emptySprite;
     [SerializeField] GameObject descriptionPrefab;
+    [SerializeField] int priceToIdentify = 100;
     ItemScriptableContainer itemToSell;
     public float sellMultiplier = 1;
     GameObject desc;
@@ -59,6 +60,13 @@ public class ItemShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                     }
                 }
 
+                break;
+            case ShopState.Idenify:
+                if (GameInstance.party.SellBuyMoneyCheck((int)(priceToIdentify * itemToSell.itemLevel)) >= 0)
+                {
+                    GameInstance.SaveIdentifiedItems(GameInstance.dataBase.HeroInventoryFromITemScriptable(itemToSell));
+                    IdentifyItem();
+                }
                 break;
 
         }
@@ -111,47 +119,66 @@ public class ItemShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (itemToSell == null) return;
+        IdentifyItem();
 
-            if (desc == null)
+
+    }
+
+
+
+    void IdentifyItem()
+    {
+        if (desc == null)
+        {
+            desc = Instantiate(descriptionPrefab, transform);
+            //desc.transform.SetParent(null);
+        }
+        else desc.SetActive(true);
+
+        TextMeshProUGUI textObject = desc.gameObject.GetComponentInChildren<TextMeshProUGUI>();
+        if (textObject != null)
+        {
+            string spellTexts = "";
+            foreach (Spell s in itemToSell.spellContainer.spells)
             {
-                desc = Instantiate(descriptionPrefab, transform);
-                //desc.transform.SetParent(null);
+                spellTexts += "\n" + s.SpellDescription;
             }
-            else desc.SetActive(true);
-
-            TextMeshProUGUI textObject = desc.gameObject.GetComponentInChildren<TextMeshProUGUI>();
-            if (textObject != null)
+            switch (shopState)
             {
-                string spellTexts = "";
-                foreach (Spell s in itemToSell.spellContainer.spells)
-                {
-                    spellTexts += "\n" + s.SpellDescription;
-                }
-                switch (shopState)
-                {
-                    case ShopState.BuyFromPlayer:
-                        textObject.text = itemToSell.itemDescription + spellTexts + "\n" + "Price: " + ((int)(itemToSell.price * sellMultiplier)).ToString();
-                        textObject.color = Color.green;
-                        break;
-                    case ShopState.SellToPlayer:
+                case ShopState.BuyFromPlayer:
+                    textObject.text = itemToSell.itemDescription + spellTexts + "\n" + "Price: " + ((int)(itemToSell.price * sellMultiplier)).ToString();
+                    textObject.color = Color.green;
+                    break;
+                case ShopState.SellToPlayer:
+                    textObject.text = itemToSell.itemDescription + spellTexts + "\n" + "Price: " + ((int)(itemToSell.price * sellMultiplier)).ToString();
+                    if (GameInstance.party.SellBuyMoneyCheck((int)(itemToSell.price * sellMultiplier)) >= 0) textObject.color = Color.green;
+                    else textObject.color = Color.red;
+                    break;
+                case ShopState.Idenify:
+                    if (GameInstance.CheckIFItemIdentified(GameInstance.dataBase.HeroInventoryFromITemScriptable(itemToSell).container))
+                    {
                         textObject.text = itemToSell.itemDescription + spellTexts + "\n" + "Price: " + ((int)(itemToSell.price * sellMultiplier)).ToString();
                         if (GameInstance.party.SellBuyMoneyCheck((int)(itemToSell.price * sellMultiplier)) >= 0) textObject.color = Color.green;
                         else textObject.color = Color.red;
-                        break;
-                    case ShopState.Idenify:
-                        break;
-                    case ShopState.Spell:
-                        break;
-                    case ShopState.Heal:
-                        break;
-                    case ShopState.Ressurect:
-                        break;
-                }
+                    }
+                    else
+                    {
+                        textObject.text = " Price to identify " + (priceToIdentify * itemToSell.itemLevel).ToString();
+                        if (GameInstance.party.SellBuyMoneyCheck((int)(priceToIdentify * itemToSell.itemLevel)) >= 0) textObject.color = Color.green;
+                        else textObject.color = Color.red;
+                    }
 
-            
+                    break;
+                case ShopState.Spell:
+                    break;
+                case ShopState.Heal:
+                    break;
+                case ShopState.Ressurect:
+                    break;
+            }
         }
-
     }
+
 
     public void OnPointerExit(PointerEventData eventData)
     {

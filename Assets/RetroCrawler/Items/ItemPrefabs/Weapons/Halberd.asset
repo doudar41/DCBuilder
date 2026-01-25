@@ -22,7 +22,10 @@ MonoBehaviour:
   spellContainer: {fileID: 11400000, guid: 73e5602241660e44294074333a29627d, type: 2}
   weaponType: 3
   twoHanded: 1
-  price: 100
-  itemDescription: Very big Axe
+  price: 20
+  itemDescription: Very Big Axe
   itemLevel: 1
   keyType: 0
+  journalEntry: 
+  dialogueKeys: 
+  stackable: 0

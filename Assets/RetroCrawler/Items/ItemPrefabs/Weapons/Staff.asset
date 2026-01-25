@@ -22,9 +22,10 @@ MonoBehaviour:
   spellContainer: {fileID: 11400000, guid: 7fc89317aa5d7e54a9c6639250062bc9, type: 2}
   weaponType: 3
   twoHanded: 1
-  price: 500
+  price: 40
   itemDescription: 'Big Stick '
-  itemLevel: 0
+  itemLevel: 2
   keyType: 0
   journalEntry: 
   dialogueKeys: 
+  stackable: 0

@@ -22,6 +22,10 @@ MonoBehaviour:
   spellContainer: {fileID: 11400000, guid: 762575d8b11fb4e47baeda5a580936b8, type: 2}
   weaponType: 2
   twoHanded: 0
-  price: 1
+  price: 20
   itemDescription: Small but dangerous
   itemLevel: 1
+  keyType: 0
+  journalEntry: 
+  dialogueKeys: 
+  stackable: 0

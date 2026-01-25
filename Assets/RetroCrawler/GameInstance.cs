@@ -113,6 +113,7 @@ public static class GameInstance
         gameTimeInNormalTime[1] = 0;
         gameTimeInNormalTime[2] = 0;
         savedTimeToEncounter = 0; expPoints = 0; moneyCollected = 0; gemsCollected = 0; partyLevel = 0;
+        identifiedItems.Clear();
     }
 
     public static int DiceRollingBiggestNumber(int diceNumber, int diceSides)
@@ -248,9 +249,18 @@ public static class GameInstance
         inventory.SaveKeysToGameInstance();
         SceneManager.LoadScene(levelName, LoadSceneMode.Single);
 
-
     }
 
+
+    public static void SaveIdentifiedItems(HeroInventoryItem heroInventoryItem)
+    {
+        identifiedItems.TryAdd(heroInventoryItem.container, heroInventoryItem);
+    }
+
+    public static bool CheckIFItemIdentified(int index)
+    {
+        return identifiedItems.TryGetValue(index, out HeroInventoryItem heroInventoryItem);
+    }
 
     public static void  ChangeTimeFlow(float amount)
     {

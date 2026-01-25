@@ -204,22 +204,26 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
     {
         if(!GameInstance.spellbook.IdentifyModeActive()) { return; }
         if (inventoryItem == null) return;
-        if (describeInstance == null) describeInstance = Instantiate(describePrefab, transform.parent.parent);
+/*        if (describeInstance == null) describeInstance = Instantiate(describePrefab, Get);
         else describeInstance.SetActive(true);
 
-        describeInstance.gameObject.SetActive(true);
-        describeInstance.GetComponent<RectTransform>().localPosition = gameObject.GetComponent<RectTransform>().localPosition+(new Vector3(1,-1,0)*15);
+        describeInstance.gameObject.SetActive(true);*/
+       // describeInstance.GetComponent<RectTransform>().localPosition = gameObject.GetComponent<RectTransform>().localPosition+(new Vector3(1,-1,0)*15);
+        
+        TextMeshProUGUI textDesc = GameInstance.inventory.GetDescriptionTab().GetComponentInChildren<TextMeshProUGUI>();
 
-        TextMeshProUGUI textDesc = describeInstance.GetComponentInChildren<TextMeshProUGUI>();
+       // print(describeInstance.transform.position.x + " " + describeInstance.transform.position.y);
+
 
         if (textDesc != null)
         {
             ItemScriptableContainer itemToDesc = GameInstance.inventory.GetHeroItemScriptableByIndex(inventoryItem.container);
 
-            if(itemToDesc.itemLevel > GameInstance.party.activeHero.GetSkillsStat(SkillsStat.Identify)/3)
+            if(itemToDesc.itemLevel >= GameInstance.party.activeHero.GetSkillsStat(SkillsStat.Identify)/3)
             {
                 textDesc.color = Color.red;
                 textDesc.text = "\n."+  " Can't identify   "+ "\n.";
+
             }
             else
             {
@@ -227,18 +231,33 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
                 string spellTexts = "";
                 foreach (Spell s in itemToDesc.spellContainer.spells)
                 {
-                    spellTexts += "\n" + s.SpellDescription;
+                    spellTexts += ". " + s.SpellDescription;
                 }
-                textDesc.text = itemToDesc.itemDescription + spellTexts + "\n" + "Price: " + ((int)(itemToDesc.price)).ToString();
+                textDesc.text = itemToDesc.itemDescription + spellTexts + ". " + "Price: " + ((int)(itemToDesc.price)).ToString();
+                GameInstance.SaveIdentifiedItems(inventoryItem);
             }
+            if (GameInstance.CheckIFItemIdentified(inventoryItem.container))
+            {
+                textDesc.color = Color.green;
+                string spellTexts = "";
+                foreach (Spell s in itemToDesc.spellContainer.spells)
+                {
+                    spellTexts += ". " + s.SpellDescription;
+                }
+                textDesc.text = itemToDesc.itemDescription + spellTexts + ". " + "Price: " + ((int)(itemToDesc.price)).ToString();
 
-
+            }
 
         }
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (describeInstance != null) describeInstance.SetActive(false);
+        if (!GameInstance.spellbook.IdentifyModeActive()) { return; }
+        TextMeshProUGUI textDesc = GameInstance.inventory.GetDescriptionTab().GetComponentInChildren<TextMeshProUGUI>();
+        if (textDesc != null)
+        {
+            textDesc.text = string.Empty;
+        }
     }
 }

@@ -22,7 +22,10 @@ MonoBehaviour:
   spellContainer: {fileID: 11400000, guid: da88a03632bf1bb41bf66c816ff85db5, type: 2}
   weaponType: 4
   twoHanded: 1
-  price: 10
+  price: 20
   itemDescription: Can you stretch it?
   itemLevel: 1
   keyType: 0
+  journalEntry: 
+  dialogueKeys: 
+  stackable: 0
