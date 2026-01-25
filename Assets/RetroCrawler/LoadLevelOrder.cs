@@ -79,8 +79,10 @@ public class LoadLevelOrder : MonoBehaviour
         GameInstance.party.PartyHeroInit();
         GameInstance.spellbook.RestoreContinousSpells();
         GameInstance.party.LoadDialoguesFromInstance();
-        GameInstance.playerController.SetEncounter(GameInstance.noEncounter);
-        if (!GameInstance.noEncounter) { GameInstance.playerController.SetCountdownToEncounter(GameInstance.savedTimeToEncounter); }
+        //GameInstance.playerController.SetEncounter(GameInstance.noEncounter);
+        if (!GameInstance.playerController.GetEncounterState()) { GameInstance.playerController.SetCountdownToEncounter(GameInstance.savedTimeToEncounter); }
+
+        GameInstance.inventory.BuildItemDatabase();
 
         GameInstance.dayNightChange.isDungeon = isDungeonLevel;
         GameInstance.dayNightChange.InitDayNightShift();

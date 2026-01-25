@@ -49,7 +49,8 @@ public enum SpellEffects
     Freeze,
     Vampirism,
     Equipment,
-    Revive
+    Revive,
+    Antidote
 }
 
 public enum MagicType

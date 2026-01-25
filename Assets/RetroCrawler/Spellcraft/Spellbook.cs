@@ -202,8 +202,9 @@ public class Spellbook : MonoBehaviour
                         break;
                     case SpellEffects.LightARoom:
                         if (spellTimeActive.ContainsKey(s)) { spellTimeActive[s] = s.numberOfTurns; break; }
-                        //GameInstance.playerController.LightARoom(1);
-                        CheckHeroesForLightSource(new KeyValuePair<int, bool>(0, true));
+                        print("light!!! ");
+                        GameInstance.playerController.LightARoom(1);
+
                         spellTimeActive.Add(s, s.numberOfTurns);
                         massSpellIcons[2].color = Color.white;
                         break;
@@ -416,14 +417,6 @@ public class Spellbook : MonoBehaviour
 
         }
 
-        /*
-        if (target.GetComponent<IInteractable>() != null)
-            {
-                IInteractable interactable = target.GetComponent<IInteractable>();
-                interactable.ApplySpellToItem(spellWaitToRelease);
-            }
-        */
-
         foreach (Spell s in spellWaitToRelease.spells)
         {
             GameInstance.party.activeHero.ManaDecrease(s.manaCost);
@@ -506,7 +499,7 @@ public class Spellbook : MonoBehaviour
                     massSpellIcons[1].color = Color.clear;
                     break;
                 case SpellEffects.LightARoom:
-                    lightsourceCount.Remove(0);
+
                     massSpellIcons[2].color = Color.clear;
                     break;
                 case SpellEffects.Waterwalk:
@@ -539,19 +532,38 @@ public class Spellbook : MonoBehaviour
         return identifyMode;
     }
 
-    Dictionary<int,bool> lightsourceCount = new Dictionary<int, bool>() { { 0,false}, { 1, false }, { 2, false }, { 3, false } };
-    public void CheckHeroesForLightSource(KeyValuePair<int, bool> heroLight)
+
+    public bool CheckHeroesForLightSource()
     {
-        lightsourceCount[heroLight.Key] = heroLight.Value;
-        foreach (KeyValuePair<int, bool> k in lightsourceCount)
-        {
-            if (k.Value) 
+        for (int i = 0; i < GameInstance.party.GetIHeroes().Count; i++) 
+        { 
+            foreach(Spell s in GameInstance.party.GetIHeroes()[i].GetSpellsAttached().Keys)
             {
-                GameInstance.playerController.LightARoom(1);
-                return;
+
+                if (s.spellEffect == SpellEffects.LightARoom) { print("light on hero id " +i ); return true; }
+            }
+        
+        }
+        return false;
+    }
+
+    public void LightOff()
+    {
+        print("light off !!!!");
+        List<Spell> listToChange = new List<Spell>();
+        foreach (KeyValuePair<Spell, int> s in spellTimeActive)
+        {
+            if (spellTimeActive[s.Key] > 0) { listToChange.Add(s.Key); }
+        }
+        foreach (Spell si in listToChange)
+        {
+            if (si.spellEffect == SpellEffects.LightARoom)
+            {
+                spellTimeActive[si] = 0;
             }
         }
         GameInstance.playerController.LightARoom(0);
+        massSpellIcons[2].color = new Color32(255, 255, 255, 0);
     }
 
 }

@@ -95,7 +95,7 @@ public class Database : MonoBehaviour
              heroInventoryItem.stackAmount = 1;
              heroInventoryItem.positionReplaced = Vector3.zero;
              heroInventoryItem.level = "Level01";
-             heroInventoryItem.levelOfIdenifySaved = 0;
+             heroInventoryItem.levelOfIdenifySaved = item.itemLevel;
 
         return heroInventoryItem;
 }

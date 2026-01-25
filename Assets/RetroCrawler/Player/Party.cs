@@ -120,6 +120,7 @@ public class Party : MonoBehaviour
 
     public void GetItemFromEquipmentSlot(HeroInventoryItem heroInventoryItem, ItemType itemType)
     {
+
         if (heroInventoryItem == null)
         {
             activeHero.RemoveItemFromEquipment(itemType);
@@ -129,6 +130,7 @@ public class Party : MonoBehaviour
 
         if (heroInventoryItem.container != -1)
         {
+
             activeHero.AddEquipmentToCharacter(heroInventoryItem);
            // GameInstance.SaveItemState(heroInventoryItem._GUID, SavedState.Equipment, heroInventoryItem);
         }
@@ -154,6 +156,17 @@ public class Party : MonoBehaviour
     {
         return heroes;
     }
+
+    public List<IHero> GetIHeroes()
+    {
+        List<IHero> iheroes = new List<IHero>();
+        foreach(Hero h in heroes)
+        {
+            iheroes.Add(h.GetComponent<IHero>());
+        }
+        return iheroes;
+    }
+
     public void BattleHeroSwitch(Hero hero)
     {
         for (int i = 0; i < heroes.Count; i++)

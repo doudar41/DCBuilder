@@ -6,22 +6,35 @@ using TMPro;
 public class TempleServices : MonoBehaviour
 {
     [SerializeField] CameraOrder cameraOrder;
-    [SerializeField] TextMeshProUGUI textOfShopState;
-    [SerializeField] SpellContainer reviveSpell, restorationSpell;
 
+    [SerializeField] SpellContainer reviveSpell, restorationSpell;
+    [SerializeField] GameObject templeGraphics, shopGraphics, shopButton, healButton, resurrectionButton;
+    [SerializeField] int healCost = 100, resurrectionCost = 1000;
 
     public UnityEvent closeShopPanel;
     private void Start()
     {
 
-        textOfShopState.text = "Temple Services";
     }
+
+
+    public void initOpenTemple()
+    {
+        templeGraphics.SetActive(true);
+        shopButton.SetActive(true);
+        healButton.SetActive(true);
+        resurrectionButton.SetActive(true);
+        shopGraphics.SetActive(false);
+    }
+
+
+
 
     public void HealAllParty()
     {
         List<Hero> heroes= GameInstance.party.GetHeroList();
 
-        if (GameInstance.party.SellBuyMoneyCheck(100) >= 0)
+        if (GameInstance.party.SellBuyMoneyCheck(healCost) >= 0)
         {
             foreach (Hero h in heroes)
             {
@@ -47,7 +60,7 @@ public class TempleServices : MonoBehaviour
     {
         List<Hero> heroes = GameInstance.party.GetHeroList();
 
-        if (GameInstance.party.SellBuyMoneyCheck(1000) >= 0)
+        if (GameInstance.party.SellBuyMoneyCheck(resurrectionCost) >= 0)
         {
             foreach (Hero h in heroes)
             {
@@ -61,16 +74,38 @@ public class TempleServices : MonoBehaviour
     }
 
 
+    public void OpenShop()
+    {
+        shopButton.SetActive(false);
+        healButton.SetActive(false);
+        resurrectionButton.SetActive(false);
+        shopGraphics.SetActive(true);
+    }
+
+
     public void CameraOut()
     {
         cameraOrder.BattleLogWithGameplay();
     }
+
+
+
     public void CloseShop()
     {
+        if (!shopButton.activeSelf)
+        {
+            shopButton.SetActive(true);
+            healButton.SetActive(true);
+            resurrectionButton.SetActive(true);
+            shopGraphics.SetActive(false);
+            return;
+        }
+
+        templeGraphics.SetActive(false);
         closeShopPanel.Invoke();
         CameraOut();
         GameInstance.playerController.shopIsOpened = false;
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 
 }

@@ -214,7 +214,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
 
         if (textDesc != null)
         {
-            ItemScriptableContainer itemToDesc = GameInstance.dataBase.GetItemFromBaseByIndex(inventoryItem.container);
+            ItemScriptableContainer itemToDesc = GameInstance.inventory.GetHeroItemScriptableByIndex(inventoryItem.container);
 
             if(itemToDesc.itemLevel > GameInstance.party.activeHero.GetSkillsStat(SkillsStat.Identify)/3)
             {

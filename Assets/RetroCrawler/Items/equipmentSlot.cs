@@ -60,7 +60,7 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
             if (!IsEmpty())
             {
                 if (GameInstance.dataBase.GetItemFromBaseByIndex(itemScriptable.container).twoHanded) shieldSlot.ClearSlot();
-                GiveBackItemToCursor(itemScriptable);
+                GiveBackItemToCursor(itemScriptable, true);
                 return;
             }
             else 
@@ -69,71 +69,75 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
             }
         }
 
-        print("clicked equipment slot" + itemFromCursor.itemType);
+        //print("clicked equipment slot" + itemFromCursor.itemType);
 
-        if (itemFromCursor.itemType != itemType) { GiveBackItemToCursor(itemFromCursor); return; }
+        if (itemFromCursor.itemType != itemType) { GiveBackItemToCursor(itemFromCursor, false); return; }
+        //print("correct item type for slot");
+
+        if (CheckForTwohandedWeapon(itemFromCursor, IsEmpty())) {  return; }
+
         if (IsEmpty()) 
         {
-            if (CheckForTwohandedWeapon(itemFromCursor)) return;
+            
             FillSlotWithItem(itemFromCursor); return;
             // check if cursor has item of the same type as equipment slot
         }
         if(!IsEmpty())
         {
-            if (!CheckForTwohandedWeapon(itemFromCursor))
-            {
-                //GiveBackItemToCursor(itemScriptable);
-                FillSlotWithItem(itemFromCursor);
-            }
+
+
+            GiveBackItemToCursor(itemScriptable, true);
+            FillSlotWithItem(itemFromCursor);
+
         }
     }
 
 
-    bool CheckForTwohandedWeapon(HeroInventoryItem itemFromCursor)
+    bool CheckForTwohandedWeapon(HeroInventoryItem itemFromCursor, bool emptySlot)
     {
         if (itemFromCursor.itemType == ItemType.WEAPON)
         {
             if (GameInstance.dataBase.GetItemFromBaseByIndex(itemFromCursor.container).twoHanded)
             {
 
-                if (!shieldSlot.IsEmpty())
-                {
-                    GiveBackItemToCursor(itemFromCursor);
-                    return true;
-                }
-                //print("check shield");
-                if (shieldSlot.IsEmpty())
+                if (emptySlot && shieldSlot.IsEmpty())
                 {
                     FillSlotWithItem(itemFromCursor);
                     shieldSlot.PlacePlaceholderOfItem(itemFromCursor);
-                    return true;
                 }
-            }
-            else
-            {
-                if (itemScriptable != null)
+
+                if (emptySlot && !shieldSlot.IsEmpty())
                 {
-                    if (GameInstance.dataBase.GetItemFromBaseByIndex(itemScriptable.container).twoHanded)
-                    {
-                        shieldSlot.ClearSlot();
-                        return false;
-                    }
+                    GiveBackItemToCursor(itemFromCursor, false);
                 }
+
+
+                if (!emptySlot && shieldSlot.IsEmpty())
+                {
+                    GiveBackItemToCursor(itemScriptable, false);
+                    FillSlotWithItem(itemFromCursor);
+                    shieldSlot.PlacePlaceholderOfItem(itemFromCursor);
+                }
+
+                if (!emptySlot && !shieldSlot.IsEmpty())
+                {
+
+                    GiveBackItemToCursor(itemFromCursor, false);
+                }
+
+                return true;
             }
         }
 
 
         if (itemFromCursor.itemType == ItemType.SHIELD)
         {
-            if (weaponSlot.IsEmpty())
-            {
-                FillSlotWithItem(itemFromCursor); return true;
-            }
+            if(weaponSlot.IsEmpty()) return false;
             if (GameInstance.dataBase.GetItemFromBaseByIndex(weaponSlot.itemScriptable.container).twoHanded)
             {
-                GiveBackItemToCursor(itemFromCursor); return true;
+                GiveBackItemToCursor(itemFromCursor,false); return true;
             }
-            else FillSlotWithItem(itemFromCursor); return  true;
+
         }
 
         return false;
@@ -141,20 +145,27 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
     void FillSlotWithItem(HeroInventoryItem itemToFill)
     {
-        if(itemScriptable !=null) GiveBackItemToCursor(itemScriptable);
+        //if(itemScriptable !=null) GiveBackItemToCursor(itemScriptable);
         itemScriptable = itemToFill;
         itemAvatar.sprite = GameInstance.dataBase.GetItemFromBaseByIndex(itemScriptable.container).InventorySprite;
         sendItemToParty.Invoke(itemScriptable, itemType);
     }
 
-    void GiveBackItemToCursor(HeroInventoryItem itemToGiveBack)
+    void GiveBackItemToCursor(HeroInventoryItem itemToGiveBack, bool nullifyItem)
     {
 
         GameInstance.playerController.SetPlayerCursorBusy(itemToGiveBack);
-        itemScriptable = null;
-        itemAvatar.sprite = emptySlotSprite;
-        sendItemToParty.Invoke(null, itemType);
+        if (nullifyItem)
+        {
+            if (GameInstance.dataBase.GetItemFromBaseByIndex(itemScriptable.container).twoHanded)
+            {
+                shieldSlot.ClearSlot();
+            }
 
+            itemScriptable = null;
+            itemAvatar.sprite = emptySlotSprite;
+            sendItemToParty.Invoke(null, itemType);
+        }
     }
     
     public void PlacePlaceholderOfItem(HeroInventoryItem itemToPlace)

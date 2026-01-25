@@ -13,6 +13,7 @@ public class Inventory : MonoBehaviour
     [SerializeField]    GameObject inventorySwitcher, paperDoll;
     [SerializeField] List<TextMeshProUGUI> keyAmountsText = new List<TextMeshProUGUI>();
     Dictionary<KeyType, TextMeshProUGUI> keyTexts = new Dictionary<KeyType, TextMeshProUGUI>();
+    Dictionary<int, ItemScriptableContainer> itemDatabase = new Dictionary<int, ItemScriptableContainer>();
 
     public UnityEvent<int> sendWeight;
     public UnityEvent enableInventory;
@@ -82,11 +83,20 @@ public class Inventory : MonoBehaviour
         GameInstance.party.RefreshUI.Invoke();
     }
 
-
-    public void CheckWeaponForTwoHands()
+    public void BuildItemDatabase()
     {
-
+        foreach(ItemScriptableContainer item in GameInstance.dataBase.GetWholeItemDatabase())
+        {
+            HeroInventoryItem heroInventoryItem = GameInstance.dataBase.HeroInventoryFromITemScriptable(item);
+            itemDatabase.Add(heroInventoryItem.container, item);
+        }
     }
+
+    public ItemScriptableContainer GetHeroItemScriptableByIndex(int index)
+    {
+        return itemDatabase[index];
+    }
+
 
     public float GetCurrentHeroWeight()
     {

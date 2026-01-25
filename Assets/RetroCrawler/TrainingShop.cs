@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class TrainingShop : MonoBehaviour
 {
 
-    [SerializeField] GameObject buttons, menus, infoBlock;
+    [SerializeField] GameObject buttons, menus, skillScreen, pointPrice;
+    [SerializeField] GameObject trainButton, acceptButton, clearButton;
     [SerializeField] List<TextMeshProUGUI> skillsTexts = new List<TextMeshProUGUI>();
     List<int> heroSkillNum = new List<int>();
     [SerializeField] List<Button> plusButtons = new List<Button>();
@@ -38,16 +39,27 @@ public class TrainingShop : MonoBehaviour
     public void OpenTrainingShop()
     {
         menus.SetActive(true);
-        infoBlock.SetActive(true);
+        trainButton.SetActive(true);
+
         //Get stats from active hero
         RefreshStatsInTraining();
 
     }
 
+    public void OpenSkillsScreen()
+    {
+        skillScreen.SetActive(true);
+        acceptButton.SetActive(true);
+        clearButton.SetActive(true);
+        trainButton.SetActive(false);
+    }
+
+
     public void AddPointToSkill(int skillIndex)
     {
+        
         if(skillsToSpend <= 0) { skillsToSpend = 0; return; }
-        if (GameInstance.party.SellBuyMoneyCheck(moneyForSkillsPoint) < 0) return;
+        if (GameInstance.party.SellBuyMoneyCheck((int)(moneyForSkillsPoint * skillRaiseGraph.Evaluate(GameInstance.party.GetPartyLevel()))) < 0) return;
         GetPlayersCoins();
         skillsToSpend--;
         heroSkillNum[skillIndex] = heroSkillNum[skillIndex] + 1;
@@ -158,6 +170,7 @@ public class TrainingShop : MonoBehaviour
 
         heroName.text = GameInstance.party.activeHero.HeroName();
         GetPlayersCoins();
+        pointPrice.GetComponent<TextMeshProUGUI>().text = ((int)(moneyForSkillsPoint * skillRaiseGraph.Evaluate(GameInstance.party.GetPartyLevel()))).ToString();
     }
     public void CameraOut()
     {
@@ -166,9 +179,21 @@ public class TrainingShop : MonoBehaviour
 
     public void CloseShop()
     {
+        if(skillScreen.activeSelf)
+        {
+            skillScreen.SetActive(false);
+            acceptButton.SetActive(false);
+            clearButton.SetActive(false);
+            trainButton.SetActive(true);
+            GameInstance.party.MoneyGoes(-moneySpent);
+            moneySpent = 0;
+            return;
+        }
+
+
         menus.SetActive(false);
         buttons.SetActive(false);
-        infoBlock.SetActive(false);
+        //skillScreen.SetActive(false);
         CameraOut();
         GameInstance.playerController.shopIsOpened = false;
         GameInstance.party.MoneyGoes(-moneySpent);

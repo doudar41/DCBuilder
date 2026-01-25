@@ -66,7 +66,12 @@ public class BattleLogLine : MonoBehaviour, IPointerClickHandler
 
     public void BackToBottom()
     {
-        gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(gameObject.GetComponent<RectTransform>().anchoredPosition.x, -590);
+        if (gameObject.GetComponent<RectTransform>().anchoredPosition.y  == -590)
+        {
+            gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(gameObject.GetComponent<RectTransform>().anchoredPosition.x, -700);
+        }
+        else
+            gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(gameObject.GetComponent<RectTransform>().anchoredPosition.x, -590);
     }
 
     public void Visible(bool onOff)

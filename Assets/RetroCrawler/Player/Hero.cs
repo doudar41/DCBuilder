@@ -128,18 +128,26 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
             }
         }
 
-/*        foreach(DependedStat dstat in System.Enum.GetValues(typeof(DependedStat)))
+        if(GameInstance.heroesCurrentData.Count !=0)
         {
-            if (dependedStatsDefault.ContainsKey(dstat))
+            foreach(HeroSavedCurrentData hcd in GameInstance.heroesCurrentData)
             {
-                dependedStatsDefault[dstat] += GetDependedStatModificator(dstat);
-            }
-        }*/
+                if(hcd.heroIndex == heroID)
+                {
+                    currentHealth = hcd.currentHealth;
+                    currentMana = hcd.currentMana;
+                    currentHunger = hcd.currentHunger;
 
-        currentHealth = GetMaxDependedStat(DependedStat.maxHealth);
-        currentMana = GetMaxDependedStat(DependedStat.maxMana);
-        currentHunger = GetMaxDependedStat(DependedStat.Hunger);
-        //print("hero "+ heroName+ "current health "+currentHealth + " max health "+ GetDependedStat(DependedStat.maxHealth));
+                }
+            }
+        }
+        else
+        {
+            currentHealth = GetMaxDependedStat(DependedStat.maxHealth);
+            currentMana = GetMaxDependedStat(DependedStat.maxMana);
+            currentHunger = GetMaxDependedStat(DependedStat.Hunger);
+        }
+
         healthSlider.ProgressBarFill((float)currentHealth / (float)GetMaxDependedStat(DependedStat.maxHealth));
     }
 
@@ -284,6 +292,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 poisonDamage = 0;
                 results.Add(new() { msgType = "s", msgString = heroName + " restored" });
                 break;
+
         }
         return results;
     }
@@ -347,10 +356,24 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 break;
             case SpellEffects.MSMod:
                 AddToMainStat(s.changedMainStat, s.amount);
+                results.Add(new() { msgType = "s", msgString = heroName + " " + s.changedMainStat + " increased by " + s.amount });
 
-            break;
+                break;
             case SpellEffects.DSMod:
                 SetDependedStat(s.changedDependedStat, s.amount + GetMaxDependedStat(s.changedDependedStat));
+                break;
+
+            case SpellEffects.Antidote:
+
+                foreach (Spell sc in debuffSpells)
+                {
+                    if (sc.spellEffect == SpellEffects.Poison) buffPanels.RemoveBuffFromList(sc);
+                }
+                gameplayStatuses.Remove(GameplayStatus.Poisoned);
+                poisonDamage = 0;
+                if (portraits.GetStatePortrait(GameplayStatus.None, out Sprite stateSpriteWell1)) portrait.sprite = stateSpriteWell1;
+                results.Add(new() { msgType = "s", msgString = heroName + " cured poison" });
+
                 break;
         }
         return results;
@@ -854,31 +877,68 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         if (heroInventoryItem == null) return false;
 
         //heroInventoryItem.savedState = SavedState.Equipment;
-        
+
         if (!equipmentWithGUID.TryAdd(GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).itemType, heroInventoryItem))
         {
             heroInventoryItem.heroIndex = heroID;
             equipmentWithGUID[GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).itemType] = heroInventoryItem;
 
         }
-        else
-        {
-            return false;
-        }
 
+        if(equipmentSpells.TryGetValue(GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).itemType, out SpellContainer _spell))
+        {
+            if (_spell == GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).spellContainer) return true;
+        }
+        
         if (!equipmentSpells.TryAdd(GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).itemType, GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).spellContainer))
         {
+                //print("light added " + GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).spellContainer.gameplaySpell); 
+
             equipmentSpells[GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).itemType] = GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).spellContainer;
-            return true;
+            if (GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).spellContainer.gameplaySpell)
+            {
+                GameInstance.spellbook.CastSpell(GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).spellContainer);
+                foreach(Spell _s in GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).spellContainer.spells)
+                {
+                    spellsAttached.Add(_s, _s.numberOfTurns);
+                }
+            }
         }
-        else return false;
+        else
+        {
+            if (GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).spellContainer.gameplaySpell)
+            {
+                GameInstance.spellbook.CastSpell(GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).spellContainer);
+                foreach (Spell _s in GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).spellContainer.spells)
+                {
+                    spellsAttached.Add(_s, _s.numberOfTurns);
+                }
+            }
+        }
+        return true;
     }
 
     public void RemoveItemFromEquipment(ItemType itemType)
     {
-        if(equipmentSpells.ContainsKey(itemType)) print("remove"+ equipmentSpells[itemType]);
+        if(equipmentSpells.ContainsKey(itemType)) print("remove "+ equipmentSpells[itemType]);
+        if (equipmentSpells.ContainsKey(itemType))
+        {
+            foreach (Spell spell in equipmentSpells[itemType].spells)
+            {
+                if (spell.spellEffect == SpellEffects.LightARoom)
+                {
+
+                    spellsAttached.Remove(spell);
+                    print("remove light " + GameInstance.spellbook.CheckHeroesForLightSource());
+                    if (!GameInstance.spellbook.CheckHeroesForLightSource()) GameInstance.spellbook.LightOff();
+
+                }
+            }
+        }
+
         equipmentSpells.Remove(itemType);
         equipmentWithGUID.Remove(itemType);
+        GameInstance.party.RefreshUI.Invoke();
     }
 
     public Dictionary<ItemType, HeroInventoryItem> GetHeroEquipment()
@@ -1013,15 +1073,15 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
             foreach (Spell s in equipmentSpells[it].spells)
             {
-                if(s.spellEffect == SpellEffects.LightARoom)
+                if (s.spellEffect == SpellEffects.LightARoom)
                 {
-                    GameInstance.spellbook.CheckHeroesForLightSource(new KeyValuePair<int, bool>(heroID, true) );
+                    
                 }
             }
 
         }
 
-        if (equipmentSpells.Count == 0) GameInstance.spellbook.CheckHeroesForLightSource(new KeyValuePair<int, bool>(heroID, false));
+        /*        if (equipmentSpells.Count == 0) GameInstance.spellbook.CheckHeroesForLightSource(new KeyValuePair<int, bool>(heroID, false));*/
 
         //print("hero time changes");
         if (spellsAttached.Count <= 0) return;
@@ -1049,7 +1109,10 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                     weaponEnchanced = MagicType.None;
                     break;
 
+                    case SpellEffects.LightARoom:
+                    RemoveItemFromEquipment(ItemType.SHIELD);
 
+                    break;
             }
             if (buffPanels != null)buffPanels.RemoveBuffFromList(s);
             spellsAttached.Remove(s);
@@ -1170,7 +1233,13 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         foreach (KeyValuePair<SkillsStat, int> sks in skillsStatsCurrent) { _skillStats.Add(sks.Key, sks.Value); }
 
     }
-
+    public int GetHeroMana() { 
+        return currentMana;
+    }
+    public int GetHeroHunger()
+    {
+        return currentHunger;
+    }
 
 }
 
@@ -1191,6 +1260,8 @@ public interface IHero
     public Dictionary<ItemType, HeroInventoryItem> GetHeroEquipment();
 
     public int GetHeroHealth();
+    public int GetHeroMana();
+    public int GetHeroHunger();
     public Hero GetThisHero();
     public int GetHeroAgro();
     public void ChangeArgo(int amount);
@@ -1220,6 +1291,8 @@ public interface IHero
 
 
     public void GetPureStats(out Dictionary<MainStat, int> _mainStats, out Dictionary<DependedStat, int> _dependStats, out Dictionary<SkillsStat, int> _skillStats);
+    public Dictionary<Spell, int> GetSpellsAttached();
+
 }
 
 public enum MainStat

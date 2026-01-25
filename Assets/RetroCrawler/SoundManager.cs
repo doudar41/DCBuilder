@@ -9,7 +9,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] SoundID battleMusic, exploreMusic;
     [SerializeField] List<ExploreMusicFromEnvironment> exploreMusicFromEnvironments = new List<ExploreMusicFromEnvironment>();
     Dictionary<BattleGroundEnvironment, SoundID> exploreMusicDict = new Dictionary<BattleGroundEnvironment, SoundID>();
-    SoundID currentExploreMusic;
+    SoundID currentExploreMusic = default;
     BattleGroundEnvironment currentExploreEnvironment = BattleGroundEnvironment.NONE;
     [SerializeField] List<SoundID> footstepSounds = new List<SoundID>();
 
@@ -78,12 +78,19 @@ public class SoundManager : MonoBehaviour
     public void BackToCurrentExploreMusic()
     {
         BroAudio.Stop(battleMusic, 0.5f);
-        BroAudio.Play(currentExploreMusic, 0.5f);
+        if (currentExploreMusic != default) BroAudio.Play(currentExploreMusic, 0.5f);
+        else
+        {
+            if(GameInstance.playerController.GetBattleGroundEnvironment() == BattleGroundEnvironment.NONE) ChangeExploreMusicOnBattleGround(BattleGroundEnvironment.CITY);
+            else ChangeExploreMusicOnBattleGround(GameInstance.playerController.GetBattleGroundEnvironment());
+        }
     }
 
 
     public void PlayFootsteps(GroundType groundType)
     {
+        if (GameInstance.playerController.GetBattleGroundEnvironment() == BattleGroundEnvironment.NONE) return;
+
         ChangeExploreMusicOnBattleGround(GameInstance.playerController.GetBattleGroundEnvironment());
         switch (groundType)
         {

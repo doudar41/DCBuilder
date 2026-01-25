@@ -33,7 +33,7 @@ MonoBehaviour:
     agroPoints: 2
     manaCost: 0
     diceRollsNumber: 1
-    diceSides: 6
+    diceSides: 12
     diceBonus: 2
     numberOfTurns: 0
     magicType: 0

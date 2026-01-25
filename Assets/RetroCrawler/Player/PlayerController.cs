@@ -402,8 +402,10 @@ public class PlayerController : MonoBehaviour
     }
 
     public BattleGroundEnvironment GetBattleGroundEnvironment()
-    {
-               return groundValues[currentposition];
+    { 
+        if (groundValues.TryGetValue(currentposition, out BattleGroundEnvironment env))
+            return env;
+        else return BattleGroundEnvironment.NONE;
     }
 
 

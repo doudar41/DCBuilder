@@ -1367,11 +1367,11 @@ MonoBehaviour:
   upFrontSound:
     ID: 1073741839
     _sourceAsset: {fileID: 11400000, guid: b57e0d2f91771b34d8c0a49ba7faee85, type: 2}
-    <DebugObject>k__BackingField: {fileID: 8822468640820191240, guid: 81cb18b3827cb374d85589e77e023c92, type: 3}
+    <DebugObject>k__BackingField: {fileID: 8822468640820191240}
   attackSound:
     ID: 1073741859
     _sourceAsset: {fileID: 11400000, guid: dbc6c79b4f17ac74aa04749a7917aa73, type: 2}
-    <DebugObject>k__BackingField: {fileID: 8822468640820191240, guid: 81cb18b3827cb374d85589e77e023c92, type: 3}
+    <DebugObject>k__BackingField: {fileID: 8822468640820191240}
   experienceReward: 50
   itemScriptableContainers: []
   itemsStackAmout: 

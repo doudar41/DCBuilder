@@ -145,8 +145,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2332392986505959107}
   - {fileID: 3900581868442376546}
@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a1ce443ee1fd254f8b8a0917536c866, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GUIDString: d609d426-b680-41e7-b66f-b31ca7d029b2
+  GUIDString: 79aa94c7-c805-4e2e-9286-ead9c268a1db
   thingsInsideChest:
   - {fileID: 11400000, guid: 39d90ed5a73057a47a54fc83e00c254b, type: 2}
   stackAmounts: 01000000
@@ -185,11 +185,8 @@ MonoBehaviour:
     ID: 1073741845
     _sourceAsset: {fileID: 11400000, guid: b57e0d2f91771b34d8c0a49ba7faee85, type: 2}
     <DebugObject>k__BackingField: {fileID: 2947778014916355340}
-  enemyList:
-  - size: 5
-    enemies:
-    - {fileID: 8822468640820191240, guid: f9a8b41fadb31d44ca6696adcf56a97d, type: 3}
-  isMimic: 1
+  enemyList: []
+  isMimic: 0
   chestCollider: {fileID: 4338395805057226923}
   mimicPlace: {fileID: 1512163934413594382}
 --- !u!212 &6822751633261789579
@@ -251,7 +248,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2947778014916355340}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13eb8f7f125fe3348b43d3007a12e7bc, type: 3}
   m_Name: 
@@ -270,7 +267,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0

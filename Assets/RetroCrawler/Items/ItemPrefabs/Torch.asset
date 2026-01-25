@@ -19,7 +19,7 @@ MonoBehaviour:
   worldSprite: {fileID: 21300000, guid: 8ba50bbcff03e244784eae30a5da4285, type: 3}
   prefab: {fileID: 2885720944578253258, guid: 6d136840e7ab0cd49a6304b166e83eb6, type: 3}
   weight: 1
-  spellContainer: {fileID: 11400000, guid: 71f3e049216841c4e8512b961181e68b, type: 2}
+  spellContainer: {fileID: 11400000, guid: 4fcbfe79699a9b1408175cd3577ead1b, type: 2}
   weaponType: 0
   twoHanded: 0
   price: 1
@@ -28,3 +28,4 @@ MonoBehaviour:
   keyType: 0
   journalEntry: 
   dialogueKeys: 
+  stackable: 0

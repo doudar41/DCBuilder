@@ -48,6 +48,7 @@ public static class GameInstance
 
     public static List<HeroInventoryItem> equipmentHeroesSavedWithGUID = new List<HeroInventoryItem>();
     public static List<HeroInventoryItem> inventoryItemsSaved = new List<HeroInventoryItem>();
+    public static Dictionary<int, HeroInventoryItem> identifiedItems = new Dictionary<int, HeroInventoryItem>(); 
     public static Dictionary<string, HeroInventoryItem> itemsOnLevelSavedWithGUID = new Dictionary<string,HeroInventoryItem>();
 
     public static List<string> levelsVisited = new List<string>();
@@ -84,7 +85,7 @@ public static class GameInstance
 
     public static bool noEncounter = true;
     public static int savedTimeToEncounter = 0, expPoints = 0, moneyCollected = 0, gemsCollected =0, partyLevel = 0;
-
+    public static List<HeroSavedCurrentData> heroesCurrentData = new List<HeroSavedCurrentData>();
 
     //Chest and doors
 
@@ -209,6 +210,18 @@ public static class GameInstance
         savedTimeToEncounter = playerController.GetCountdownToEncounter();
 
         if(!levelsVisited.Contains(SceneManager.GetActiveScene().name)) levelsVisited.Add(SceneManager.GetActiveScene().name);
+        heroesCurrentData.Clear();
+        foreach (IHero ih in party.GetIHeroes())
+        {
+            HeroSavedCurrentData heroCurrentData = new HeroSavedCurrentData();
+            heroCurrentData.FillCurrentData(ih);
+            heroesCurrentData.Add(heroCurrentData);
+        }
+
+        foreach(HeroSavedCurrentData h in heroesCurrentData)
+            {
+            Debug.Log(" hero current data " + h.heroIndex + " " + h.currentHealth + " " + h.currentMana + " " + h.currentHunger);
+        }
 
 
         if (party != null) party.SaveEquipment();
@@ -405,6 +418,14 @@ public static class GameInstance
         saveData.gemsCollected = party.CheckGems(0);
         saveData.expPoints = party.addExperiencePoints(0);
         saveData.savedTimeToEncounter = playerController.GetCountdownToEncounter();
+        heroesCurrentData.Clear();
+        foreach (IHero ih in party.GetIHeroes())
+        {
+            HeroSavedCurrentData heroCurrentData = new HeroSavedCurrentData();
+            heroCurrentData.FillCurrentData(ih);
+            heroesCurrentData.Add(heroCurrentData);
+        }
+        saveData.heroesCurrentData = heroesCurrentData;
 
         List<Vector3Int> customBattlesFinished = new List<Vector3Int>();
         foreach (KeyValuePair<Vector3Int, bool> c in customBattlesInPlaceFinished)
@@ -473,7 +494,10 @@ public static class GameInstance
             gemsCollected = saveData.gemsCollected;
             expPoints = saveData.expPoints;
             savedTimeToEncounter = saveData.savedTimeToEncounter;
-            
+            foreach(HeroSavedCurrentData h in saveData.heroesCurrentData)
+            {
+                heroesCurrentData.Add(h);
+            }
 
             SceneManager.LoadScene(saveData.levelName, LoadSceneMode.Single); 
         }
@@ -633,6 +657,7 @@ public static class GameInstance
 
     public static List<MainStatsSave> ConvertMainStatsToSave(Dictionary<MainStat, int> mainStatToConvert, int heroIndex)
     {
+
         List<MainStatsSave> newmainsave = new List<MainStatsSave>();
 
         foreach (KeyValuePair<MainStat, int> mainStat in mainStatToConvert)
@@ -645,6 +670,7 @@ public static class GameInstance
         }
         return newmainsave;
     }
+
 }
 
 [System.Serializable]
@@ -659,6 +685,7 @@ public enum SavedState
     Inventory,
     Equipment
 }
+
 
 [System.Serializable]
 public class SaveData
@@ -693,7 +720,31 @@ public class SaveData
     public List<Vector3Int> customBattlesInPlaceFinished = new List<Vector3Int>();
     public int savedTimeToEncounter = 0, expPoints = 0, moneyCollected = 0, gemsCollected = 0;
     public bool isDungeon = true;
+    public List<HeroSavedCurrentData> heroesCurrentData = new List<HeroSavedCurrentData>();
 }
+
+
+[System.Serializable]
+public struct HeroSavedCurrentData
+{
+    public int heroIndex;
+    public int currentHealth;
+    public int currentMana;
+    public int currentHunger;
+    public List<GameplayStatus> gameplayStatus;
+
+
+    public void FillCurrentData(IHero hero)
+    {
+        heroIndex = hero.GetHeroIndex();
+        currentHealth = hero.GetHeroHealth();
+        currentMana = hero.GetHeroMana();
+        currentHunger = hero.GetHeroHunger();
+        gameplayStatus = new List<GameplayStatus>();
+        gameplayStatus = hero.GetHeroStatus();
+    }
+}
+
 
 [System.Serializable]
 public struct visitedBlock
@@ -748,6 +799,8 @@ public class HeroInventoryItem
         level = heroInventoryItem.level;
         levelOfIdenifySaved = heroInventoryItem.levelOfIdenifySaved;
     }
+    
+
 }
 
 
