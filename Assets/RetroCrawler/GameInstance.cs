@@ -1,4 +1,7 @@
+using Ami.BroAudio.Runtime;
 using Gley.AllPlatformsSave;
+using JetBrains.Annotations;
+using OpenCover.Framework.Model;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -88,6 +91,7 @@ public static class GameInstance
     public static List<HeroSavedCurrentData> heroesCurrentData = new List<HeroSavedCurrentData>();
 
     //Chest and doors
+    static SaveOptionsData saveOptionsData = new SaveOptionsData();
 
     public static void ClearAllInstantSavedData()
     {
@@ -435,6 +439,10 @@ public static class GameInstance
             heroCurrentData.FillCurrentData(ih);
             heroesCurrentData.Add(heroCurrentData);
         }
+        foreach (HeroInventoryItem item in identifiedItems.Values)
+        {
+            saveData.identifiedItems.Add(item);
+        }
         saveData.heroesCurrentData = heroesCurrentData;
 
         List<Vector3Int> customBattlesFinished = new List<Vector3Int>();
@@ -504,6 +512,11 @@ public static class GameInstance
             gemsCollected = saveData.gemsCollected;
             expPoints = saveData.expPoints;
             savedTimeToEncounter = saveData.savedTimeToEncounter;
+            foreach (HeroInventoryItem item in saveData.identifiedItems)
+            {
+                identifiedItems.Add(item.container, item);
+            }
+
             foreach(HeroSavedCurrentData h in saveData.heroesCurrentData)
             {
                 heroesCurrentData.Add(h);
@@ -681,6 +694,44 @@ public static class GameInstance
         return newmainsave;
     }
 
+    public static void OptionsDataSaver(SaveOptionsData saveOptionsData)
+    {
+        if (saveOptionsData != null)
+        {
+           Debug.Log("saving options " + saveOptionsData.musicVolume);
+            string path = Application.persistentDataPath + "/" + "OptionsSaved";
+            Gley.AllPlatformsSave.API.Save(saveOptionsData, path, DataWasSaved, false);
+        }
+        LoadOptionsSaved();
+    }
+
+    public static void LoadOptionsSaved()
+    {
+        string path = Application.persistentDataPath + "/" + "OptionsSaved";
+        Gley.AllPlatformsSave.API.Load<SaveOptionsData>(path, OptionsWasLoaded, false);
+
+
+    }
+    static void OptionsWasLoaded(SaveOptionsData saveData, SaveResult result, string message)
+    {
+        if (result == SaveResult.EmptyData || result == SaveResult.Error)
+        {
+            Debug.Log("No Data File Found -> Creating new data...");
+            saveData = new SaveOptionsData();
+        }
+
+        if (result == SaveResult.Success)
+        {
+            Debug.Log("loading options" + saveData.musicVolume);
+            saveOptionsData = saveData;
+        }
+    }
+
+    public static SaveOptionsData GetSaveOptionsData()
+    {
+        return saveOptionsData;
+    }
+
 }
 
 [System.Serializable]
@@ -731,6 +782,16 @@ public class SaveData
     public int savedTimeToEncounter = 0, expPoints = 0, moneyCollected = 0, gemsCollected = 0;
     public bool isDungeon = true;
     public List<HeroSavedCurrentData> heroesCurrentData = new List<HeroSavedCurrentData>();
+    public List<HeroInventoryItem> identifiedItems = new List<HeroInventoryItem>();
+}
+
+[System.Serializable]
+public class SaveOptionsData
+{
+    public float musicVolume = 1.0f;
+    public float sfxVolume = 1.0f;
+
+    public SaveOptionsData GetThis() { return this; }
 }
 
 

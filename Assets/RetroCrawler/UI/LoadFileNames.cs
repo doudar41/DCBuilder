@@ -30,7 +30,7 @@ public class LoadFileNames : MonoBehaviour
 
     private void Start()
     {
-        fileNameInput.onEndEdit.AddListener(AddFileNameToList);
+       if(fileNameInput!=null) fileNameInput.onEndEdit.AddListener(AddFileNameToList);
     }
 
     private void AddFileNameToList(string fileName)

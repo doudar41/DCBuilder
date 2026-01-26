@@ -1,3 +1,4 @@
+using Ami.BroAudio;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,11 @@ public class LoadLevelOrder : MonoBehaviour
     {
         
         GameInstance.initItems();
+
+
+
+
+
         if (GameInstance.levelsVisited.Contains(GameInstance.GetLevelName()))
         {
             Dictionary<string, HeroInventoryItem> listToMake = new Dictionary<string, HeroInventoryItem>();

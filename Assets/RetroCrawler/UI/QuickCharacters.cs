@@ -1,4 +1,5 @@
 
+using Ami.BroAudio;
 using System.Collections.Generic;
 using TMPro;
 
@@ -13,7 +14,7 @@ public class QuickCharacters : MonoBehaviour
     [SerializeField] List<SpellContainer> spellsChosen01, spellsChosen02, spellsChosen03, spellsChosen04;
 
     [SerializeField] List<UniqueDialogueName> startingUniqueDialogueNames = new List<UniqueDialogueName>();
-
+    [SerializeField] SoundID mainTheme = default;
     Dictionary<int, Dictionary<MainStat, int>> mainS = new Dictionary<int, Dictionary<MainStat, int>>();
     Dictionary<int, int> portraitIndex = new Dictionary<int, int>() { { 0, -1 }, { 1, -1 }, { 2, -1 }, { 3, -1 } };
 
@@ -102,6 +103,7 @@ public class QuickCharacters : MonoBehaviour
         GameInstance.currentUniqueDialogueNames = startingUniqueDialogueNames;
 
         SendStatsToGameInstance();
+        BroAudio.Stop(mainTheme, 0.5f);
         GameInstance.LoadGameFromStart();
     }
 
