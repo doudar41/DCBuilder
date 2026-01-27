@@ -85,7 +85,7 @@ public class ItemShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         heroInventoryItem.stackAmount = 1;
         heroInventoryItem.positionReplaced = Vector3.zero;
         heroInventoryItem.level = "Level01";
-        GameInstance.inventory.FindEmptySlotAndPutItem(heroInventoryItem, 1);
+        GameInstance.inventory.FindEmptySlotAndPutItem(heroInventoryItem, 1, false);
     }
 
     void SellItemFromSlot(ItemScriptableContainer item)

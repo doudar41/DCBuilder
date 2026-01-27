@@ -27,6 +27,12 @@ public class Party : MonoBehaviour
     int currentexp = 0;
     int timeToLevelUp = 0;
 
+    private void Awake()
+    {
+        activeHero = heroes[0].gameObject.GetComponent<IHero>();
+    }
+
+
     public int addExperiencePoints(int exp)
     {
         currentexp += exp;

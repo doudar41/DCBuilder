@@ -152,7 +152,7 @@ public class BattleManager : MonoBehaviour
 
 
         battleGroundGraphics.SetBattleGround(battleGroundEnvironment);
-        GameInstance.soundManager.LaunchBattleMusic(battleGroundEnvironment);
+        GameInstance.soundManagerInGame.LaunchBattleMusic(battleGroundEnvironment);
         GameInstance.playerController.StartCustomBattle();
         enemyTurn.Invoke("Battle");
         //StopCoroutine(GameInstance.TimeStep());
@@ -212,7 +212,7 @@ public class BattleManager : MonoBehaviour
         battleStarts.Invoke();
 
         GameInstance.playerController.StartCustomBattle();
-        GameInstance.soundManager.LaunchBattleMusic(BattleGroundEnvironment.STONE);
+        GameInstance.soundManagerInGame.LaunchBattleMusic(BattleGroundEnvironment.STONE);
     }
 
 
@@ -254,7 +254,7 @@ public class BattleManager : MonoBehaviour
         battleStarts.Invoke();
 
         GameInstance.playerController.StartCustomBattle();
-        GameInstance.soundManager.LaunchBattleMusic(iblock.GetBattleGroundEnvironment());
+        GameInstance.soundManagerInGame.LaunchBattleMusic(iblock.GetBattleGroundEnvironment());
     }
 
 
@@ -784,7 +784,7 @@ public class BattleManager : MonoBehaviour
         if (customBattleObject !=null) { customBattleObject = null; }
         else { print("battle's over let's back to explore"); GameInstance.playerController.ReturnToPreBattlePosition(); }
 
-        GameInstance.soundManager.BackToCurrentExploreMusic();
+        GameInstance.soundManagerInGame.BackToCurrentExploreMusic();
         //StartCoroutine(GameInstance.TimeStep());
         GameInstance.party.SetTimerForHeroes(false);
         StartCoroutine(GameInstance.TimeStep());

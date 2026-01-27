@@ -21,7 +21,7 @@ public class DayNightChange : MonoBehaviour
     public bool isDungeon { get; set; }
     public UnityEvent<int, int, int> gameClock;
 
-
+    public bool isNight { get; set; }
 
     private void Awake()
     {
@@ -100,6 +100,7 @@ public class DayNightChange : MonoBehaviour
     {
         gameClock.Invoke(GameInstance.GetNormalTime()[2], GameInstance.GetNormalTime()[1] % 24, GameInstance.GetNormalTime()[0] % 60);
         ChangeTimeFlow();
+        isNight = NightClosed(countdown);
         //print(GameInstance.GetNormalTime()[1].ToString() + ":" + GameInstance.GetNormalTime()[2].ToString()+":"+GameInstance.GetNormalTime()[3].ToString());
 
         if (GameInstance.playerController.GetBattleGroundEnvironment() == BattleGroundEnvironment.CITY
@@ -239,4 +240,19 @@ public class DayNightChange : MonoBehaviour
         corouting = false;
         yield return null;
     }
+
+    public bool NightClosed(int count)
+    {
+        //print(GameInstance.GetNormalTime()[1].ToString() + ":" + GameInstance.GetNormalTime()[2].ToString()+":"+GameInstance.GetNormalTime()[3].ToString());
+        if (GameInstance.GetNormalTime()[1] % 24 >= 6 && GameInstance.GetNormalTime()[1] % 24 < 20)
+        {
+            return  false;
+        }
+        else
+        {
+            return true;
+
+        }
+    }
+
 }

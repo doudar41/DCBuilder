@@ -379,7 +379,7 @@ public class Spellbook : MonoBehaviour
         else
         {
             identifyMode = false;
-            GameInstance.SetMouseCursor(cursorNormal, new Vector2(0,0));
+            if(!GameInstance.playerController.IsCursorBusy())GameInstance.SetMouseCursor(cursorNormal, new Vector2(0,0));
         }
     }
 

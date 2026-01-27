@@ -115,17 +115,9 @@ MonoBehaviour:
     SnapToFullVolume: 0
   - <Name>k__BackingField: MainTheme
     <ID>k__BackingField: 268435461
-    MulticlipsPlayMode: 5
+    MulticlipsPlayMode: 0
     _group: {fileID: 0}
     Clips:
-    - AudioClip: {fileID: 8300000, guid: f785b340fe8908d42a713177f5582a00, type: 3}
-      Volume: 1
-      Delay: 0
-      StartPosition: 0
-      EndPosition: 0
-      FadeIn: 0
-      FadeOut: 0
-      Weight: 0
     - AudioClip: {fileID: 8300000, guid: f86cc905e8f68914096a5566e56d459d, type: 3}
       Volume: 1
       Delay: 0
@@ -149,6 +141,6 @@ MonoBehaviour:
       BPM: 67.5
       Beats: 148
     SnapToFullVolume: 0
-  Group: {fileID: 0}
+  Group: {fileID: 11400000, guid: 10a95a872e064b04db57bf789b5da073, type: 2}
   <AssetName>k__BackingField: Music
   _assetGUID: a4dbd3420acce304ea11a0f5b982f3e9

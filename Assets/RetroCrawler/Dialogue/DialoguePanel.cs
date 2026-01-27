@@ -78,7 +78,7 @@ public class DialoguePanel : MonoBehaviour
 
             foreach (ItemScriptableContainer item in dialogue.itemsAddToParty)
             {
-                GameInstance.inventory.FindEmptySlotAndPutItem( GameInstance.dataBase.HeroInventoryFromITemScriptable(item), 1);
+                GameInstance.inventory.FindEmptySlotAndPutItem( GameInstance.dataBase.HeroInventoryFromITemScriptable(item), 1, false);
             }
 
             GameInstance.party.MoneyGoes(-dialogue.goldAmount);

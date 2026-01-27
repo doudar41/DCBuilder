@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraOrder : MonoBehaviour
 {
     [SerializeField] Camera frontUICamera, shopInventoryCamera;
-    [SerializeField] GameObject inventoryWindow, statsWindow, dialogueWindow, battleLogWindow, shopWindow;
+
     // dialogues should be in front of everything
     // dialogue window never goes with Inventory or Stats windows
     // battle log goes with gameplay but behind shops, inventory and stats windows

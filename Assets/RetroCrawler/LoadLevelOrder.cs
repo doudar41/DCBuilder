@@ -44,7 +44,7 @@ public class LoadLevelOrder : MonoBehaviour
         {
             GameInstance.levelsVisited.Add(GameInstance.GetLevelName());
         }
-        GameInstance.party.LoadEquipment();
+
 
         foreach(HeroInventoryItem h in GameInstance.inventoryItemsSaved)
         {
@@ -72,7 +72,7 @@ public class LoadLevelOrder : MonoBehaviour
         {
             h.HeroInit();
         }
-
+        GameInstance.party.LoadEquipment();
         GameInstance.inventory.LoadKeys();
 
         GameInstance.checkWeight();

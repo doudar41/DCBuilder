@@ -8029,7 +8029,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 31e24a9cad6287346baf41c0ab888aab, type: 2}
   - {fileID: 11400000, guid: 57321532f5930e944ae41a36218f4b3e, type: 2}
   - {fileID: 11400000, guid: 30428ed3edd14064c9e3facd9ec46321, type: 2}
-  - {fileID: 11400000, guid: 30428ed3edd14064c9e3facd9ec46321, type: 2}
+  - {fileID: 11400000, guid: 39d90ed5a73057a47a54fc83e00c254b, type: 2}
   spellsChosen01: []
   spellsChosen02:
   - {fileID: 11400000, guid: 8f4e4410528b0a5449719e5d0eb32ae2, type: 2}

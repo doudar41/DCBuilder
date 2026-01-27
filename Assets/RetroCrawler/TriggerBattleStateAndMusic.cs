@@ -19,7 +19,7 @@ public class TriggerBattleStateAndMusic : MonoBehaviour
         }
 
 
-        GameInstance.soundManager.SetExplorationMusicIndex(exploreMusicLocal);
+        GameInstance.soundManagerInGame.SetExplorationMusicIndex(exploreMusicLocal);
     }
     
 }

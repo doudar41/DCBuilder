@@ -25,7 +25,7 @@ public class ItemShop : MonoBehaviour
     List<int> itemsToSellKeys = new List<int>();
     int sellItemIndexStart = 0;
     ShopState shopState = ShopState.SellToPlayer;
-    [SerializeField]  SoundID closeShopSound, voicePhrase, openShopPhrase, ambience = default;
+    [SerializeField]  SoundID closeDoor, closeShopVO, openShopVO, ambience = default;
     int coinsSpent = 0;
     List<ItemScriptableContainer> itemsForSale = new List<ItemScriptableContainer>();
 
@@ -64,6 +64,7 @@ public class ItemShop : MonoBehaviour
         identifyButton.SetActive(false);
         heroMoney.SetActive(true);
         shopState = ShopState.MainScreen;
+        BroAudio.Play(openShopVO);
     }
 
     public void SwitchToInventory()
@@ -265,17 +266,17 @@ public class ItemShop : MonoBehaviour
         CameraOut();
         GameInstance.playerController.shopIsOpened = false;
         gameObject.SetActive(false);
-        BroAudio.Play(closeShopSound);
+        BroAudio.Play(closeDoor);
         if (GameInstance.party.SellBuyMoneyCheck(coinsSpent) != 0)
         {
-            BroAudio.Play(voicePhrase).SetVelocity(Random.Range(3,6));
+            BroAudio.Play(closeShopVO).SetVelocity(Random.Range(3,6));
         }
         else
         {
-            BroAudio.Play(voicePhrase).SetVelocity(Random.Range(0, 3));
+            BroAudio.Play(closeShopVO).SetVelocity(Random.Range(0, 3));
         }
         GetComponent<animateUIImage>().StopAnimation();
-        BroAudio.Stop(openShopPhrase);
+        BroAudio.Stop(openShopVO);
         BroAudio.Stop(ambience,0.3f);
         backGroundImage.enabled = false;
         shopInsides.SetActive(false);

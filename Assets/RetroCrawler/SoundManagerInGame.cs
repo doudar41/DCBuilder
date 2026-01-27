@@ -4,15 +4,16 @@ using UnityEngine;
 using Ami.BroAudio;
 
 
-public class SoundManager : MonoBehaviour
+public class SoundManagerInGame : MonoBehaviour
 {
     [SerializeField] SoundID battleMusic, exploreMusic;
     [SerializeField] List<ExploreMusicFromEnvironment> exploreMusicFromEnvironments = new List<ExploreMusicFromEnvironment>();
+
     Dictionary<BattleGroundEnvironment, SoundID> exploreMusicDict = new Dictionary<BattleGroundEnvironment, SoundID>();
     SoundID currentExploreMusic = default;
     BattleGroundEnvironment currentExploreEnvironment = BattleGroundEnvironment.NONE;
     [SerializeField] List<SoundID> footstepSounds = new List<SoundID>();
-
+    [SerializeField] SoundID startingMusic = default;
 
 #if BroAudio_InitManually
         public static void Init()
@@ -23,7 +24,7 @@ public class SoundManager : MonoBehaviour
 
     private void Awake()
     {
-        GameInstance.soundManager = this;
+        GameInstance.soundManagerInGame = this;
         foreach (ExploreMusicFromEnvironment emfe in exploreMusicFromEnvironments)
         {
             exploreMusicDict.Add(emfe.battleGroundEnvironment, emfe.exploreMusicID);
@@ -32,7 +33,20 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
 
-
+        print("start playing "+startingMusic);
+        BroAudio.Play(startingMusic);
+        currentExploreMusic = startingMusic;
+        /*        if (currentExploreMusic != startingMusic)
+                {
+                    if (BroAudio.HasAnyPlayingInstances(currentExploreMusic)) BroAudio.Stop(currentExploreMusic, 1f);
+                    BroAudio.Play(startingMusic);
+                    currentExploreMusic = startingMusic;
+                }
+                else
+                {
+                    currentExploreMusic = startingMusic;
+                    if (!BroAudio.HasAnyPlayingInstances(currentExploreMusic)) BroAudio.Play(currentExploreMusic, 1f);
+                }*/
     }
 
     private void OnDestroy()

@@ -58,7 +58,7 @@ public class PlayerTakeInteractInterface : MonoBehaviour
                         Debug.Log("Player triggered a pickable item.");
                         IItem iitem = other.GetComponent<IItem>();
                         HeroInventoryItem item = other.GetComponent<IItem>().WhatItem();
-                        GameInstance.inventory.FindEmptySlotAndPutItem(item, item.stackAmount);
+                        GameInstance.inventory.FindEmptySlotAndPutItem(item, item.stackAmount, false);
                         _collider.enabled = false;
                         iitem.RemoveFromTheWorld();
 

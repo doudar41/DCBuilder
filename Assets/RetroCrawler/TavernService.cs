@@ -21,7 +21,7 @@ public class TavernService : MonoBehaviour
     {
         backGroundImage.SetActive(true);
         tavernButtons.SetActive(true);
-        GameInstance.soundManager.DuckingCurrentMusic(background);
+        GameInstance.soundManagerInGame.DuckingCurrentMusic(background);
         heroesMoney.SetActive  (true);
         GetPlayersCoins();
     }
@@ -99,7 +99,7 @@ public class TavernService : MonoBehaviour
         tavernButtons.SetActive(false);
         exitTavern.Invoke();
         GameInstance.playerController.shopIsOpened = false;
-        GameInstance.soundManager.UnduckingCurrentMusic(background);
+        GameInstance.soundManagerInGame.UnduckingCurrentMusic(background);
         cameraOrder.BattleLogWithGameplay();
         heroesMoney.SetActive(false);
     }

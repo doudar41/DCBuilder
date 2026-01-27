@@ -51,7 +51,7 @@ MonoBehaviour:
   battleSpell: 1
   equipableSpell: 0
   minDistanceToEnemy: 1
-  spellName: Knife
+  spellName: Dagger
   spellPrice: 0
   spellLevel: 0
-  animationTriggerName: 
+  animationTriggerName: Dagger

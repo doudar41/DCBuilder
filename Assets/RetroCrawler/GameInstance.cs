@@ -1,11 +1,9 @@
-using Ami.BroAudio.Runtime;
+
 using Gley.AllPlatformsSave;
-using JetBrains.Annotations;
-using OpenCover.Framework.Model;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting.FullSerializer;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,7 +18,7 @@ public static class GameInstance
     public static Database dataBase;
     public static DialoguePanel dialoguePanel;
     public static GameJournal gameJournal;
-    public static SoundManager soundManager;
+    public static SoundManagerInGame soundManagerInGame;
     public static DayNightChange dayNightChange;
 
     static Texture2D cursorTargetGraphics, cursorNormal;
@@ -118,6 +116,7 @@ public static class GameInstance
         gameTimeInNormalTime[2] = 0;
         savedTimeToEncounter = 0; expPoints = 0; moneyCollected = 0; gemsCollected = 0; partyLevel = 0;
         identifiedItems.Clear();
+        levelChange = false;
     }
 
     public static int DiceRollingBiggestNumber(int diceNumber, int diceSides)

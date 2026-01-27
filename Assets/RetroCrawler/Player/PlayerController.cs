@@ -324,7 +324,7 @@ public class PlayerController : MonoBehaviour
         currentWallBlock = wallsAccess[currentposition];
         RotateToCardinalLocation();
         //print("Initializing controller and launching music");
-        GameInstance.soundManager.ChangeExploreMusicOnBattleGround(GameInstance.playerController.GetBattleGroundEnvironment());
+       // GameInstance.soundManager.ChangeExploreMusicOnBattleGround(GameInstance.playerController.GetBattleGroundEnvironment());
     }
 
     void OpenBlocksForMap(List<Vector3Int> blocksVisited)

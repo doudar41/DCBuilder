@@ -1,8 +1,9 @@
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using TMPro;
+using Ami.BroAudio;
 using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
 {
@@ -48,6 +49,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
                     List<ResultMsg> results = GameInstance.party.activeHero.ApplySpellToHero(GameInstance.dataBase.GetItemFromBaseByIndex( inventoryItem.container).spellContainer);
                     amountText.text = stackAmount.ToString();
                     GameInstance.spellbook.battlelogEvent.Invoke(new List<string>() { },results);
+                    BroAudio.Play(GameInstance.inventory.GetHeroItemScriptableByIndex(inventoryItem.container).inventorySound);
                 }
                 else
                 {
@@ -57,6 +59,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
                     itemAvatar.sprite = emptySlotSprite;
                     amountText.text = stackAmount.ToString();
                     GameInstance.spellbook.battlelogEvent.Invoke(new List<string>() { }, results);
+
                 }
                 return;
             }
@@ -93,6 +96,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
                     else stackAmount = 1;
                     itemAvatar.sprite = GameInstance.dataBase.GetItemFromBaseByIndex(inventoryItem.container).InventorySprite;
                     amountText.text = stackAmount.ToString();
+                    BroAudio.Play(GameInstance.inventory.GetHeroItemScriptableByIndex(inventoryItem.container).inventorySound);
                 }
             }
             else
@@ -127,6 +131,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
                     }
 
                     amountText.text = stackAmount.ToString();
+                    BroAudio.Play(GameInstance.inventory.GetHeroItemScriptableByIndex(inventoryItem.container).inventorySound);
                     return;
                 }
                 if (stackAmount >= 1 && !GameInstance.playerController.IsCursorBusy())

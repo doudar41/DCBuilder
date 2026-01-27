@@ -26,7 +26,7 @@ public class TempleItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnter
     {
         if (GameInstance.party.SellBuyMoneyCheck(price) >= 0)
         {
-            GameInstance.inventory.FindEmptySlotAndPutItem(GameInstance.dataBase.HeroInventoryFromITemScriptable(itemToSell),1);
+            GameInstance.inventory.FindEmptySlotAndPutItem(GameInstance.dataBase.HeroInventoryFromITemScriptable(itemToSell),1, false);
             GameInstance.party.MoneyGoes(price);
         }
     }

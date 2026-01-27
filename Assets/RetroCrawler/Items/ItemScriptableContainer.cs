@@ -1,3 +1,4 @@
+using Ami.BroAudio;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,7 @@ public class ItemScriptableContainer : ScriptableObject
     public string journalEntry = "";
     public List<UniqueDialogueName> dialogueKeys = new List<UniqueDialogueName>();
     public bool stackable = false;
+    public SoundID inventorySound = default;
 }
 
 

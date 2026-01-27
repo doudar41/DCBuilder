@@ -176,8 +176,6 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
     }
 
     
-
-
     public bool IfWallOpened(CardinalDirections dir)
     {
         

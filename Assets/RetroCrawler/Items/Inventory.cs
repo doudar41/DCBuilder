@@ -1,8 +1,9 @@
-using System.Collections;
+using Ami.BroAudio;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
+using Ami.BroAudio.Data;
 
 public class Inventory : MonoBehaviour
 {
@@ -129,7 +130,7 @@ public class Inventory : MonoBehaviour
 
 
 
-    public void FindEmptySlotAndPutItem(HeroInventoryItem itemScriptableTemp, int stackamount)
+    public void FindEmptySlotAndPutItem(HeroInventoryItem itemScriptableTemp, int stackamount, bool noSound = true)
     {
         ItemSlot[] slots = slotsParent.GetComponentsInChildren<ItemSlot>();
         foreach(ItemSlot i in slots)
@@ -138,6 +139,7 @@ public class Inventory : MonoBehaviour
             {
                 if (i.AddItemInSlot(itemScriptableTemp, stackamount))
                 {
+                    if (!noSound) { print("pllay item sound");  BroAudio.Play(itemDatabase[itemScriptableTemp.container].inventorySound); }
                     break;
                 }
             }

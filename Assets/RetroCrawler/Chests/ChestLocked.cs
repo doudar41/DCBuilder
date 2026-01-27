@@ -119,7 +119,7 @@ public class ChestLocked : MonoBehaviour, IPointerClickHandler, IChestLocked
         {
             foreach (HeroInventoryItem item in inventoryInsideChest)
             {
-                GameInstance.inventory.FindEmptySlotAndPutItem(item, item.stackAmount);
+                GameInstance.inventory.FindEmptySlotAndPutItem(item, item.stackAmount, false);
                 GameInstance.spellbook.BattleLogMessage(new List<string>() { "item added " + GameInstance.dataBase.GetItemFromBaseByIndex(item.container).itemName }, null);
             }
             StartCoroutine(AnimateOpen());
@@ -132,7 +132,7 @@ public class ChestLocked : MonoBehaviour, IPointerClickHandler, IChestLocked
             {
                 foreach (HeroInventoryItem item in inventoryInsideChest)
                 {
-                    GameInstance.inventory.FindEmptySlotAndPutItem(item, item.stackAmount);
+                    GameInstance.inventory.FindEmptySlotAndPutItem(item, item.stackAmount,false);
                     GameInstance.spellbook.BattleLogMessage(new List<string>() { "item added " + GameInstance.dataBase.GetItemFromBaseByIndex(item.container).itemName }, null);
                 }
                 StartCoroutine(AnimateOpen());
@@ -150,7 +150,7 @@ public class ChestLocked : MonoBehaviour, IPointerClickHandler, IChestLocked
         chestPicture.enabled = true;
         foreach (HeroInventoryItem item in inventoryInsideChest)
             {
-                GameInstance.inventory.FindEmptySlotAndPutItem(item, item.stackAmount);
+                GameInstance.inventory.FindEmptySlotAndPutItem(item, item.stackAmount, false);
                 GameInstance.spellbook.BattleLogMessage(new List<string>() { "item added " + GameInstance.dataBase.GetItemFromBaseByIndex(item.container).itemName }, null);
             }
             StartCoroutine(AnimateOpenMimic());

@@ -15,7 +15,7 @@ public class SpellShop : MonoBehaviour
     [SerializeField] Vector2Int itemsLevel = new Vector2Int(0,1);
     [SerializeField] CameraOrder cam;
     [SerializeField] TextMeshProUGUI textOfShopState;
-    [SerializeField] SoundID closeShopSound, voicePhrase, openShopPhrase;
+    [SerializeField] SoundID openDoor, closeDoor, openSpellShopVO, closeSpellShopVO;
     [SerializeField] GameObject openSwitch;
     [SerializeField] GameObject spellsShelf, exitButton, moneyPanel;
 
@@ -27,7 +27,6 @@ public class SpellShop : MonoBehaviour
 
     public void OpenSpellShop()
     {
-
         backGroundImage.enabled = true;
         openSwitch.SetActive(true);
 
@@ -38,6 +37,7 @@ public class SpellShop : MonoBehaviour
         exitButton.SetActive(true);
         moneyPanel.SetActive(true);
         spellsShelf.SetActive(false);
+        BroAudio.Play(openDoor);
     }
 
 
@@ -98,10 +98,10 @@ public class SpellShop : MonoBehaviour
         GameInstance.playerController.shopIsOpened = false;
         gameObject.SetActive(false);
 
-        BroAudio.Play(closeShopSound);
-        BroAudio.Play(voicePhrase);
+        BroAudio.Play(closeDoor);
+        BroAudio.Play(closeSpellShopVO);
 
-        BroAudio.Stop(openShopPhrase);
+        BroAudio.Stop(openSpellShopVO);
         backGroundImage.enabled = false;
         openSwitch.SetActive(false);
     }
