@@ -244,14 +244,14 @@ public class Party : MonoBehaviour
     {
         moneyCollected -= amount; 
         if(amount !=0)
-        BroAudio.Play(moneyGoesSound);
+        GameInstance.soundManagerInGame.ProtectedPlay(moneyGoesSound);
     }
 
     public void GemGoes(int amount)
     {
         gemsCollected -= amount;
         if (amount != 0)
-            BroAudio.Play(gemsGoesSound);
+            GameInstance.soundManagerInGame.ProtectedPlay(gemsGoesSound);
     }
 
     public int CheckGems(int amount)

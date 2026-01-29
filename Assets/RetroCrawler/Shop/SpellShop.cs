@@ -37,7 +37,7 @@ public class SpellShop : MonoBehaviour
         exitButton.SetActive(true);
         moneyPanel.SetActive(true);
         spellsShelf.SetActive(false);
-        BroAudio.Play(openDoor);
+        GameInstance.soundManagerInGame.ProtectedPlay(openDoor);
     }
 
 
@@ -98,8 +98,8 @@ public class SpellShop : MonoBehaviour
         GameInstance.playerController.shopIsOpened = false;
         gameObject.SetActive(false);
 
-        BroAudio.Play(closeDoor);
-        BroAudio.Play(closeSpellShopVO);
+        GameInstance.soundManagerInGame.ProtectedPlay(closeDoor);
+        GameInstance.soundManagerInGame.ProtectedPlay(closeSpellShopVO);
 
         BroAudio.Stop(openSpellShopVO);
         backGroundImage.enabled = false;

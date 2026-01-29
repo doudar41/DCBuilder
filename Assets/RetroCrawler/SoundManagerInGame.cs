@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Ami.BroAudio;
+using UnityEngine.Rendering;
 
 
 public class SoundManagerInGame : MonoBehaviour
@@ -33,26 +34,26 @@ public class SoundManagerInGame : MonoBehaviour
     private void Start()
     {
 
-        print("start playing "+startingMusic);
+       // print("start playing "+startingMusic);
         BroAudio.Play(startingMusic);
         currentExploreMusic = startingMusic;
-        /*        if (currentExploreMusic != startingMusic)
-                {
-                    if (BroAudio.HasAnyPlayingInstances(currentExploreMusic)) BroAudio.Stop(currentExploreMusic, 1f);
-                    BroAudio.Play(startingMusic);
-                    currentExploreMusic = startingMusic;
-                }
-                else
-                {
-                    currentExploreMusic = startingMusic;
-                    if (!BroAudio.HasAnyPlayingInstances(currentExploreMusic)) BroAudio.Play(currentExploreMusic, 1f);
-                }*/
+
     }
 
     private void OnDestroy()
     {
         BroAudio.Stop(battleMusic);
         BroAudio.Stop(currentExploreMusic);
+    }
+
+    public void ProtectedPlay(SoundID soundID)
+    {
+        if (soundID != default) BroAudio.Play(soundID);
+    }
+
+    public void StopCurrentMusic()
+    {
+        if (currentExploreMusic !=default) BroAudio.Stop(currentExploreMusic,1f);
     }
 
     public void ChangeExploreMusicOnBattleGround(BattleGroundEnvironment battleGroundEnvironment)

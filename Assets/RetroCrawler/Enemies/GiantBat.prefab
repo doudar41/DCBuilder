@@ -1349,6 +1349,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DamageAnimations
       objectReference: {fileID: 0}
+    - target: {fileID: 8440027620216714310, guid: 5ab70878558e1654ba2112a2523aff48, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

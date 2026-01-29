@@ -18,7 +18,7 @@ public class PlaySound : StateMachineBehaviour
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        BroAudio.Play(soundID); 
+       if(soundID !=default) BroAudio.Play(soundID); 
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

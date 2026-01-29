@@ -64,7 +64,7 @@ public class ItemShop : MonoBehaviour
         identifyButton.SetActive(false);
         heroMoney.SetActive(true);
         shopState = ShopState.MainScreen;
-        BroAudio.Play(openShopVO);
+        GameInstance.soundManagerInGame.ProtectedPlay(openShopVO);
     }
 
     public void SwitchToInventory()
@@ -82,7 +82,7 @@ public class ItemShop : MonoBehaviour
     public void PlayerCoins(int coins)
     {
         coinsSpent = coins;
-        BroAudio.Play(ambience);
+        GameInstance.soundManagerInGame.ProtectedPlay(ambience);
     }
 
     public void NewItemsToSell()
@@ -269,11 +269,11 @@ public class ItemShop : MonoBehaviour
         BroAudio.Play(closeDoor);
         if (GameInstance.party.SellBuyMoneyCheck(coinsSpent) != 0)
         {
-            BroAudio.Play(closeShopVO).SetVelocity(Random.Range(3,6));
+            if(closeShopVO !=default)BroAudio.Play(closeShopVO).SetVelocity(Random.Range(3,6));
         }
         else
         {
-            BroAudio.Play(closeShopVO).SetVelocity(Random.Range(0, 3));
+            if(closeShopVO !=default)BroAudio.Play(closeShopVO).SetVelocity(Random.Range(0, 3));
         }
         GetComponent<animateUIImage>().StopAnimation();
         BroAudio.Stop(openShopVO);

@@ -119,8 +119,8 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
         transform.localPosition = new Vector3(savedPosition.x, savedPosition.y, savedPosition.z - 0.05f);
         transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
         StartCoroutine(WaitAndBack());
-        BroAudio.Play(upFrontSound);
-        BroAudio.Play(attackSound);
+        GameInstance.soundManagerInGame.ProtectedPlay(upFrontSound);
+        GameInstance.soundManagerInGame.ProtectedPlay(attackSound);
         //animator.SetTrigger("Attack");
 
     }

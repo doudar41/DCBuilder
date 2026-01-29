@@ -475,6 +475,8 @@ public class PlayerController : MonoBehaviour
         //GameInstance.battleManager.CustomBattleStart();
         countdownToEncounter = Random.Range(rangeOfEnCounter.x, rangeOfEnCounter.y);
     }
+
+
     public void StartCustomBattle(Transform inPlace)
     {
         playerState = PlayerState.Battle;
@@ -1141,6 +1143,7 @@ public class PlayerController : MonoBehaviour
     void TakeInteract(InputAction.CallbackContext context)
     {
         if (cursorHoveringUI) return;
+        if (shopIsOpened) { return; }
         //print("pressing Space to interact");
         CheckBlockInterfaces(CardinalDir.GetNewPoint(currentforwardDirection, currentposition, moveTilemap));
         RaycastOnMovement(Vector3.forward);

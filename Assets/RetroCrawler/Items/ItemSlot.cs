@@ -49,7 +49,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
                     List<ResultMsg> results = GameInstance.party.activeHero.ApplySpellToHero(GameInstance.dataBase.GetItemFromBaseByIndex( inventoryItem.container).spellContainer);
                     amountText.text = stackAmount.ToString();
                     GameInstance.spellbook.battlelogEvent.Invoke(new List<string>() { },results);
-                    BroAudio.Play(GameInstance.inventory.GetHeroItemScriptableByIndex(inventoryItem.container).inventorySound);
+                    GameInstance.soundManagerInGame.ProtectedPlay(GameInstance.inventory.GetHeroItemScriptableByIndex(inventoryItem.container).inventorySound);
                 }
                 else
                 {
@@ -96,7 +96,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
                     else stackAmount = 1;
                     itemAvatar.sprite = GameInstance.dataBase.GetItemFromBaseByIndex(inventoryItem.container).InventorySprite;
                     amountText.text = stackAmount.ToString();
-                    BroAudio.Play(GameInstance.inventory.GetHeroItemScriptableByIndex(inventoryItem.container).inventorySound);
+                    GameInstance.soundManagerInGame.ProtectedPlay(GameInstance.inventory.GetHeroItemScriptableByIndex(inventoryItem.container).inventorySound);
                 }
             }
             else
@@ -131,7 +131,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
                     }
 
                     amountText.text = stackAmount.ToString();
-                    BroAudio.Play(GameInstance.inventory.GetHeroItemScriptableByIndex(inventoryItem.container).inventorySound);
+                    GameInstance.soundManagerInGame.ProtectedPlay(GameInstance.inventory.GetHeroItemScriptableByIndex(inventoryItem.container).inventorySound);
                     return;
                 }
                 if (stackAmount >= 1 && !GameInstance.playerController.IsCursorBusy())

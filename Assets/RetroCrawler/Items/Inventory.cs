@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
-using Ami.BroAudio.Data;
+using Ami.BroAudio;
 
 public class Inventory : MonoBehaviour
 {
@@ -12,7 +12,8 @@ public class Inventory : MonoBehaviour
     [SerializeField]    GameObject slotPrefab;
     [SerializeField]    TextMeshProUGUI weightCapacity;
     [SerializeField]    GameObject inventorySwitcher, paperDoll, descriptionTab;
-    [SerializeField] List<TextMeshProUGUI> keyAmountsText = new List<TextMeshProUGUI>();
+    [SerializeField]    List<TextMeshProUGUI> keyAmountsText = new List<TextMeshProUGUI>();
+    [SerializeField]    SoundID openInventory = default;
     Dictionary<KeyType, TextMeshProUGUI> keyTexts = new Dictionary<KeyType, TextMeshProUGUI>();
     Dictionary<int, ItemScriptableContainer> itemDatabase = new Dictionary<int, ItemScriptableContainer>();
 
@@ -31,7 +32,7 @@ public class Inventory : MonoBehaviour
         keyTexts.Add(KeyType.RedKey, keyAmountsText[1]); 
         keyTexts.Add(KeyType.GoldKey, keyAmountsText[2]);
     }
- 
+
     public void EnableInventory(bool switchInventory)
     {
         if (GameInstance.playerController.shopIsOpened)
@@ -46,8 +47,19 @@ public class Inventory : MonoBehaviour
         inventorySwitcher.SetActive(switchInventory);
         descriptionTab.SetActive(switchInventory);
         paperDoll.SetActive(switchInventory);
-    }
+        if (switchInventory)
+        {
+            if (openInventory != default) { BroAudio.Play(openInventory).SetVelocity(0); }
 
+        }
+        else
+        {
+            if (openInventory != default)
+            {
+                BroAudio.Play(openInventory).SetVelocity(1);
+            }
+        }
+    }
     public Transform GetDescriptionTab()
     {
         return descriptionTab.transform;
@@ -139,7 +151,10 @@ public class Inventory : MonoBehaviour
             {
                 if (i.AddItemInSlot(itemScriptableTemp, stackamount))
                 {
-                    if (!noSound) { print("pllay item sound");  BroAudio.Play(itemDatabase[itemScriptableTemp.container].inventorySound); }
+                    if (!noSound) { print("pllay item sound");
+
+                        GameInstance.soundManagerInGame.ProtectedPlay(itemDatabase[itemScriptableTemp.container].inventorySound); 
+                    }
                     break;
                 }
             }

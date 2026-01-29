@@ -117,7 +117,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         }
 
         if (GameInstance.heroesNames.Count> heroID)  heroName = GameInstance.heroesNames[heroID];
-        print(heroName + " hero init called id " + heroID);
+        //print(heroName + " hero init called id " + heroID);
         heroSpellbook.Clear();
 
         foreach(HeroSpellbookSaved hsb in GameInstance.spellbooksSaved)
@@ -443,7 +443,8 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                     case MagicType.Fire:
                         if(immunityList.Contains(MagicType.Fire))
                         {
-                            return null;
+                            results.Add(new() { msgType = "s", msgString = heroName + " immune to Fire magic " });
+                            return results;
                         }
                          int fireDamage = pureDamageAmount - (GetMaxDependedStat(DependedStat.FireResistance) + (GetMainStat(MainStat.Willpower)/5));
                         HealthDecrease(fireDamage);
@@ -451,7 +452,8 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                     case MagicType.Water:
                         if (immunityList.Contains(MagicType.Water))
                         {
-                            return null;
+                            results.Add(new() { msgType = "s", msgString = heroName + " immune to Water magic " });
+                            return results;
                         }
                         int waterDamage = pureDamageAmount - (GetMaxDependedStat(DependedStat.WaterResistance) + (GetMainStat(MainStat.Willpower) / 5));
                         HealthDecrease(waterDamage);
@@ -460,7 +462,8 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                     case MagicType.Air:
                         if (immunityList.Contains(MagicType.Air))
                         {
-                            return null;
+                            results.Add(new() { msgType = "s", msgString = heroName + " immune to Air magic " });
+                            return results;
                         }
                         int airDamage = pureDamageAmount - (GetMaxDependedStat(DependedStat.WaterResistance) + (GetMainStat(MainStat.Willpower) / 5));
                         HealthDecrease(airDamage);
@@ -513,15 +516,6 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                     else buffPanels.AddBuffToList(s);
                 }
 
-                break;
-
-
-            case SpellEffects.Restoration:
-                
-                break;
-
-
-            case SpellEffects.Identify:
                 break;
 
 

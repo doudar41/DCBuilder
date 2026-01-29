@@ -4,19 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
+
 public class OptionsMenu : MonoBehaviour
 {
     [SerializeField] CameraOrder cameraOrder;
     [SerializeField] GameObject mainMenu, audioOptions;
-    [SerializeField] Slider musicSlider, sfxSlider;
-    [SerializeField] BroAudioType musicType = default, sfxType = default;
-    float musicVol, sfxVol;
+    [SerializeField] Slider musicSlider, sfxSlider, uiSlider;
+    [SerializeField] BroAudioType musicType = BroAudioType.Music, sfxType = BroAudioType.SFX, uiType=BroAudioType.UI;
+    float musicVol, sfxVol, uiVol;
 
     private void Start()
     {
         musicSlider.onValueChanged.AddListener(ChangeMusicVolume);
         sfxSlider.onValueChanged.AddListener(ChangeSFXVolume);
-
+        uiSlider.onValueChanged.AddListener(ChangeUIVolume);
         GameInstance.LoadOptionsSaved();
         SaveOptionsData saveOptions = GameInstance.GetSaveOptionsData();
         if (saveOptions != null)
@@ -24,9 +25,10 @@ public class OptionsMenu : MonoBehaviour
             // print(saveOptions + " "+ saveOptions.musicVolume);
             BroAudio.SetVolume(BroAudioType.Music, saveOptions.musicVolume);
             BroAudio.SetVolume(BroAudioType.SFX, saveOptions.sfxVolume);
+
             musicSlider.value = saveOptions.musicVolume;
             sfxSlider.value = saveOptions.sfxVolume;
-
+            uiSlider.value = saveOptions.uiVolume;
         }
     }
 
@@ -48,6 +50,7 @@ public class OptionsMenu : MonoBehaviour
             SaveOptionsData newOptionsData = new SaveOptionsData();
             newOptionsData.musicVolume = musicVol;
             newOptionsData.sfxVolume = sfxVol;
+            newOptionsData.uiVolume = uiVol;
             GameInstance.OptionsDataSaver(newOptionsData);
 
             cameraOrder.BattleLogWithGameplay();
@@ -63,6 +66,11 @@ public class OptionsMenu : MonoBehaviour
 
     public void BackToMainOptionsMenu()
     {
+        SaveOptionsData newOptionsData = new SaveOptionsData();
+        newOptionsData.musicVolume = musicVol;
+        newOptionsData.sfxVolume = sfxVol;
+        newOptionsData.uiVolume = uiVol;
+        GameInstance.OptionsDataSaver(newOptionsData);
         audioOptions.SetActive(false);
     }
 
@@ -76,6 +84,13 @@ public class OptionsMenu : MonoBehaviour
         sfxVol = vol;
         BroAudio.SetVolume(sfxType, vol);
     }
+
+    public void ChangeUIVolume(float vol)
+    {
+        uiVol = vol;
+        BroAudio.SetVolume(uiType, vol);
+    }
+
     public void QuitGame()
     {
         Application.Quit();

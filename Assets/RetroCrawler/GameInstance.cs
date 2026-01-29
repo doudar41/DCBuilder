@@ -250,6 +250,7 @@ public static class GameInstance
         currentLevelName = levelName;
         levelChange = true;
         inventory.SaveKeysToGameInstance();
+        soundManagerInGame.StopCurrentMusic();
         SceneManager.LoadScene(levelName, LoadSceneMode.Single);
 
     }
@@ -721,7 +722,7 @@ public static class GameInstance
 
         if (result == SaveResult.Success)
         {
-            Debug.Log("loading options" + saveData.musicVolume);
+            //Debug.Log("loading options" + saveData.musicVolume);
             saveOptionsData = saveData;
         }
     }
@@ -789,6 +790,7 @@ public class SaveOptionsData
 {
     public float musicVolume = 1.0f;
     public float sfxVolume = 1.0f;
+    public float uiVolume = 1.0f;
 
     public SaveOptionsData GetThis() { return this; }
 }

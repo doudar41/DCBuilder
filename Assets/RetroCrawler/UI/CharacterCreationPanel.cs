@@ -1,7 +1,8 @@
 
+using Ami.BroAudio;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class CharacterCreationPanel : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class CharacterCreationPanel : MonoBehaviour
     [SerializeField] List<SpellChoiceIcon> spellsToChoose = new List<SpellChoiceIcon>();
     [SerializeField] List<WeaponChoiceIcon> weaponToChoose = new List<WeaponChoiceIcon>();
     [SerializeField] List<SkillChoiceIcon> skillsToChoose = new List<SkillChoiceIcon>();
-
+    [SerializeField] SoundID mainTheme;
     int heroIndex = 0, mainStatIndex = 0, minStat, maxStat;
 
     Dictionary<int, Dictionary<MainStat, int>> mainS = new Dictionary<int, Dictionary<MainStat, int>>();
@@ -350,6 +351,8 @@ public class CharacterCreationPanel : MonoBehaviour
             tipsField.text = "Please give names to all of your heroes";
             return;
         }
+        BroAudio.Stop(mainTheme, 0.5f);
+
         SendStatsToGameInstance();
         GameInstance.LoadGameFromStart();
 

@@ -42,7 +42,7 @@ public class DayNightChange : MonoBehaviour
 
     public void InitDayNightShift()
     {
-        print("check day or night");
+       // print("check day or night");
         if (isDungeon)
         {
             isDay = false;

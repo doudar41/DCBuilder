@@ -5,15 +5,16 @@ using Ami.BroAudio;
 
 public class OptionsMainMenu : MonoBehaviour
 {
-    [SerializeField] Slider musicSlider, sfxSlider;
-    [SerializeField] GameObject optionsMenu;
-    [SerializeField] BroAudioType musicType = default, sfxType = default;
+    [SerializeField] Slider musicSlider, sfxSlider, uiSlider;
+
+    [SerializeField] BroAudioType musicType = default, sfxType = default, uiType = default;
     [SerializeField] SoundID mainTheme = default;
-    float musicVol = 1f, sfxVol = 1f;
+    float musicVol = 1f, sfxVol = 1f, uiVol = 1f;
     private void Start()
     {
         musicSlider.onValueChanged.AddListener(ChangeMusicVolume);
         sfxSlider.onValueChanged.AddListener(ChangeSFXVolume);
+        uiSlider.onValueChanged.AddListener(ChangeUIVolume);
         GameInstance.LoadOptionsSaved();
         SaveOptionsData saveOptions = GameInstance.GetSaveOptionsData();
         if(saveOptions != null)
@@ -23,7 +24,7 @@ public class OptionsMainMenu : MonoBehaviour
             BroAudio.SetVolume(BroAudioType.SFX, saveOptions.sfxVolume);
             musicSlider.value = saveOptions.musicVolume;
             sfxSlider.value = saveOptions.sfxVolume;
-
+            uiSlider.value = saveOptions.uiVolume;
         }
         this.gameObject.SetActive(false);
         BroAudio.Play(mainTheme, 0.5f);
@@ -39,15 +40,19 @@ public class OptionsMainMenu : MonoBehaviour
         sfxVol = vol;
         BroAudio.SetVolume(sfxType, vol);
     }
-
+    public void ChangeUIVolume(float vol)
+    {
+        uiVol = vol;
+        BroAudio.SetVolume(uiType, vol);
+    }
 
     public void BackToMainMenu()
     {
         SaveOptionsData newOptionsData = new SaveOptionsData();
         newOptionsData.musicVolume = musicVol;
         newOptionsData.sfxVolume = sfxVol;
+        newOptionsData.uiVolume = uiVol; 
         GameInstance.OptionsDataSaver(newOptionsData);
-        //print("saveing music " + newOptionsData.musicVolume);
 
         this.gameObject.SetActive(false);
 

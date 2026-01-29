@@ -20,7 +20,7 @@ MonoBehaviour:
     diceRollsNumber: 1
     diceSides: 1
     diceBonus: 0
-    numberOfTurns: 100
+    numberOfTurns: 1000
     magicType: 1
     changedMainStat: 0
     changedDependedStat: 0

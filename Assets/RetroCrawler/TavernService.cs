@@ -10,7 +10,7 @@ public class TavernService : MonoBehaviour
     [SerializeField] GameObject backGroundImage;
     [SerializeField] GameObject tavernButtons, heroesMoney;
     [SerializeField] List<TextMeshProUGUI> heroesCoinsText;
-    [SerializeField] SoundID closeShopSound, voicePhrase, openShopPhrase, background, backgroundMusic;
+    [SerializeField] SoundID closeDoor, closeTavernVO, openTavernVO, background, backgroundMusic;
     [SerializeField] int coinsForDrink = 5, rentForRoom = 10, buyFood = 10;
     [SerializeField] CameraOrder cameraOrder;
     [SerializeField] GameObject restAnimation;
@@ -22,6 +22,7 @@ public class TavernService : MonoBehaviour
         backGroundImage.SetActive(true);
         tavernButtons.SetActive(true);
         GameInstance.soundManagerInGame.DuckingCurrentMusic(background);
+        GameInstance.soundManagerInGame.ProtectedPlay(closeDoor);
         heroesMoney.SetActive  (true);
         GetPlayersCoins();
     }
@@ -93,9 +94,9 @@ public class TavernService : MonoBehaviour
     public void CloseTavern()
     {
         backGroundImage.SetActive(false);
-        BroAudio.Play(closeShopSound);
-        BroAudio.Play(voicePhrase).SetVelocity(4);
-        BroAudio.Stop(openShopPhrase);
+        GameInstance.soundManagerInGame.ProtectedPlay(closeDoor);
+        GameInstance.soundManagerInGame.ProtectedPlay(closeTavernVO);
+        BroAudio.Stop(openTavernVO);
         tavernButtons.SetActive(false);
         exitTavern.Invoke();
         GameInstance.playerController.shopIsOpened = false;

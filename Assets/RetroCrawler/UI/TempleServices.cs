@@ -12,6 +12,7 @@ public class TempleServices : MonoBehaviour
     [SerializeField] int healCost = 100, resurrectionCost = 1000;
 
     public UnityEvent closeShopPanel;
+
     private void Start()
     {
 

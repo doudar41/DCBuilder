@@ -237,7 +237,7 @@ public class Spellbook : MonoBehaviour
                 if (GameInstance.playerController.playerState == PlayerState.Battle)
                 {
                     if (spellToCast.spellName == "Missile Shower") meteorShower.Play();
-                    if (spellToCast.spellName == "Thunderstorm") { thunderstorm.Play(); BroAudio.Play(thunderSound); }
+                    if (spellToCast.spellName == "Thunderstorm") { thunderstorm.Play(); GameInstance.soundManagerInGame.ProtectedPlay(thunderSound); }
                     GameInstance.battleManager.AttackEnding();
                 }
                 CloseSpellbook();

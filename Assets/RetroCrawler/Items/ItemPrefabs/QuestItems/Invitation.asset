@@ -32,3 +32,8 @@ MonoBehaviour:
     Hag. There, enquire for the royal advisor to the crown, the very own Duke Hitherin,
     for your first trial.
   dialogueKeys: 01000000
+  stackable: 0
+  inventorySound:
+    ID: 1073741867
+    _sourceAsset: {fileID: 11400000, guid: c8de76388f9abcd4bb0eb83ce9ddee6a, type: 2}
+    <DebugObject>k__BackingField: {fileID: 0}

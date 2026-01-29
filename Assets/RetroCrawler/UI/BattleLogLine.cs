@@ -21,7 +21,7 @@ public class BattleLogLine : MonoBehaviour, IPointerClickHandler
                 {
                     textPlaces.Add(t);
                 }*/
-        BackToBottom();
+        //BackToBottom();
     }
 
 
