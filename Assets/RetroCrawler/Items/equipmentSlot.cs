@@ -29,13 +29,13 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
                 
             itemScriptable = item;
             itemAvatar.sprite = GameInstance.dataBase.GetItemFromBaseByIndex( itemScriptable.container).InventorySprite;
-            sendItemToParty.Invoke(item, itemType);
+            //sendItemToParty.Invoke(item, itemType);
         }
         else
         {
             itemAvatar.sprite = emptySlotSprite;
             itemScriptable = null;
-            sendItemToParty.Invoke(null, itemType);
+            //sendItemToParty.Invoke(null, itemType);
         }
     }
 
@@ -52,18 +52,23 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        SlotChecking();
+    }
+
+    public void SlotChecking()
+    {
         HeroInventoryItem itemFromCursor = GameInstance.playerController.GetItemFromCursor();
 
         if (itemFromCursor == null)
         {
-            
+
             if (!IsEmpty())
             {
                 if (GameInstance.dataBase.GetItemFromBaseByIndex(itemScriptable.container).twoHanded) shieldSlot.ClearSlot();
                 GiveBackItemToCursor(itemScriptable, true);
                 return;
             }
-            else 
+            else
             {
                 return;
             }
@@ -71,18 +76,38 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
         //print("clicked equipment slot" + itemFromCursor.itemType);
 
+        if (itemFromCursor.itemType == ItemType.RING &&
+            (itemType == ItemType.RING2 || itemType == ItemType.RING3 || itemType == ItemType.RING4 ||
+            itemType == ItemType.RING5 || itemType == ItemType.RING6))
+        {
+            if (IsEmpty())
+            {
+
+                FillSlotWithItem(itemFromCursor); return;
+                // check if cursor has item of the same type as equipment slot
+            }
+            if (!IsEmpty())
+            {
+
+
+                GiveBackItemToCursor(itemScriptable, true);
+                FillSlotWithItem(itemFromCursor);
+
+            }
+        }
+
         if (itemFromCursor.itemType != itemType) { GiveBackItemToCursor(itemFromCursor, false); return; }
         //print("correct item type for slot");
 
-        if (CheckForTwohandedWeapon(itemFromCursor, IsEmpty())) {  return; }
+        if (CheckForTwohandedWeapon(itemFromCursor, IsEmpty())) { return; }
 
-        if (IsEmpty()) 
+        if (IsEmpty())
         {
-            
+
             FillSlotWithItem(itemFromCursor); return;
             // check if cursor has item of the same type as equipment slot
         }
-        if(!IsEmpty())
+        if (!IsEmpty())
         {
 
 
@@ -91,6 +116,7 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
         }
     }
+
 
 
     bool CheckForTwohandedWeapon(HeroInventoryItem itemFromCursor, bool emptySlot)
@@ -145,10 +171,15 @@ public class equipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
     void FillSlotWithItem(HeroInventoryItem itemToFill)
     {
+        if(itemToFill.itemType == ItemType.RING)
+        {
+            sendItemToParty.Invoke(itemScriptable, itemType);
+        }
         //if(itemScriptable !=null) GiveBackItemToCursor(itemScriptable);
         itemScriptable = itemToFill;
         itemAvatar.sprite = GameInstance.dataBase.GetItemFromBaseByIndex(itemScriptable.container).InventorySprite;
         sendItemToParty.Invoke(itemScriptable, itemType);
+        GameInstance.soundManagerInGame.ProtectedPlay(GameInstance.inventory.GetHeroItemScriptableByIndex(itemScriptable.container).inventorySound);
     }
 
     void GiveBackItemToCursor(HeroInventoryItem itemToGiveBack, bool nullifyItem)

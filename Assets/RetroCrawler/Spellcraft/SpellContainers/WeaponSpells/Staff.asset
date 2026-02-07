@@ -27,6 +27,7 @@ MonoBehaviour:
     skillStatAdded: 0
     restToBeAbleToCastAgainInTurns: 0
     SpellDescription: PhD 1/1 +1
+    skillToCheckInCalculations: 0
   - spellEffect: 1
     amount: 5
     agroPoints: 1
@@ -41,6 +42,7 @@ MonoBehaviour:
     skillStatAdded: 9
     restToBeAbleToCastAgainInTurns: 0
     SpellDescription: Fire +1 Elem Magic +5
+    skillToCheckInCalculations: 0
   spellIcon: {fileID: 21300000, guid: 2f4bca14b83cdef46b1a8c8ee65f408b, type: 3}
   AOE: 0
   OnlyEnemies: 0
@@ -50,3 +52,6 @@ MonoBehaviour:
   equipableSpell: 0
   minDistanceToEnemy: 2
   spellName: Fire Staff
+  spellPrice: 0
+  spellLevel: 0
+  animationTriggerName: StaffHit

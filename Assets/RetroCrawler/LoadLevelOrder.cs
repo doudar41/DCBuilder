@@ -13,16 +13,12 @@ public class LoadLevelOrder : MonoBehaviour
         
         GameInstance.initItems();
 
-
-
-
-
         if (GameInstance.levelsVisited.Contains(GameInstance.GetLevelName()))
         {
             Dictionary<string, HeroInventoryItem> listToMake = new Dictionary<string, HeroInventoryItem>();
             foreach(KeyValuePair<string, HeroInventoryItem> h in GameInstance.itemsOnLevelSavedWithGUID)
             {
-                Debug.Log(" items on level containers "+ GameInstance.dataBase.GetItemFromBaseByIndex(h.Value.container).itemName);
+                //Debug.Log(" items on level containers "+ GameInstance.dataBase.GetItemFromBaseByIndex(h.Value.container).itemName);
                 if(h.Value.level == GameInstance.GetLevelName())
                 {                    
                     listToMake.Add(h.Key,h.Value); 
@@ -80,13 +76,17 @@ public class LoadLevelOrder : MonoBehaviour
         GameInstance.party.addExperiencePoints(GameInstance.expPoints);
         GameInstance.party.MoneyGoes(-GameInstance.moneyCollected);
         GameInstance.party.GemGoes(-GameInstance.gemsCollected);
+        GameInstance.party.AddSomeFoodInit(GameInstance.partyFood);
 
         GameInstance.party.RestoreSpellsAttached(GameInstance.spellsAttachedToHeroes);
         GameInstance.party.PartyHeroInit();
         GameInstance.spellbook.RestoreContinousSpells();
         GameInstance.party.LoadDialoguesFromInstance();
         //GameInstance.playerController.SetEncounter(GameInstance.noEncounter);
-        if (!GameInstance.playerController.GetEncounterState()) { GameInstance.playerController.SetCountdownToEncounter(GameInstance.savedTimeToEncounter); }
+        if (!GameInstance.playerController.GetEncounterState()) 
+        {
+            if(GameInstance.savedTimeToEncounter>0 ) GameInstance.playerController.SetCountdownToEncounter(GameInstance.savedTimeToEncounter); 
+        }
 
         GameInstance.inventory.BuildItemDatabase();
 

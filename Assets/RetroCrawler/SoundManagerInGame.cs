@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Ami.BroAudio;
-using UnityEngine.Rendering;
+
 
 
 public class SoundManagerInGame : MonoBehaviour
@@ -15,6 +15,8 @@ public class SoundManagerInGame : MonoBehaviour
     BattleGroundEnvironment currentExploreEnvironment = BattleGroundEnvironment.NONE;
     [SerializeField] List<SoundID> footstepSounds = new List<SoundID>();
     [SerializeField] SoundID startingMusic = default;
+    [SerializeField] SoundRoom soundroom;
+    RoomSpaces currentRoomspace;
 
 #if BroAudio_InitManually
         public static void Init()
@@ -63,11 +65,17 @@ public class SoundManagerInGame : MonoBehaviour
         SetExplorationMusicIndex(exploreMusicDict[battleGroundEnvironment]);
     }
 
-    public void StartMusic()
+    public void DuckExploreMusicSwitchToAmbience(RoomSpaces roomSpace)
     {
-
+        currentRoomspace = roomSpace;
+        BroAudio.SetVolume(currentExploreMusic, 0.2f, 0.5f);
+        soundroom.SwitchSoundRoom(roomSpace, true);
     }
-
+    public void UnDuckExploreMusicSwitchToAmbience()
+    {
+        BroAudio.SetVolume(currentExploreMusic, 1f, 0.5f);
+        soundroom.SwitchSoundRoom(currentRoomspace, false);
+    }
     public void LaunchBattleMusic(BattleGroundEnvironment battleGroundEnvironment)
     {
 

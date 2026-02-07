@@ -9,6 +9,14 @@ public class Database : MonoBehaviour
 {
     [SerializeField] DatabaseScriptable databaseScriptable;
 
+
+    private void OnValidate()
+    {
+/*        ItemScriptableContainer[] items =   FindObjectsByType<ItemScriptableContainer>( FindObjectsSortMode.InstanceID);
+        print(items.Length);*/
+    }
+
+
     private void Awake()
     {
 

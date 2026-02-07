@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour
 
     //Shops
     [SerializeField] ChooseShop chooseShop;
+    [SerializeField] LevelChanger levelChanger;
     public bool shopIsOpened = false;
     public bool dialogueIsOpened = false;
     UniqueDialogueName startingDialogueName;
@@ -120,7 +121,8 @@ public class PlayerController : MonoBehaviour
         _input.CrawlerStandart.Cancel.started += ReleaseSpellWithoutCasting;
         _input.CrawlerStandart.TakeInteract.started += TakeInteract;
         leftMouse.action.started += MouseRaycast;
-        countdownToEncounter = Random.Range(rangeOfEnCounter.x, rangeOfEnCounter.y);
+
+        if (!noEncounter) countdownToEncounter = Random.Range(rangeOfEnCounter.x, rangeOfEnCounter.y);
 
         //GameInstance.progress += TimeEvents;
     }
@@ -167,7 +169,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            print("blocks quantity checked");
+           // print("blocks quantity checked");
         }
        
     }
@@ -426,7 +428,7 @@ public class PlayerController : MonoBehaviour
             if (playerState != PlayerState.Battle) EnCounter.Invoke(countdownToEncounter);
             countdownToEncounter--;
 
-            if (countdownToEncounter == 0)
+            if (countdownToEncounter <= 0)
             {
                 beforeBattleTransformPos = gameObject.transform.position;
                 beforeBattleTransformRot = gameObject.transform.rotation;
@@ -744,6 +746,13 @@ public class PlayerController : MonoBehaviour
         if (cursorBusy)
         {
             if(playerState == PlayerState.Battle) return;
+            if(cursorHoveringUI && hoverPortraitIndex >0)
+            {
+               equipmentSlot _slot = GameInstance.inventory.FindEquipmentSlotOfType(cursorItemScriptable.itemType);
+               if (_slot!=null) _slot.SlotChecking();
+                return;
+            }
+
             cursorItemScriptable.positionReplaced = dropItemPosition.position;
             //GameInstance.SaveItemState(currentCursorGUID, SavedState.Replaced, cursorItemScriptable);
             ThrowToTheWorld(dropItemPosition, currentMouse.position.ReadValue().y);
@@ -987,14 +996,16 @@ public class PlayerController : MonoBehaviour
                 case InteractablesEnum.LEVEL_EXIT:
 
                     OnBlockPlacement leveldestination = wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<OnBlockPlacement>();
-                    _input.Disable();
+                    InputEnable(false);
                     leveldestination.GetNextLevelInfo(out Vector3Int pos, out CardinalDirections dir, out string levelName);
                     GameInstance.nextLevelPosition = pos;
                     GameInstance.nextLevelRotation = dir;
-                    GameInstance.LoadNextLevel(levelName);
+                    if (levelChanger == null) { GameInstance.LoadNextLevel(levelName); return false; }
+                    if (levelChanger.CheckLevelName(levelName)) levelChanger.OpenLevelEntranceGraphics(levelName);
+                    else GameInstance.LoadNextLevel(levelName);
                     //Autosave, read location and rotation of destination from IBlock save it to gameinstance 
                     // check for level exit interface, save tranfer point on another level to save file  load target level
-                    break;
+                    return false;
                 case InteractablesEnum.PORTAL:
                     OnBlockPlacement portalDest =  wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<IBlock>().GetPortalPoint();
 
@@ -1054,7 +1065,11 @@ public class PlayerController : MonoBehaviour
     }
 
 
-
+    public void InputEnable(bool onOff)
+    {
+       if(!onOff) _input.Disable();
+       if(onOff) _input.Enable();
+    }
 
 
     public void SetPlayerState(PlayerState state)

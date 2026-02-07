@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using Unity.VisualScripting.FullSerializer;
+
 using UnityEngine;
-using UnityEngine.Audio;
 using Ami.BroAudio;
 
 public class PlaySound : StateMachineBehaviour
@@ -18,6 +14,7 @@ public class PlaySound : StateMachineBehaviour
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+       //Debug.Log("onstate enter");
        if(soundID !=default) BroAudio.Play(soundID); 
     }
 

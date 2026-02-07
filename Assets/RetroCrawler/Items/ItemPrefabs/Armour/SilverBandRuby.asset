@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830199137178dfd4c92369ded1b83b63, type: 3}
+  m_Name: SilverBandRuby
+  m_EditorClassIdentifier: 
+  itemType: 9
+  itemName: Archer ring +5
+  texture2DMouse: {fileID: 2800000, guid: 90ba812bfa59a684f861ed201ae4cdb7, type: 3}
+  InventorySprite: {fileID: 21300000, guid: 71475e9bcbc6da644a9c1b4125b40e92, type: 3}
+  worldSprite: {fileID: 21300000, guid: 71475e9bcbc6da644a9c1b4125b40e92, type: 3}
+  prefab: {fileID: 2885720944578253258, guid: 06efc6e3d31ac1040b497d6695de8bc9, type: 3}
+  weight: 2
+  spellContainer: {fileID: 11400000, guid: 4ca2b5d2afb08e94f8d70c9a2c5b91b3, type: 2}
+  weaponType: 0
+  twoHanded: 0
+  price: 2000
+  itemDescription: True archer friend
+  itemLevel: 3
+  keyType: 0
+  journalEntry: 
+  dialogueKeys: 
+  stackable: 0
+  inventorySound:
+    ID: 1073741870
+    _sourceAsset: {fileID: 11400000, guid: c8de76388f9abcd4bb0eb83ce9ddee6a, type: 2}
+    <DebugObject>k__BackingField: {fileID: 0}

@@ -426,8 +426,14 @@ public class BattleManager : MonoBehaviour
         {
             IHero targetHero = allOpponents[targetIndexInOpponents].GetComponent<IHero>();
             //Apply attack spell from enemy to chosen hero
+            if(attacker.enemyAttack(attacker.GetEnemyRow()) == null)
+            {
+                GameInstance.spellbook.ResultsToBattleLog(new List<string> { attacker.GetEnemyName()+"Out of range " }, null);
+                GameInstance.battleManager.AttackEnding();
+                return;
+            }
             List<ResultMsg> resultMsgs = targetHero.ApplySpellToHero(attacker.enemyAttack(attacker.GetEnemyRow()), quarrySorted[quarrySortedKey]);
-            GameInstance.spellbook.ResultsToBattleLog(new List<string> { "enemy "} ,resultMsgs);
+            GameInstance.spellbook.ResultsToBattleLog(new List<string> { ""} ,resultMsgs);
 
         }
     }

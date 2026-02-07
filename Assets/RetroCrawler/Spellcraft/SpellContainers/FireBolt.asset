@@ -54,4 +54,4 @@ MonoBehaviour:
   spellName: Fire Bolt
   spellPrice: 30
   spellLevel: 0
-  animationTriggerName: FireBolt
+  animationTriggerName: FireDamage

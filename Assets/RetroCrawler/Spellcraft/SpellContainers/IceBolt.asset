@@ -16,7 +16,7 @@ MonoBehaviour:
   - spellEffect: 1
     amount: 0
     agroPoints: 1
-    manaCost: 5
+    manaCost: 20
     diceRollsNumber: 4
     diceSides: 4
     diceBonus: 5
@@ -54,4 +54,4 @@ MonoBehaviour:
   spellName: Ice Bolt
   spellPrice: 10
   spellLevel: 0
-  animationTriggerName: IceBolt
+  animationTriggerName: IceDamage

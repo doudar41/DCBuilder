@@ -224,7 +224,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
         {
             ItemScriptableContainer itemToDesc = GameInstance.inventory.GetHeroItemScriptableByIndex(inventoryItem.container);
 
-            if(itemToDesc.itemLevel >= GameInstance.party.activeHero.GetSkillsStat(SkillsStat.Identify)/3)
+            if(itemToDesc.itemLevel >= GameInstance.party.activeHero.GetSkillsStat(SkillsStat.Identify, false)/3)
             {
                 textDesc.color = Color.red;
                 textDesc.text = "\n."+  " Can't identify   "+ "\n.";

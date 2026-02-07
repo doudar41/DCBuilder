@@ -18,7 +18,7 @@ public class DayNightChange : MonoBehaviour
     [SerializeField] AnimationCurve skyTintGraph, ambientColorShift, fogDensityGraph;
     [SerializeField] Color testColor;
     bool onceReset = false, corouting = false;
-    public bool isDungeon { get; set; }
+    public bool isDungeon = false;
     public UnityEvent<int, int, int> gameClock;
 
     public bool isNight { get; set; }
@@ -51,48 +51,35 @@ public class DayNightChange : MonoBehaviour
             RenderSettings.skybox.SetTexture("_MainTex", dayNightTransitionTextures[dayNightTransitionTextures.Count - 1]);
             RenderSettings.ambientLight = Color.black;
             RenderSettings.fogColor = RenderSettings.ambientLight;
-            RenderSettings.fogDensity = 0.18f; return; 
+            RenderSettings.fogDensity = 0.18f; 
+            return; 
         }
 
-        if (GameInstance.playerController.GetBattleGroundEnvironment() == BattleGroundEnvironment.CITY
-            || GameInstance.playerController.GetBattleGroundEnvironment() == BattleGroundEnvironment.STONE
-            || GameInstance.playerController.GetBattleGroundEnvironment() == BattleGroundEnvironment.WOOD)
-        {
 
-            if (GameInstance.GetNormalTime()[1] % 24 >= 6 && GameInstance.GetNormalTime()[1] % 24 < 20 && RenderSettings.fogDensity !=0)
-            {
-                if (corouting) return;
-                isDay = false;
-                RenderSettings.fog = false;
-                RenderSettings.skybox.SetVector("_Tint", new Vector4(1, 1, 1, 1));
-                RenderSettings.skybox.SetTexture("_MainTex", dayNightTransitionTextures[0]);
-                RenderSettings.ambientLight = Color.white;
-                RenderSettings.fogColor = RenderSettings.ambientLight;
-                RenderSettings.fogDensity = 0;
-            }
-            else
-            {
-                if (corouting) return;
-                isDay = false;
-                RenderSettings.fog = true;
-                RenderSettings.skybox.SetVector("_Tint", new Vector4(0.5f, 0.5f, 0.5f, 1));
-                RenderSettings.skybox.SetTexture("_MainTex", dayNightTransitionTextures[dayNightTransitionTextures.Count - 1]);
-                RenderSettings.ambientLight = Color.black;
-                RenderSettings.fogColor = RenderSettings.ambientLight;
-                RenderSettings.fogDensity = 0.16f;
-            }
+
+        if (GameInstance.GetNormalTime()[1] % 24 >= 6 && GameInstance.GetNormalTime()[1] % 24 < 20 && RenderSettings.fogDensity !=0)
+        {
+            if (corouting) return;
+
+            RenderSettings.skybox.SetVector("_Tint", new Vector4(1, 1, 1, 1));
+            RenderSettings.skybox.SetTexture("_MainTex", dayNightTransitionTextures[0]);
+            RenderSettings.ambientLight = Color.white;
+            RenderSettings.fogColor = RenderSettings.ambientLight;
+            RenderSettings.fogDensity = 0;
         }
         else
         {
             if (corouting) return;
-            isDay = false;
-            RenderSettings.fog = true;
+
             RenderSettings.skybox.SetVector("_Tint", new Vector4(0.5f, 0.5f, 0.5f, 1));
             RenderSettings.skybox.SetTexture("_MainTex", dayNightTransitionTextures[dayNightTransitionTextures.Count - 1]);
             RenderSettings.ambientLight = Color.black;
             RenderSettings.fogColor = RenderSettings.ambientLight;
             RenderSettings.fogDensity = 0.16f;
         }
+        
+
+        
     }
 
 
@@ -103,30 +90,18 @@ public class DayNightChange : MonoBehaviour
         isNight = NightClosed(countdown);
         //print(GameInstance.GetNormalTime()[1].ToString() + ":" + GameInstance.GetNormalTime()[2].ToString()+":"+GameInstance.GetNormalTime()[3].ToString());
 
-        if (GameInstance.playerController.GetBattleGroundEnvironment() == BattleGroundEnvironment.CITY
-            || GameInstance.playerController.GetBattleGroundEnvironment() == BattleGroundEnvironment.STONE
-            || GameInstance.playerController.GetBattleGroundEnvironment() == BattleGroundEnvironment.WOOD)
+
+        DayChange(countdown);
+        if (GameInstance.GetNormalTime()[1] % 24 >= 6 && GameInstance.GetNormalTime()[1] % 24 < 19)
         {
-            DayChange(countdown);
-            if (GameInstance.GetNormalTime()[1] % 24 >= 6 && GameInstance.GetNormalTime()[1] % 24 < 19)
-            {
-                isDay = true;
-                //RenderSettings.fog = false;
-            }
-            else
-            {
-                isDay = false;
-                //RenderSettings.fog = true;
-            }
+            isDay = true;
+
         }
         else
         {
-            //In caves and dungeons, always night
-            //isDay = false;
-            //RenderSettings.fog = true;
-            RenderSettings.fogColor = Color.black;
-            RenderSettings.fogDensity = 0.16f;
+            isDay = false;
         }
+
 
 
 
@@ -146,12 +121,15 @@ public class DayNightChange : MonoBehaviour
         */
 
 
-/*        Material skyMat = RenderSettings.skybox;
-        var propSky = skyMat.GetPropertyNames(MaterialPropertyType.Float);*/
+        /*        Material skyMat = RenderSettings.skybox;
+                var propSky = skyMat.GetPropertyNames(MaterialPropertyType.Float);*/
         /*        foreach (string propName in propSky)
                 {
                     print(propName);
                 }*/
+
+        if (isDungeon) { return; }
+
         RenderSettings.skybox.SetFloat("_Rotation", _count%360);
         StartCoroutine(SmoothSkyRotation(GameInstance.GetTimeFlow(), 10));
 
@@ -207,9 +185,6 @@ public class DayNightChange : MonoBehaviour
 
 
         }
-
-            
-
 
     }
 

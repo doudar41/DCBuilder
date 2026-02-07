@@ -121,7 +121,679 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_1
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 786
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ea6b16f7e721e1488887392b7c2a0d0
+      internalID: 1787763893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_2
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 786
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6e640229105eef4094f60a722fa4c18
+      internalID: 6343010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_3
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 786
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: faf21d8a4c032ef469bbac92fc567208
+      internalID: 2087190982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_4
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 786
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a3318970e3072d4db2f37da5ebe0d7e
+      internalID: -1882668780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_5
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 786
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60d1c538bb1f5924e9b8898467cc89e5
+      internalID: -597689003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_6
+      rect:
+        serializedVersion: 2
+        x: 758
+        y: 786
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0269d913240f934b96907a8d5edee17
+      internalID: -1970896474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_7
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 786
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e251dee0084593e44b22f8154ac8db29
+      internalID: -1796134458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_8
+      rect:
+        serializedVersion: 2
+        x: 938
+        y: 786
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df68a7bb83219d9438150ab2fd06c227
+      internalID: -1130958647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_10
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 696
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af709cc44fc14354ab039af36f7facfd
+      internalID: 1940470098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_11
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 696
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a850f6f40453d44eaded2909ba22613
+      internalID: -1208954246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_12
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 696
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a43a0364e263ebe45877b897540147c2
+      internalID: 1818052320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_13
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 696
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0dbe339e33d676343a1c2fb682a17801
+      internalID: 877390396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_14
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 696
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e03b1d3173d99e14d897afba03339981
+      internalID: -300392016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_15
+      rect:
+        serializedVersion: 2
+        x: 758
+        y: 696
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fa87bc99791ded41836842d9dfafcc0
+      internalID: 2079624701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_16
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 696
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1687410af39fab348846182b40d8298e
+      internalID: 1385839678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_17
+      rect:
+        serializedVersion: 2
+        x: 938
+        y: 696
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f99cf40173ff41b4f8520ac817d48408
+      internalID: 342311918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_19
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 606
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af13bf50564e9cf4189b5633001bc97d
+      internalID: -277556254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_20
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 606
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67aae33ca20a00440b53e7811bfe0c1f
+      internalID: -1566512299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_21
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 606
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe7a0fa9c3de99540abe6aada4cbcaf0
+      internalID: 2073916509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_22
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 606
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b5890e374ebfa04e8489e2e50734d86
+      internalID: -1715611319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_23
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 606
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cd6cea6e1c1da24d85938d1cbf8b721
+      internalID: 2144918862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_24
+      rect:
+        serializedVersion: 2
+        x: 758
+        y: 606
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 062c374b2ad0eb941941159422b88050
+      internalID: -308423443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_25
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 606
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc293aef663b1cf45b807b000d9d892f
+      internalID: 176460500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_26
+      rect:
+        serializedVersion: 2
+        x: 938
+        y: 606
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0ccdc298a5c13b42b729dd9c5fdcd6b
+      internalID: -1204477723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_28
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 516
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1728e607f9c1211419178f68f7c50de2
+      internalID: 1924431440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_29
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 516
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df542a9f36092664e96bb96c1574377b
+      internalID: -923375571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_30
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 516
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5d4c8862e92c24479b2fc0cb637d779
+      internalID: 59990409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_31
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 516
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5d09a0060ef54e46a85a5751ac6eaa1
+      internalID: 1284019498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_32
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 516
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0da1be38edbe663498bdf5fb78d235fb
+      internalID: -484009612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_33
+      rect:
+        serializedVersion: 2
+        x: 758
+        y: 516
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6582fa591ce9dd04881a85dc88010451
+      internalID: 1116116311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_34
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 516
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9aeff3b08a7b2734380ecdd831471978
+      internalID: -1468451135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_divine_35
+      rect:
+        serializedVersion: 2
+        x: 938
+        y: 516
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 929fd01f5439d5d41adf19cf6069abc3
+      internalID: 177122811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -132,7 +804,51 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      vfx_sequence_x32_divine_0: 4662453
+      vfx_sequence_x32_divine_1: 1787763893
+      vfx_sequence_x32_divine_10: 1940470098
+      vfx_sequence_x32_divine_11: -1208954246
+      vfx_sequence_x32_divine_12: 1818052320
+      vfx_sequence_x32_divine_13: 877390396
+      vfx_sequence_x32_divine_14: -300392016
+      vfx_sequence_x32_divine_15: 2079624701
+      vfx_sequence_x32_divine_16: 1385839678
+      vfx_sequence_x32_divine_17: 342311918
+      vfx_sequence_x32_divine_18: -2083268866
+      vfx_sequence_x32_divine_19: -277556254
+      vfx_sequence_x32_divine_2: 6343010
+      vfx_sequence_x32_divine_20: -1566512299
+      vfx_sequence_x32_divine_21: 2073916509
+      vfx_sequence_x32_divine_22: -1715611319
+      vfx_sequence_x32_divine_23: 2144918862
+      vfx_sequence_x32_divine_24: -308423443
+      vfx_sequence_x32_divine_25: 176460500
+      vfx_sequence_x32_divine_26: -1204477723
+      vfx_sequence_x32_divine_27: -1772247407
+      vfx_sequence_x32_divine_28: 1924431440
+      vfx_sequence_x32_divine_29: -923375571
+      vfx_sequence_x32_divine_3: 2087190982
+      vfx_sequence_x32_divine_30: 59990409
+      vfx_sequence_x32_divine_31: 1284019498
+      vfx_sequence_x32_divine_32: -484009612
+      vfx_sequence_x32_divine_33: 1116116311
+      vfx_sequence_x32_divine_34: -1468451135
+      vfx_sequence_x32_divine_35: 177122811
+      vfx_sequence_x32_divine_36: 657699700
+      vfx_sequence_x32_divine_37: 742085579
+      vfx_sequence_x32_divine_38: -193234848
+      vfx_sequence_x32_divine_39: 456637347
+      vfx_sequence_x32_divine_4: -1882668780
+      vfx_sequence_x32_divine_40: -1509600526
+      vfx_sequence_x32_divine_41: -274082560
+      vfx_sequence_x32_divine_42: 182657737
+      vfx_sequence_x32_divine_43: 2146683807
+      vfx_sequence_x32_divine_5: -597689003
+      vfx_sequence_x32_divine_6: -1970896474
+      vfx_sequence_x32_divine_7: -1796134458
+      vfx_sequence_x32_divine_8: -1130958647
+      vfx_sequence_x32_divine_9: -2090509252
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

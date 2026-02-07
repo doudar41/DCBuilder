@@ -39,4 +39,4 @@ MonoBehaviour:
   spellName: Shortbow
   spellPrice: 0
   spellLevel: 0
-  animationTriggerName: ArrowHit
+  animationTriggerName: ArrowHitHeart

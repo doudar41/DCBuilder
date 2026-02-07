@@ -121,7 +121,700 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_0
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 700
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74fa5e52f54663246b658329382f1943
+      internalID: -1436812711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_1
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 700
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df819ffff30bb944fb9d723bd09d5629
+      internalID: -321531184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_2
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 700
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ec758e49d990594aad89fda79787fa7
+      internalID: -227259408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_3
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 700
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b067246222494f47836908adeb6be7e
+      internalID: -1004160941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_4
+      rect:
+        serializedVersion: 2
+        x: 1028
+        y: 700
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1db7e4c1c2e70346a134ab468668468
+      internalID: -1525368293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_5
+      rect:
+        serializedVersion: 2
+        x: 1208
+        y: 700
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12cdf27b75ae4b34fac5a8aa8c932779
+      internalID: 99828913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_6
+      rect:
+        serializedVersion: 2
+        x: 1388
+        y: 700
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 950f7cb3ebffdfe47ba02d1fc413ab37
+      internalID: -974633244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_7
+      rect:
+        serializedVersion: 2
+        x: 1568
+        y: 700
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 424aae0d03b5ab5408f1cebf5044ee48
+      internalID: -1976012543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_8
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 520
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a0eb9e2e283a5948b5fb59f225dddd8
+      internalID: -1453160160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_9
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 520
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4359c1e047999f64da94c4ea97de98e7
+      internalID: -91309856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_10
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 520
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92fd2ebc18d3eef4e892d75ecd0f0f5e
+      internalID: -1021217314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_11
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 520
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f65a36380d735eb4a89feca100c1e02b
+      internalID: -446620871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_12
+      rect:
+        serializedVersion: 2
+        x: 1028
+        y: 520
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7b2baaa61173c243977d77f5660711d
+      internalID: 130781295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_13
+      rect:
+        serializedVersion: 2
+        x: 1208
+        y: 520
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5be2f6a6f190cc94794b38c58ec28a8b
+      internalID: -951018459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_14
+      rect:
+        serializedVersion: 2
+        x: 1388
+        y: 520
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c4354fd4c7ab2548b6cd66c77dac787
+      internalID: 587850398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_15
+      rect:
+        serializedVersion: 2
+        x: 1568
+        y: 520
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db09e0bc6da287d468e6d1b158ec56f3
+      internalID: -1473622332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_16
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 340
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15fb380b539db14499ca47fb453e225b
+      internalID: 1888380937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_17
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 340
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7d86063e79d2984a8f501cc43a958f6
+      internalID: 404680879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_18
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 340
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65b50d29dbf3d5946850d3de6aa6340e
+      internalID: 1157517483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_19
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 340
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba03323627cc2654ba0ec1cc93adc5b1
+      internalID: -896051885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_20
+      rect:
+        serializedVersion: 2
+        x: 1028
+        y: 340
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2a97d215b449414bafe7e1978abcc04
+      internalID: -589728394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_21
+      rect:
+        serializedVersion: 2
+        x: 1208
+        y: 340
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c5a0944ba8a974409d76e8c5a1c184d
+      internalID: -653830932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_22
+      rect:
+        serializedVersion: 2
+        x: 1388
+        y: 340
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31729c595acf3de4c841e539b3d0d3e7
+      internalID: -1562202411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_23
+      rect:
+        serializedVersion: 2
+        x: 1568
+        y: 340
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4663e889c5a21364b90b0fd48c71c0c8
+      internalID: -24618273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_24
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 160
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b172ab63d66f4c240a3c5f866118285b
+      internalID: 146203060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_25
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 160
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbe10e4d99943854d90698f7808e6648
+      internalID: 1184703729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_26
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 160
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f35dcacc31b3b64485125ffdd21194a
+      internalID: -2015562540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_27
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 160
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99c0cfcf7fa0a8343aa83a0c4fc1aea3
+      internalID: -1261199391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_28
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 160
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f18a1ed920ae2a4587adad302cf8da9
+      internalID: -335731283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_29
+      rect:
+        serializedVersion: 2
+        x: 1028
+        y: 160
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0681449ffc69e45478763f5e7a3040f0
+      internalID: 585283507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_30
+      rect:
+        serializedVersion: 2
+        x: 1208
+        y: 160
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd29cc5c3a3c8ac40bdee8bc7fb444d6
+      internalID: 1634659744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_31
+      rect:
+        serializedVersion: 2
+        x: 1388
+        y: 160
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19bf0f36a21c971458691bb19bee2be4
+      internalID: -21463665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_explosion_1_32
+      rect:
+        serializedVersion: 2
+        x: 1568
+        y: 160
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a0eda702b9064b48ae379e8189f66e5
+      internalID: 675637813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -132,7 +825,40 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      vfx_sequence_x32_explosion_1_0: -1436812711
+      vfx_sequence_x32_explosion_1_1: -321531184
+      vfx_sequence_x32_explosion_1_10: -1021217314
+      vfx_sequence_x32_explosion_1_11: -446620871
+      vfx_sequence_x32_explosion_1_12: 130781295
+      vfx_sequence_x32_explosion_1_13: -951018459
+      vfx_sequence_x32_explosion_1_14: 587850398
+      vfx_sequence_x32_explosion_1_15: -1473622332
+      vfx_sequence_x32_explosion_1_16: 1888380937
+      vfx_sequence_x32_explosion_1_17: 404680879
+      vfx_sequence_x32_explosion_1_18: 1157517483
+      vfx_sequence_x32_explosion_1_19: -896051885
+      vfx_sequence_x32_explosion_1_2: -227259408
+      vfx_sequence_x32_explosion_1_20: -589728394
+      vfx_sequence_x32_explosion_1_21: -653830932
+      vfx_sequence_x32_explosion_1_22: -1562202411
+      vfx_sequence_x32_explosion_1_23: -24618273
+      vfx_sequence_x32_explosion_1_24: 146203060
+      vfx_sequence_x32_explosion_1_25: 1184703729
+      vfx_sequence_x32_explosion_1_26: -2015562540
+      vfx_sequence_x32_explosion_1_27: -1261199391
+      vfx_sequence_x32_explosion_1_28: -335731283
+      vfx_sequence_x32_explosion_1_29: 585283507
+      vfx_sequence_x32_explosion_1_3: -1004160941
+      vfx_sequence_x32_explosion_1_30: 1634659744
+      vfx_sequence_x32_explosion_1_31: -21463665
+      vfx_sequence_x32_explosion_1_32: 675637813
+      vfx_sequence_x32_explosion_1_4: -1525368293
+      vfx_sequence_x32_explosion_1_5: 99828913
+      vfx_sequence_x32_explosion_1_6: -974633244
+      vfx_sequence_x32_explosion_1_7: -1976012543
+      vfx_sequence_x32_explosion_1_8: -1453160160
+      vfx_sequence_x32_explosion_1_9: -91309856
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

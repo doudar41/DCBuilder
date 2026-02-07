@@ -106,13 +106,13 @@ MonoBehaviour:
     MulticlipsPlayMode: 0
     _group: {fileID: 0}
     Clips:
-    - AudioClip: {fileID: 8300000, guid: 22fd325111a74d046a49d88258af8422, type: 3}
-      Volume: 0.4
+    - AudioClip: {fileID: 8300000, guid: e5186d16c953bf247a01bc728439c3a3, type: 3}
+      Volume: 0.6129055
       Delay: 0
-      StartPosition: 0.029
-      EndPosition: 0.56
-      FadeIn: 0.046
-      FadeOut: 0.235
+      StartPosition: 0
+      EndPosition: 0
+      FadeIn: 0
+      FadeOut: 0
       Weight: 0
     <MasterVolume>k__BackingField: 1
     <Loop>k__BackingField: 0

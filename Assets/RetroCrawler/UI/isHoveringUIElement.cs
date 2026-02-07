@@ -9,7 +9,7 @@ public class isHoveringUIElement : MonoBehaviour, IPointerEnterHandler, IPointer
     [SerializeField]
     HoverUIElementEnum elementType;
     [SerializeField]
-    int index = 0;
+    int index = -1;
 
     public int GetIndex()
     {

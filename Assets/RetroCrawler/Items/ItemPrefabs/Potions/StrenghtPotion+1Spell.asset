@@ -39,4 +39,4 @@ MonoBehaviour:
   spellName: Strenght Potion +1
   spellPrice: 1000
   spellLevel: 10
-  animationTriggerName: 
+  animationTriggerName: Heal

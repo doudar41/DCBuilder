@@ -39,4 +39,4 @@ MonoBehaviour:
   spellName: Mass Heal
   spellPrice: 1
   spellLevel: 2
-  animationTriggerName: 
+  animationTriggerName: Heal

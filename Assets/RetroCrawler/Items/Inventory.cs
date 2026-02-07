@@ -100,10 +100,20 @@ public class Inventory : MonoBehaviour
         }
 
         shieldSlot.CheckWeaponSlot();
-
-        //GameInstance.party.UpdatePartyWeight();
         GameInstance.party.RefreshUI.Invoke();
     }
+
+
+    public equipmentSlot FindEquipmentSlotOfType(ItemType type)
+    {
+        foreach(equipmentSlot e in equipmentSlotsList)
+        {
+            if(e.itemType == type) return e;
+        }
+
+        return null;
+    }
+
 
     public void BuildItemDatabase()
     {
@@ -151,7 +161,7 @@ public class Inventory : MonoBehaviour
             {
                 if (i.AddItemInSlot(itemScriptableTemp, stackamount))
                 {
-                    if (!noSound) { print("pllay item sound");
+                    if (!noSound) { //print("pllay item sound");
 
                         GameInstance.soundManagerInGame.ProtectedPlay(itemDatabase[itemScriptableTemp.container].inventorySound); 
                     }

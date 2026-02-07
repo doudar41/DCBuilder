@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 8.899994, y: 0.000025749207}
+  m_AnchoredPosition: {x: 8.899994, y: -0.000007987022}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &8069741111807412642
@@ -146,6 +146,10 @@ MonoBehaviour:
   - {fileID: 0}
   letMeGoQuitTalk: {fileID: 0}
   cameraUI: {fileID: 0}
+  openCloseDialogue:
+    ID: 1073741873
+    _sourceAsset: {fileID: 11400000, guid: 4760e6f67797d0d4f825506d4790a2df, type: 2}
+    <DebugObject>k__BackingField: {fileID: 926327251068602687}
   deleteDialogueOption:
     m_PersistentCalls:
       m_Calls: []
@@ -1042,7 +1046,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 12}
+  m_AnchoredPosition: {x: -4.999878, y: 29.169983}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &8997845592107617583
@@ -1836,7 +1840,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6522317428116764176}
   m_HandleRect: {fileID: 3937543310102391735}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

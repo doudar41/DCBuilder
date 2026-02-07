@@ -121,7 +121,679 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_1
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 786
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a5117a7caf05394892f9d290deb93c2
+      internalID: 237444955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_2
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 786
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fcfc53af425b7e84ab1592e0edab6121
+      internalID: 42142099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_3
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 786
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6c0c0923b9028a438af12f3727907c6
+      internalID: 853562522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_4
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 786
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5ec3f2f42486d54393ecf4375e580cf
+      internalID: -1903828625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_5
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 786
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0df50fe670d0460449d30a0aca8b454f
+      internalID: 518456223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_6
+      rect:
+        serializedVersion: 2
+        x: 758
+        y: 786
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 869b288a33b1cd247954d6afea3a9f4c
+      internalID: 1756408742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_7
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 786
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f293ae76218056743840a4631a02b6a8
+      internalID: -261182841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_8
+      rect:
+        serializedVersion: 2
+        x: 938
+        y: 786
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d808150202b5f3742bc078a536ade974
+      internalID: 1837557752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_10
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 696
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0cd64c77739b8154f94b7a83b50cf024
+      internalID: 1965987807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_11
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 696
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2e1425652cd1724da007911ea3b70a4
+      internalID: 1863497808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_12
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 696
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 155c348a9ada7d645b5a6ea3e5593d18
+      internalID: -685326077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_13
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 696
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 004bb638df376884b8e8aebce1192a73
+      internalID: 295767988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_14
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 696
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec635f1d6ea878c4bbfb933bc10b811c
+      internalID: 821366131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_15
+      rect:
+        serializedVersion: 2
+        x: 758
+        y: 696
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40f84d5ef7c264e4ca427d66125ec1fd
+      internalID: 1951676454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_16
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 696
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6459ced235b56d4d852582d464a9456
+      internalID: -1446626853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_17
+      rect:
+        serializedVersion: 2
+        x: 938
+        y: 696
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59ac8598ea65e8e4d82a4abcdf6159d4
+      internalID: -880075429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_19
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 606
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f7ee2ee13040db418b708523a61b8d9
+      internalID: 1038705634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_20
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 606
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66a5ae49c53964f4fafd8c6b5243bc5b
+      internalID: 639963268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_21
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 606
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c260cd2792cb8e4da18800484876ba7
+      internalID: -1039348026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_22
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 606
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a954d800f58f630448a05d03900f3237
+      internalID: -1412499264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_23
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 606
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 966d4f20997f27c44a40427b8b3d390f
+      internalID: 742538656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_24
+      rect:
+        serializedVersion: 2
+        x: 758
+        y: 606
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53af24a2a0536da4ea3004c7f29169d3
+      internalID: -2140898766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_25
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 606
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5df01c46ea3e2a946940aa4d28be3d6b
+      internalID: 470822819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_26
+      rect:
+        serializedVersion: 2
+        x: 938
+        y: 606
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8b08e84fb8f99d44a0dbf3ae95b9f9d
+      internalID: 1497642732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_28
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 516
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d014f7ad5a8b0d34689df874d92c6ffe
+      internalID: 1637550927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_29
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 516
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b1c584d9d78322478c5a8bc7df6352e
+      internalID: -430776175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_30
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 516
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa7b59003c6e3d842b15607a9d573945
+      internalID: -615659853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_31
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 516
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0def2910ed1f6f64c8dd9b850a872ebf
+      internalID: 600450450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_32
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 516
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8918bf1955c47784b9f05e6b40ca6bb5
+      internalID: -301093906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_33
+      rect:
+        serializedVersion: 2
+        x: 758
+        y: 516
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3baf050ef8a4494799e37405bd0a8c2
+      internalID: -1861446519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_34
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 516
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cc3bd146408b4f4085f6c125a2193b2
+      internalID: 585785446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_water_2_35
+      rect:
+        serializedVersion: 2
+        x: 938
+        y: 516
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4656620f94ca3bc458f2fd63112504f2
+      internalID: 432698525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -132,7 +804,51 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      vfx_sequence_x32_water_2_0: -1914411199
+      vfx_sequence_x32_water_2_1: 237444955
+      vfx_sequence_x32_water_2_10: 1965987807
+      vfx_sequence_x32_water_2_11: 1863497808
+      vfx_sequence_x32_water_2_12: -685326077
+      vfx_sequence_x32_water_2_13: 295767988
+      vfx_sequence_x32_water_2_14: 821366131
+      vfx_sequence_x32_water_2_15: 1951676454
+      vfx_sequence_x32_water_2_16: -1446626853
+      vfx_sequence_x32_water_2_17: -880075429
+      vfx_sequence_x32_water_2_18: 1524521495
+      vfx_sequence_x32_water_2_19: 1038705634
+      vfx_sequence_x32_water_2_2: 42142099
+      vfx_sequence_x32_water_2_20: 639963268
+      vfx_sequence_x32_water_2_21: -1039348026
+      vfx_sequence_x32_water_2_22: -1412499264
+      vfx_sequence_x32_water_2_23: 742538656
+      vfx_sequence_x32_water_2_24: -2140898766
+      vfx_sequence_x32_water_2_25: 470822819
+      vfx_sequence_x32_water_2_26: 1497642732
+      vfx_sequence_x32_water_2_27: 1193721188
+      vfx_sequence_x32_water_2_28: 1637550927
+      vfx_sequence_x32_water_2_29: -430776175
+      vfx_sequence_x32_water_2_3: 853562522
+      vfx_sequence_x32_water_2_30: -615659853
+      vfx_sequence_x32_water_2_31: 600450450
+      vfx_sequence_x32_water_2_32: -301093906
+      vfx_sequence_x32_water_2_33: -1861446519
+      vfx_sequence_x32_water_2_34: 585785446
+      vfx_sequence_x32_water_2_35: 432698525
+      vfx_sequence_x32_water_2_36: 2055595474
+      vfx_sequence_x32_water_2_37: 746217294
+      vfx_sequence_x32_water_2_38: -374199130
+      vfx_sequence_x32_water_2_39: -479747673
+      vfx_sequence_x32_water_2_4: -1903828625
+      vfx_sequence_x32_water_2_40: -1993095344
+      vfx_sequence_x32_water_2_41: -522073195
+      vfx_sequence_x32_water_2_42: -463889137
+      vfx_sequence_x32_water_2_43: -998004896
+      vfx_sequence_x32_water_2_5: 518456223
+      vfx_sequence_x32_water_2_6: 1756408742
+      vfx_sequence_x32_water_2_7: -261182841
+      vfx_sequence_x32_water_2_8: 1837557752
+      vfx_sequence_x32_water_2_9: 533228632
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

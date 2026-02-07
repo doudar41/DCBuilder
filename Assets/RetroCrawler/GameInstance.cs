@@ -85,7 +85,7 @@ public static class GameInstance
     public static Dictionary<Vector3Int,bool> customBattlesInPlaceFinished = new Dictionary<Vector3Int, bool>();
 
     public static bool noEncounter = true;
-    public static int savedTimeToEncounter = 0, expPoints = 0, moneyCollected = 0, gemsCollected =0, partyLevel = 0;
+    public static int savedTimeToEncounter = 0, expPoints = 0, moneyCollected = 0, gemsCollected =0, partyLevel = 0, partyFood = 0;
     public static List<HeroSavedCurrentData> heroesCurrentData = new List<HeroSavedCurrentData>();
 
     //Chest and doors
@@ -117,6 +117,7 @@ public static class GameInstance
         savedTimeToEncounter = 0; expPoints = 0; moneyCollected = 0; gemsCollected = 0; partyLevel = 0;
         identifiedItems.Clear();
         levelChange = false;
+        timeProgress = 1;
     }
 
     public static int DiceRollingBiggestNumber(int diceNumber, int diceSides)
@@ -207,13 +208,14 @@ public static class GameInstance
 
     public static void LoadNextLevel(string levelName)
     {
-        moneyCollected = GameInstance.party.SellBuyMoneyCheck(0);
-        gemsCollected = GameInstance.party.CheckGems(0);
-        expPoints = GameInstance.party.addExperiencePoints(0);
-        partyLevel = GameInstance.party.GetPartyLevel();
+        moneyCollected = party.SellBuyMoneyCheck(0);
+        gemsCollected = party.CheckGems(0);
+        expPoints = party.addExperiencePoints(0);
+        partyLevel = party.GetPartyLevel();
         savedTimeToEncounter = playerController.GetCountdownToEncounter();
+        partyFood = party.CheckFoodSupply(0);
 
-        if(!levelsVisited.Contains(SceneManager.GetActiveScene().name)) levelsVisited.Add(SceneManager.GetActiveScene().name);
+        if (!levelsVisited.Contains(SceneManager.GetActiveScene().name)) levelsVisited.Add(SceneManager.GetActiveScene().name);
         heroesCurrentData.Clear();
         foreach (IHero ih in party.GetIHeroes())
         {
@@ -224,7 +226,7 @@ public static class GameInstance
 
         foreach(HeroSavedCurrentData h in heroesCurrentData)
             {
-            Debug.Log(" hero current data " + h.heroIndex + " " + h.currentHealth + " " + h.currentMana + " " + h.currentHunger);
+           // Debug.Log(" hero current data " + h.heroIndex + " " + h.currentHealth + " " + h.currentMana + " " + h.currentHunger);
         }
 
 
@@ -431,6 +433,7 @@ public static class GameInstance
         saveData.moneyCollected = party.SellBuyMoneyCheck(0);
         saveData.gemsCollected = party.CheckGems(0);
         saveData.expPoints = party.addExperiencePoints(0);
+        saveData.partyFood = party.CheckFoodSupply(0);  
         saveData.savedTimeToEncounter = playerController.GetCountdownToEncounter();
         heroesCurrentData.Clear();
         foreach (IHero ih in party.GetIHeroes())
@@ -512,6 +515,7 @@ public static class GameInstance
             gemsCollected = saveData.gemsCollected;
             expPoints = saveData.expPoints;
             savedTimeToEncounter = saveData.savedTimeToEncounter;
+            partyFood = saveData.partyFood;
             foreach (HeroInventoryItem item in saveData.identifiedItems)
             {
                 identifiedItems.Add(item.container, item);
@@ -674,7 +678,7 @@ public static class GameInstance
                 newmainsave.Add(savemaintemp);
             }
         }
-        Debug.Log("main stat check " +newmainsave[0].mainStat +" "+ newmainsave[0].amount);
+        //Debug.Log("main stat check " +newmainsave[0].mainStat +" "+ newmainsave[0].amount);
         return newmainsave;
     }
 
@@ -779,7 +783,7 @@ public class SaveData
     public List<string> journalEntries = new List<string>();
     public bool encounterOn = false;
     public List<Vector3Int> customBattlesInPlaceFinished = new List<Vector3Int>();
-    public int savedTimeToEncounter = 0, expPoints = 0, moneyCollected = 0, gemsCollected = 0;
+    public int savedTimeToEncounter = 0, expPoints = 0, moneyCollected = 0, gemsCollected = 0, partyFood = 0;
     public bool isDungeon = true;
     public List<HeroSavedCurrentData> heroesCurrentData = new List<HeroSavedCurrentData>();
     public List<HeroInventoryItem> identifiedItems = new List<HeroInventoryItem>();

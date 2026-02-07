@@ -736,7 +736,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 1907540620975975541}
   emptySprite: {fileID: 21300000, guid: e418c7b149449ad42ba64a015fb22784, type: 3}
-  animator: {fileID: 0}
+  animator: {fileID: 5757654985394537997}
 --- !u!1 &4673620098085389259
 GameObject:
   m_ObjectHideFlags: 0
@@ -1354,5 +1354,10 @@ PrefabInstance:
 --- !u!4 &765761058285552810 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4887578960166429016, guid: 5ab70878558e1654ba2112a2523aff48, type: 3}
+  m_PrefabInstance: {fileID: 5293045175630996978}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5757654985394537997 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 473968947228992511, guid: 5ab70878558e1654ba2112a2523aff48, type: 3}
   m_PrefabInstance: {fileID: 5293045175630996978}
   m_PrefabAsset: {fileID: 0}

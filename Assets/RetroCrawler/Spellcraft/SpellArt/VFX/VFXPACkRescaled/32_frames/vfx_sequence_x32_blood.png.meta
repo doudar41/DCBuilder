@@ -121,7 +121,679 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_0
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 696
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29843903a5731424baa3e8f4ac717d93
+      internalID: -1127002283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_1
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 696
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3692413f9bbf50249a3605707113e88a
+      internalID: -1326467372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_2
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 696
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2eb4e509d0cf03a43acc4547ccb1d332
+      internalID: -112224060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_3
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 696
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 746584dbca18c084a96a1fdb99297e55
+      internalID: 1319019780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_4
+      rect:
+        serializedVersion: 2
+        x: 1028
+        y: 696
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d17dc3271f586ad4a95d7a99db4a6191
+      internalID: -371582217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_5
+      rect:
+        serializedVersion: 2
+        x: 1208
+        y: 696
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 070935ab0d46aec45b9814d9fd3f3217
+      internalID: -21536754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_6
+      rect:
+        serializedVersion: 2
+        x: 1388
+        y: 696
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0181976a52d704342ac02f6f23334c54
+      internalID: -575988859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_7
+      rect:
+        serializedVersion: 2
+        x: 1568
+        y: 696
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db59f7004b6e2964597bb14488b1525d
+      internalID: -2014437468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_8
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 516
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e12c7019d5803734698e2afb7549035c
+      internalID: -1456695134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_9
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 516
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0058a6c01a43013479c68a43149a8288
+      internalID: 700911283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_10
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 516
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11356c63ab772b14ca588a2571137729
+      internalID: -6572484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_11
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 516
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08c703e7c9731b14589ad09cebc17ff5
+      internalID: -1784031509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_12
+      rect:
+        serializedVersion: 2
+        x: 1028
+        y: 516
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ea6866294f5cfe4e9dd224dea56fca9
+      internalID: -1492145451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_13
+      rect:
+        serializedVersion: 2
+        x: 1208
+        y: 516
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fc1e41c21af3a242a7afebc4a8b0bc9
+      internalID: -2032477975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_14
+      rect:
+        serializedVersion: 2
+        x: 1388
+        y: 516
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7d7e8515931f6740a6e12a44f93cdab
+      internalID: 1663072622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_15
+      rect:
+        serializedVersion: 2
+        x: 1568
+        y: 516
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31fa7dee1bbb5c747867562e50127031
+      internalID: 102099312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_16
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 336
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a100b1ce9838d345ad172ccb9c160c5
+      internalID: 423574713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_17
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 336
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cce8ae5f7fc878a44985394995147674
+      internalID: -1212240474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_18
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 336
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41060067f9d93cb4689b2d8871cf20e9
+      internalID: -266470510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_19
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 336
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a39d2513be77004eb9cfdb17856ddc7
+      internalID: 1799002570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_20
+      rect:
+        serializedVersion: 2
+        x: 1028
+        y: 336
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e21856c215a53e47895897a78d0efba
+      internalID: -819397267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_21
+      rect:
+        serializedVersion: 2
+        x: 1208
+        y: 336
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1dbc3e72891a35a4fb8d7504eded8647
+      internalID: 1425037112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_22
+      rect:
+        serializedVersion: 2
+        x: 1388
+        y: 336
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18938f16f436dfb4d8cbdab0637ece9e
+      internalID: -916960675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_23
+      rect:
+        serializedVersion: 2
+        x: 1568
+        y: 336
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a5dbade4a208b14ba4bffff010f6cda
+      internalID: 1345435963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_24
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 156
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63f62dd82fd5eee47907ebe13377ca1a
+      internalID: 1548734332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_25
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 156
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e30d9fb6d93e224fb242e4d6b88e360
+      internalID: 705556411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_26
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 156
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c074229b9d4994499f58fb89e3e9fa7
+      internalID: 1857609272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_27
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 156
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 078907380630c9c4b960caf8f574b9b9
+      internalID: 173361232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_28
+      rect:
+        serializedVersion: 2
+        x: 1028
+        y: 156
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d0526aee42d10c4996c7d2024db2a99
+      internalID: 376752925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_29
+      rect:
+        serializedVersion: 2
+        x: 1208
+        y: 156
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c713aa873c67b4408bb3d7bb04128d1
+      internalID: 2089118043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_30
+      rect:
+        serializedVersion: 2
+        x: 1388
+        y: 156
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f3122c48ad845144ac0e48e09ee694e
+      internalID: 411889849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_blood_31
+      rect:
+        serializedVersion: 2
+        x: 1568
+        y: 156
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37b07d960649ba940825a8b4940e06f1
+      internalID: 926350982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -132,7 +804,39 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      vfx_sequence_x32_blood_0: -1127002283
+      vfx_sequence_x32_blood_1: -1326467372
+      vfx_sequence_x32_blood_10: -6572484
+      vfx_sequence_x32_blood_11: -1784031509
+      vfx_sequence_x32_blood_12: -1492145451
+      vfx_sequence_x32_blood_13: -2032477975
+      vfx_sequence_x32_blood_14: 1663072622
+      vfx_sequence_x32_blood_15: 102099312
+      vfx_sequence_x32_blood_16: 423574713
+      vfx_sequence_x32_blood_17: -1212240474
+      vfx_sequence_x32_blood_18: -266470510
+      vfx_sequence_x32_blood_19: 1799002570
+      vfx_sequence_x32_blood_2: -112224060
+      vfx_sequence_x32_blood_20: -819397267
+      vfx_sequence_x32_blood_21: 1425037112
+      vfx_sequence_x32_blood_22: -916960675
+      vfx_sequence_x32_blood_23: 1345435963
+      vfx_sequence_x32_blood_24: 1548734332
+      vfx_sequence_x32_blood_25: 705556411
+      vfx_sequence_x32_blood_26: 1857609272
+      vfx_sequence_x32_blood_27: 173361232
+      vfx_sequence_x32_blood_28: 376752925
+      vfx_sequence_x32_blood_29: 2089118043
+      vfx_sequence_x32_blood_3: 1319019780
+      vfx_sequence_x32_blood_30: 411889849
+      vfx_sequence_x32_blood_31: 926350982
+      vfx_sequence_x32_blood_4: -371582217
+      vfx_sequence_x32_blood_5: -21536754
+      vfx_sequence_x32_blood_6: -575988859
+      vfx_sequence_x32_blood_7: -2014437468
+      vfx_sequence_x32_blood_8: -1456695134
+      vfx_sequence_x32_blood_9: 700911283
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

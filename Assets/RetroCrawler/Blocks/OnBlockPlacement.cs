@@ -89,10 +89,9 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
         {
             if (blockInteractables.Contains(InteractablesEnum.DIALOGUE)) 
             { 
-                blockInteractables.Remove(InteractablesEnum.DIALOGUE); 
-
+                blockInteractables.Remove(InteractablesEnum.DIALOGUE);
+                if (characterSprite != null) characterSprite.SetActive(false);
             }
-
         }
         //Check GameInstance for if Custom battle in place took place
         if (blockInteractables.Contains(InteractablesEnum.CUSTOMBATTLEINPLACE))
@@ -105,10 +104,9 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
                     g.SetActive(false);
                 }
             }
-
-
         }
     }
+
     public void InitPosition(Tilemap tilemap)
     {
         blockPosition = tilemap.WorldToCell(transform.position);

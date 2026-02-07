@@ -77,11 +77,47 @@ MonoBehaviour:
     - AudioClip: {fileID: 8300000, guid: fb3f5ca540e144c42a6c04c726a151d7, type: 3}
       Volume: 1
       Delay: 0
+      StartPosition: 0.167
+      EndPosition: 0
+      FadeIn: 0.111
+      FadeOut: 0
+      Weight: 0
+    <MasterVolume>k__BackingField: 1
+    <Loop>k__BackingField: 0
+    <SeamlessLoop>k__BackingField: 0
+    <TransitionTime>k__BackingField: 0
+    <SpatialSetting>k__BackingField: {fileID: 0}
+    <Priority>k__BackingField: 128
+    <Pitch>k__BackingField: 1
+    <PitchRandomRange>k__BackingField: 0
+    <VolumeRandomRange>k__BackingField: 0
+    <RandomFlags>k__BackingField: 0
+    SeamlessTransitionType: 0
+    TransitionTempo:
+      BPM: 0
+      Beats: 0
+    SnapToFullVolume: 0
+  - <Name>k__BackingField: OpenCloseDialogue
+    <ID>k__BackingField: 1073741873
+    MulticlipsPlayMode: 4
+    _group: {fileID: 0}
+    Clips:
+    - AudioClip: {fileID: 8300000, guid: 9a6b9c00d5c6b424cbeb599f94ce461d, type: 3}
+      Volume: 1
+      Delay: 0
       StartPosition: 0
       EndPosition: 0
       FadeIn: 0
       FadeOut: 0
       Weight: 0
+    - AudioClip: {fileID: 8300000, guid: b88f220fd94ddea4c943c25545c04fdc, type: 3}
+      Volume: 1
+      Delay: 0
+      StartPosition: 0
+      EndPosition: 0
+      FadeIn: 0
+      FadeOut: 0
+      Weight: 1
     <MasterVolume>k__BackingField: 1
     <Loop>k__BackingField: 0
     <SeamlessLoop>k__BackingField: 0

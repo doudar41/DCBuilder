@@ -39,4 +39,4 @@ MonoBehaviour:
   spellName: Heal
   spellPrice: 1
   spellLevel: 0
-  animationTriggerName: 
+  animationTriggerName: Heal

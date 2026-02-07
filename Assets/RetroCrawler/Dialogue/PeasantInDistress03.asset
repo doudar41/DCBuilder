@@ -14,12 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uniqueName: 10
   dialogue_phrases:
-  - portraits: {fileID: 21300000, guid: 499c211661d268c4d8317df9ac6d907e, type: 3}
+  - portraits: {fileID: 21300000, guid: 8ecf89858bb2fc9409087ca1b9d7b991, type: 3}
     dialogueTexts: Oh, thank you. Here is some money I can share
   journalEnter: 
   priorityIndex: 1
   dialogueButtons: []
-  oneTimeDialogue: 1
   namesToDeleteFromBlock: 08000000090000000a000000
   namesToDeleteFromParty: 08000000090000000a000000
   deleteDialogue: 1
@@ -27,3 +26,4 @@ MonoBehaviour:
   namesAddToParty: 
   itemsAddToParty: []
   goldAmount: 500
+  experiencePoints: 0

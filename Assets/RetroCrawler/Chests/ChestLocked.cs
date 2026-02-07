@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class ChestLocked : MonoBehaviour, IPointerClickHandler, IChestLocked
 {
@@ -59,18 +60,18 @@ public class ChestLocked : MonoBehaviour, IPointerClickHandler, IChestLocked
             newItem.itemType = thingsInsideChest[i].itemType;
             newItem.stackAmount = stackAmounts[i];
             newItem.positionReplaced = Vector3.zero;
-            newItem.level = "Level01";
+            newItem.level = SceneManager.GetActiveScene().name ;
             newItem.levelOfIdenifySaved = 0;
             inventoryInsideChest.Add(newItem);
 
         }
         if (GameInstance.savedItemsState.ContainsKey(GUIDString))
         {
-            print("Check chest");
+            //print("Check chest");
             if (inventoryInsideChest.Count == 0) return;
             if (GameInstance.savedItemsState[GUIDString] == SavedState.Opened)
             {
-                print("Chest was opened");
+               // print("Chest was opened");
                 if(!isMimic)
                 {
                     StartCoroutine(AnimateOpen());

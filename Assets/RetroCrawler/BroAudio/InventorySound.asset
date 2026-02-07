@@ -47,7 +47,7 @@ MonoBehaviour:
     _group: {fileID: 0}
     Clips:
     - AudioClip: {fileID: 8300000, guid: f1422e64c6cb99345a1472e8ce154959, type: 3}
-      Volume: 1
+      Volume: 0.7828829
       Delay: 0
       StartPosition: 0.055
       EndPosition: 0
@@ -103,7 +103,7 @@ MonoBehaviour:
     _group: {fileID: 0}
     Clips:
     - AudioClip: {fileID: 8300000, guid: e2f4e1ce139a4504696944b32c8dad54, type: 3}
-      Volume: 1
+      Volume: 0.7539497
       Delay: 0
       StartPosition: 0
       EndPosition: 0
@@ -180,10 +180,66 @@ MonoBehaviour:
     <TransitionTime>k__BackingField: 0
     <SpatialSetting>k__BackingField: {fileID: 0}
     <Priority>k__BackingField: 128
-    <Pitch>k__BackingField: 0.98722583
-    <PitchRandomRange>k__BackingField: 0.102051616
+    <Pitch>k__BackingField: 0.98725003
+    <PitchRandomRange>k__BackingField: 0.102100015
     <VolumeRandomRange>k__BackingField: 0
     <RandomFlags>k__BackingField: 1
+    SeamlessTransitionType: 0
+    TransitionTempo:
+      BPM: 0
+      Beats: 0
+    SnapToFullVolume: 0
+  - <Name>k__BackingField: Leather+Metal
+    <ID>k__BackingField: 1073741870
+    MulticlipsPlayMode: 0
+    _group: {fileID: 0}
+    Clips:
+    - AudioClip: {fileID: 8300000, guid: 4e0a7724369808243a4afcb3591d22df, type: 3}
+      Volume: 1
+      Delay: 0
+      StartPosition: 0
+      EndPosition: 0
+      FadeIn: 0
+      FadeOut: 0
+      Weight: 0
+    <MasterVolume>k__BackingField: 1
+    <Loop>k__BackingField: 0
+    <SeamlessLoop>k__BackingField: 0
+    <TransitionTime>k__BackingField: 0
+    <SpatialSetting>k__BackingField: {fileID: 0}
+    <Priority>k__BackingField: 128
+    <Pitch>k__BackingField: 1
+    <PitchRandomRange>k__BackingField: 0
+    <VolumeRandomRange>k__BackingField: 0
+    <RandomFlags>k__BackingField: 0
+    SeamlessTransitionType: 0
+    TransitionTempo:
+      BPM: 0
+      Beats: 0
+    SnapToFullVolume: 0
+  - <Name>k__BackingField: Small Metal
+    <ID>k__BackingField: 1073741871
+    MulticlipsPlayMode: 0
+    _group: {fileID: 0}
+    Clips:
+    - AudioClip: {fileID: 8300000, guid: 858d44ec117da004aa6757d05050538c, type: 3}
+      Volume: 1
+      Delay: 0
+      StartPosition: 0.365
+      EndPosition: 0
+      FadeIn: 0.034
+      FadeOut: 0
+      Weight: 0
+    <MasterVolume>k__BackingField: 1
+    <Loop>k__BackingField: 0
+    <SeamlessLoop>k__BackingField: 0
+    <TransitionTime>k__BackingField: 0
+    <SpatialSetting>k__BackingField: {fileID: 0}
+    <Priority>k__BackingField: 128
+    <Pitch>k__BackingField: 1
+    <PitchRandomRange>k__BackingField: 0
+    <VolumeRandomRange>k__BackingField: 0
+    <RandomFlags>k__BackingField: 0
     SeamlessTransitionType: 0
     TransitionTempo:
       BPM: 0

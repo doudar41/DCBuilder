@@ -2,24 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Animancer;
+using Ami.BroAudio;
 
 public class DamagePlayerVFX : MonoBehaviour
 {
     [SerializeField] Image image;
     [SerializeField] Sprite emptySprite;
-    [SerializeField] Animator animator;
+    [SerializeField] animateUIImage anim;
+    [SerializeField] List<SpellAnimationList> clips;
+    Dictionary<string, SpellAnimationList> listClips = new Dictionary<string, SpellAnimationList>();
 
+    private void Awake()
+    {
+        foreach(SpellAnimationList cl in clips)
+        {
+            listClips.Add(cl.stateName, cl);
+            anim.FillSpriteList(cl.stateName, cl.clip);
+        }
+    }
     private void Start()
     {
-        if (animator == null) return;
-        animator.StartPlayback();
-        animator.gameObject.SetActive(true);
-        animator.speed = 0.5f;
+
     }
 
     void ChangeAnimation(string animationStateName)
     {
-        animator.CrossFade(animationStateName, 0.1f);
+        anim.StartFXAnimation(animationStateName);
+        GameInstance.soundManagerInGame.ProtectedPlay(listClips[animationStateName].soundID);
+
     }
     public void PlaySpellEffect(SpellContainer spell)
     {
@@ -32,9 +43,7 @@ public class DamagePlayerVFX : MonoBehaviour
 [System.Serializable]
 public class SpellAnimationList
 {
-    public bool onEnemy = false;
-    public SpellEffects spellEffect;
-    public MagicType magicType = MagicType.None;
-    public Animator aspriteAnim;
-    public List<Sprite> animationList = new List<Sprite>();
+    public string stateName = "";
+    public List<Sprite> clip;
+    public SoundID soundID;
 }

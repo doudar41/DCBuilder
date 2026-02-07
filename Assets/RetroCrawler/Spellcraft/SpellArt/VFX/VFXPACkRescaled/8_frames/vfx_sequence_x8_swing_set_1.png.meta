@@ -126,10 +126,10 @@ TextureImporter:
       name: vfx_sequence_x8_swing_set_1_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 214
-        width: 14
-        height: 19
+        x: 0
+        y: 192
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,10 +147,10 @@ TextureImporter:
       name: vfx_sequence_x8_swing_set_1_1
       rect:
         serializedVersion: 2
-        x: 65
-        y: 217
-        width: 23
-        height: 24
+        x: 64
+        y: 192
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -168,10 +168,10 @@ TextureImporter:
       name: vfx_sequence_x8_swing_set_1_2
       rect:
         serializedVersion: 2
-        x: 130
-        y: 216
-        width: 43
-        height: 26
+        x: 128
+        y: 192
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -189,10 +189,10 @@ TextureImporter:
       name: vfx_sequence_x8_swing_set_1_3
       rect:
         serializedVersion: 2
-        x: 195
-        y: 215
-        width: 55
-        height: 25
+        x: 192
+        y: 192
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -210,10 +210,10 @@ TextureImporter:
       name: vfx_sequence_x8_swing_set_1_4
       rect:
         serializedVersion: 2
-        x: 265
-        y: 213
-        width: 47
-        height: 27
+        x: 256
+        y: 192
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -231,10 +231,10 @@ TextureImporter:
       name: vfx_sequence_x8_swing_set_1_5
       rect:
         serializedVersion: 2
-        x: 339
-        y: 213
-        width: 37
-        height: 26
+        x: 320
+        y: 192
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -252,10 +252,10 @@ TextureImporter:
       name: vfx_sequence_x8_swing_set_1_6
       rect:
         serializedVersion: 2
-        x: 415
-        y: 213
-        width: 25
-        height: 23
+        x: 384
+        y: 192
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -273,10 +273,10 @@ TextureImporter:
       name: vfx_sequence_x8_swing_set_1_7
       rect:
         serializedVersion: 2
-        x: 484
-        y: 212
-        width: 20
-        height: 7
+        x: 448
+        y: 192
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -295,9 +295,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 136
-        width: 61
-        height: 53
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -316,9 +316,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 136
-        width: 61
-        height: 53
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -337,9 +337,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 141
-        width: 61
-        height: 48
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -358,9 +358,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 192
-        y: 139
-        width: 61
-        height: 50
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -378,10 +378,10 @@ TextureImporter:
       name: vfx_sequence_x8_swing_set_1_12
       rect:
         serializedVersion: 2
-        x: 257
-        y: 137
-        width: 61
-        height: 51
+        x: 256
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -399,10 +399,10 @@ TextureImporter:
       name: vfx_sequence_x8_swing_set_1_13
       rect:
         serializedVersion: 2
-        x: 337
-        y: 135
-        width: 45
-        height: 54
+        x: 320
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -420,10 +420,10 @@ TextureImporter:
       name: vfx_sequence_x8_swing_set_1_14
       rect:
         serializedVersion: 2
-        x: 412
-        y: 133
-        width: 34
-        height: 54
+        x: 384
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -441,10 +441,10 @@ TextureImporter:
       name: vfx_sequence_x8_swing_set_1_15
       rect:
         serializedVersion: 2
-        x: 485
-        y: 154
-        width: 25
-        height: 23
+        x: 448
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -454,27 +454,6 @@ TextureImporter:
       bones: []
       spriteID: a81b68aa8ff102d4787466cec33491d9
       internalID: 407292173
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: vfx_sequence_x8_swing_set_1_16
-      rect:
-        serializedVersion: 2
-        x: 483
-        y: 131
-        width: 17
-        height: 22
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b1358bc95c44e7648bded552a91248f8
-      internalID: -480549256
       vertices: []
       indices: 
       edges: []
@@ -498,7 +477,6 @@ TextureImporter:
       vfx_sequence_x8_swing_set_1_13: 1545569664
       vfx_sequence_x8_swing_set_1_14: -1700117977
       vfx_sequence_x8_swing_set_1_15: 407292173
-      vfx_sequence_x8_swing_set_1_16: -480549256
       vfx_sequence_x8_swing_set_1_2: 1682681292
       vfx_sequence_x8_swing_set_1_3: 1378407947
       vfx_sequence_x8_swing_set_1_4: 61607175

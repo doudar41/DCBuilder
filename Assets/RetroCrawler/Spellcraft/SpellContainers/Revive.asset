@@ -39,4 +39,4 @@ MonoBehaviour:
   spellName: Revive
   spellPrice: 10
   spellLevel: 3
-  animationTriggerName: 
+  animationTriggerName: Restore

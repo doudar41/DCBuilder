@@ -13,11 +13,19 @@ MonoBehaviour:
   m_Name: EnquiryOnHitherinButton
   m_EditorClassIdentifier: 
   uniqueName: 1
-  dialogue_phrases: []
+  dialogue_phrases:
+  - portraits: {fileID: 21300000, guid: 2494d3a8744c1924a8cf309e7d2a5d0f, type: 3}
+    dialogueTexts: Greeti... Oh no
   journalEnter: 
   priorityIndex: 2
   dialogueButtons:
   - uniqueName: 2
     buttonText: Enquiry on Hitherin
-  dialogueDone: 0
-  oneTimeDialogue: 1
+  namesToDeleteFromBlock: 
+  namesToDeleteFromParty: 
+  deleteDialogue: 0
+  lastButtonText: Quit
+  namesAddToParty: 
+  itemsAddToParty: []
+  goldAmount: 0
+  experiencePoints: 0

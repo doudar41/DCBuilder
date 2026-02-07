@@ -2,7 +2,7 @@
 using Ami.BroAudio;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.Audio;
 
 
 public class OptionsMenu : MonoBehaviour
@@ -11,6 +11,7 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] GameObject mainMenu, audioOptions;
     [SerializeField] Slider musicSlider, sfxSlider, uiSlider;
     [SerializeField] BroAudioType musicType = BroAudioType.Music, sfxType = BroAudioType.SFX, uiType=BroAudioType.UI;
+    [SerializeField] AudioMixerGroup sfxgroup;
     float musicVol, sfxVol, uiVol;
 
     private void Start()
@@ -29,6 +30,7 @@ public class OptionsMenu : MonoBehaviour
             musicSlider.value = saveOptions.musicVolume;
             sfxSlider.value = saveOptions.sfxVolume;
             uiSlider.value = saveOptions.uiVolume;
+            sfxgroup.audioMixer.SetFloat("Volume", (saveOptions.sfxVolume - 1) * 80);
         }
     }
 
@@ -83,6 +85,7 @@ public class OptionsMenu : MonoBehaviour
     {
         sfxVol = vol;
         BroAudio.SetVolume(sfxType, vol);
+        sfxgroup.audioMixer.SetFloat("Volume", (vol-1) * 80);
     }
 
     public void ChangeUIVolume(float vol)

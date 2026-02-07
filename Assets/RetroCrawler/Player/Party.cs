@@ -137,7 +137,7 @@ public class Party : MonoBehaviour
         if (heroInventoryItem.container != -1)
         {
 
-            activeHero.AddEquipmentToCharacter(heroInventoryItem);
+            activeHero.AddEquipmentToCharacter(heroInventoryItem, itemType);
            // GameInstance.SaveItemState(heroInventoryItem._GUID, SavedState.Equipment, heroInventoryItem);
         }
         else
@@ -204,14 +204,31 @@ public class Party : MonoBehaviour
     public void LoadEquipment()
     {
         //print(" equipment storage = " + GameInstance.equipmentHeroesSavedWithGUID.Count);
+        int countRings = 0;
         foreach(HeroInventoryItem he in GameInstance.equipmentHeroesSavedWithGUID)
         {
             print(" loading equipment " + he.container + " " +  " " + he.heroIndex);
             if (he == null) continue;
-            if (he.container != -1) 
+            if (he.container != -1)
             {
-                print(" loading equipment "+ he.container + " "+" "+ he.heroIndex);
-                if (he.heroIndex >=0 ) heroes[he.heroIndex].AddEquipmentToCharacter(he); 
+                print(" loading equipment " + GameInstance.dataBase.GetItemFromBaseByIndex( he.container).name + " " + " " + he.heroIndex);
+                if (he.itemType != ItemType.RING) 
+                { 
+                if (he.heroIndex >= 0) heroes[he.heroIndex].AddEquipmentToCharacter(he, he.itemType);
+                }
+                else
+                {
+                    switch (countRings)
+                    {
+                        case 0: if (he.heroIndex >= 0) heroes[he.heroIndex].AddEquipmentToCharacter(he, ItemType.RING); break;
+                        case 1: if (he.heroIndex >= 0) heroes[he.heroIndex].AddEquipmentToCharacter(he, ItemType.RING2); break;
+                        case 2: if (he.heroIndex >= 0) heroes[he.heroIndex].AddEquipmentToCharacter(he, ItemType.RING3); break;
+                        case 3: if (he.heroIndex >= 0) heroes[he.heroIndex].AddEquipmentToCharacter(he, ItemType.RING4); break;
+                        case 4: if (he.heroIndex >= 0) heroes[he.heroIndex].AddEquipmentToCharacter(he, ItemType.RING5); break;
+                        case 5: if (he.heroIndex >= 0) heroes[he.heroIndex].AddEquipmentToCharacter(he, ItemType.RING6); break;
+                    }
+                    countRings++;
+                }
             }
         }
     }
@@ -331,6 +348,17 @@ public class Party : MonoBehaviour
         }
     }
 
+    public void AddSomeFoodInit(int amount)
+    {
+        partyFood += amount;
+        foreach (Hero hero in heroes)
+        {
+            hero.FeedHeroInit();
+        }
+    }
+
+
+
     public void LoadDialoguesFromInstance()
     {
         currentUniqueDialogueNames.Clear();
@@ -381,12 +409,13 @@ public class Party : MonoBehaviour
 
         for (int i = 0; i < heroes.Count; i++)
         {
-            foreach (KeyValuePair<SkillsStat, int> skillStat in heroes[i].GetSkillStatsForUI())
+            foreach (SkillsStat skillStat in Enum.GetValues(typeof(SkillsStat)))
             {
+                int s = heroes[i].GetSkillsStat(skillStat, true);
                 SkillStatSave saveskilltemp = new SkillStatSave();
                 saveskilltemp.heroIndex = i;
-                saveskilltemp.skill = skillStat.Key;
-                saveskilltemp.amount = skillStat.Value;
+                saveskilltemp.skill = skillStat;
+                saveskilltemp.amount = s;
                 newskillsSave.Add(saveskilltemp);
             }
         }

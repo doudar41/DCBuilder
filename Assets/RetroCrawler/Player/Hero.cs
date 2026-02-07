@@ -56,8 +56,12 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     MagicType weaponEnchanced = MagicType.None;
 
+
     int poisonDamage = 0;
     int skillPoints = 0;
+    bool showDamageEffect = false;
+    
+    
     private void Awake()
     {
         if (!GameInstance.levelChange)
@@ -167,6 +171,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     public void OnPointerClick(PointerEventData eventData)
     {
+
         GameInstance.party.SetActiveHero(this);
         GameInstance.spellbook.spellTargetEvent.Invoke(this.gameObject);
 
@@ -207,14 +212,14 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         if (spellcaster.GetComponent<IHero>() != null)
         {
             IHero hero = spellcaster.GetComponent<IHero>();
-            print("hero attack");
+            //print("hero attack");
 
             foreach (Spell s in spellToApply.spells)
             {
                 SingleSpellApply(s, spellToApply, results, spellcaster.GetComponent<IHero>());
             }
-            //hitTargetEffect.Invoke(spellToApply);
-            print("results "+results.Count);
+            hitTargetEffect.Invoke(spellToApply);
+            //print("results "+results.Count);
             if (GameInstance.playerController.playerState == PlayerState.Battle)StartCoroutine(AttackDelay());
             return results;
         }
@@ -226,7 +231,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
             {
                 SingleSpellApply(s, spellToApply, results, spellcaster.GetComponent<IEnemy>());
             }
-            hitTargetEffect.Invoke(spellToApply);
+            //hitTargetEffect.Invoke(spellToApply);
             StartCoroutine(AttackDelay());
             return results;
         }
@@ -241,7 +246,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
         int amount = GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides);
         amount += s.diceBonus;
-        print("enemy damage from spell "+amount);
+        //print("enemy damage from spell "+amount);
         //HealthDamage(amount);
         if (dice == 20)
         {
@@ -255,6 +260,8 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     public List<ResultMsg> SingleSpellApply(Spell s, SpellContainer spellToApply, List<ResultMsg> results, IHero attacker)
     {
+        print("hero attacks with spell");
+
         switch (s.spellEffect)
         {
 
@@ -299,6 +306,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     public List<ResultMsg> SingleSpellApply(Spell s, SpellContainer spellToApply, List<ResultMsg> results)
     {
+        print("no one attacks with spell");
         switch (s.spellEffect)
         {
 
@@ -376,13 +384,14 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
                 break;
         }
+        hitTargetEffect.Invoke(spellToApply);
         return results;
     }
 
 
     public List<ResultMsg> SingleSpellApply(Spell s, SpellContainer spellToApply, List<ResultMsg> results, IEnemy attacker)
     {
-
+        //print("enemy attacks with spell");
         int attackRoll = 0;
         int evaderoll = 0;
         int attackrollbonus = 0;
@@ -401,13 +410,17 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
 
         //results.Add(attackRoll.ToString()); results.Add(evaderoll.ToString()); // attackroll and evaderoll added to list to be used in the battle log
-        results.Add(new() { msgType = "s", msgString = "AR " + s.spellEffect });
+        results.Add(new() { msgType = "s", msgString = "Roll for " + s.spellEffect });
         results.Add(new() { msgType = "i", msgInt = attackRoll });
 
         results.Add(new() { msgType = "s", msgString = "/" });
         results.Add(new() { msgType = "i", msgInt = evaderoll });
 
-        if (evaderoll > attackRoll) return results; //if evasion is successful and dice is not equal 20 spell is ignored
+        if (evaderoll > attackRoll) 
+        {
+            results.Add(new() { msgType = "s", msgString = attacker.GetEnemyName()+ " missed" });
+            return results; 
+        } //if evasion is successful and dice is not equal 20 spell is ignored
 
         int pureDamageAmount = CalculateDiceSumDamage(s, dice);
         bool applyEffectSpell = GameInstance.DiceRollingBiggestNumber(s.diceRollsNumber, s.diceSides) >= s.diceSides/2;
@@ -438,8 +451,10 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 break;
 
             case SpellEffects.MDmg:
+
                 switch (s.magicType)
-                {
+                {                       
+
                     case MagicType.Fire:
                         if(immunityList.Contains(MagicType.Fire))
                         {
@@ -447,7 +462,9 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                             return results;
                         }
                          int fireDamage = pureDamageAmount - (GetMaxDependedStat(DependedStat.FireResistance) + (GetMainStat(MainStat.Willpower)/5));
+                        fireDamage = fireDamage < 0 ?  0: fireDamage;
                         HealthDecrease(fireDamage);
+                        results.Add(new() { msgType = "s", msgString = attacker.GetEnemyName()+" Hit "+heroName+" with Fire "+ fireDamage });
                         break;
                     case MagicType.Water:
                         if (immunityList.Contains(MagicType.Water))
@@ -456,8 +473,9 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                             return results;
                         }
                         int waterDamage = pureDamageAmount - (GetMaxDependedStat(DependedStat.WaterResistance) + (GetMainStat(MainStat.Willpower) / 5));
+                        waterDamage = waterDamage < 0 ? 0 : waterDamage;
                         HealthDecrease(waterDamage);
-
+                        results.Add(new() { msgType = "s", msgString = attacker.GetEnemyName() + " Hit " + heroName + " with water " + waterDamage });
                         break;
                     case MagicType.Air:
                         if (immunityList.Contains(MagicType.Air))
@@ -466,7 +484,9 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                             return results;
                         }
                         int airDamage = pureDamageAmount - (GetMaxDependedStat(DependedStat.WaterResistance) + (GetMainStat(MainStat.Willpower) / 5));
+                        airDamage = airDamage < 0 ? 0 : airDamage;
                         HealthDecrease(airDamage);
+                        results.Add(new() { msgType = "s", msgString = attacker.GetEnemyName() + " Hit " + heroName + " with air " + airDamage });
                         break;
                     case MagicType.Earth:
                         if (immunityList.Contains(MagicType.Earth))
@@ -474,7 +494,9 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                             return null;
                         }
                         int earthDamage = pureDamageAmount - (GetMaxDependedStat(DependedStat.EarthResistance) + (GetMainStat(MainStat.Willpower) / 5));
+                        earthDamage = earthDamage < 0 ? 0 : earthDamage;
                         HealthDecrease(earthDamage);
+                        results.Add(new() { msgType = "s", msgString = attacker.GetEnemyName() + " Hit " + heroName + " with Earth magic " + earthDamage });
                         break;
                     case MagicType.Light:
                         if (immunityList.Contains(MagicType.Light))
@@ -482,6 +504,8 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                             return null;
                         }
                         int lightDamage = pureDamageAmount - (GetMaxDependedStat(DependedStat.DarkResistance) + (GetMainStat(MainStat.Willpower) / 5));
+                        lightDamage = lightDamage < 0 ? 0 : lightDamage;    
+                        results.Add(new() { msgType = "s", msgString = attacker.GetEnemyName() + " Hit " + heroName + " with Light magic " + lightDamage });
                         HealthDecrease(lightDamage);
 
                         break;
@@ -491,7 +515,9 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                             return null;
                         }
                         int darkDamage = pureDamageAmount - (GetMaxDependedStat(DependedStat.DarkResistance) + (GetMainStat(MainStat.Willpower) / 5));
+                        darkDamage = darkDamage < 0 ? 0 : darkDamage;
                         HealthDecrease(darkDamage);
+                        results.Add(new() { msgType = "s", msgString = attacker.GetEnemyName() + " Hit " + heroName + " with Dark magic " + darkDamage });
                         break;
                 }
                 break;
@@ -585,6 +611,8 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
 
         }
+        if(showDamageEffect) hitTargetEffect.Invoke(spellToApply);
+        showDamageEffect = false;
         return results;
     }
 
@@ -612,7 +640,11 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         {
             if(GameInstance.party.CheckForDeadHeroes()) GameInstance.LoadGameMainMenu();
         }
-        print(heroName + " health decrease amount " + amount + " current health"+currentHealth);
+        if (amount > 0)
+        {
+            showDamageEffect = true;
+        }
+            print(heroName + " health decrease amount " + amount + " current health"+currentHealth);
     }
 
     public void ManaDecrease(int amount)
@@ -752,69 +784,41 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     public void RecordSkillUsed(SkillsStat _skill)
     {
-        print("record skill use " + _skill);
+       // print("record skill use " + _skill);
         if (!skillsUsedInGameplay.ContainsKey(_skill)) skillsUsedInGameplay.Add(_skill, 1);
         else skillsUsedInGameplay[_skill] = skillsUsedInGameplay[_skill] + 1;
     }
 
 
 
-    public int GetSkillsStat(SkillsStat skillStat)
+    public int GetSkillsStat(SkillsStat skillStat, bool pureStat = false)
     {
         if (dependedStatsDefault.Count == 0) return 0;
         skillsStatsCurrent.TryGetValue(skillStat, out int st);
-        int statInt = 0; 
+        int statInt = 0;
         statInt += st;
 
-
-        switch (skillStat)
-        {
-            case SkillsStat.BluntWeapons:
-                break;
-            case SkillsStat.BladedWeapons:
-                break;
-            case SkillsStat.Polearms:
-                break;
-            case SkillsStat.RangedWeapons:
-
-                break;
-            case SkillsStat.HeavyArmour:
-                break;
-            case SkillsStat.LightArmour:
-                break;
-            case SkillsStat.LightMagic:
-                break;
-            case SkillsStat.DarkMagic:
-                break;
-            case SkillsStat.ElementalMagic:
-                break;
-            case SkillsStat.Identify:
-                break;
-            case SkillsStat.SpotSecret:
-                break;
-        }
-
-
-        foreach (KeyValuePair<ItemType, SpellContainer> k in equipmentSpells)
-        {
-            foreach (Spell s in k.Value.spells)
+        if (!pureStat) { 
+            foreach (KeyValuePair<ItemType, SpellContainer> k in equipmentSpells)
             {
-                if (s.skillStatAdded == skillStat)
+                foreach (Spell s in k.Value.spells)
                 {
-                    statInt += s.amount;
+                    if (s.skillStatAdded == skillStat)
+                    {
+                        statInt += s.amount;
+                    }
+                }
+            }
+
+            foreach (KeyValuePair<Spell, int> s in spellsAttached)
+            {
+
+                if (s.Key.skillStatAdded == skillStat)
+                {
+                    statInt += s.Key.amount;
                 }
             }
         }
-
-        foreach (KeyValuePair<Spell, int> s in spellsAttached)
-        {
-
-            if (s.Key.skillStatAdded == skillStat)
-            {
-                statInt += s.Key.amount;
-            }
-        }
-
         return Mathf.Clamp(statInt, 0, int.MaxValue);
     }
 
@@ -865,30 +869,30 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
 
   
-    public bool AddEquipmentToCharacter(HeroInventoryItem heroInventoryItem)
+    public bool AddEquipmentToCharacter(HeroInventoryItem heroInventoryItem, ItemType _itemType)
     {
 
         if (heroInventoryItem == null) return false;
 
         //heroInventoryItem.savedState = SavedState.Equipment;
 
-        if (!equipmentWithGUID.TryAdd(GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).itemType, heroInventoryItem))
+        if (!equipmentWithGUID.TryAdd(_itemType, heroInventoryItem))
         {
             heroInventoryItem.heroIndex = heroID;
-            equipmentWithGUID[GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).itemType] = heroInventoryItem;
+            equipmentWithGUID[_itemType] = heroInventoryItem;
 
         }
 
-        if(equipmentSpells.TryGetValue(GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).itemType, out SpellContainer _spell))
+        if(equipmentSpells.TryGetValue(_itemType, out SpellContainer _spell))
         {
             if (_spell == GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).spellContainer) return true;
         }
         
-        if (!equipmentSpells.TryAdd(GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).itemType, GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).spellContainer))
+        if (!equipmentSpells.TryAdd(_itemType, GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).spellContainer))
         {
                 //print("light added " + GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).spellContainer.gameplaySpell); 
 
-            equipmentSpells[GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).itemType] = GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).spellContainer;
+            equipmentSpells[_itemType] = GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).spellContainer;
             if (GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).spellContainer.gameplaySpell)
             {
                 GameInstance.spellbook.CastSpell(GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).spellContainer);
@@ -1189,6 +1193,12 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         GameInstance.party.RefreshUI.Invoke();
     }
 
+    public void FeedHeroInit()
+    {
+        currentHunger = GetMaxDependedStat(DependedStat.Hunger);
+    }
+
+
     public float GetHungerLevelPercents()
     {
        // print("hunger level " + GetMaxDependedStat(DependedStat.Hunger)+" - "+ dependedStatsDefault[DependedStat.Hunger]);
@@ -1241,7 +1251,8 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 public interface IHero
 {
     public List<SpellContainer> GetActiveHeroSpellbook();
-    public bool AddEquipmentToCharacter(HeroInventoryItem heroInventoryItem);
+    public bool AddEquipmentToCharacter(HeroInventoryItem heroInventoryItem, ItemType _itemType);
+
     public void RemoveItemFromEquipment(ItemType itemType);
     public void MakeHeroActive(bool active);
     public List<ResultMsg> ApplySpellToHero(SpellContainer spellToApply);
@@ -1264,7 +1275,7 @@ public interface IHero
     public SpellContainer GetInfusedWeaponSpell();
     public string HeroName();
     public int GetMaxDependedStat(DependedStat dependedStat);
-    public int GetSkillsStat(SkillsStat skillStat);
+    public int GetSkillsStat(SkillsStat skillStat, bool pureStat);
 
     public int MagicDamageModifier(SkillsStat skillStat);
     public List<GameplayStatus> GetHeroStatus();

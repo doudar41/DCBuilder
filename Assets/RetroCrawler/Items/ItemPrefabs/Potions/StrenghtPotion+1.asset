@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: StrenghtPotion+1
   m_EditorClassIdentifier: 
   itemType: 15
-  itemName: StrenghtPotion+1
-  texture2DMouse: {fileID: 2800000, guid: 95f389ae1371f7644920811de925ab9a, type: 3}
-  InventorySprite: {fileID: 21300000, guid: 15905576ff6375842a6511035199c3dd, type: 3}
-  worldSprite: {fileID: 21300000, guid: 15905576ff6375842a6511035199c3dd, type: 3}
+  itemName: Strenght Potion +1
+  texture2DMouse: {fileID: 2800000, guid: f20dcd2d46793f74e906354d87f6723a, type: 3}
+  InventorySprite: {fileID: 21300000, guid: 44fccebceafdd414db7bbd643c09538d, type: 3}
+  worldSprite: {fileID: 21300000, guid: 44fccebceafdd414db7bbd643c09538d, type: 3}
   prefab: {fileID: 2885720944578253258, guid: 552838f4655091c448fd93037aa0e82b, type: 3}
   weight: 0
   spellContainer: {fileID: 11400000, guid: 918711f45a88e1c419130a31ffcd872e, type: 2}
@@ -29,3 +29,7 @@ MonoBehaviour:
   journalEntry: 
   dialogueKeys: 
   stackable: 1
+  inventorySound:
+    ID: 0
+    _sourceAsset: {fileID: 0}
+    <DebugObject>k__BackingField: {fileID: 0}

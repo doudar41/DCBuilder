@@ -121,7 +121,595 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: vfx_sequence_x32_earth_2_0
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 696
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54a20f0d1a5e6524fa0831cace2a2aae
+      internalID: 994197295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_earth_2_1
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 696
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: baa019cab996da1498a949b1b7bcdae4
+      internalID: 294441010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_earth_2_2
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 696
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5726b4b96899ea742b0be05be2cf8fe4
+      internalID: 1131887563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_earth_2_3
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 696
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a204cd0e48ce4d747884dac9a1d7b240
+      internalID: -296698289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_earth_2_4
+      rect:
+        serializedVersion: 2
+        x: 1028
+        y: 696
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a815a8cd77e16ba4f89c89551d256190
+      internalID: -1472510409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_earth_2_5
+      rect:
+        serializedVersion: 2
+        x: 1208
+        y: 696
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7843403b43f1b474487c672f495629b8
+      internalID: 1104401007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_earth_2_6
+      rect:
+        serializedVersion: 2
+        x: 1388
+        y: 696
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d60075724fb6ae242a9833696c7fec43
+      internalID: -207944711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_earth_2_7
+      rect:
+        serializedVersion: 2
+        x: 1568
+        y: 696
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf7a2494f52230b4387153b0bc560f4b
+      internalID: -1188136116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_earth_2_8
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 516
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6e652a0f175c654da3793e4aa3baff4
+      internalID: -830117571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_earth_2_9
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 516
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a33b82a44c34b284092fd99f8e912b4c
+      internalID: -307665218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_earth_2_10
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 516
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53e7f5a7c2bad2c4890593ef60ffa4ca
+      internalID: 1678807659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_earth_2_11
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 516
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7cf5aab239efd594b94d3d0a0e4b2968
+      internalID: 2127670583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_earth_2_12
+      rect:
+        serializedVersion: 2
+        x: 1028
+        y: 516
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc2057461175ce7468b894fa1b367873
+      internalID: 383479409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_earth_2_13
+      rect:
+        serializedVersion: 2
+        x: 1208
+        y: 516
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 696f85637eb8c344b9a944110589ea47
+      internalID: -629653898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_earth_2_14
+      rect:
+        serializedVersion: 2
+        x: 1388
+        y: 516
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60e72a6504fce5a47b5fd44505572cea
+      internalID: -1229867811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_earth_2_15
+      rect:
+        serializedVersion: 2
+        x: 1568
+        y: 516
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ed0a23fe2d40484db180365515b84ed
+      internalID: -707786745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_earth_2_16
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 336
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10438382f8876cd42ab0edb8ae9bf432
+      internalID: -1553378894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_earth_2_17
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 336
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5d97cae630fbc943ae0c2b1411aab92
+      internalID: 685393012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_earth_2_18
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 336
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a43289c4a5af8924bb6355a6b7dff66b
+      internalID: 202859996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_earth_2_19
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 336
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c97ebed443f66c4ea04714174231025
+      internalID: 1709949092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_earth_2_20
+      rect:
+        serializedVersion: 2
+        x: 1028
+        y: 336
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc2f1a2761100dc4583c903e7a6fd747
+      internalID: 1588525731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_earth_2_21
+      rect:
+        serializedVersion: 2
+        x: 1208
+        y: 336
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5cde962646a91943a5a0edb5291fb01
+      internalID: 1878824111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_earth_2_22
+      rect:
+        serializedVersion: 2
+        x: 1388
+        y: 336
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66972f8ff324bac49971662808f8e3b0
+      internalID: 1014009972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_earth_2_23
+      rect:
+        serializedVersion: 2
+        x: 1568
+        y: 336
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0b9e6c6d75e2494aad07b40dd344b36
+      internalID: -406014778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_earth_2_24
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 156
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b24afd467b01e7245a984b40107cd897
+      internalID: 16900728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_earth_2_25
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 156
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c26faa283bb4c6e4689ac18ec8b02250
+      internalID: 181903757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_earth_2_26
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 156
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14606a4ddcde03c4488a062ae8dca319
+      internalID: -1664694726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x32_earth_2_27
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 156
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eea7721878e148843a48c23fc35bf0fb
+      internalID: 212019546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -132,7 +720,35 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      vfx_sequence_x32_earth_2_0: 994197295
+      vfx_sequence_x32_earth_2_1: 294441010
+      vfx_sequence_x32_earth_2_10: 1678807659
+      vfx_sequence_x32_earth_2_11: 2127670583
+      vfx_sequence_x32_earth_2_12: 383479409
+      vfx_sequence_x32_earth_2_13: -629653898
+      vfx_sequence_x32_earth_2_14: -1229867811
+      vfx_sequence_x32_earth_2_15: -707786745
+      vfx_sequence_x32_earth_2_16: -1553378894
+      vfx_sequence_x32_earth_2_17: 685393012
+      vfx_sequence_x32_earth_2_18: 202859996
+      vfx_sequence_x32_earth_2_19: 1709949092
+      vfx_sequence_x32_earth_2_2: 1131887563
+      vfx_sequence_x32_earth_2_20: 1588525731
+      vfx_sequence_x32_earth_2_21: 1878824111
+      vfx_sequence_x32_earth_2_22: 1014009972
+      vfx_sequence_x32_earth_2_23: -406014778
+      vfx_sequence_x32_earth_2_24: 16900728
+      vfx_sequence_x32_earth_2_25: 181903757
+      vfx_sequence_x32_earth_2_26: -1664694726
+      vfx_sequence_x32_earth_2_27: 212019546
+      vfx_sequence_x32_earth_2_3: -296698289
+      vfx_sequence_x32_earth_2_4: -1472510409
+      vfx_sequence_x32_earth_2_5: 1104401007
+      vfx_sequence_x32_earth_2_6: -207944711
+      vfx_sequence_x32_earth_2_7: -1188136116
+      vfx_sequence_x32_earth_2_8: -830117571
+      vfx_sequence_x32_earth_2_9: -307665218
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

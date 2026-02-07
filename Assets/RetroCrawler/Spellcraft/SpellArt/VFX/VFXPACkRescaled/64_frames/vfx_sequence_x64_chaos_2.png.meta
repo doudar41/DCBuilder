@@ -121,7 +121,1351 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_0
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 786
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5d628edcb4ecea4893cd71b4d52708c
+      internalID: -774213241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_1
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 786
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b366ed08a340444449b4240053711c5d
+      internalID: 1723346212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_2
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 786
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ce684c6c712769429e9fdea0b9ddf28
+      internalID: 1270670041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_3
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 786
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b61a50aa6464f694a8a2a231d368d7d3
+      internalID: -690679634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_4
+      rect:
+        serializedVersion: 2
+        x: 508
+        y: 786
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f5e0817b91583f42b92608258864e8a
+      internalID: -1750673464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_5
+      rect:
+        serializedVersion: 2
+        x: 598
+        y: 786
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 382cbe133d1f0ba49a9e3c9ecf2ce77d
+      internalID: 1051388437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_6
+      rect:
+        serializedVersion: 2
+        x: 688
+        y: 786
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e729aac5f63842d4cb1143ef38f9a2ad
+      internalID: 277292214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_7
+      rect:
+        serializedVersion: 2
+        x: 778
+        y: 786
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b05d8e4a8b346c4293bfade44e383e4
+      internalID: -2008740693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_8
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 696
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df32851ea989251409f65b5a37961d4c
+      internalID: 858592376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_9
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 696
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66a8d54e9437edc42904b0d1ba5333c6
+      internalID: -466032578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_10
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 696
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68dfc718a2e75524e9c50ab5376d682d
+      internalID: -2008497935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_11
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 696
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d67be571da5c57c4aa7110c2ea960aa6
+      internalID: -50566072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_12
+      rect:
+        serializedVersion: 2
+        x: 508
+        y: 696
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7cf30d4a827760e48b74133f005495e5
+      internalID: 1811892195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_13
+      rect:
+        serializedVersion: 2
+        x: 598
+        y: 696
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c63c7653719093944970dd9ae0b7b00b
+      internalID: -445750607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_14
+      rect:
+        serializedVersion: 2
+        x: 688
+        y: 696
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e3efab864034344db8eb9d2766d3eca
+      internalID: -819439575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_15
+      rect:
+        serializedVersion: 2
+        x: 778
+        y: 696
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6bfabe7c6bf8d14b91d6d53738e376d
+      internalID: -1854790750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_17
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 606
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b1be0773b93e744eacac4f6cacf9e4c
+      internalID: -770178146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_18
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 606
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c854b88efda1d414f9d2663b42696ca9
+      internalID: -1730121284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_19
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 606
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b13503a0a19ae54084754aa513ad4d7
+      internalID: -913619155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_20
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 606
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fea6e743c0e109e48b8cdb72df07e9ff
+      internalID: 794617954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_21
+      rect:
+        serializedVersion: 2
+        x: 508
+        y: 606
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ba7993e4b64276448d941329dc2414d
+      internalID: -15728191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_22
+      rect:
+        serializedVersion: 2
+        x: 598
+        y: 606
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a6ddc39433b3a14786f7de5d8637af6
+      internalID: 2022596435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_23
+      rect:
+        serializedVersion: 2
+        x: 688
+        y: 606
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bc6245790571dc49962a7bb34564a93
+      internalID: -1067023708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_24
+      rect:
+        serializedVersion: 2
+        x: 778
+        y: 606
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3b9abf7cd925894bb9c1a12d01588a9
+      internalID: 1291928994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_25
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 516
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f9f0178f15affc44a81292706e7f072
+      internalID: 1710514752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_26
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 516
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ce7790e19c413243965b90652fa74ce
+      internalID: 1563491266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_27
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 516
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff18cb85b341dd54c8fd3a2cf4d6c713
+      internalID: 1526732443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_28
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 516
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6cb7d4924a9a2843a79506572581d9b
+      internalID: -1611422779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_29
+      rect:
+        serializedVersion: 2
+        x: 508
+        y: 516
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5fe941f7ef026b44a90bd8e6cc40d19
+      internalID: -718898362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_30
+      rect:
+        serializedVersion: 2
+        x: 598
+        y: 516
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcafe993a1dc2fb41b721fd6864b5993
+      internalID: 1493425928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_31
+      rect:
+        serializedVersion: 2
+        x: 688
+        y: 516
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f609701dd93e6a649b27af1211fac759
+      internalID: -1789669374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_32
+      rect:
+        serializedVersion: 2
+        x: 778
+        y: 516
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 172fb75e21026bb4daf3afc8f31517d3
+      internalID: 1592300489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_33
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 426
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64b65d4e888e6ad4c8e87db97abb6c52
+      internalID: -1758512771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_34
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 426
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8da9e3fe51ab68479acde822ab4b0e6
+      internalID: -1764645007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_35
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 426
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 553525a723993a4478210297baa7860a
+      internalID: 1737002283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_36
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 426
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38cf53fbeec9e5343a55e258da51777c
+      internalID: -1773892429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_37
+      rect:
+        serializedVersion: 2
+        x: 508
+        y: 426
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a783ded291ad17b4fb3c0368e063f56e
+      internalID: -1550102306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_38
+      rect:
+        serializedVersion: 2
+        x: 598
+        y: 426
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 240431f9fe6b7434198cf2bbf5c1bad5
+      internalID: 1071762943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_39
+      rect:
+        serializedVersion: 2
+        x: 688
+        y: 426
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7edc044dc889a648ad1b023bcfd3e92
+      internalID: -610143916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_40
+      rect:
+        serializedVersion: 2
+        x: 778
+        y: 426
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b9ed0e06cf1e534191ad766075ed8d3
+      internalID: -1718874235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_41
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 336
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dd2dee17dd4aa84ca05cdc82e958125
+      internalID: 1714724652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_42
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 336
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18f861226d05a6549812dc5d542919e3
+      internalID: -1620325541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_43
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 336
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe731b9e3b50bae4e9579cd69f8abde3
+      internalID: 554668303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_44
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 336
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72d5fea8392065c41864770fa3fc8a8b
+      internalID: 675830287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_45
+      rect:
+        serializedVersion: 2
+        x: 508
+        y: 336
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5817a55155c9d1f439fb161066a8354e
+      internalID: 662393165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_46
+      rect:
+        serializedVersion: 2
+        x: 598
+        y: 336
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3612ee780e79ee541a66fda15da157c1
+      internalID: -410214265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_47
+      rect:
+        serializedVersion: 2
+        x: 688
+        y: 336
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7506022b9b1ada04ba8c4046d974de5a
+      internalID: -1284098672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_48
+      rect:
+        serializedVersion: 2
+        x: 778
+        y: 336
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b443cf1df86bf8d4ab8a60d2c8624c3e
+      internalID: -1222013250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_49
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 246
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96599946201d26848bd85f09161f0a14
+      internalID: -1395885994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_50
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 246
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7d443908027d81479f9026bbc95793e
+      internalID: 509803846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_51
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 246
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86bbdf50333bce7489c36a60291186b6
+      internalID: 1759060201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_52
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 246
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfe26e0e3ea937f48a456c7c4afdde5b
+      internalID: -850079253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_53
+      rect:
+        serializedVersion: 2
+        x: 508
+        y: 246
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b93d9d600d2fbb428208fe1e1814a14
+      internalID: 1160931595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_54
+      rect:
+        serializedVersion: 2
+        x: 598
+        y: 246
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2415392a3e071de4e9ca55902346561a
+      internalID: 1864247181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_55
+      rect:
+        serializedVersion: 2
+        x: 688
+        y: 246
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e6126fd7e1687f44ac9b0d4f8de1b5a
+      internalID: 1854008118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_56
+      rect:
+        serializedVersion: 2
+        x: 778
+        y: 246
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a02435aeb76d8e4b851aa17ca613c2b
+      internalID: -169083654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_57
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 156
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34dddc90ae418be489960b7dd260d006
+      internalID: 1253058896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_58
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 156
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97ce8d2d2c1c254478a6a148cc6e75f8
+      internalID: 840666816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_59
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 156
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97a71eedb509d3a4ab35c378aba467b7
+      internalID: -427769578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_60
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 156
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 102f6ec4c58319b4f9d1235fb82926d0
+      internalID: -2053962479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_61
+      rect:
+        serializedVersion: 2
+        x: 508
+        y: 156
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e514f127b0acee4ca7632b3404e429a
+      internalID: -1883629871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_62
+      rect:
+        serializedVersion: 2
+        x: 598
+        y: 156
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9126bda5180b084ba53ac08da0246a5
+      internalID: 2083059585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_63
+      rect:
+        serializedVersion: 2
+        x: 688
+        y: 156
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 513e4f5589c10414592eba29430d4368
+      internalID: -1798571308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vfx_sequence_x64_chaos_2_64
+      rect:
+        serializedVersion: 2
+        x: 778
+        y: 156
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af053929122a8ea4ca4a3d60d398432f
+      internalID: -17987550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -132,7 +1476,77 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      vfx_sequence_x64_chaos_2_0: -774213241
+      vfx_sequence_x64_chaos_2_1: 1723346212
+      vfx_sequence_x64_chaos_2_10: -2008497935
+      vfx_sequence_x64_chaos_2_11: -50566072
+      vfx_sequence_x64_chaos_2_12: 1811892195
+      vfx_sequence_x64_chaos_2_13: -445750607
+      vfx_sequence_x64_chaos_2_14: -819439575
+      vfx_sequence_x64_chaos_2_15: -1854790750
+      vfx_sequence_x64_chaos_2_16: 1180783559
+      vfx_sequence_x64_chaos_2_17: -770178146
+      vfx_sequence_x64_chaos_2_18: -1730121284
+      vfx_sequence_x64_chaos_2_19: -913619155
+      vfx_sequence_x64_chaos_2_2: 1270670041
+      vfx_sequence_x64_chaos_2_20: 794617954
+      vfx_sequence_x64_chaos_2_21: -15728191
+      vfx_sequence_x64_chaos_2_22: 2022596435
+      vfx_sequence_x64_chaos_2_23: -1067023708
+      vfx_sequence_x64_chaos_2_24: 1291928994
+      vfx_sequence_x64_chaos_2_25: 1710514752
+      vfx_sequence_x64_chaos_2_26: 1563491266
+      vfx_sequence_x64_chaos_2_27: 1526732443
+      vfx_sequence_x64_chaos_2_28: -1611422779
+      vfx_sequence_x64_chaos_2_29: -718898362
+      vfx_sequence_x64_chaos_2_3: -690679634
+      vfx_sequence_x64_chaos_2_30: 1493425928
+      vfx_sequence_x64_chaos_2_31: -1789669374
+      vfx_sequence_x64_chaos_2_32: 1592300489
+      vfx_sequence_x64_chaos_2_33: -1758512771
+      vfx_sequence_x64_chaos_2_34: -1764645007
+      vfx_sequence_x64_chaos_2_35: 1737002283
+      vfx_sequence_x64_chaos_2_36: -1773892429
+      vfx_sequence_x64_chaos_2_37: -1550102306
+      vfx_sequence_x64_chaos_2_38: 1071762943
+      vfx_sequence_x64_chaos_2_39: -610143916
+      vfx_sequence_x64_chaos_2_4: -1750673464
+      vfx_sequence_x64_chaos_2_40: -1718874235
+      vfx_sequence_x64_chaos_2_41: 1714724652
+      vfx_sequence_x64_chaos_2_42: -1620325541
+      vfx_sequence_x64_chaos_2_43: 554668303
+      vfx_sequence_x64_chaos_2_44: 675830287
+      vfx_sequence_x64_chaos_2_45: 662393165
+      vfx_sequence_x64_chaos_2_46: -410214265
+      vfx_sequence_x64_chaos_2_47: -1284098672
+      vfx_sequence_x64_chaos_2_48: -1222013250
+      vfx_sequence_x64_chaos_2_49: -1395885994
+      vfx_sequence_x64_chaos_2_5: 1051388437
+      vfx_sequence_x64_chaos_2_50: 509803846
+      vfx_sequence_x64_chaos_2_51: 1759060201
+      vfx_sequence_x64_chaos_2_52: -850079253
+      vfx_sequence_x64_chaos_2_53: 1160931595
+      vfx_sequence_x64_chaos_2_54: 1864247181
+      vfx_sequence_x64_chaos_2_55: 1854008118
+      vfx_sequence_x64_chaos_2_56: -169083654
+      vfx_sequence_x64_chaos_2_57: 1253058896
+      vfx_sequence_x64_chaos_2_58: 840666816
+      vfx_sequence_x64_chaos_2_59: -427769578
+      vfx_sequence_x64_chaos_2_6: 277292214
+      vfx_sequence_x64_chaos_2_60: -2053962479
+      vfx_sequence_x64_chaos_2_61: -1883629871
+      vfx_sequence_x64_chaos_2_62: 2083059585
+      vfx_sequence_x64_chaos_2_63: -1798571308
+      vfx_sequence_x64_chaos_2_64: -17987550
+      vfx_sequence_x64_chaos_2_65: -279000827
+      vfx_sequence_x64_chaos_2_66: -2008225862
+      vfx_sequence_x64_chaos_2_67: -1149081270
+      vfx_sequence_x64_chaos_2_68: 637719150
+      vfx_sequence_x64_chaos_2_69: 460609664
+      vfx_sequence_x64_chaos_2_7: -2008740693
+      vfx_sequence_x64_chaos_2_8: 858592376
+      vfx_sequence_x64_chaos_2_9: -466032578
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

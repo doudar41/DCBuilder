@@ -20,15 +20,15 @@ public class HealthImage : MonoBehaviour
         if (active)
         {
             Bar.sprite = activeBar;
-            Hill01.sprite = activeHill;
-            Hill02.sprite = activeHill;
+            if(Hill01!=null) Hill01.sprite = activeHill;
+            if (Hill02 != null) Hill02.sprite = activeHill;
             if (TopOrb != null) TopOrb.color = Color.white;
         }
         else
         {
             Bar.sprite = deactiveBar;
-            Hill01.sprite = deactiveHill;
-            Hill02.sprite = deactiveHill;
+            if (Hill01 != null) Hill01.sprite = deactiveHill;
+            if (Hill02 != null) Hill02.sprite = deactiveHill;
             if(TopOrb !=null) TopOrb.color = Color.clear;
         }
     }

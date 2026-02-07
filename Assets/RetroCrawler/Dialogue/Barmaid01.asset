@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uniqueName: 2
   dialogue_phrases:
-  - portraits: {fileID: 21300000, guid: b11aba9e688945f49a02385534692db5, type: 3}
-    dialogueTexts: "Oh no, not another party of adventurers out on the king\u2019s
-      quest. Listen I\u2019d advise you to leave before you even think of going anywhere
+  - portraits: {fileID: 21300000, guid: 2494d3a8744c1924a8cf309e7d2a5d0f, type: 3}
+    dialogueTexts: "...not another party of adventurers out on the king\u2019s quest.
+      Listen I\u2019d advise you to leave before you even think of going anywhere
       else. Just make your way out the door and out of ChaosKeep. Go find love, plow
       a farm, anything! Just get\u2026!"
-  - portraits: {fileID: 21300000, guid: b11aba9e688945f49a02385534692db5, type: 3}
+  - portraits: {fileID: 21300000, guid: 2494d3a8744c1924a8cf309e7d2a5d0f, type: 3}
     dialogueTexts: "Oh hells\u2026 Well there\u2019s your Duke! Been nice knowin\u2019ya!
       Get a room at least before you die, one final rest and some gold to our purses."
   - portraits: {fileID: 21300000, guid: 8e78f8b2b22c138418b82972c188c268, type: 3}
@@ -29,6 +29,11 @@ MonoBehaviour:
   dialogueButtons:
   - uniqueName: 3
     buttonText: 'Hand Duke the missive '
-  dialogueDone: 1
-  oneTimeDialogue: 1
-  namesToDelete: 
+  namesToDeleteFromBlock: 
+  namesToDeleteFromParty: 
+  deleteDialogue: 0
+  lastButtonText: Quit
+  namesAddToParty: 
+  itemsAddToParty: []
+  goldAmount: 0
+  experiencePoints: 0

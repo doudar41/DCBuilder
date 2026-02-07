@@ -25,11 +25,11 @@ public class GameUIResizable : MonoBehaviour
 
     void ResizeWindowsToOnePanel()
     {
-        panels[1].SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, fullScreenPanel.rect.height);
+        //panels[1].SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, fullScreenPanel.rect.height);
         panels[1].SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, fullScreenPanel.rect.width * (200.0f / 800.0f));
 
         panels[0].SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, fullScreenPanel.rect.width - panels[1].rect.width);
-        panels[0].SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, fullScreenPanel.rect.height * (160.0f / 600.0f));
+        panels[0].SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, fullScreenPanel.rect.height * (150.0f / 600.0f));
 
         panels[2].SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, fullScreenPanel.rect.width - panels[1].rect.width);
         panels[2].SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, fullScreenPanel.rect.height - panels[0].rect.height);

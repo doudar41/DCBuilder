@@ -39,4 +39,4 @@ MonoBehaviour:
   spellName: Unarmed strike
   spellPrice: 0
   spellLevel: 0
-  animationTriggerName: RatWolfBite
+  animationTriggerName: PlayerBlood

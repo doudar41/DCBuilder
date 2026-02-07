@@ -11,7 +11,14 @@ public class animateUIImage : MonoBehaviour
     [SerializeField] List<Sprite> sprites;
     [SerializeField] float frameRate = 0.1f;
     [SerializeField] bool playOnce = false;
+    [SerializeField] Sprite emptySpell;
+    Dictionary<string, List<Sprite>> savedSpriteLists  = new Dictionary<string, List<Sprite>>();
+    string currentName;
 
+    private void Start()
+    {
+        
+    }
 
     public void StartAnimation()
     {
@@ -29,6 +36,7 @@ public class animateUIImage : MonoBehaviour
             uiImage.sprite = sprite;
             yield return new WaitForSeconds(frameRate);
         }
+        if(emptySpell !=null)uiImage.sprite = emptySpell;
         if(!playOnce)
         {
             StartCoroutine(AnimateImage());
@@ -36,4 +44,45 @@ public class animateUIImage : MonoBehaviour
         yield return null;
 
     }
+
+    public void FillSpriteList(string effectName, List<Sprite> _sprites)
+    {
+        currentName = effectName;   
+        if (savedSpriteLists.ContainsKey(effectName)) return;
+        List<Sprite> listSprites = new List<Sprite>();
+        foreach(Sprite s in _sprites)
+        {
+            listSprites.Add(s);
+        }
+        savedSpriteLists.Add(effectName, listSprites);
+    }
+
+    public void StartFXAnimation(string effectName)
+    {
+        if(!savedSpriteLists.ContainsKey((string)effectName)) return;
+        StartCoroutine(AnimateSavedFX(effectName));
+    }
+
+    public void StopFXAnimation()
+    {
+        StopCoroutine(AnimateSavedFX(currentName));
+    }
+
+    IEnumerator AnimateSavedFX(string nameFX)
+    {
+
+        for (int i=0;i< savedSpriteLists[nameFX].Count;i++)
+        {
+            uiImage.sprite = savedSpriteLists[nameFX][i];
+            yield return new WaitForSeconds(frameRate);
+        }
+        if (emptySpell != null) uiImage.sprite = emptySpell;
+        if (!playOnce)
+        {
+            StartFXAnimation(nameFX);
+        }
+        yield return null;
+
+    }
+
 }

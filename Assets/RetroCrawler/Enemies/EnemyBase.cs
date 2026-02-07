@@ -48,7 +48,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
     public UnityEvent<string> playStatusAnimation;
 
     [SerializeField] SpellContainer immunityspell;
-    [SerializeField] SoundID upFrontSound, attackSound;
+    [SerializeField] SoundID upFrontSound = default, attackSound = default, dieSound = default;
     [SerializeField] int experienceReward = 50;
     [SerializeField] List<ItemScriptableContainer>  itemScriptableContainers = new List<ItemScriptableContainer>();
     [SerializeField] List<int> itemsStackAmout;
@@ -100,6 +100,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                 outlineRenderer.gameObject.SetActive(false);
                 enemyFace.gameObject.SetActive(true);
                 enemyFace.sprite = deadSprite;
+                GameInstance.soundManagerInGame.ProtectedPlay(dieSound);
             }
         }
         return health;
@@ -140,15 +141,16 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
 
     public SpellContainer enemyAttack(int distanceToHero)
     {
+        List<SpellContainer> listSc = new List<SpellContainer>();
         foreach(SpellContainer sc in attackSpells)
         {
             if(sc.minDistanceToEnemy >= distanceToHero)
             {
-                return sc;
+                listSc.Add(sc);
             }
         }
 
-        return attackSpells[Random.Range(0, attackSpells.Count)];
+        return listSc[Random.Range(0, listSc.Count)];
     }
 
     IEnumerator AttackDelay()
@@ -242,7 +244,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                     }
 
                     // If weapon enchanced with element all damage become an elemental damage
-                    damageAmountDiceSumResult += GameInstance.DiceRollingBiggestNumber(1, spellcaster.GetComponent<IHero>().GetSkillsStat(_spell.skillToCheckInCalculations));
+                    damageAmountDiceSumResult += GameInstance.DiceRollingBiggestNumber(1, spellcaster.GetComponent<IHero>().GetSkillsStat(_spell.skillToCheckInCalculations, false));
 
                     damageAmountDiceSumResult = ApplyMagicResistanceToWeapon(spellcaster, damageAmountDiceSumResult);
 
@@ -317,7 +319,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
 
                 case SpellEffects.Stone:
                     if(spellEffectImmunityList.Contains(SpellEffects.Stone)) continue; // skip stone effect if enemy has a total immunity to it
-                    diceToCompare += Mathf.Clamp(spellcaster.GetComponent<IHero>().GetSkillsStat(SkillsStat.ElementalMagic) / 10, 0, _spell.diceSides); // adding bonus to stone chance from elemental magic skill 
+                    diceToCompare += Mathf.Clamp(spellcaster.GetComponent<IHero>().GetSkillsStat(SkillsStat.ElementalMagic, false) / 10, 0, _spell.diceSides); // adding bonus to stone chance from elemental magic skill 
                     if ( diceToCompare == _spell.diceSides)
                     {
                         appliedPermanentDebuffs.TryAdd(SpellEffects.Stone, 0);
@@ -423,7 +425,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
     }
     private int ApplyMagicResistanceToSpell(Spell _spell, int amount, GameObject spellcaster)
     {
-        int elementalSkill = spellcaster.GetComponent<IHero>().GetSkillsStat(SkillsStat.ElementalMagic);
+        int elementalSkill = spellcaster.GetComponent<IHero>().GetSkillsStat(SkillsStat.ElementalMagic, false);
 
         switch (_spell.magicType)
         {

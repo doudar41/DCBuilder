@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830199137178dfd4c92369ded1b83b63, type: 3}
+  m_Name: SurvivalPotion+1
+  m_EditorClassIdentifier: 
+  itemType: 15
+  itemName: Survival Potion +1
+  texture2DMouse: {fileID: 2800000, guid: bb39f183adbb0444f9f09724bbeb6a66, type: 3}
+  InventorySprite: {fileID: 21300000, guid: f3051df953ebc254baa3885354fdc3c9, type: 3}
+  worldSprite: {fileID: 21300000, guid: f3051df953ebc254baa3885354fdc3c9, type: 3}
+  prefab: {fileID: 2885720944578253258, guid: f428d8e22bd779d4991eb3f0bbc00847, type: 3}
+  weight: 0
+  spellContainer: {fileID: 11400000, guid: 293c9d7777d91074bbdc02689e20a6a3, type: 2}
+  weaponType: 0
+  twoHanded: 0
+  price: 1000
+  itemDescription: Potion increases Survival +1 permanately
+  itemLevel: 2
+  keyType: 0
+  journalEntry: 
+  dialogueKeys: 
+  stackable: 1
+  inventorySound:
+    ID: 0
+    _sourceAsset: {fileID: 0}
+    <DebugObject>k__BackingField: {fileID: 0}

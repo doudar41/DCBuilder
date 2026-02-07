@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
+using Ami.BroAudio;
 
 public class DialoguePanel : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class DialoguePanel : MonoBehaviour
     [SerializeField] List<DialogueButtonUI> dialogueButtons = new List<DialogueButtonUI>();
     [SerializeField] Button letMeGoQuitTalk;
     [SerializeField] CameraOrder cameraUI;
+    [SerializeField] SoundID openCloseDialogue = default;
     List<TextMeshProUGUI> buttonsTextFields = new List<TextMeshProUGUI>();
     UniqueDialogueName currentdialogue;
     bool dialogueFinished = false;
@@ -44,7 +46,7 @@ public class DialoguePanel : MonoBehaviour
             NextDialoguePhrase(); return; 
         }
         print("finishing dialogue ");
-
+        BroAudio.Play(openCloseDialogue).SetVelocity(1);
         buttonPanel.SetActive(false);
         var dialogue = GameInstance.dataBase.GetDialogue(currentdialogue);
 
@@ -103,7 +105,8 @@ public class DialoguePanel : MonoBehaviour
 
     public void ActivateFirstDialogue()
     {
-        dialogueFinished=false;
+        BroAudio.Play(openCloseDialogue).SetVelocity(0);
+        dialogueFinished =false;
         letMeGoQuitTalk.interactable = false;
         letMeGoQuitTalk.GetComponentInChildren<TextMeshProUGUI>().text = "Next";
 
@@ -186,6 +189,8 @@ public class DialoguePanel : MonoBehaviour
         dialoguePhraseIndex = Mathf.Clamp(dialoguePhraseIndex + 1, 0, GameInstance.dataBase.GetDialogue(currentdialogue).dialogue_phrases.Count - 1);
         dialogueText.text = GameInstance.dataBase.GetDialogue(currentdialogue).dialogue_phrases[dialoguePhraseIndex].dialogueTexts;
         textToLog.Invoke(new() { dialogueText.text }, null);
+        portrait.sprite = GameInstance.dataBase.GetDialogue(currentdialogue).dialogue_phrases[dialoguePhraseIndex].portraits;
+
         var dialogue = GameInstance.dataBase.GetDialogue(currentdialogue);
         if (dialoguePhraseIndex == GameInstance.dataBase.GetDialogue(currentdialogue).dialogue_phrases.Count - 1)
         {
