@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RestorationPotion
   m_EditorClassIdentifier: 
   itemType: 15
-  itemName: Antidot
+  itemName: Restoration
   texture2DMouse: {fileID: 2800000, guid: 3894ef48966b5df409684124046c9804, type: 3}
   InventorySprite: {fileID: 21300000, guid: 357b365de94be034ebe0ee1a4ff01232, type: 3}
   worldSprite: {fileID: 21300000, guid: 357b365de94be034ebe0ee1a4ff01232, type: 3}
@@ -23,9 +23,13 @@ MonoBehaviour:
   weaponType: 0
   twoHanded: 0
   price: 300
-  itemDescription: Antidot
+  itemDescription: Restoration spell in a bottle
   itemLevel: 0
   keyType: 0
   journalEntry: 
   dialogueKeys: 
   stackable: 1
+  inventorySound:
+    ID: 0
+    _sourceAsset: {fileID: 0}
+    <DebugObject>k__BackingField: {fileID: 0}

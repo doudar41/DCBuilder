@@ -1,6 +1,7 @@
 using Ami.BroAudio;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -65,11 +66,13 @@ public class SpellShop : MonoBehaviour
             {
                 if (spell.spellLevel >= itemsLevel.x && spell.spellLevel <= itemsLevel.y)
                 {
-                    //print("found spell of type" + spell.spellLevel);
+                    //print("found spell of type " + spell.spellLevel);
                     spellOfType.Add(spell);
                 }
             }
         }
+        print("found spells" + spellOfType.Count);
+        if (spellOfType.Count == 0) return;
         for (int i = 0; i < spellSlots.Count; i++)
         {
             spellSlots[i].SetSpellToSell(spellOfType[Random.Range(0, spellOfType.Count - 1)]);

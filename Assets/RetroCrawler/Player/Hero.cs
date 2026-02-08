@@ -865,7 +865,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     public Dictionary<MainStat,int> GetMainStatsForUI()
     {
         Dictionary<MainStat, int> statListTemp = new Dictionary<MainStat, int>();
-        print("Mind stat " + GetMainStat(MainStat.Mind));
+        //print("Mind stat " + GetMainStat(MainStat.Mind));
         statListTemp.Add(MainStat.Strength, GetMainStat(MainStat.Strength));
         statListTemp.Add(MainStat.Agility,  GetMainStat(MainStat.Agility));
         statListTemp.Add(MainStat.Mind,     GetMainStat(MainStat.Mind));

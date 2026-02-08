@@ -99,6 +99,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2ada63946b70702449e34c981c126ef1, type: 2}
   - {fileID: 11400000, guid: b8df391d64d9c7e4595e2682acade30c, type: 2}
   - {fileID: 11400000, guid: 30ef6e38ba2d9364bb026ebe627a84ae, type: 2}
+  - {fileID: 11400000, guid: 88fb39f7054ce0240ab603a03a19416a, type: 2}
   dialogues:
   - {fileID: 11400000, guid: 6ce1dff86f2f12c4793e7396b47a94e3, type: 2}
   - {fileID: 11400000, guid: c3acac4990dfb514faeb92f051deb8fb, type: 2}
