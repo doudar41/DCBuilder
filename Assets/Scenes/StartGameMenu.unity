@@ -8194,62 +8194,62 @@ MonoBehaviour:
     mainStat: 6
     amount: 6
   mainStats02:
-  - heroIndex: 0
+  - heroIndex: 1
     mainStat: 1
-    amount: 8
-  - heroIndex: 0
-    mainStat: 2
     amount: 6
-  - heroIndex: 0
+  - heroIndex: 1
+    mainStat: 2
+    amount: 8
+  - heroIndex: 1
     mainStat: 3
-    amount: 4
-  - heroIndex: 0
+    amount: 5
+  - heroIndex: 1
     mainStat: 4
     amount: 6
-  - heroIndex: 0
+  - heroIndex: 1
     mainStat: 5
     amount: 4
-  - heroIndex: 0
+  - heroIndex: 1
     mainStat: 6
     amount: 6
   mainStats03:
-  - heroIndex: 0
+  - heroIndex: 2
     mainStat: 1
-    amount: 8
-  - heroIndex: 0
+    amount: 4
+  - heroIndex: 2
     mainStat: 2
-    amount: 6
-  - heroIndex: 0
+    amount: 5
+  - heroIndex: 2
     mainStat: 3
-    amount: 4
-  - heroIndex: 0
+    amount: 7
+  - heroIndex: 2
     mainStat: 4
-    amount: 6
-  - heroIndex: 0
+    amount: 5
+  - heroIndex: 2
     mainStat: 5
-    amount: 4
-  - heroIndex: 0
+    amount: 8
+  - heroIndex: 2
     mainStat: 6
     amount: 6
   mainStats04:
-  - heroIndex: 0
+  - heroIndex: 3
     mainStat: 1
-    amount: 8
-  - heroIndex: 0
+    amount: 4
+  - heroIndex: 3
     mainStat: 2
-    amount: 6
-  - heroIndex: 0
+    amount: 4
+  - heroIndex: 3
     mainStat: 3
-    amount: 4
-  - heroIndex: 0
+    amount: 9
+  - heroIndex: 3
     mainStat: 4
-    amount: 6
-  - heroIndex: 0
-    mainStat: 5
     amount: 4
-  - heroIndex: 0
+  - heroIndex: 3
+    mainStat: 5
+    amount: 9
+  - heroIndex: 3
     mainStat: 6
-    amount: 6
+    amount: 4
   skills01:
   - heroIndex: 0
     skill: 2
@@ -8258,24 +8258,24 @@ MonoBehaviour:
     skill: 3
     amount: 5
   skills02:
-  - heroIndex: 0
+  - heroIndex: 1
     skill: 4
     amount: 5
-  - heroIndex: 0
+  - heroIndex: 1
     skill: 9
     amount: 5
   skills03:
-  - heroIndex: 0
+  - heroIndex: 2
     skill: 3
     amount: 5
-  - heroIndex: 0
+  - heroIndex: 2
     skill: 9
     amount: 5
   skills04:
-  - heroIndex: 0
+  - heroIndex: 3
     skill: 7
     amount: 5
-  - heroIndex: 0
+  - heroIndex: 3
     skill: 8
     amount: 5
   weaponsChosen:

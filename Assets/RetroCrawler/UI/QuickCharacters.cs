@@ -98,7 +98,7 @@ public class QuickCharacters : MonoBehaviour
 
             weaponChosenImport.Add(i, GameInstance.dataBase.GetItemIndexFromDataBase( weaponsChosen[i]));
         }
-        GameInstance.heroesPortraits = new List<int>() { 1, 2, 3, 4 };
+        GameInstance.heroesPortraits = new List<int>() { 5, 2, 3, 4 };
        
         GameInstance.currentUniqueDialogueNames = startingUniqueDialogueNames;
 

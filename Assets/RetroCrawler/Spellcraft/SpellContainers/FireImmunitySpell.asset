@@ -27,7 +27,7 @@ MonoBehaviour:
     skillStatAdded: 0
     restToBeAbleToCastAgainInTurns: 0
     SpellDescription: 
-    skillToCheckInCalculations: 0
+    skillToCheckInCalculations: 9
   spellIcon: {fileID: 0}
   AOE: 0
   OnlyEnemies: 0

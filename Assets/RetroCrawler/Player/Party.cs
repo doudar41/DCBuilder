@@ -388,7 +388,8 @@ public class Party : MonoBehaviour
         
         for (int i=0;i<heroes.Count;i++)
         {
-            foreach (KeyValuePair<MainStat, int> mainStat in heroes[i].GetMainStatsForUI())
+            heroes[i].GetPureStats(out Dictionary<MainStat, int> mainstats, out Dictionary<DependedStat, int> dependStats, out Dictionary<SkillsStat, int> skillstats);
+            foreach (KeyValuePair<MainStat, int> mainStat in mainstats)
             {
                 MainStatsSave savemaintemp = new MainStatsSave();
                 savemaintemp.heroIndex = i;

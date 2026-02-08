@@ -644,7 +644,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
         }
         if (appliedPermanentDebuffs.ContainsKey(SpellEffects.Burn))
         {
-            print("burnig amount  " + appliedPermanentDebuffs[SpellEffects.Burn]);
+            //print("burnig amount  " + appliedPermanentDebuffs[SpellEffects.Burn]);
             HealthDamage(appliedPermanentDebuffs[SpellEffects.Burn]);
 
         }

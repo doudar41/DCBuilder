@@ -84,12 +84,11 @@ public class SpellShopSlot : MonoBehaviour , IPointerEnterHandler, IPointerExitH
 
     public void SetSpellToSell(SpellContainer spell)
     {
+        if(spell ==  null) return;
         spellToSell = spell;
-        if (spellToSell.spells[0].magicType == MagicType.Fire
-                || spellToSell.spells[0].magicType == MagicType.Water
-                || spellToSell.spells[0].magicType == MagicType.Ice
-                || spellToSell.spells[0].magicType == MagicType.Air
-                || spellToSell.spells[0].magicType == MagicType.Earth)
+        if(spell.spells.Count <= 0) { return; }
+
+        if (spellToSell.spells[0].skillToCheckInCalculations == SkillsStat.ElementalMagic)
         {
             scrollPicture.sprite = magicSchoolScrollSprites[0];
             //print("setting spell to sell " + spell.spells[0].magicType + " - " + magicSchoolScrollSprites[0]);

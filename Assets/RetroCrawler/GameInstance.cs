@@ -263,7 +263,7 @@ public static class GameInstance
         identifiedItems.TryAdd(heroInventoryItem.container, heroInventoryItem);
     }
 
-    public static bool CheckIFItemIdentified(int index)
+    public static bool CheckIfItemIdentified(int index)
     {
         return identifiedItems.TryGetValue(index, out HeroInventoryItem heroInventoryItem);
     }

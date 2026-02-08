@@ -208,6 +208,12 @@ public class Spellbook : MonoBehaviour
                         spellTimeActive.Add(s, s.numberOfTurns);
                         massSpellIcons[2].color = Color.white;
                         break;
+
+                    case SpellEffects.Createfood:
+
+                        int foodQuantity = GameInstance.DiceRollingSum(s.numberOfTurns + (GameInstance.party.activeHero.GetSkillsStat(SkillsStat.LightMagic, false) / 3), s.diceRollsNumber);
+                        GameInstance.party.AddSomeFood(foodQuantity);
+                        break;
                 }
                 GameInstance.party.activeHero.ManaDecrease(s.manaCost);
             }

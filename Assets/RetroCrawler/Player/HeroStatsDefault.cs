@@ -33,7 +33,7 @@ public static class HeroStatsDefault
         { DependedStat.WaterResistance, 0},
         { DependedStat.DarkResistance, 0},
 
-        { DependedStat.CarryingCapacity, 15},
+        { DependedStat.CarryingCapacity, 40},
         { DependedStat.Hunger, 1500}
     };
 

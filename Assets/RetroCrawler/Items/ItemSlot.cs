@@ -79,7 +79,16 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
                 RemoveItem();
                 return;
             }
+            if (inventoryItem.itemType == ItemType.LEARNINGSCROLL)
+            {
+                if(GameInstance.party.activeHero.GetActiveHeroSpellbook().Contains(GameInstance.dataBase.GetItemFromBaseByIndex(inventoryItem.container).spellContainer)) return;
+
+                GameInstance.party.activeHero.GetActiveHeroSpellbook().Add(GameInstance.dataBase.GetItemFromBaseByIndex(inventoryItem.container).spellContainer);
+                RemoveItem();
+                return;
+            }
         }
+
         if (clickCount == 1)
         {
            if (IsEmpty())
@@ -241,7 +250,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
                 textDesc.text = itemToDesc.itemDescription + spellTexts + ". " + "Price: " + ((int)(itemToDesc.price)).ToString();
                 GameInstance.SaveIdentifiedItems(inventoryItem);
             }
-            if (GameInstance.CheckIFItemIdentified(inventoryItem.container))
+            if (GameInstance.CheckIfItemIdentified(inventoryItem.container))
             {
                 textDesc.color = Color.green;
                 string spellTexts = "";
@@ -250,9 +259,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
                     spellTexts += ". " + s.SpellDescription;
                 }
                 textDesc.text = itemToDesc.itemDescription + spellTexts + ". " + "Price: " + ((int)(itemToDesc.price)).ToString();
-
             }
-
         }
     }
 

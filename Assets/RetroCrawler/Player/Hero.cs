@@ -4,16 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 /// <summary>
 /// Hero is a Image on a lower panel of game play menu which receive damage and can attack. Clicking on image will make hero active it will shows equipped weapons, spells 
 /// hunger level, status. During the battle battleManager switching between heroes waiting for player input to attack or to cast a spell. 
 /// </summary>
-
-
-
 
 public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 {
@@ -56,11 +52,9 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     MagicType weaponEnchanced = MagicType.None;
 
-
-    int poisonDamage = 0;
+    int poisonDamageRate = 0, regenerateRate = 0;
     int skillPoints = 0;
     bool showDamageEffect = false;
-    
     
     private void Awake()
     {
@@ -105,8 +99,9 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         }
 
 
-        if (GameInstance.heroesPortraits.Contains(heroID))
+        if (GameInstance.heroesPortraits.Count>heroID)
         {
+            print("show portrait " + heroID);
             portraits = GameInstance.dataBase.GetPortraitFromDatabase(GameInstance.heroesPortraits[heroID]);
             portrait.sprite = portraits.portraits[0].sprite;
         }
@@ -154,7 +149,6 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
         healthSlider.ProgressBarFill((float)currentHealth / (float)GetMaxDependedStat(DependedStat.maxHealth));
     }
-
     
     public Dictionary<Spell,int> GetSpellsAttached()
     {
@@ -166,8 +160,6 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         //SingleSpellApply(spell, null, null,null);
        // spellsAttached.Add(spell, timesToFinish);
     }
-
-   
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -196,7 +188,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
         foreach (Spell s in spellToApply.spells)
         {
-            print("apply spell to hero "+s.spellEffect);
+            //print("apply spell to hero "+s.spellEffect);
             SingleSpellApply(s, spellToApply, results);
         }
 
@@ -267,6 +259,22 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
             case SpellEffects.Heal:
                 if (currentHealth <= 0) break;
+                if (s.continuousSpell)
+                {
+                    gameplayStatuses.Add(GameplayStatus.Regenerating);
+                    if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, s.numberOfTurns);
+                    else spellsAttached[s] = s.numberOfTurns;
+                    if (buffPanels != null)
+                    {
+                        if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
+                        else buffPanels.AddBuffToList(s);
+                    }
+                    regenerateRate = GameInstance.DiceRollingBiggestNumber(s.numberOfTurns, s.diceSides) + attacker.GetSkillsStat(s.skillToCheckInCalculations,false)/5;
+
+                    results.Add(new() { msgType = "s", msgString = heroName + " regenerate state " });
+
+                    break;
+                }
                 int healroll = GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides);
                 healroll += GetSkillsStat(SkillsStat.LightMagic) + GetMainStat(MainStat.Mind) + s.diceBonus;
                 currentHealth = Mathf.Clamp(currentHealth + healroll + (int)(Mathf.Pow((float)(GetMainStat(MainStat.Survival) / 4), 2)), 0, GetMaxDependedStat(DependedStat.maxHealth));
@@ -296,7 +304,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 if (portraits.GetStatePortrait(GameplayStatus.None, out Sprite stateSpriteWell)) portrait.sprite = stateSpriteWell;
 
                 //HealHero(GetDependedStat(DependedStat.maxHealth));
-                poisonDamage = 0;
+                poisonDamageRate = 0;
                 results.Add(new() { msgType = "s", msgString = heroName + " restored" });
                 break;
 
@@ -352,7 +360,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 }
 
                     //HealHero(GetDependedStat(DependedStat.maxHealth));
-                    poisonDamage = 0;
+                    poisonDamageRate = 0;
                 results.Add(new() { msgType = "s", msgString = heroName + " restored" });
                 break;
 
@@ -378,7 +386,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                     if (sc.spellEffect == SpellEffects.Poison) buffPanels.RemoveBuffFromList(sc);
                 }
                 gameplayStatuses.Remove(GameplayStatus.Poisoned);
-                poisonDamage = 0;
+                poisonDamageRate = 0;
                 if (portraits.GetStatePortrait(GameplayStatus.None, out Sprite stateSpriteWell1)) portrait.sprite = stateSpriteWell1;
                 results.Add(new() { msgType = "s", msgString = heroName + " cured poison" });
 
@@ -573,7 +581,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
             case SpellEffects.Poison:
                 if (!gameplayStatuses.Contains(GameplayStatus.Poisoned))
                 {
-                    poisonDamage = pureDamageAmount - GetMaxDependedStat(DependedStat.DarkResistance);
+                    poisonDamageRate = pureDamageAmount - GetMaxDependedStat(DependedStat.DarkResistance);
                     if (applyEffectSpell)
                     {
                         gameplayStatuses.Add(GameplayStatus.Poisoned);
@@ -653,11 +661,13 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         manaSlider.ProgressBarFill((float)currentMana / (float)GetMaxDependedStat(DependedStat.maxMana));
     }
 
-    int GetMainStat(MainStat mainStat)
+    int GetMainStat(MainStat mainStat, bool purestat = false)
     {
         if (mainStatContainer.Count <= 0) return 0;
 
         int statInt = mainStatContainer[mainStat];
+
+        if (purestat) { return Mathf.Clamp(statInt, 0, int.MaxValue); }
 
         foreach (KeyValuePair<ItemType, SpellContainer> k in equipmentSpells)
         {
@@ -694,6 +704,32 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     }
 
+     int IncreasingCoeficientFromSkillLearned(bool physicSkill)
+    {
+        int skillsum = 0;
+
+        if (physicSkill)
+        {
+            skillsum += GetSkillsStat(SkillsStat.BluntWeapons, true);
+            skillsum += GetSkillsStat(SkillsStat.BladedWeapons, true);
+            skillsum += GetSkillsStat(SkillsStat.RangedWeapons, true);
+            skillsum += GetSkillsStat(SkillsStat.Polearms, true);
+            skillsum += GetSkillsStat(SkillsStat.HeavyArmour, true);
+            skillsum += GetSkillsStat(SkillsStat.LightArmour, true);
+            return (int)skillsum / 6;
+        }
+        else
+        {
+            skillsum += GetSkillsStat(SkillsStat.LightMagic, true);
+            skillsum += GetSkillsStat(SkillsStat.ElementalMagic, true);
+            skillsum += GetSkillsStat(SkillsStat.DarkMagic, true);
+            skillsum += GetSkillsStat(SkillsStat.Identify, true);
+            skillsum += GetSkillsStat(SkillsStat.SpotSecret, true);
+  
+            return (int)skillsum / 5;
+        }
+    }
+
     public int GetMaxDependedStat(DependedStat dependedStat)
     {
         if (dependedStatsDefault.Count == 0) return 0;
@@ -701,13 +737,11 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         int statInt = dependedStatsDefault[dependedStat];
         switch (dependedStat)
         {
-            case DependedStat.heroLevel:
-                break;
             case DependedStat.maxHealth:
-                statInt += (GetMainStat(MainStat.Strength) / 5)*10;
+                statInt += ((GetMainStat(MainStat.Strength) / 5) + (GameInstance.party.GetPartyLevel()/5) + IncreasingCoeficientFromSkillLearned(true)) * 10;
                 break;
             case DependedStat.maxMana:
-                statInt += (GetMainStat(MainStat.Mind) / 5)*10;
+                statInt += ((GetMainStat(MainStat.Mind) / 5) + (GameInstance.party.GetPartyLevel() / 5) + IncreasingCoeficientFromSkillLearned(false)) * 10;
                 break;
             case DependedStat.initiative:
                 if (GetHeroWeight()<GetMaxDependedStat(DependedStat.CarryingCapacity))
@@ -729,8 +763,6 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 break;
             case DependedStat.Hunger:
                 statInt += (GetMainStat(MainStat.Survival) / 5) * 100; //Max hunger resistance depends on survival stat
-                break;
-            case DependedStat.None:
                 break;
             case DependedStat.evasion:
                 break;
@@ -833,10 +865,10 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     public Dictionary<MainStat,int> GetMainStatsForUI()
     {
         Dictionary<MainStat, int> statListTemp = new Dictionary<MainStat, int>();
-
+        print("Mind stat " + GetMainStat(MainStat.Mind));
         statListTemp.Add(MainStat.Strength, GetMainStat(MainStat.Strength));
-        statListTemp.Add(MainStat.Agility, GetMainStat(MainStat.Agility));
-        statListTemp.Add(MainStat.Mind,GetMainStat(MainStat.Mind));
+        statListTemp.Add(MainStat.Agility,  GetMainStat(MainStat.Agility));
+        statListTemp.Add(MainStat.Mind,     GetMainStat(MainStat.Mind));
         statListTemp.Add(MainStat.Endurance,GetMainStat(MainStat.Endurance));
         statListTemp.Add(MainStat.Willpower,GetMainStat(MainStat.Willpower));
         statListTemp.Add(MainStat.Survival, GetMainStat(MainStat.Survival));
@@ -1037,7 +1069,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 if (GameInstance.party.CheckFoodSupply(1) < 0)
                 {
                     //print("Check for food" + currentHunger);
-                    currentHunger -=1 ;
+                    currentHunger -= 1;
                     if (currentHunger < 0) currentHunger = 0;
                     if (currentHunger <= 0)
                     {
@@ -1058,66 +1090,75 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         {
             if (currentHealth > 0)
             {
-                int _poisonDamage = GameInstance.DiceRollingBiggestNumber(1, poisonDamage);
+                int _poisonDamage = GameInstance.DiceRollingBiggestNumber(0, poisonDamageRate);
                 HealthDecrease(_poisonDamage);
                 GameInstance.spellbook.ResultsToBattleLog(new() { "" }, new List<ResultMsg>() { new() { msgType = "s", msgString = heroName + " takes " + _poisonDamage.ToString() + " poison damage." } });
 
             }
         }
 
-        //print("equipment spells "+ equipmentSpells.Count);
-        foreach (ItemType it in equipmentSpells.Keys)
+        if (gameplayStatuses.Contains(GameplayStatus.Regenerating))
         {
-
-            foreach (Spell s in equipmentSpells[it].spells)
+            if (currentHealth > 0)
             {
-                if (s.spellEffect == SpellEffects.LightARoom)
-                {
-                    
-                }
+
+                int regen = GameInstance.DiceRollingBiggestNumber(0, regenerateRate);
+                HealthDecrease(-regen);
             }
 
-        }
-
-        /*        if (equipmentSpells.Count == 0) GameInstance.spellbook.CheckHeroesForLightSource(new KeyValuePair<int, bool>(heroID, false));*/
-
-        //print("hero time changes");
-        if (spellsAttached.Count <= 0) return;
-        List<Spell> listToDelete = new List<Spell>();
-        List<Spell> listToChange = new List<Spell>();
-
-        foreach (KeyValuePair<Spell, int> s in spellsAttached)
-        {
-            if (spellsAttached[s.Key] > 0) { listToChange.Add(s.Key); }
-            else listToDelete.Add(s.Key);
-        }
-
-        foreach (Spell s in listToChange)
-        {
-            int x = spellsAttached[s];
-            spellsAttached[s] = x - 1;
-        }
-
-        foreach (Spell s in listToDelete)
-        {
-            switch (s.spellEffect)
+            //print("equipment spells "+ equipmentSpells.Count);
+            foreach (ItemType it in equipmentSpells.Keys)
             {
- 
-                case SpellEffects.ElementalWeapon:
-                    weaponEnchanced = MagicType.None;
-                    break;
+
+                foreach (Spell s in equipmentSpells[it].spells)
+                {
+                    if (s.spellEffect == SpellEffects.LightARoom)
+                    {
+
+                    }
+                }
+
+            }
+
+            /*        if (equipmentSpells.Count == 0) GameInstance.spellbook.CheckHeroesForLightSource(new KeyValuePair<int, bool>(heroID, false));*/
+
+            //print("hero time changes");
+            if (spellsAttached.Count <= 0) return;
+            List<Spell> listToDelete = new List<Spell>();
+            List<Spell> listToChange = new List<Spell>();
+
+            foreach (KeyValuePair<Spell, int> s in spellsAttached)
+            {
+                if (spellsAttached[s.Key] > 0) { listToChange.Add(s.Key); }
+                else listToDelete.Add(s.Key);
+            }
+
+            foreach (Spell s in listToChange)
+            {
+                int x = spellsAttached[s];
+                spellsAttached[s] = x - 1;
+            }
+
+            foreach (Spell s in listToDelete)
+            {
+                switch (s.spellEffect)
+                {
+
+                    case SpellEffects.ElementalWeapon:
+                        weaponEnchanced = MagicType.None;
+                        break;
 
                     case SpellEffects.LightARoom:
-                    RemoveItemFromEquipment(ItemType.SHIELD);
+                        RemoveItemFromEquipment(ItemType.SHIELD);
 
-                    break;
+                        break;
+                }
+                if (buffPanels != null) buffPanels.RemoveBuffFromList(s);
+                spellsAttached.Remove(s);
             }
-            if (buffPanels != null)buffPanels.RemoveBuffFromList(s);
-            spellsAttached.Remove(s);
         }
+
     }
-
-
 
     public SpellContainer GetInfusedWeaponSpell()
     {
@@ -1361,7 +1402,9 @@ public enum GameplayStatus
     Petrified,
     Dead,
     Stoned,
-    Paralized
+    Paralized,
+    Blind,
+    Regenerating
 }
 
 [System.Serializable]

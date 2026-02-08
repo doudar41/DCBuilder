@@ -18,6 +18,8 @@ public class Spell
     public int restToBeAbleToCastAgainInTurns = 0;
     public string SpellDescription;
     public SkillsStat skillToCheckInCalculations = SkillsStat.None;
+    public GameplayStatus stateToCure = GameplayStatus.None;
+    public bool continuousSpell = false;
 }
 
 public enum SpellEffects
@@ -50,7 +52,9 @@ public enum SpellEffects
     Vampirism,
     Equipment,
     Revive,
-    Antidote
+    Antidote,
+    Createfood,
+    CureState
 }
 
 public enum MagicType

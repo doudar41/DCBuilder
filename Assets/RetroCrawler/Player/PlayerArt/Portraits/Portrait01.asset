@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   portraits:
   - state: 0
-    sprite: {fileID: 21300000, guid: 6be1f22bdb6384b44b5d1a5839cd53ce, type: 3}
+    sprite: {fileID: 21300000, guid: 557bdb095a172b8468883a2da0cfc8ae, type: 3}
   - state: 5
     sprite: {fileID: 21300000, guid: 777c57e3c7e8c70459f2b2c03b86e059, type: 3}
   - state: 3

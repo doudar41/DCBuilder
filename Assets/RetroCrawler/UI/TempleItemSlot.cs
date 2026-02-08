@@ -11,6 +11,7 @@ public class TempleItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnter
     
     [SerializeField] ItemScriptableContainer itemToSell;
     public UnityEvent<string> onHover;
+    public UnityEvent refreshMoney;
     int price = 0;
     Image storeImage;
     private void Awake()
@@ -42,7 +43,7 @@ public class TempleItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnter
         if (GameInstance.party.SellBuyMoneyCheck(price) >= 0)
         {
             GameInstance.inventory.FindEmptySlotAndPutItem(GameInstance.dataBase.HeroInventoryFromITemScriptable(itemToSell),1, false);
-            if (!GameInstance.CheckIFItemIdentified(GameInstance.dataBase.HeroInventoryFromITemScriptable(itemToSell).container))
+            if (!GameInstance.CheckIfItemIdentified(GameInstance.dataBase.HeroInventoryFromITemScriptable(itemToSell).container))
             {
                 GameInstance.SaveIdentifiedItems(GameInstance.dataBase.HeroInventoryFromITemScriptable(itemToSell));
             }

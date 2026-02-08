@@ -8,7 +8,7 @@ using UnityEngine.Events;
 public class TavernService : MonoBehaviour
 {
     [SerializeField] GameObject backGroundImage;
-    [SerializeField] GameObject tavernButtons, heroesMoney;
+    [SerializeField] GameObject tavernButtons, heroesMoney, serviceOffer;
     [SerializeField] List<TextMeshProUGUI> heroesCoinsText;
     [SerializeField] SoundID closeDoor, closeTavernVO, openTavernVO, background, backgroundMusic;
     [SerializeField] int coinsForDrink = 5, rentForRoom = 10, buyFood = 10;
@@ -25,6 +25,7 @@ public class TavernService : MonoBehaviour
         GameInstance.soundManagerInGame.DuckExploreMusicSwitchToAmbience(RoomSpaces.Bar);
         GameInstance.soundManagerInGame.ProtectedPlay(closeDoor);
         heroesMoney.SetActive  (true);
+        serviceOffer.SetActive(true);
         GetPlayersCoins();
     }
 
@@ -50,6 +51,12 @@ public class TavernService : MonoBehaviour
             GetPlayersCoins();
         }
     }
+
+    public void ShowTavernOffer(string offer)
+    {
+        serviceOffer.GetComponent<TextMeshProUGUI>().text = offer;
+    }
+
 
     private void Update()
     {
@@ -104,6 +111,7 @@ public class TavernService : MonoBehaviour
         GameInstance.soundManagerInGame.UnduckingCurrentMusic(background);
         cameraOrder.BattleLogWithGameplay();
         heroesMoney.SetActive(false);
+        serviceOffer.SetActive(false);
         GameInstance.soundManagerInGame.UnDuckExploreMusicSwitchToAmbience();
     }
 

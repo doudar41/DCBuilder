@@ -356,7 +356,7 @@ public class ItemShop : MonoBehaviour
             {
                 if (h.Value.itemType == it)
                 {
-                    if (!GameInstance.CheckIFItemIdentified(h.Value.container))
+                    if (!GameInstance.CheckIfItemIdentified(h.Value.container))
                     {
                         itemsToSell.Add(h.Key, h.Value);
                         itemsToSellKeys.Add(h.Key);

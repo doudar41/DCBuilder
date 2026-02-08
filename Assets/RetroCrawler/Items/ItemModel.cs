@@ -332,7 +332,8 @@ public enum ItemType
     QUEST,
     LOOT,
     Upgrades,
-    Key
+    Key,
+    LEARNINGSCROLL
 
 }
 

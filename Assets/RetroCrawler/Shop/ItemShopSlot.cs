@@ -54,6 +54,10 @@ public class ItemShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                     {
                         GetItemFromSlot(itemToSell);
                         GameInstance.party.MoneyGoes(itemToSell.price);
+                        if (!GameInstance.CheckIfItemIdentified(GameInstance.dataBase.HeroInventoryFromITemScriptable(itemToSell).container))
+                        {
+                            GameInstance.SaveIdentifiedItems(GameInstance.dataBase.HeroInventoryFromITemScriptable(itemToSell));
+                        }
                         refreshCoins.Invoke();
                         ItemSold.Invoke(itemToSell, inventorySlotForSell);
 
@@ -84,7 +88,7 @@ public class ItemShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
         heroInventoryItem.stackAmount = 1;
         heroInventoryItem.positionReplaced = Vector3.zero;
-        heroInventoryItem.level = "Level01";
+        heroInventoryItem.level = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
         GameInstance.inventory.FindEmptySlotAndPutItem(heroInventoryItem, 1, false);
     }
 
@@ -98,7 +102,7 @@ public class ItemShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
         heroInventoryItem.stackAmount = 1;
         heroInventoryItem.positionReplaced = Vector3.zero;
-        heroInventoryItem.level = "Level01";
+        heroInventoryItem.level = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
 
     }
 
@@ -120,10 +124,7 @@ public class ItemShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     {
         if (itemToSell == null) return;
         IdentifyItem();
-
-
     }
-
 
 
     void IdentifyItem()
@@ -146,8 +147,16 @@ public class ItemShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             switch (shopState)
             {
                 case ShopState.BuyFromPlayer:
-                    textObject.text = itemToSell.itemDescription + spellTexts + "\n" + "Price: " + ((int)(itemToSell.price * sellMultiplier)).ToString();
-                    textObject.color = Color.green;
+                    if (GameInstance.CheckIfItemIdentified(GameInstance.dataBase.HeroInventoryFromITemScriptable(itemToSell).container))
+                    {
+                        textObject.text = itemToSell.itemDescription + spellTexts + "\n" + "Price: " + ((int)(itemToSell.price * sellMultiplier)).ToString();
+                        textObject.color = Color.green;
+                    }
+                    else
+                    {
+                        textObject.text = "unidentified item" + "\n" + "Price: " + ((int)(itemToSell.price * sellMultiplier)).ToString();
+                        textObject.color = Color.red;
+                    }
                     break;
                 case ShopState.SellToPlayer:
                     textObject.text = itemToSell.itemDescription + spellTexts + "\n" + "Price: " + ((int)(itemToSell.price * sellMultiplier)).ToString();
@@ -155,7 +164,7 @@ public class ItemShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                     else textObject.color = Color.red;
                     break;
                 case ShopState.Idenify:
-                    if (GameInstance.CheckIFItemIdentified(GameInstance.dataBase.HeroInventoryFromITemScriptable(itemToSell).container))
+                    if (GameInstance.CheckIfItemIdentified(GameInstance.dataBase.HeroInventoryFromITemScriptable(itemToSell).container))
                     {
                         textObject.text = itemToSell.itemDescription + spellTexts + "\n" + "Price: " + ((int)(itemToSell.price * sellMultiplier)).ToString();
                         if (GameInstance.party.SellBuyMoneyCheck((int)(itemToSell.price * sellMultiplier)) >= 0) textObject.color = Color.green;
@@ -169,12 +178,7 @@ public class ItemShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                     }
 
                     break;
-                case ShopState.Spell:
-                    break;
-                case ShopState.Heal:
-                    break;
-                case ShopState.Ressurect:
-                    break;
+
             }
         }
     }
@@ -185,7 +189,6 @@ public class ItemShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         if (itemToSell == null) return;
         if (desc == null) return;
         desc.SetActive(false);
-        //Hide UI;
     }
 
 

@@ -9,14 +9,13 @@ public class SpellShop : MonoBehaviour
 {
     [SerializeField] Image backGroundImage;
     [SerializeField] List<SpellShopSlot> spellSlots = new List<SpellShopSlot>();
-    [SerializeField] List<MagicType> magicTypes = new List<MagicType>();
+    [SerializeField] SkillsStat magicType = SkillsStat.ElementalMagic;
     [SerializeField] TextMeshProUGUI heroesGemsText;
     [SerializeField] float sellMultiplier = 1;
     [SerializeField] Vector2Int itemsLevel = new Vector2Int(0,1);
     [SerializeField] CameraOrder cam;
     [SerializeField] TextMeshProUGUI textOfShopState;
     [SerializeField] SoundID openDoor, closeDoor, openSpellShopVO, closeSpellShopVO;
-    [SerializeField] GameObject openSwitch;
     [SerializeField] GameObject spellsShelf, exitButton, moneyPanel;
 
     int gemsSpent = 0;
@@ -28,8 +27,6 @@ public class SpellShop : MonoBehaviour
     public void OpenSpellShop()
     {
         backGroundImage.enabled = true;
-        openSwitch.SetActive(true);
-
         var gemAmount = GameInstance.party.CheckGems(0);
         heroesGemsText.text = gemAmount.ToString();
 
@@ -59,10 +56,23 @@ public class SpellShop : MonoBehaviour
 
     public void RefreshSoldSpells()
     {
-        //print("Refreshing sold spells");
+        itemsLevel.y = (GameInstance.party.GetPartyLevel()/5) + 1;
+        List<SpellContainer> spellOfType = new List<SpellContainer>();
+
+        foreach (SpellContainer spell in GameInstance.dataBase.GetAllSpells())
+        {
+            if (spell.spells[0].skillToCheckInCalculations == magicType)
+            {
+                if (spell.spellLevel >= itemsLevel.x && spell.spellLevel <= itemsLevel.y)
+                {
+                    //print("found spell of type" + spell.spellLevel);
+                    spellOfType.Add(spell);
+                }
+            }
+        }
         for (int i = 0; i < spellSlots.Count; i++)
         {
-            spellSlots[i].SetSpellToSell(RandomSpellToSell(magicTypes[Random.Range(0, magicTypes.Count)]));
+            spellSlots[i].SetSpellToSell(spellOfType[Random.Range(0, spellOfType.Count - 1)]);
         }
     }
 
@@ -71,21 +81,12 @@ public class SpellShop : MonoBehaviour
         cam.BattleLogWithGameplay();
     }
 
-    public SpellContainer RandomSpellToSell(MagicType magicType)
+    public SpellContainer RandomSpellToSell( List<SpellContainer> spellOfType)
     { 
-        List<SpellContainer> spellOfType = new List<SpellContainer>();
 
-        foreach (SpellContainer spell in GameInstance.dataBase.GetAllSpells())
-        {
-            if (spell.spells[0].magicType == magicType)
-            {
-                if (spell.spellLevel>= itemsLevel.x && spell.spellLevel <= itemsLevel.y)
-                {
-                    spellOfType.Add(spell);
-                }
-            }
-        }
-        return spellOfType[Random.Range(0, spellOfType.Count)];
+        print("item level " + itemsLevel.y + " spell of type count " + spellOfType.Count);
+        if (spellOfType.Count <= 0) { return null; }
+        return spellOfType[Random.Range(0, spellOfType.Count-1)];
     }
 
 
@@ -103,7 +104,6 @@ public class SpellShop : MonoBehaviour
 
         BroAudio.Stop(openSpellShopVO);
         backGroundImage.enabled = false;
-        openSwitch.SetActive(false);
     }
 
     public void ClearSlots()
