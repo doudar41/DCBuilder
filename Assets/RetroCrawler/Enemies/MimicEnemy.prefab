@@ -1266,6 +1266,10 @@ MonoBehaviour:
     ID: 1073741850
     _sourceAsset: {fileID: 11400000, guid: b57e0d2f91771b34d8c0a49ba7faee85, type: 2}
     <DebugObject>k__BackingField: {fileID: 8822468640820191240}
+  dieSound:
+    ID: 0
+    _sourceAsset: {fileID: 0}
+    <DebugObject>k__BackingField: {fileID: 8822468640820191240}
   experienceReward: 30
   itemScriptableContainers: []
   itemsStackAmout: 
@@ -1291,8 +1295,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.2, y: 0.3, z: 0.01}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.69028807, y: 0.636674, z: 0.053256363}
+  m_Center: {x: -0.051896513, y: -0.045995444, z: 0.006941259}
 --- !u!1001 &4422779386453325945
 PrefabInstance:
   m_ObjectHideFlags: 0

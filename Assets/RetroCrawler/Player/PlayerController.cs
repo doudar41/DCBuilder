@@ -1043,9 +1043,11 @@ public class PlayerController : MonoBehaviour
                     return false;
 
                 case InteractablesEnum.CUSTOMBATTLEINPLACE:
+                    if(CardinalDir.GetNewPoint(currentforwardDirection, currentposition, moveTilemap) != v) return false;
                     StartCustomBattle(transform);
                     List<GameObject> enemy = wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<OnBlockPlacement>().GetEnemyListForCustomBattle();
                     GameInstance.battleManager.CustomBattleInPlace(enemy, wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<IBlock>());
+
                     return false;
                 case InteractablesEnum.WEIGHTPLATE:
                     weightPlateIBllock = wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<IBlock>();

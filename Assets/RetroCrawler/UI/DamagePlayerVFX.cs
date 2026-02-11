@@ -29,8 +29,8 @@ public class DamagePlayerVFX : MonoBehaviour
     {
         anim.StartFXAnimation(animationStateName);
         GameInstance.soundManagerInGame.ProtectedPlay(listClips[animationStateName].soundID);
-
     }
+
     public void PlaySpellEffect(SpellContainer spell)
     {
         ChangeAnimation(spell.animationTriggerName);

@@ -148,6 +148,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         }
 
         healthSlider.ProgressBarFill((float)currentHealth / (float)GetMaxDependedStat(DependedStat.maxHealth));
+        //SetDependedStat(DependedStat.meleeDamage, 10);
     }
     
     public Dictionary<Spell,int> GetSpellsAttached()
@@ -260,8 +261,8 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 if (s.continuousSpell)
                 {
                     gameplayStatuses.Add(GameplayStatus.Regenerating);
-                    if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, s.numberOfTurns);
-                    else spellsAttached[s] = s.numberOfTurns;
+                    if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, (GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides))+ attacker.GetSkillsStat(s.skillToCheckInCalculations, false) / 3);
+                    else spellsAttached[s] = (GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides)) + attacker.GetSkillsStat(s.skillToCheckInCalculations, false) / 3;
                     if (buffPanels != null)
                     {
                         if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
@@ -280,7 +281,6 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 ProgressBarChange();
                 break;
 
-
             case SpellEffects.Restoration:
 
 
@@ -291,10 +291,9 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
                 foreach (GameplayStatus st in System.Enum.GetValues(typeof(GameplayStatus)))
                 {
-                    if (st != GameplayStatus.Dead)
+                    if (st != GameplayStatus.Dead || st != GameplayStatus.Regenerating || st != GameplayStatus.MagicMantle)
                     {
                         gameplayStatuses.Remove(st);
-
                     }
                 }
 
@@ -304,8 +303,20 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 results.Add(new() { msgType = "s", msgString = heroName + " restored" });
                 break;
 
-
+            case SpellEffects.DSMod:
+                int sumdice = GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides);
+                print("dsmod "+sumdice + " - " + attacker.GetSkillsStat(s.skillToCheckInCalculations, false) + " - "+ GetMaxDependedStat(s.changedDependedStat));
+                    if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, (sumdice) + attacker.GetSkillsStat(s.skillToCheckInCalculations, false) / 3);
+                    else spellsAttached[s] = (sumdice) + attacker.GetSkillsStat(s.skillToCheckInCalculations, false) / 3;
+                    if (buffPanels != null)
+                    {
+                        if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
+                        else buffPanels.AddBuffToList(s);
+                    }
+                    SetDependedStat(s.changedDependedStat, (sumdice + attacker.GetSkillsStat(s.skillToCheckInCalculations, false) / 3) + GetMaxDependedStat(s.changedDependedStat));
+                break;
                 
+
             case SpellEffects.CureState:
                 if (gameplayStatuses.Contains(s.targetGamestate))
                 {
@@ -989,7 +1000,8 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
         foreach (DependedStat d in System.Enum.GetValues(typeof(DependedStat)))
         {
-            if(d != DependedStat.None)statListTemp.Add(d, GetMaxDependedStat(d));
+            if(d != DependedStat.None) statListTemp.Add(d, GetMaxDependedStat(d));
+
         }
 
         return statListTemp;

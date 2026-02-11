@@ -17,7 +17,7 @@ MonoBehaviour:
     amount: 0
     agroPoints: 0
     manaCost: 40
-    diceRollsNumber: 2
+    diceRollsNumber: 3
     diceSides: 6
     diceBonus: 0
     numberOfTurns: 0
@@ -28,7 +28,7 @@ MonoBehaviour:
     restToBeAbleToCastAgainInTurns: 0
     SpellDescription: Regenerate health
     skillToCheckInCalculations: 7
-    stateToCure: 0
+    targetGamestate: 0
     continuousSpell: 1
   spellIcon: {fileID: 21300000, guid: 45dac8944a2b2c84eac9cb927ee9b4f7, type: 3}
   AOE: 0

@@ -247,6 +247,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                     damageAmountDiceSumResult += GameInstance.DiceRollingBiggestNumber(1, spellcaster.GetComponent<IHero>().GetSkillsStat(_spell.skillToCheckInCalculations, false));
 
                     damageAmountDiceSumResult = ApplyMagicResistanceToWeapon(spellcaster, damageAmountDiceSumResult);
+                    damageAmountDiceSumResult = Mathf.Clamp(damageAmountDiceSumResult, 0, int.MaxValue); // making sure that damage amount is not negative after applying resistance
 
                     results.Add(new() { msgType = "s", msgString = enemyName + " damaged " });
                     results.Add(new() { msgType = "i", msgInt = damageAmountDiceSumResult }); // adding final damage amount to the results list
@@ -739,8 +740,7 @@ public enum EnemyStat
     DARK_RESISTANCE,
     LIGHT_RESISTANCE,
     MELEE_DAMAGE,
-    RANGE_DAMAGE,
-    BURN
+    RANGE_DAMAGE
 }
 
 [System.Serializable]

@@ -151,6 +151,66 @@ public static class GameInstance
         return result; //sum of all random numbers from dice
     }
 
+
+    public static int DiceRollingWithSkill(bool sum, Spell s, GameObject caster, int _divider)
+    {
+        int diceRollNumber = s.diceRollsNumber;
+        int diceSides = s.diceSides;
+        if (caster.GetComponent<IHero>() != null)
+        {
+            IHero heroCaster = caster.GetComponent<IHero>();
+            if (s.skillToCheckInCalculations != SkillsStat.None)
+            {
+                int diceResult = 0;
+                if (sum)
+                {
+                    diceResult= DiceRollingSum(diceRollNumber, diceSides);
+                }
+                else
+                {
+                    diceResult= DiceRollingBiggestNumber(diceRollNumber, diceSides);
+                }
+                diceResult += heroCaster.GetSkillsStat(s.skillToCheckInCalculations, false) / _divider;
+                return diceResult;
+            }
+        }
+
+        if (caster.GetComponent<IEnemy>() != null)
+        {
+            IEnemy enemyCaster = caster.GetComponent<IEnemy>();
+            if (s.skillToCheckInCalculations != SkillsStat.None)
+            {
+                int diceResult = 0;
+                if (sum)
+                {
+                    diceResult = DiceRollingSum(diceRollNumber, diceSides);
+                }
+                else
+                {
+                    diceResult = DiceRollingBiggestNumber(diceRollNumber, diceSides);
+                }
+                diceResult += enemyCaster.GetSkillsStat(s.skillToCheckInCalculations, false) / _divider;
+                return diceResult;
+            }
+        }
+
+        if (sum)
+        {
+            return  DiceRollingSum(diceRollNumber, diceSides);
+
+        }
+        else
+        {
+            return  DiceRollingBiggestNumber(diceRollNumber, diceSides);
+
+        }
+
+
+    }
+
+
+
+
     public static int GetAdditionalSkillPoints(Dictionary<SkillsStat,int> skillsUsed, out List<SkillsStat> winSkills) 
         // Player can get up to 5 additional skill points during levelup for using specific two skills
     {
