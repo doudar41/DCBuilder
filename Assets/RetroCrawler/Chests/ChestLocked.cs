@@ -31,12 +31,24 @@ public class ChestLocked : MonoBehaviour, IPointerClickHandler, IChestLocked
             _guid = System.Guid.NewGuid();
             GUIDString = _guid.ToString();
         }
+        stackAmounts.Clear();
+        for (int i = 0; i < thingsInsideChest.Count; i++)
+        {
 
+            stackAmounts.Add(1);
+        }
     }
+
+
+
+
     private void Awake()
     {
 
         GameInstance.initItems += Init;
+
+        
+
     }
     private void OnDestroy()
     {

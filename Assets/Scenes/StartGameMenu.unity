@@ -8276,7 +8276,7 @@ MonoBehaviour:
     skill: 7
     amount: 5
   - heroIndex: 3
-    skill: 8
+    skill: 10
     amount: 5
   weaponsChosen:
   - {fileID: 11400000, guid: 31e24a9cad6287346baf41c0ab888aab, type: 2}

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Animancer;
 using Ami.BroAudio;
 
 public class DamagePlayerVFX : MonoBehaviour
@@ -36,7 +35,6 @@ public class DamagePlayerVFX : MonoBehaviour
     {
         ChangeAnimation(spell.animationTriggerName);
     }
-
 
 }
 

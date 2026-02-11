@@ -26,6 +26,8 @@ public class PageTurn : MonoBehaviour
 
     public void FlipPagesStart(bool side)
     {
+        if (!gameObject.activeSelf) return;
+        print("object is active");
         StartCoroutine(FlipPages(side));
     }
 

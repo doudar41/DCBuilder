@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830199137178dfd4c92369ded1b83b63, type: 3}
+  m_Name: WaterWalking
+  m_EditorClassIdentifier: 
+  itemType: 20
+  itemName: WaterWalking
+  texture2DMouse: {fileID: 2800000, guid: 044f9dfe117b1514f945fe438375490f, type: 3}
+  InventorySprite: {fileID: 21300000, guid: 9a913cb9346e93f42b2ac04dbff4d18a, type: 3}
+  worldSprite: {fileID: 21300000, guid: 9a913cb9346e93f42b2ac04dbff4d18a, type: 3}
+  prefab: {fileID: 2885720944578253258, guid: e00a9fd1d3cf44c43a9ad6e5a4c871a8, type: 3}
+  weight: 0
+  spellContainer: {fileID: 11400000, guid: ad5e6b35e11b5f1468b81475d1760a67, type: 2}
+  weaponType: 0
+  twoHanded: 0
+  price: 1000
+  itemDescription: Learn how to Walk upon Water
+  itemLevel: 0
+  keyType: 0
+  journalEntry: 
+  dialogueKeys: 
+  stackable: 0
+  inventorySound:
+    ID: 0
+    _sourceAsset: {fileID: 0}
+    <DebugObject>k__BackingField: {fileID: 0}

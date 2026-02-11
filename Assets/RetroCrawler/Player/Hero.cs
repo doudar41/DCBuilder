@@ -252,11 +252,9 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     public List<ResultMsg> SingleSpellApply(Spell s, SpellContainer spellToApply, List<ResultMsg> results, IHero attacker)
     {
-        print("hero attacks with spell");
 
         switch (s.spellEffect)
         {
-
             case SpellEffects.Heal:
                 if (currentHealth <= 0) break;
                 if (s.continuousSpell)
@@ -270,9 +268,8 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                         else buffPanels.AddBuffToList(s);
                     }
                     regenerateRate = GameInstance.DiceRollingBiggestNumber(s.numberOfTurns, s.diceSides) + attacker.GetSkillsStat(s.skillToCheckInCalculations,false)/5;
-
+                    
                     results.Add(new() { msgType = "s", msgString = heroName + " regenerate state " });
-
                     break;
                 }
                 int healroll = GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides);
@@ -303,9 +300,49 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
                 if (portraits.GetStatePortrait(GameplayStatus.None, out Sprite stateSpriteWell)) portrait.sprite = stateSpriteWell;
 
-                //HealHero(GetDependedStat(DependedStat.maxHealth));
                 poisonDamageRate = 0;
                 results.Add(new() { msgType = "s", msgString = heroName + " restored" });
+                break;
+
+
+                
+            case SpellEffects.CureState:
+                if (gameplayStatuses.Contains(s.targetGamestate))
+                {
+                    if(GameInstance.DiceRollingBiggestNumber(s.numberOfTurns, s.diceSides) + GetSkillsStat(SkillsStat.LightMagic)/5 < s.diceSides/2)
+                    {
+                        results.Add(new() { msgType = "s", msgString = attacker.HeroName() + " failed to cure " + s.targetGamestate });
+                        break;
+                    }
+                    gameplayStatuses.Remove(s.targetGamestate);
+                    if (buffPanels != null)
+                    {
+                        if (debuffSpells.Contains(s)) debuffSpells.Remove(s);
+                        if (spellToApply != null) buffPanels.RemoveBuffFromList(s);
+                    }
+                    if (s.targetGamestate == GameplayStatus.Poisoned) poisonDamageRate = 0;
+
+                    if (gameplayStatuses.Count == 0)
+                    {
+                        if (portraits.GetStatePortrait(GameplayStatus.None, out Sprite stateSpriteNormal)) portrait.sprite = stateSpriteNormal;
+                    }
+                    else
+                    {
+                        if (portraits.GetStatePortrait(gameplayStatuses[0], out Sprite stateSpriteNew)) portrait.sprite = stateSpriteNew;
+                    }
+                }
+                break;
+                case SpellEffects.CauseState:
+                if(s.targetGamestate== GameplayStatus.MagicMantle)
+                {
+                    gameplayStatuses.Add(GameplayStatus.MagicMantle);
+                    if (buffPanels != null)
+                    {
+                        if (!debuffSpells.Contains(s)) debuffSpells.Add(s);
+                        if (spellToApply != null) buffPanels.AddBuffToList(s);
+                    }
+                }
+                
                 break;
 
         }
@@ -438,17 +475,17 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
             case SpellEffects.PDmg:
 
 
-                if(spellToApply.minDistanceToEnemy == 1) pureDamageAmount += GameInstance.DiceRollingBiggestNumber(2, attacker.GetCurrentStatValue(EnemyStat.MELEE_DAMAGE));
-                if(spellToApply.minDistanceToEnemy > 1 && attacker.GetEnemyRow()>1) pureDamageAmount += GameInstance.DiceRollingBiggestNumber(2, attacker.GetCurrentStatValue(EnemyStat.RANGE_DAMAGE));
-                if (spellToApply.minDistanceToEnemy > 1 && attacker.GetEnemyRow() < 1) 
-                { 
-                    pureDamageAmount -= GameInstance.DiceRollingBiggestNumber(2, attacker.GetCurrentStatValue(EnemyStat.RANGE_DAMAGE)); 
+                if (spellToApply.minDistanceToEnemy == 1) pureDamageAmount += GameInstance.DiceRollingBiggestNumber(2, attacker.GetCurrentStatValue(EnemyStat.MELEE_DAMAGE));
+                if (spellToApply.minDistanceToEnemy > 1 && attacker.GetEnemyRow() > 1) pureDamageAmount += GameInstance.DiceRollingBiggestNumber(2, attacker.GetCurrentStatValue(EnemyStat.RANGE_DAMAGE));
+                if (spellToApply.minDistanceToEnemy > 1 && attacker.GetEnemyRow() < 1)
+                {
+                    pureDamageAmount -= GameInstance.DiceRollingBiggestNumber(2, attacker.GetCurrentStatValue(EnemyStat.RANGE_DAMAGE));
                     if (pureDamageAmount < 0) pureDamageAmount = 0;
                 }
-                
-                
-                int physicalDamage= pureDamageAmount - GetMaxDependedStat(DependedStat.defence);
-                results.Add(new() { msgType = "s", msgString = " damage " + pureDamageAmount+" vs. defence "+ GetMaxDependedStat(DependedStat.defence) });
+
+
+                int physicalDamage = pureDamageAmount - GetMaxDependedStat(DependedStat.defence);
+                results.Add(new() { msgType = "s", msgString = " damage " + pureDamageAmount + " vs. defence " + GetMaxDependedStat(DependedStat.defence) });
                 //print("physical damage spell applied " + pureDamageAmount + "/ defence " + GetDependedStat(DependedStat.defence));
 
                 results.Add(new() { msgType = "s", msgString = heroName + " damage " });
@@ -461,18 +498,18 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
             case SpellEffects.MDmg:
 
                 switch (s.magicType)
-                {                       
+                {
 
                     case MagicType.Fire:
-                        if(immunityList.Contains(MagicType.Fire))
+                        if (immunityList.Contains(MagicType.Fire))
                         {
                             results.Add(new() { msgType = "s", msgString = heroName + " immune to Fire magic " });
                             return results;
                         }
-                         int fireDamage = pureDamageAmount - (GetMaxDependedStat(DependedStat.FireResistance) + (GetMainStat(MainStat.Willpower)/5));
-                        fireDamage = fireDamage < 0 ?  0: fireDamage;
+                        int fireDamage = pureDamageAmount - (GetMaxDependedStat(DependedStat.FireResistance) + (GetMainStat(MainStat.Willpower) / 5));
+                        fireDamage = fireDamage < 0 ? 0 : fireDamage;
                         HealthDecrease(fireDamage);
-                        results.Add(new() { msgType = "s", msgString = attacker.GetEnemyName()+" Hit "+heroName+" with Fire "+ fireDamage });
+                        results.Add(new() { msgType = "s", msgString = attacker.GetEnemyName() + " Hit " + heroName + " with Fire " + fireDamage });
                         break;
                     case MagicType.Water:
                         if (immunityList.Contains(MagicType.Water))
@@ -512,7 +549,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                             return null;
                         }
                         int lightDamage = pureDamageAmount - (GetMaxDependedStat(DependedStat.DarkResistance) + (GetMainStat(MainStat.Willpower) / 5));
-                        lightDamage = lightDamage < 0 ? 0 : lightDamage;    
+                        lightDamage = lightDamage < 0 ? 0 : lightDamage;
                         results.Add(new() { msgType = "s", msgString = attacker.GetEnemyName() + " Hit " + heroName + " with Light magic " + lightDamage });
                         HealthDecrease(lightDamage);
 
@@ -528,19 +565,20 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                         results.Add(new() { msgType = "s", msgString = attacker.GetEnemyName() + " Hit " + heroName + " with Dark magic " + darkDamage });
                         break;
                 }
-                break;
+            break;
 
             case SpellEffects.MSMod:
                 if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, s.numberOfTurns);
                 else spellsAttached[s] = s.numberOfTurns;
-                if (buffPanels != null) 
+                if (buffPanels != null)
                 {
                     if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
                     else buffPanels.AddBuffToList(s);
                 }
 
 
-                break;
+            break;
+
             case SpellEffects.DSMod:
                 if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, s.numberOfTurns);
                 else spellsAttached[s] = s.numberOfTurns;
@@ -550,7 +588,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                     else buffPanels.AddBuffToList(s);
                 }
 
-                break;
+            break;
 
 
 
@@ -575,12 +613,21 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                     else buffPanels.AddBuffToList(s);
                 }
 
-                break;
+            break;
 
 
             case SpellEffects.Poison:
                 if (!gameplayStatuses.Contains(GameplayStatus.Poisoned))
                 {
+                    if (gameplayStatuses.Contains(GameplayStatus.MagicMantle))
+                    {
+                        if (GameInstance.DiceRollingBiggestNumber(s.numberOfTurns, s.diceSides) + GetSkillsStat(SkillsStat.DarkMagic) / 5 < s.diceSides / 2)
+                        {
+                            results.Add(new() { msgType = "s", msgString = heroName + " magic mantle protected from " + s.targetGamestate });
+                            break;
+                        }
+
+                    }
                     poisonDamageRate = pureDamageAmount - GetMaxDependedStat(DependedStat.DarkResistance);
                     if (applyEffectSpell)
                     {
@@ -594,30 +641,101 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                         }
                     }
                 }
-                break;
+            break;
 
             case SpellEffects.Petrify:
                 if (!gameplayStatuses.Contains(GameplayStatus.Petrified))
                 {
+                    if (gameplayStatuses.Contains(GameplayStatus.MagicMantle))
+                    {
+                        if (GameInstance.DiceRollingBiggestNumber(s.numberOfTurns, s.diceSides) + GetSkillsStat(SkillsStat.DarkMagic) / 5 < s.diceSides / 2)
+                        {
+                            results.Add(new() { msgType = "s", msgString = heroName + " magic mantle protected from " + s.targetGamestate });
+                            break;
+                        }
+
+                    }
                     if (applyEffectSpell)
                     {
-                        gameplayStatuses.Add(GameplayStatus.Petrified); 
+                        gameplayStatuses.Add(GameplayStatus.Petrified);
                         if (portraits.GetStatePortrait(GameplayStatus.Petrified, out Sprite stateSpritePetrified)) portrait.sprite = stateSpritePetrified;
-                    
-                    if (buffPanels != null)
+
+                        if (buffPanels != null)
                         {
                             if (!debuffSpells.Contains(s)) debuffSpells.Add(s);
                             if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
                             else buffPanels.AddBuffToList(s);
                         }
+                    }
+                }
+            break;
+
+
+
+            case SpellEffects.CauseState:
+                if (!gameplayStatuses.Contains(s.targetGamestate))
+                {
+
+                    if(gameplayStatuses.Contains(GameplayStatus.MagicMantle))
+                    {
+                        if(GameInstance.DiceRollingBiggestNumber(s.numberOfTurns, s.diceSides)+GetSkillsStat(SkillsStat.DarkMagic)/5 < s.diceSides / 2)
+                        {
+                            results.Add(new() { msgType = "s", msgString = heroName + " magic mantle protected from " + s.targetGamestate });
+                            break;
+                        }
 
                     }
-                    
+
+                    switch (s.targetGamestate)
+                    {
+                    case GameplayStatus.Burning:
+                        if (applyEffectSpell)
+                        {
+                                if (gameplayStatuses.Contains(GameplayStatus.MagicMantle))
+                                {
+                                    if (GameInstance.DiceRollingBiggestNumber(s.numberOfTurns, s.diceSides) + GetSkillsStat(SkillsStat.DarkMagic) / 5 < s.diceSides / 2)
+                                    {
+                                        results.Add(new() { msgType = "s", msgString = heroName + " magic mantle protected from " + s.targetGamestate });
+                                        break;
+                                    }
+
+                                }
+                                gameplayStatuses.Add(GameplayStatus.Burning);
+                            if (portraits.GetStatePortrait(GameplayStatus.Burning, out Sprite stateSpriteBurning)) portrait.sprite = stateSpriteBurning;
+                            if (buffPanels != null)
+                            {
+                                if (!debuffSpells.Contains(s)) debuffSpells.Add(s);
+                                if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
+                                else buffPanels.AddBuffToList(s);
+                            }
+                        }
+                    break;
+
+                    case GameplayStatus.Frozen:
+                        if (applyEffectSpell)
+                        {
+                                if (gameplayStatuses.Contains(GameplayStatus.MagicMantle))
+                                {
+                                    if (GameInstance.DiceRollingBiggestNumber(s.numberOfTurns, s.diceSides) + GetSkillsStat(SkillsStat.DarkMagic) / 5 < s.diceSides / 2)
+                                    {
+                                        results.Add(new() { msgType = "s", msgString = heroName + " magic mantle protected from " + s.targetGamestate });
+                                        break;
+                                    }
+
+                                }
+                                gameplayStatuses.Add(GameplayStatus.Frozen);
+                            if (portraits.GetStatePortrait(GameplayStatus.Frozen, out Sprite stateSpriteFrozen)) portrait.sprite = stateSpriteFrozen;
+                            if (buffPanels != null)
+                            {
+                                if (!debuffSpells.Contains(s)) debuffSpells.Add(s);
+                                if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
+                                else buffPanels.AddBuffToList(s);
+                            }
+                        }
+                    break;
+                    }
                 }
-
-                break;
-
-
+            break;
         }
         if(showDamageEffect) hitTargetEffect.Invoke(spellToApply);
         showDamageEffect = false;
@@ -627,20 +745,16 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     void ProgressBarChange()
     {
         healthSlider.ProgressBarFill((float)currentHealth / (float)GetMaxDependedStat(DependedStat.maxHealth));
-       
     }
 
     IEnumerator AttackDelay()
     {
-        //print("");
         yield return new WaitForSeconds(0.5f);
-
         GameInstance.battleManager.AttackEnding();
     }
 
     public void HealthDecrease(int amount)
     {
-
         currentHealth = Mathf.Clamp(currentHealth - amount, 0, GetMaxDependedStat(DependedStat.maxHealth)); 
         healthSlider.ProgressBarFill((float)currentHealth / (float)GetMaxDependedStat(DependedStat.maxHealth));
         if (currentHealth <= 0) portrait.sprite = deadSprite;
@@ -652,7 +766,6 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         {
             showDamageEffect = true;
         }
-            print(heroName + " health decrease amount " + amount + " current health"+currentHealth);
     }
 
     public void ManaDecrease(int amount)
@@ -688,7 +801,6 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 statInt += s.Key.amount;
             }
         }
-
         return Mathf.Clamp(statInt, 0, int.MaxValue);
     }
 
@@ -698,7 +810,6 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     {
         if (!mainStatContainer.TryAdd(mainStat, amount))
         {
-            print("set main stat " + mainStat + " amount " + amount);
             mainStatContainer[mainStat] = mainStatContainer[mainStat] + amount;
         }
 
@@ -816,12 +927,9 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     public void RecordSkillUsed(SkillsStat _skill)
     {
-       // print("record skill use " + _skill);
         if (!skillsUsedInGameplay.ContainsKey(_skill)) skillsUsedInGameplay.Add(_skill, 1);
         else skillsUsedInGameplay[_skill] = skillsUsedInGameplay[_skill] + 1;
     }
-
-
 
     public int GetSkillsStat(SkillsStat skillStat, bool pureStat = false)
     {
@@ -1404,7 +1512,10 @@ public enum GameplayStatus
     Stoned,
     Paralized,
     Blind,
-    Regenerating
+    Regenerating,
+    Confused,
+    MagicMantle,
+    Sleep
 }
 
 [System.Serializable]

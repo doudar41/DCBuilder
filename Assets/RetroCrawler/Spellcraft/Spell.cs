@@ -18,7 +18,7 @@ public class Spell
     public int restToBeAbleToCastAgainInTurns = 0;
     public string SpellDescription;
     public SkillsStat skillToCheckInCalculations = SkillsStat.None;
-    public GameplayStatus stateToCure = GameplayStatus.None;
+    public GameplayStatus targetGamestate = GameplayStatus.None;
     public bool continuousSpell = false;
 }
 
@@ -54,7 +54,8 @@ public enum SpellEffects
     Revive,
     Antidote,
     Createfood,
-    CureState
+    CureState,
+    CauseState
 }
 
 public enum MagicType

@@ -28,6 +28,8 @@ MonoBehaviour:
     restToBeAbleToCastAgainInTurns: 0
     SpellDescription: 
     skillToCheckInCalculations: 8
+    targetGamestate: 0
+    continuousSpell: 0
   - spellEffect: 21
     amount: 0
     agroPoints: 0
@@ -43,6 +45,8 @@ MonoBehaviour:
     restToBeAbleToCastAgainInTurns: 0
     SpellDescription: 
     skillToCheckInCalculations: 8
+    targetGamestate: 0
+    continuousSpell: 0
   spellIcon: {fileID: 21300000, guid: 73c3f41240e87e6438eecf8b833a7845, type: 3}
   AOE: 0
   OnlyEnemies: 1
@@ -52,6 +56,6 @@ MonoBehaviour:
   equipableSpell: 0
   minDistanceToEnemy: 2
   spellName: PoisonBlast
-  spellPrice: 10
+  spellPrice: 100
   spellLevel: 1
   animationTriggerName: DarkDamage

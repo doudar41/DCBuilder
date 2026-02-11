@@ -370,8 +370,10 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                     break;
                 case SpellEffects.Vampirism:
                     if (spellEffectImmunityList.Contains(SpellEffects.Vampirism)) continue; // skip vampirism effect if enemy has a total immunity to it
-                    HealthDamage(damageAmountDiceSumResult); 
-                    spellcaster.GetComponent<IHero>().HealthDecrease(-damageAmountDiceSumResult); // healing spellcaster by vampirism amount
+                    HealthDamage(damageAmountDiceSumResult);
+                    float darkPower = (float)spellcaster.GetComponent<IHero>().GetSkillsStat(SkillsStat.DarkMagic, false) / 5;
+                    float divider = darkPower * 0.1f;
+                    spellcaster.GetComponent<IHero>().HealthDecrease(-(int)((float)damageAmountDiceSumResult * divider)); // healing spellcaster by vampirism amount
                     break;
 
             }
