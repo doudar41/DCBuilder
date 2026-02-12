@@ -28,6 +28,8 @@ MonoBehaviour:
     restToBeAbleToCastAgainInTurns: 0
     SpellDescription: 
     skillToCheckInCalculations: 9
+    targetGamestate: 0
+    continuousSpell: 0
   spellIcon: {fileID: 21300000, guid: ebca279ad4abffe459395573a3d409df, type: 3}
   AOE: 0
   OnlyEnemies: 0
@@ -39,4 +41,4 @@ MonoBehaviour:
   spellName: Petrify
   spellPrice: 10
   spellLevel: 2
-  animationTriggerName: 
+  animationTriggerName: EarthDamage

@@ -776,6 +776,7 @@ public class BattleManager : MonoBehaviour
                         customBattleObject.GetComponent<ChestLocked>().OpenMimic();
                     }
                 }
+
             }
         }
         else

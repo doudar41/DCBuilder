@@ -49,9 +49,9 @@ MonoBehaviour:
     - AudioClip: {fileID: 8300000, guid: 93fc4f63f990ee64495da3c388652525, type: 3}
       Volume: 1
       Delay: 0
-      StartPosition: 0.986
+      StartPosition: 0
       EndPosition: 0
-      FadeIn: 0.961
+      FadeIn: 0
       FadeOut: 0
       Weight: 0
     <MasterVolume>k__BackingField: 0.3
@@ -304,6 +304,62 @@ MonoBehaviour:
       StartPosition: 3.5
       EndPosition: 43.015
       FadeIn: 0.345
+      FadeOut: 0
+      Weight: 0
+    <MasterVolume>k__BackingField: 1
+    <Loop>k__BackingField: 0
+    <SeamlessLoop>k__BackingField: 0
+    <TransitionTime>k__BackingField: 0
+    <SpatialSetting>k__BackingField: {fileID: 0}
+    <Priority>k__BackingField: 128
+    <Pitch>k__BackingField: 1
+    <PitchRandomRange>k__BackingField: 0
+    <VolumeRandomRange>k__BackingField: 0
+    <RandomFlags>k__BackingField: 0
+    SeamlessTransitionType: 0
+    TransitionTempo:
+      BPM: 0
+      Beats: 0
+    SnapToFullVolume: 0
+  - <Name>k__BackingField: Tidalwave
+    <ID>k__BackingField: 1073741884
+    MulticlipsPlayMode: 0
+    _group: {fileID: 0}
+    Clips:
+    - AudioClip: {fileID: 8300000, guid: 611aae1efbf609344b2ed078399ae33d, type: 3}
+      Volume: 1
+      Delay: 0
+      StartPosition: 0
+      EndPosition: 0
+      FadeIn: 0
+      FadeOut: 0
+      Weight: 0
+    <MasterVolume>k__BackingField: 1
+    <Loop>k__BackingField: 0
+    <SeamlessLoop>k__BackingField: 0
+    <TransitionTime>k__BackingField: 0
+    <SpatialSetting>k__BackingField: {fileID: 0}
+    <Priority>k__BackingField: 128
+    <Pitch>k__BackingField: 1
+    <PitchRandomRange>k__BackingField: 0
+    <VolumeRandomRange>k__BackingField: 0
+    <RandomFlags>k__BackingField: 0
+    SeamlessTransitionType: 0
+    TransitionTempo:
+      BPM: 0
+      Beats: 0
+    SnapToFullVolume: 0
+  - <Name>k__BackingField: MissileShower
+    <ID>k__BackingField: 1073741885
+    MulticlipsPlayMode: 0
+    _group: {fileID: 0}
+    Clips:
+    - AudioClip: {fileID: 8300000, guid: b648dcf56bf7efa4bb8931d933d69480, type: 3}
+      Volume: 1
+      Delay: 0
+      StartPosition: 0
+      EndPosition: 0
+      FadeIn: 0
       FadeOut: 0
       Weight: 0
     <MasterVolume>k__BackingField: 1

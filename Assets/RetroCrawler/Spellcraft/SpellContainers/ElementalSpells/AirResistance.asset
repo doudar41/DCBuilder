@@ -41,4 +41,4 @@ MonoBehaviour:
   spellName: Air Res.
   spellPrice: 10
   spellLevel: 0
-  animationTriggerName: 
+  animationTriggerName: Resist

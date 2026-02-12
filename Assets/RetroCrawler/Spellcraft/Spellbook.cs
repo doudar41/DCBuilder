@@ -23,8 +23,9 @@ public class Spellbook : MonoBehaviour
     [SerializeField] Camera mapCamera, mapMini;
     [SerializeField] GameObject stateIconPanel; //time based spells icons panel 
 
-    [SerializeField] ParticleSystem meteorShower, thunderstorm;
-    [SerializeField] SoundID thunderSound;
+    [SerializeField] ParticleSystem meteorShower, thunderstorm, tidalwave;
+    [SerializeField] SoundID thunderSound, tidalwaveSound, meteorShowerSound;
+    [SerializeField] GameObject bigBattleSpells;
     bool identifyMode = false; // Indicate if spellbook is in identify item mode
 
 
@@ -52,6 +53,7 @@ public class Spellbook : MonoBehaviour
         {
             sp.InitializeSpellSchoolScript(); // Each spell page script check for availability of a spell and save it into dictionary
         }
+       
     }
     private void Start()
     {
@@ -153,6 +155,17 @@ public class Spellbook : MonoBehaviour
     {
         // Checking is a spell is explore based Light, Waterwalk, Lavawalk etc. and immediately start it as a time based spell.
         // Add it to spellTimeActive dictionary for a timepassed check in TimeLimitSpellCount(int count)
+        int castCost = 0;
+        foreach (Spell s in spellToCast.spells)
+        {
+            castCost += s.manaCost;
+        }
+        if (castCost > GameInstance.party.activeHero.GetHeroMana())
+        {
+            battlelogEvent.Invoke(new List<string>() { GameInstance.party.activeHero.HeroName(), "not enough mana" }, null);
+            CloseSpellbook();
+            return;
+        }
 
         if (spellToCast.gameplaySpell)
         {
@@ -211,7 +224,7 @@ public class Spellbook : MonoBehaviour
 
                     case SpellEffects.Createfood:
 
-                        int foodQuantity = GameInstance.DiceRollingSum(s.numberOfTurns + (GameInstance.party.activeHero.GetSkillsStat(SkillsStat.LightMagic, false) / 3), s.diceRollsNumber);
+                        int foodQuantity = GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides) *( s.diceBonus + (GameInstance.party.activeHero.GetSkillsStat(SkillsStat.LightMagic, false) / 3));
                         GameInstance.party.AddSomeFood(foodQuantity);
                         break;
                 }
@@ -242,8 +255,22 @@ public class Spellbook : MonoBehaviour
 
                 if (GameInstance.playerController.playerState == PlayerState.Battle)
                 {
-                    if (spellToCast.spellName == "Missile Shower") meteorShower.Play();
-                    if (spellToCast.spellName == "Thunderstorm") { thunderstorm.Play(); GameInstance.soundManagerInGame.ProtectedPlay(thunderSound); }
+
+                    if (spellToCast.spellName == "Missile Shower") 
+                    { meteorShower.Play(); GameInstance.soundManagerInGame.ProtectedPlay(meteorShowerSound); }
+                    if (spellToCast.spellName == "Thunder") 
+                    { thunderstorm.Play(); GameInstance.soundManagerInGame.ProtectedPlay(thunderSound); }
+                    if (spellToCast.spellName == "Tidalwave")
+                    {
+                        tidalwave.Play();
+                        var waves = tidalwave.GetComponentsInChildren<Animator>();
+                        foreach (Animator a in waves)
+                        {
+                            a.Play("IdleVFX"); 
+                            a.CrossFade("IdleVFX", 0.1f);
+                        }
+                        GameInstance.soundManagerInGame.ProtectedPlay(tidalwaveSound);
+                    }
                     GameInstance.battleManager.AttackEnding();
                 }
                 CloseSpellbook();
@@ -570,6 +597,20 @@ public class Spellbook : MonoBehaviour
         }
         GameInstance.playerController.LightARoom(0);
         massSpellIcons[2].color = new Color32(255, 255, 255, 0);
+    }
+
+
+    public void SpawnBigSpellPrefab()
+    {
+/*        Transform playerTransform = GameInstance.playerController.gameObject.transform;
+        GameObject spellPrefab = Instantiate(bigBattleSpells, playerTransform);*/
+        var particles = bigBattleSpells.gameObject.GetComponentsInChildren<ParticleSystem>();
+        foreach (ParticleSystem g in particles)
+        {
+            if(g== meteorShower) { meteorShower = g; }
+            if (g == thunderstorm) { thunderstorm = g; }
+            if (g == tidalwave) { tidalwave = g; }
+        }
     }
 
 }

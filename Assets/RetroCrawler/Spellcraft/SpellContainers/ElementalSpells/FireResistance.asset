@@ -41,4 +41,4 @@ MonoBehaviour:
   spellName: Fire Res.
   spellPrice: 1
   spellLevel: 0
-  animationTriggerName: 
+  animationTriggerName: Resist

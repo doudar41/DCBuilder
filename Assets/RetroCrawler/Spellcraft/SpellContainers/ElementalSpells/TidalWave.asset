@@ -16,7 +16,7 @@ MonoBehaviour:
   - spellEffect: 1
     amount: 0
     agroPoints: 0
-    manaCost: 15
+    manaCost: 10
     diceRollsNumber: 4
     diceSides: 12
     diceBonus: 6
@@ -28,6 +28,8 @@ MonoBehaviour:
     restToBeAbleToCastAgainInTurns: 0
     SpellDescription: 
     skillToCheckInCalculations: 9
+    targetGamestate: 0
+    continuousSpell: 0
   spellIcon: {fileID: 21300000, guid: 7cd8ae202f5e34148a41b7a25ea8c1de, type: 3}
   AOE: 1
   OnlyEnemies: 1
@@ -39,4 +41,4 @@ MonoBehaviour:
   spellName: Tidalwave
   spellPrice: 10000
   spellLevel: 5
-  animationTriggerName: TidalWave
+  animationTriggerName: WaterDamage

@@ -28,6 +28,8 @@ MonoBehaviour:
     restToBeAbleToCastAgainInTurns: 0
     SpellDescription: 
     skillToCheckInCalculations: 9
+    targetGamestate: 0
+    continuousSpell: 0
   spellIcon: {fileID: 21300000, guid: 23b7c283f374f6040b6d55e7509b9261, type: 3}
   AOE: 0
   OnlyEnemies: 0
@@ -39,4 +41,4 @@ MonoBehaviour:
   spellName: Weapon Water
   spellPrice: 10
   spellLevel: 0
-  animationTriggerName: 
+  animationTriggerName: WaterDamage

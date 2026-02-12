@@ -301,10 +301,10 @@ public class Party : MonoBehaviour
             SavedSpellsAttached spellattached = new SavedSpellsAttached();
             spellattached.heroID = h.GetHeroIndex();
             //print("spell attacted on hero " + h.GetSpellsAttached().Count);
-            foreach (KeyValuePair< Spell,int> s in h.GetSpellsAttached())
+            foreach (KeyValuePair< Spell,Vector3Int> s in h.GetSpellsAttached())
             {
                 spellattached.spell.Add(s.Key);
-                spellattached.timesToFinish.Add(s.Value);
+                spellattached.timesToFinish.Add(s.Value.x);
             }
             spellsAttached.Add(spellattached);
         }

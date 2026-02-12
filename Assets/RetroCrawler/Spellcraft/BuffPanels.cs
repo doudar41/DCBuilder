@@ -6,9 +6,9 @@ public class BuffPanels : MonoBehaviour
 {
     [SerializeField] GameObject smallPanel, bigPanel;
     [SerializeField] List<BuffIcon> buffIcons = new List<BuffIcon>();
-    [SerializeField] List<SpelEffectIcon> spelleffects = new List<SpelEffectIcon>();
+    //[SerializeField] List<SpelEffectIcon> spelleffects = new List<SpelEffectIcon>();
 
-    Sprite FindSpellEffectIcon(Spell spell)
+   /* Sprite FindSpellEffectIcon(Spell spell)
     {
         foreach(SpelEffectIcon effect in spelleffects)
         {
@@ -49,7 +49,7 @@ public class BuffPanels : MonoBehaviour
 
         }
         return null;
-    }
+    }*/
 
     public void AddBuffToList(SpellContainer spellAttached)
     {
@@ -57,6 +57,7 @@ public class BuffPanels : MonoBehaviour
         {
             if(b.spellContainer == null)
             {
+               // print("add buff to list " + spellAttached.spellIcon);
                 b.SetSpriteToImages(spellAttached); return;
             }
         }
@@ -64,7 +65,7 @@ public class BuffPanels : MonoBehaviour
 
 
 
-    public void AddBuffToList(Spell spell)
+/*    public void AddBuffToList(Spell spell)
     {
         foreach (BuffIcon b in buffIcons)
         {
@@ -74,7 +75,7 @@ public class BuffPanels : MonoBehaviour
                 return;
             }
         }
-    }
+    }*/
 
     void SortBuffListAfterRemove(int startIndex)
     {

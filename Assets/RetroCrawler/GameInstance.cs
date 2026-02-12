@@ -152,7 +152,7 @@ public static class GameInstance
     }
 
 
-    public static int DiceRollingWithSkill(bool sum, Spell s, GameObject caster, int _divider)
+    public static int DiceRollingWithSkill(bool sum, Spell s, GameObject caster, EnemyStat enemyStat, int _divider)
     {
         int diceRollNumber = s.diceRollsNumber;
         int diceSides = s.diceSides;
@@ -189,7 +189,7 @@ public static class GameInstance
                 {
                     diceResult = DiceRollingBiggestNumber(diceRollNumber, diceSides);
                 }
-                diceResult += enemyCaster.GetSkillsStat(s.skillToCheckInCalculations, false) / _divider;
+                diceResult += enemyCaster.GetCurrentStatValue(enemyStat) / _divider;
                 return diceResult;
             }
         }

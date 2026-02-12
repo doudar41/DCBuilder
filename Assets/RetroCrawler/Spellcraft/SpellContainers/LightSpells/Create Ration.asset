@@ -16,10 +16,10 @@ MonoBehaviour:
   - spellEffect: 29
     amount: 0
     agroPoints: 0
-    manaCost: 0
-    diceRollsNumber: 0
-    diceSides: 3
-    diceBonus: 12
+    manaCost: 40
+    diceRollsNumber: 2
+    diceSides: 5
+    diceBonus: 10
     numberOfTurns: 0
     magicType: 5
     changedMainStat: 0
@@ -28,6 +28,8 @@ MonoBehaviour:
     restToBeAbleToCastAgainInTurns: 0
     SpellDescription: 
     skillToCheckInCalculations: 7
+    targetGamestate: 0
+    continuousSpell: 0
   spellIcon: {fileID: 21300000, guid: cdff10e63b2067f47b6541369abd2831, type: 3}
   AOE: 1
   OnlyEnemies: 0

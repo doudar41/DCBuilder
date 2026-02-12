@@ -33,7 +33,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     Dictionary<DependedStat, int> dependedStatsDefault = new Dictionary<DependedStat, int>(); // Container of unmodified depended stats of a hero like health and mana 
     Dictionary<SkillsStat, int> skillsStatsCurrent = new Dictionary<SkillsStat, int>(); // Container of unmodified skills of a hero
     Dictionary<ItemType, SpellContainer> equipmentSpells = new Dictionary<ItemType, SpellContainer>(); // Spells on enchanted armor, weapons and accessories saved here
-    Dictionary<Spell,int> spellsAttached = new Dictionary<Spell, int>(); // Other spells on player buffs and debuffs
+    Dictionary<Spell,Vector3Int> spellsAttached = new Dictionary<Spell, Vector3Int>(); // Other spells on player buffs and debuffs
 
     Dictionary<SkillsStat,int> skillsUsedInGameplay = new Dictionary<SkillsStat, int>(); // Skills selected at the beggining of the game
 
@@ -52,7 +52,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     MagicType weaponEnchanced = MagicType.None;
 
-    int poisonDamageRate = 0, regenerateRate = 0;
+    int poisonDamageRate = 0;
     int skillPoints = 0;
     bool showDamageEffect = false;
     
@@ -101,7 +101,6 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
         if (GameInstance.heroesPortraits.Count>heroID)
         {
-            print("show portrait " + heroID);
             portraits = GameInstance.dataBase.GetPortraitFromDatabase(GameInstance.heroesPortraits[heroID]);
             portrait.sprite = portraits.portraits[0].sprite;
         }
@@ -148,10 +147,9 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         }
 
         healthSlider.ProgressBarFill((float)currentHealth / (float)GetMaxDependedStat(DependedStat.maxHealth));
-        //SetDependedStat(DependedStat.meleeDamage, 10);
     }
     
-    public Dictionary<Spell,int> GetSpellsAttached()
+    public Dictionary<Spell,Vector3Int> GetSpellsAttached()
     {
         return spellsAttached;
     }
@@ -201,19 +199,18 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         if (spellToApply == null) { StartCoroutine(AttackDelay()); return null; }
         List<ResultMsg> results = new List<ResultMsg>();
 
-
         if (spellcaster.GetComponent<IHero>() != null)
         {
             IHero hero = spellcaster.GetComponent<IHero>();
-            //print("hero attack");
 
             foreach (Spell s in spellToApply.spells)
             {
                 SingleSpellApply(s, spellToApply, results, spellcaster.GetComponent<IHero>());
             }
+            
             hitTargetEffect.Invoke(spellToApply);
-            //print("results "+results.Count);
-            if (GameInstance.playerController.playerState == PlayerState.Battle)StartCoroutine(AttackDelay());
+
+            if (GameInstance.playerController.playerState == PlayerState.Battle) StartCoroutine(AttackDelay());
             return results;
         }
 
@@ -228,8 +225,6 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
             StartCoroutine(AttackDelay());
             return results;
         }
-
-
 
         return results;
     }
@@ -261,14 +256,22 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 if (s.continuousSpell)
                 {
                     gameplayStatuses.Add(GameplayStatus.Regenerating);
-                    if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, (GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides))+ attacker.GetSkillsStat(s.skillToCheckInCalculations, false) / 3);
-                    else spellsAttached[s] = (GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides)) + attacker.GetSkillsStat(s.skillToCheckInCalculations, false) / 3;
+                    
+                    int diceResult01 = GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides) + attacker.GetSkillsStat(s.skillToCheckInCalculations, false) / 3;
+                    int regenerateRate = GameInstance.DiceRollingBiggestNumber(s.diceRollsNumber, s.diceSides) + attacker.GetSkillsStat(s.skillToCheckInCalculations,false) / 3;
+                    if (!spellsAttached.ContainsKey(s))
+                    {
+                        spellsAttached.Add(s, new Vector3Int(diceResult01, regenerateRate, 0));
+                    }
+                    else
+                    {
+                        spellsAttached[s] = new Vector3Int(diceResult01, regenerateRate, 0); 
+                    }
                     if (buffPanels != null)
                     {
                         if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
-                        else buffPanels.AddBuffToList(s);
+
                     }
-                    regenerateRate = GameInstance.DiceRollingBiggestNumber(s.numberOfTurns, s.diceSides) + attacker.GetSkillsStat(s.skillToCheckInCalculations,false)/5;
                     
                     results.Add(new() { msgType = "s", msgString = heroName + " regenerate state " });
                     break;
@@ -304,14 +307,14 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 break;
 
             case SpellEffects.DSMod:
-                int sumdice = GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides);
-                print("dsmod "+sumdice + " - " + attacker.GetSkillsStat(s.skillToCheckInCalculations, false) + " - "+ GetMaxDependedStat(s.changedDependedStat));
-                    if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, (sumdice) + attacker.GetSkillsStat(s.skillToCheckInCalculations, false) / 3);
-                    else spellsAttached[s] = (sumdice) + attacker.GetSkillsStat(s.skillToCheckInCalculations, false) / 3;
+                    int sumdice = GameInstance.DiceRollingWithSkill(true, s,attacker.GetThisHero().gameObject, EnemyStat.INITIATIVE,3);
+                    int dependedStatBonus = GameInstance.DiceRollingSum(s.diceRollsNumber,s.diceSides)+  attacker.GetSkillsStat(s.skillToCheckInCalculations, false) / 3;
+                if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, new Vector3Int(sumdice, dependedStatBonus, 0));
+                    else spellsAttached[s] = new Vector3Int(sumdice, dependedStatBonus, 0);
                     if (buffPanels != null)
                     {
                         if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
-                        else buffPanels.AddBuffToList(s);
+
                     }
                     SetDependedStat(s.changedDependedStat, (sumdice + attacker.GetSkillsStat(s.skillToCheckInCalculations, false) / 3) + GetMaxDependedStat(s.changedDependedStat));
                 break;
@@ -350,11 +353,39 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                     if (buffPanels != null)
                     {
                         if (!debuffSpells.Contains(s)) debuffSpells.Add(s);
-                        if (spellToApply != null) buffPanels.AddBuffToList(s);
+                        if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
                     }
                 }
                 
                 break;
+
+
+            case SpellEffects.ElementalWeapon:
+                weaponEnchanced = s.magicType;
+                int numberOfTurnsWeapon = GameInstance.DiceRollingWithSkill(true, s, gameObject,EnemyStat.INITIATIVE, 3);
+                
+                if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, new Vector3Int(numberOfTurnsWeapon, 0,0));
+                else spellsAttached[s] = new Vector3Int(numberOfTurnsWeapon, 0, 0);
+                if (buffPanels != null)
+                {
+                    if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
+
+                }
+                break;
+
+            case SpellEffects.ElementalResistance:
+                int diceResult = GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides) + attacker.GetSkillsStat(s.skillToCheckInCalculations, false) / 3;
+                int resistance = GameInstance.DiceRollingBiggestNumber(s.diceRollsNumber, s.diceSides) + attacker.GetSkillsStat(s.skillToCheckInCalculations, false) / 3;
+                if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, new Vector3Int(diceResult,resistance,0));
+                else spellsAttached[s] = new Vector3Int(diceResult, resistance, 0);
+                if (buffPanels != null)
+                {
+                    if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
+                }
+
+                break;
+
+
 
         }
         return results;
@@ -579,53 +610,38 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
             break;
 
             case SpellEffects.MSMod:
-                if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, s.numberOfTurns);
-                else spellsAttached[s] = s.numberOfTurns;
+
+
+                if(attacker.GetCurrentStatValue(EnemyStat.DARK_DAMAGE)< GetMaxDependedStat(DependedStat.DarkResistance))
+                {
+                    results.Add(new() { msgType = "s", msgString = attacker.GetEnemyName() + " Failed to decrease main stats "  });
+                    break;
+                }
+
+                if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, new Vector3Int(s.numberOfTurns, -s.amount, 0));
+                else spellsAttached[s] = new Vector3Int(s.numberOfTurns, s.amount, 0);
                 if (buffPanels != null)
                 {
                     if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
-                    else buffPanels.AddBuffToList(s);
                 }
-
-
             break;
 
             case SpellEffects.DSMod:
-                if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, s.numberOfTurns);
-                else spellsAttached[s] = s.numberOfTurns;
+                if (attacker.GetCurrentStatValue(EnemyStat.DARK_DAMAGE) < GetMaxDependedStat(DependedStat.DarkResistance))
+                {
+                    results.Add(new() { msgType = "s", msgString = attacker.GetEnemyName() + " Failed to decrease depended stats " });
+                    break;
+                }
+
+                if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, new Vector3Int(s.numberOfTurns, -s.amount, 0));
+                else spellsAttached[s] = new Vector3Int(s.numberOfTurns, -s.amount, 0);
                 if (buffPanels != null)
                 {
                     if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
-                    else buffPanels.AddBuffToList(s);
+
                 }
 
             break;
-
-
-
-            case SpellEffects.ElementalWeapon:
-                weaponEnchanced = s.magicType;
-                if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, s.numberOfTurns);
-                else spellsAttached[s] = s.numberOfTurns;
-                if (buffPanels != null)
-                {
-                    if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
-                    else buffPanels.AddBuffToList(s);
-                }
-                break;
-
-            case SpellEffects.ElementalResistance:
-
-                if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, s.numberOfTurns);
-                else spellsAttached[s] = s.numberOfTurns;
-                if (buffPanels != null)
-                {
-                    if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
-                    else buffPanels.AddBuffToList(s);
-                }
-
-            break;
-
 
             case SpellEffects.Poison:
                 if (!gameplayStatuses.Contains(GameplayStatus.Poisoned))
@@ -648,7 +664,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                         {
                             if (!debuffSpells.Contains(s)) debuffSpells.Add(s);
                             if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
-                            else buffPanels.AddBuffToList(s);
+
                         }
                     }
                 }
@@ -675,7 +691,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                         {
                             if (!debuffSpells.Contains(s)) debuffSpells.Add(s);
                             if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
-                            else buffPanels.AddBuffToList(s);
+
                         }
                     }
                 }
@@ -717,7 +733,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                             {
                                 if (!debuffSpells.Contains(s)) debuffSpells.Add(s);
                                 if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
-                                else buffPanels.AddBuffToList(s);
+
                             }
                         }
                     break;
@@ -740,7 +756,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                             {
                                 if (!debuffSpells.Contains(s)) debuffSpells.Add(s);
                                 if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
-                                else buffPanels.AddBuffToList(s);
+
                             }
                         }
                     break;
@@ -804,12 +820,12 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
             }
         }
 
-        foreach (KeyValuePair< Spell,int> s in spellsAttached)
+        foreach (KeyValuePair< Spell,Vector3Int> s in spellsAttached)
         {
 
             if (s.Key.changedMainStat == mainStat)
             {
-                statInt += s.Key.amount;
+                statInt += s.Value.y;
             }
         }
         return Mathf.Clamp(statInt, 0, int.MaxValue);
@@ -924,11 +940,11 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         }
 
 
-        foreach (KeyValuePair<Spell, int> s in spellsAttached)
+        foreach (KeyValuePair<Spell, Vector3Int> s in spellsAttached)
         {
             if (s.Key.changedDependedStat == dependedStat)
             {
-                statInt += s.Key.amount;
+                if(s.Value.y != 0) statInt += s.Value.y;
             }
         }
 
@@ -961,12 +977,12 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 }
             }
 
-            foreach (KeyValuePair<Spell, int> s in spellsAttached)
+            foreach (KeyValuePair<Spell, Vector3Int> s in spellsAttached)
             {
 
                 if (s.Key.skillStatAdded == skillStat)
                 {
-                    statInt += s.Key.amount;
+                    statInt += s.Value.y;
                 }
             }
         }
@@ -1050,7 +1066,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 GameInstance.spellbook.CastSpell(GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).spellContainer);
                 foreach(Spell _s in GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).spellContainer.spells)
                 {
-                    spellsAttached.Add(_s, _s.numberOfTurns);
+                    spellsAttached.Add(_s, new Vector3Int( _s.numberOfTurns,0,0));
                 }
             }
         }
@@ -1061,7 +1077,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 GameInstance.spellbook.CastSpell(GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).spellContainer);
                 foreach (Spell _s in GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).spellContainer.spells)
                 {
-                    spellsAttached.Add(_s, _s.numberOfTurns);
+                    spellsAttached.Add(_s, new Vector3Int(_s.numberOfTurns, 0, 0));
                 }
             }
         }
@@ -1181,6 +1197,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     void TimeChanges(int count)
     {
+
         if (GameInstance.playerController.playerState != PlayerState.Battle)
         {
             foodTimeConsumptionCounter++;
@@ -1210,7 +1227,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         {
             if (currentHealth > 0)
             {
-                int _poisonDamage = GameInstance.DiceRollingBiggestNumber(0, poisonDamageRate);
+                int _poisonDamage = GameInstance.DiceRollingBiggestNumber(1, poisonDamageRate);
                 HealthDecrease(_poisonDamage);
                 GameInstance.spellbook.ResultsToBattleLog(new() { "" }, new List<ResultMsg>() { new() { msgType = "s", msgString = heroName + " takes " + _poisonDamage.ToString() + " poison damage." } });
 
@@ -1221,42 +1238,33 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         {
             if (currentHealth > 0)
             {
-
-                int regen = GameInstance.DiceRollingBiggestNumber(0, regenerateRate);
-                HealthDecrease(-regen);
-            }
-
-            //print("equipment spells "+ equipmentSpells.Count);
-            foreach (ItemType it in equipmentSpells.Keys)
-            {
-
-                foreach (Spell s in equipmentSpells[it].spells)
+                int regen = 0;
+                foreach (Spell s in spellsAttached.Keys)
                 {
-                    if (s.spellEffect == SpellEffects.LightARoom)
+                    if (s.spellEffect == SpellEffects.Heal && s.continuousSpell)
                     {
-
+                        regen = GameInstance.DiceRollingBiggestNumber(1, spellsAttached[s].y);
                     }
                 }
-
+                print("regen "  +regen);
+                HealthDecrease(-regen);
             }
+        }
 
-            /*        if (equipmentSpells.Count == 0) GameInstance.spellbook.CheckHeroesForLightSource(new KeyValuePair<int, bool>(heroID, false));*/
-
-            //print("hero time changes");
             if (spellsAttached.Count <= 0) return;
             List<Spell> listToDelete = new List<Spell>();
             List<Spell> listToChange = new List<Spell>();
 
-            foreach (KeyValuePair<Spell, int> s in spellsAttached)
+            foreach (KeyValuePair<Spell, Vector3Int> s in spellsAttached)
             {
-                if (spellsAttached[s.Key] > 0) { listToChange.Add(s.Key); }
+                if (spellsAttached[s.Key].x > 0) { listToChange.Add(s.Key); }
                 else listToDelete.Add(s.Key);
             }
 
             foreach (Spell s in listToChange)
             {
-                int x = spellsAttached[s];
-                spellsAttached[s] = x - 1;
+                int x = spellsAttached[s].x;
+                spellsAttached[s] = new Vector3Int (x - 1, spellsAttached[s].y,0) ;
             }
 
             foreach (Spell s in listToDelete)
@@ -1272,11 +1280,19 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                         RemoveItemFromEquipment(ItemType.SHIELD);
 
                         break;
-                }
+                    case SpellEffects.ElementalResistance:
+                        buffPanels.RemoveBuffFromList(s);
+
+                        break;
+                    case SpellEffects.Heal:
+                    buffPanels.RemoveBuffFromList(s);
+                    gameplayStatuses.Remove(GameplayStatus.Regenerating);
+                    break;
+            }
                 if (buffPanels != null) buffPanels.RemoveBuffFromList(s);
                 spellsAttached.Remove(s);
             }
-        }
+        
 
     }
 
@@ -1457,7 +1473,7 @@ public interface IHero
 
 
     public void GetPureStats(out Dictionary<MainStat, int> _mainStats, out Dictionary<DependedStat, int> _dependStats, out Dictionary<SkillsStat, int> _skillStats);
-    public Dictionary<Spell, int> GetSpellsAttached();
+    public Dictionary<Spell, Vector3Int> GetSpellsAttached();
 
 }
 

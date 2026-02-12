@@ -28,6 +28,8 @@ MonoBehaviour:
     restToBeAbleToCastAgainInTurns: 0
     SpellDescription: Damage of weapon in hand become fire
     skillToCheckInCalculations: 9
+    targetGamestate: 0
+    continuousSpell: 0
   spellIcon: {fileID: 21300000, guid: 6843eefdbf0fdc4449641fa584a2a84a, type: 3}
   AOE: 0
   OnlyEnemies: 0
@@ -39,4 +41,4 @@ MonoBehaviour:
   spellName: Weapon Air
   spellPrice: 10
   spellLevel: 0
-  animationTriggerName: 
+  animationTriggerName: AirDamage

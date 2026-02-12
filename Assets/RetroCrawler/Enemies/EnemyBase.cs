@@ -269,12 +269,13 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                         continue; // if rolled damage is less than half of maximum possible damage debuff is not applied
                     }
                     damageAmountDiceSumResult += spellcaster.GetComponent<IHero>().MagicDamageModifier(_spell.skillToCheckInCalculations);
-                    print("damage calculated " + damageAmountDiceSumResult);
+
+
                     switch (_spell.changedDependedStat)
                     {
                         case DependedStat.initiative:
                             currentStats[EnemyStat.INITIATIVE] = new Vector3Int(currentStats[EnemyStat.INITIATIVE].x, currentStats[EnemyStat.INITIATIVE].x - damageAmountDiceSumResult, _spell.numberOfTurns);
-                            print("slow enemy "+ currentStats[EnemyStat.INITIATIVE].x +"/"+ currentStats[EnemyStat.INITIATIVE].y);
+                            
                             results.Add(new() { msgType = "s", msgString = enemyName + " slowdown " });
 
                             break;
@@ -740,7 +741,8 @@ public enum EnemyStat
     DARK_RESISTANCE,
     LIGHT_RESISTANCE,
     MELEE_DAMAGE,
-    RANGE_DAMAGE
+    RANGE_DAMAGE,
+    DARK_DAMAGE,
 }
 
 [System.Serializable]

@@ -130,11 +130,11 @@ MonoBehaviour:
     MulticlipsPlayMode: 0
     _group: {fileID: 0}
     Clips:
-    - AudioClip: {fileID: 8300000, guid: 1dc97aac091fbf34aba8bb4037fefd93, type: 3}
+    - AudioClip: {fileID: 8300000, guid: 2df95aeb60718a74895db5914ddcd5fe, type: 3}
       Volume: 1
       Delay: 0
-      StartPosition: 104.7
-      EndPosition: 8.247
+      StartPosition: 0
+      EndPosition: 0
       FadeIn: 0
       FadeOut: 0
       Weight: 0
