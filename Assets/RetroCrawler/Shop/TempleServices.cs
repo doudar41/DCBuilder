@@ -66,7 +66,7 @@ public class TempleServices : MonoBehaviour
                     h.HealthDecrease(-(currentHealth + h.GetMaxDependedStat(DependedStat.maxHealth)));
                 }
 
-                if (h.GetHeroStatus().Contains(GameplayStatus.Petrified))
+                if (h.GetHeroStatus().Contains(GameplayStates.Petrified))
                 {
                 
                 }

@@ -28,7 +28,7 @@ MonoBehaviour:
     restToBeAbleToCastAgainInTurns: 0
     SpellDescription: 
     skillToCheckInCalculations: 8
-    stateToCure: 0
+    targetGamestate: 0
     continuousSpell: 0
   spellIcon: {fileID: 21300000, guid: d99d0f0b30d0795469eaf5f1abe58a4f, type: 3}
   AOE: 0
@@ -38,7 +38,7 @@ MonoBehaviour:
   battleSpell: 1
   equipableSpell: 0
   minDistanceToEnemy: 3
-  spellName: Lower Resistance Ice
+  spellName: Low Res Ice
   spellPrice: 1000
   spellLevel: 2
   animationTriggerName: 

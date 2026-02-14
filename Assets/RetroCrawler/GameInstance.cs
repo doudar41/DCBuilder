@@ -867,7 +867,7 @@ public struct HeroSavedCurrentData
     public int currentHealth;
     public int currentMana;
     public int currentHunger;
-    public List<GameplayStatus> gameplayStatus;
+    public List<GameplayStates> gameplayStatus;
 
 
     public void FillCurrentData(IHero hero)
@@ -876,7 +876,7 @@ public struct HeroSavedCurrentData
         currentHealth = hero.GetHeroHealth();
         currentMana = hero.GetHeroMana();
         currentHunger = hero.GetHeroHunger();
-        gameplayStatus = new List<GameplayStatus>();
+        gameplayStatus = new List<GameplayStates>();
         gameplayStatus = hero.GetHeroStatus();
     }
 }

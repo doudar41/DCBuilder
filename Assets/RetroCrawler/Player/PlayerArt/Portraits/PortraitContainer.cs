@@ -9,7 +9,7 @@ public class PortraitContainer : ScriptableObject
 {
     public List<Portrait> portraits = new List<Portrait>();
 
-    public bool GetStatePortrait(GameplayStatus state, out Sprite sprite)
+    public bool GetStatePortrait(GameplayStates state, out Sprite sprite)
     {
         foreach(Portrait p in portraits)
         {
@@ -23,6 +23,6 @@ public class PortraitContainer : ScriptableObject
 [System.Serializable]
 public class  Portrait
 {
-    public GameplayStatus state;
+    public GameplayStates state;
     public Sprite sprite;
 }

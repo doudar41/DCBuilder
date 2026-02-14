@@ -154,6 +154,7 @@ public class Inventory : MonoBehaviour
 
     public void FindEmptySlotAndPutItem(HeroInventoryItem itemScriptableTemp, int stackamount, bool noSound = true)
     {
+        bool itemAdded = false;
         ItemSlot[] slots = slotsParent.GetComponentsInChildren<ItemSlot>();
         foreach(ItemSlot i in slots)
         {
@@ -165,10 +166,24 @@ public class Inventory : MonoBehaviour
 
                         GameInstance.soundManagerInGame.ProtectedPlay(itemDatabase[itemScriptableTemp.container].inventorySound); 
                     }
+                    itemAdded = true;
                     break;
                 }
             }
         }
+        if(itemAdded == false)
+        {
+            GameObject _slot = Instantiate(slotPrefab, slotsParent.transform);
+            if (_slot.GetComponent<ItemSlot>().AddItemInSlot(itemScriptableTemp, stackamount))
+            {
+                if (!noSound)
+                { //print("pllay item sound");
+
+                    GameInstance.soundManagerInGame.ProtectedPlay(itemDatabase[itemScriptableTemp.container].inventorySound);
+                }
+            }
+        }
+
     }
 
     public Dictionary<int, HeroInventoryItem> GetItemsFromInventory()

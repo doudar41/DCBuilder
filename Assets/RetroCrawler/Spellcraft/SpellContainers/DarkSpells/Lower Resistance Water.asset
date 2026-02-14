@@ -38,7 +38,7 @@ MonoBehaviour:
   battleSpell: 1
   equipableSpell: 0
   minDistanceToEnemy: 3
-  spellName: Lower Resistance Ice
+  spellName: Low Res Ice
   spellPrice: 1000
   spellLevel: 2
   animationTriggerName: 

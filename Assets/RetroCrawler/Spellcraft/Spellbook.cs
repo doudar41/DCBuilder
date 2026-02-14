@@ -215,7 +215,6 @@ public class Spellbook : MonoBehaviour
                         break;
                     case SpellEffects.LightARoom:
                         if (spellTimeActive.ContainsKey(s)) { spellTimeActive[s] = s.numberOfTurns; break; }
-                        print("light!!! ");
                         GameInstance.playerController.LightARoom(1);
 
                         spellTimeActive.Add(s, s.numberOfTurns);
@@ -245,7 +244,8 @@ public class Spellbook : MonoBehaviour
             }
             if (spellToCast.OnlyEnemies)
             {
-                print("AOE spell enemy only");
+
+                //print("AOE spell enemy only");
                 foreach (IEnemy e in GameInstance.battleManager.GetEnemies())
                 {
                     List<ResultMsg> results = e.ApplySpellToEnemy(spellToCast, GameInstance.party.activeHero.GetThisHero().gameObject);
@@ -255,7 +255,6 @@ public class Spellbook : MonoBehaviour
 
                 if (GameInstance.playerController.playerState == PlayerState.Battle)
                 {
-
                     if (spellToCast.spellName == "Missile Shower") 
                     { meteorShower.Play(); GameInstance.soundManagerInGame.ProtectedPlay(meteorShowerSound); }
                     if (spellToCast.spellName == "Thunder") 
@@ -302,8 +301,6 @@ public class Spellbook : MonoBehaviour
         }
         else
         {
-            //print(spellToCast.name);
-            // Non AEO Single spell loaded to be released
             spellWaitToRelease = spellToCast;
             spellTargetEvent.AddListener(GetGameObjectTarget);
             SpellCharged = true;

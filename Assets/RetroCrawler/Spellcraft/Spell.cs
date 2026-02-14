@@ -18,7 +18,7 @@ public class Spell
     public int restToBeAbleToCastAgainInTurns = 0;
     public string SpellDescription;
     public SkillsStat skillToCheckInCalculations = SkillsStat.None;
-    public GameplayStatus targetGamestate = GameplayStatus.None;
+    public GameplayStates targetGamestate = GameplayStates.None;
     public bool continuousSpell = false;
 }
 

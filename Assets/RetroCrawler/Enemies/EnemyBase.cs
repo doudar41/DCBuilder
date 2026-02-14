@@ -46,6 +46,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
     public UnityEvent<float> healthNormalized;
     public UnityEvent<SpellContainer> hitTargetEffect;
     public UnityEvent<string> playStatusAnimation;
+    public UnityEvent<GameplayStates,bool, int> changeEnemyState;
 
     [SerializeField] SpellContainer immunityspell;
     [SerializeField] SoundID upFrontSound = default, attackSound = default, dieSound = default;
@@ -95,7 +96,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
             col.enabled = false;
             gameObject.tag = "Untagged";
             health = 0;
-            if(enemySprites.GetStatePortrait(GameplayStatus.Dead, out Sprite deadSprite))
+            if(enemySprites.GetStatePortrait(GameplayStates.Dead, out Sprite deadSprite))
             {
                 outlineRenderer.gameObject.SetActive(false);
                 enemyFace.gameObject.SetActive(true);
@@ -274,10 +275,10 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                     switch (_spell.changedDependedStat)
                     {
                         case DependedStat.initiative:
-                            currentStats[EnemyStat.INITIATIVE] = new Vector3Int(currentStats[EnemyStat.INITIATIVE].x, currentStats[EnemyStat.INITIATIVE].x - damageAmountDiceSumResult, _spell.numberOfTurns);
+                            currentStats[EnemyStat.INITIATIVE] = new Vector3Int(currentStats[EnemyStat.INITIATIVE].x, Mathf.Clamp(currentStats[EnemyStat.INITIATIVE].x - damageAmountDiceSumResult,0,int.MaxValue), _spell.numberOfTurns);
                             
-                            results.Add(new() { msgType = "s", msgString = enemyName + " slowdown " });
-
+                            results.Add(new() { msgType = "s", msgString = enemyName + " slowdown, this spell doesn't stuck " });
+                            changeEnemyState.Invoke(GameplayStates.Slow, true, _spell.numberOfTurns);
                             break;
                         case DependedStat.accuracy:
                             currentStats[EnemyStat.ACCURACY] = new Vector3Int(currentStats[EnemyStat.ACCURACY].x, Mathf.Clamp( currentStats[EnemyStat.ACCURACY].x - damageAmountDiceSumResult,0,int.MaxValue), _spell.numberOfTurns);
@@ -319,13 +320,13 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                     break;
 
 
-                case SpellEffects.Stone:
-                    if(spellEffectImmunityList.Contains(SpellEffects.Stone)) continue; // skip stone effect if enemy has a total immunity to it
+                case SpellEffects.Petrify:
+                    if(spellEffectImmunityList.Contains(SpellEffects.Petrify)) continue; // skip stone effect if enemy has a total immunity to it
                     diceToCompare += Mathf.Clamp(spellcaster.GetComponent<IHero>().GetSkillsStat(SkillsStat.ElementalMagic, false) / 10, 0, _spell.diceSides); // adding bonus to stone chance from elemental magic skill 
                     if ( diceToCompare == _spell.diceSides)
                     {
-                        appliedPermanentDebuffs.TryAdd(SpellEffects.Stone, 0);
-                        if (enemySprites.GetStatePortrait(GameplayStatus.Stoned, out Sprite stateSpriteStoned)) enemyFace.sprite = stateSpriteStoned;
+                        appliedPermanentDebuffs.TryAdd(SpellEffects.Petrify, 0);
+                        if (enemySprites.GetStatePortrait(GameplayStates.Stoned, out Sprite stateSpriteStoned)) enemyFace.sprite = stateSpriteStoned;
                     }
                     break;
 
@@ -334,7 +335,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                     if ( diceToCompare == _spell.diceSides)
                     {
                         appliedPermanentDebuffs.TryAdd(SpellEffects.Paralize, 0);
-                        if (enemySprites.GetStatePortrait(GameplayStatus.Paralized, out Sprite stateSpriteParalized)) enemyFace.sprite = stateSpriteParalized;
+                        if (enemySprites.GetStatePortrait(GameplayStates.Paralized, out Sprite stateSpriteParalized)) enemyFace.sprite = stateSpriteParalized;
                     }
                     break;
 
@@ -344,7 +345,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                     if (diceToCompare > _spell.diceSides / 2)
                     {
                         appliedPermanentDebuffs.TryAdd(SpellEffects.Poison, damageAmountDiceSumResult);
-                        if (enemySprites.GetStatePortrait(GameplayStatus.Poisoned, out Sprite stateSpritePetrified)) enemyFace.sprite = stateSpritePetrified;
+                        if (enemySprites.GetStatePortrait(GameplayStates.Poisoned, out Sprite stateSpritePetrified)) enemyFace.sprite = stateSpritePetrified;
                         playStatusAnimation.Invoke("Poisoned");
                     }
 
@@ -577,6 +578,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
 
     public int GetInitiativeInBattle()
     {
+        //print(currentStats[EnemyStat.INITIATIVE].y);
         return currentStats[EnemyStat.INITIATIVE].y;
     }
 
@@ -627,7 +629,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
 
             if (currentStats.ContainsKey(es) && currentStats[es].z > 0)
             {  
-                print("battle time passes" + currentStats[EnemyStat.INITIATIVE].y);
+                print("battle time passes " + currentStats[EnemyStat.INITIATIVE].y);
                 currentStats[es] = new Vector3Int(currentStats[es].x, currentStats[es].y, currentStats[es].z - 1);
 
                 if (currentStats.ContainsKey(es))
@@ -636,10 +638,10 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                     {
                         print("back to normal ");
                         currentStats[es] = new Vector3Int(currentStats[es].x, currentStats[es].x, 0); // resetting stat to initial value when debuff time is over
+
                     }
                 }
             }
-
         }
         
         if(appliedPermanentDebuffs.ContainsKey(SpellEffects.Poison))
@@ -750,6 +752,7 @@ public class EnemyStatInitAmount
 {
     public EnemyStat enemyStat;
     public int initialAmount;
+
 }
 
 public struct ResultMsg

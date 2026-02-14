@@ -193,7 +193,7 @@ public class CharacterCreationPanel : MonoBehaviour
 
             portraitIndex[heroIndex] = (portraitIndex[heroIndex] - 1) % portraitSprites.Count;
         }
-        portraitSprites[portraitIndex[heroIndex]].GetStatePortrait(GameplayStatus.None, out Sprite sprite);
+        portraitSprites[portraitIndex[heroIndex]].GetStatePortrait(GameplayStates.None, out Sprite sprite);
         portraitChoices[heroIndex].SetSprite(sprite);
     }
 

@@ -71,7 +71,7 @@ public class SpellShop : MonoBehaviour
                 }
             }
         }
-        print("found spells" + spellOfType.Count);
+        //print("found spells" + spellOfType.Count);
         if (spellOfType.Count == 0) return;
         for (int i = 0; i < spellSlots.Count; i++)
         {
@@ -87,7 +87,7 @@ public class SpellShop : MonoBehaviour
     public SpellContainer RandomSpellToSell( List<SpellContainer> spellOfType)
     { 
 
-        print("item level " + itemsLevel.y + " spell of type count " + spellOfType.Count);
+        //print("item level " + itemsLevel.y + " spell of type count " + spellOfType.Count);
         if (spellOfType.Count <= 0) { return null; }
         return spellOfType[Random.Range(0, spellOfType.Count-1)];
     }

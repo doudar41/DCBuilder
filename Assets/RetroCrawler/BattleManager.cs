@@ -17,7 +17,6 @@ using static UnityEngine.Rendering.DebugUI.Table;
 /// </summary>
 
 
-
 public class BattleManager : MonoBehaviour
 {
 
@@ -66,10 +65,9 @@ public class BattleManager : MonoBehaviour
     [SerializeField] BattleGroundGraphics battleGroundGraphics;
 
 
-
-
     //if it's scripted battle
     bool customBattle = false;
+    bool enemyattack = false;
 
 
     // Block responsible for calling a custom battle
@@ -120,7 +118,7 @@ public class BattleManager : MonoBehaviour
         //Check if the first member of a quarry is enemy
         if (IfActiveOpponentIsEnemy())
         {
-            EnemyAutoAttack();
+            StartCoroutine(EnemyAttackDelay());
         }
         else
         {
@@ -129,7 +127,15 @@ public class BattleManager : MonoBehaviour
         //Open UI elements which need for battle 
         battleStarts.Invoke();
 
+    }
 
+
+    IEnumerator EnemyAttackDelay()
+    {
+        enemyattack =true;
+        yield return new WaitForSeconds(0.5f);
+        EnemyAutoAttack();
+        enemyattack = false;
     }
 
 
@@ -202,7 +208,7 @@ public class BattleManager : MonoBehaviour
         //Check if the first member of a quarry is enemy
         if (IfActiveOpponentIsEnemy())
         {
-            EnemyAutoAttack();
+            StartCoroutine(EnemyAttackDelay());
         }
         else
         {
@@ -244,7 +250,7 @@ public class BattleManager : MonoBehaviour
         //Check if the first member of a quarry is enemy
         if (IfActiveOpponentIsEnemy())
         {
-            EnemyAutoAttack();
+            StartCoroutine(EnemyAttackDelay());
         }
         else
         {
@@ -256,10 +262,6 @@ public class BattleManager : MonoBehaviour
         GameInstance.playerController.StartCustomBattle();
         GameInstance.soundManagerInGame.LaunchBattleMusic(iblock.GetBattleGroundEnvironment());
     }
-
-
-
-
 
 
     //Spawn enemies logic 
@@ -363,15 +365,11 @@ public class BattleManager : MonoBehaviour
     {
         if (quarrySorted[quarrySortedKey].GetComponent<IEnemy>() == null) AttackEnding();
 
-        //print("attacker name " + quarrySorted[quarrySortedKey].GetComponent<IEnemy>().GetEnemyName() + "/"+ quarrySortedKey);
-        
         IEnemy attacker = quarrySorted[quarrySortedKey].GetComponent<IEnemy>();
 
         if (!CheckEnemyState(attacker)) { AttackEnding(); return; }
 
         if(attacker.GetCurrentStatValue(EnemyStat.INITIATIVE) <= 0) { AttackEnding(); return; }
-
-
 
         // Notify player that it's a enemy turn
         enemyTurn.Invoke("Enemy turn");
@@ -439,8 +437,8 @@ public class BattleManager : MonoBehaviour
     }
 
     public bool CheckEnemyState(IEnemy _enemy)
-    { 
-
+    {
+        if (_enemy == null) return false;
         var enemystatus = _enemy.GetEnemyPermanentStatus();
         if (enemystatus.ContainsKey(SpellEffects.Stone))
         {
@@ -539,7 +537,7 @@ public class BattleManager : MonoBehaviour
         // Choose between enemy or player turn
         if (IfActiveOpponentIsEnemy())
         {
-            EnemyAutoAttack();
+           StartCoroutine(EnemyAttackDelay());
             return;
         }
         else
@@ -568,8 +566,8 @@ public class BattleManager : MonoBehaviour
                         IHero newactivehero = g.GetComponent<IHero>();
                         GameInstance.party.BattleHeroSwitch(newactivehero.GetThisHero());
                         if (newactivehero.GetHeroHealth() <= 0 ||
-                            newactivehero.GetHeroStatus().Contains(GameplayStatus.Petrified) ||
-                            newactivehero.GetHeroStatus().Contains(GameplayStatus.Stunned)) AttackEnding();
+                            newactivehero.GetHeroStatus().Contains(GameplayStates.Petrified) ||
+                            newactivehero.GetHeroStatus().Contains(GameplayStates.Stunned)) AttackEnding();
                     }
                 }
             }
@@ -587,7 +585,7 @@ public class BattleManager : MonoBehaviour
 
         if (IfActiveOpponentIsEnemy())
         {
-            EnemyAutoAttack();
+            StartCoroutine(EnemyAttackDelay());
         }
         else
         {
@@ -645,7 +643,7 @@ public class BattleManager : MonoBehaviour
             if (g.GetComponent<IHero>() != null)
             {
                 heroesHealth += g.GetComponent<IHero>().GetHeroHealth();
-                if (g.GetComponent<IHero>().GetHeroStatus().Contains(GameplayStatus.Stoned)) unabledHeroes++;
+                if (g.GetComponent<IHero>().GetHeroStatus().Contains(GameplayStates.Stoned)) unabledHeroes++;
             }
             else if(g.GetComponent<IEnemy>() != null)
             {
@@ -848,9 +846,10 @@ public class BattleManager : MonoBehaviour
 
     public void AttackEnding()
     {
+        if (enemyattack) return;
             //Check for heroes health
             //if ok end of the turn
-            
+
         if (WhoWon() == 2) BattleFinish(false);
         if (WhoWon() == 1)
         {

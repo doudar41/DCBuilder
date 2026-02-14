@@ -28,7 +28,7 @@ MonoBehaviour:
     restToBeAbleToCastAgainInTurns: 0
     SpellDescription: 
     skillToCheckInCalculations: 8
-    stateToCure: 0
+    targetGamestate: 0
     continuousSpell: 0
   spellIcon: {fileID: 21300000, guid: 7178f36a2deb55343a61fbbc6a4c8022, type: 3}
   AOE: 0
@@ -38,7 +38,7 @@ MonoBehaviour:
   battleSpell: 1
   equipableSpell: 0
   minDistanceToEnemy: 3
-  spellName: Lower Resistance Air
+  spellName: Low Res Air
   spellPrice: 1000
   spellLevel: 2
   animationTriggerName: 
