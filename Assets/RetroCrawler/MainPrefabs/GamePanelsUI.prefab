@@ -414,7 +414,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -426,7 +426,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -1203,7 +1203,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -1215,7 +1215,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -3095,9 +3095,9 @@ RectTransform:
   - {fileID: 2716522825270244292}
   - {fileID: 8284424033547104550}
   - {fileID: 1886970914982013339}
+  - {fileID: 2865089986469873233}
   - {fileID: 7075522295167695800}
   - {fileID: 6081247953275272352}
-  - {fileID: 4006242047849989825}
   m_Father: {fileID: 8513840244661768514}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
@@ -7047,21 +7047,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spellButtons:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 3236531618244370133}
+  - {fileID: 8702301942494305165}
+  - {fileID: 8254761676178899848}
+  - {fileID: 9079222437463129107}
+  - {fileID: 3075999983228932309}
+  - {fileID: 205871047213357506}
+  - {fileID: 4780964917975877024}
+  - {fileID: 1378919874960853069}
+  - {fileID: 5157605241960664279}
+  - {fileID: 4273325497980814786}
+  - {fileID: 6033856457294538916}
+  - {fileID: 6555919694126227173}
+  - {fileID: 2970108763187008953}
+  - {fileID: 511301586823350530}
+  - {fileID: 3910034076607684993}
   castSpell:
     m_PersistentCalls:
       m_Calls: []
@@ -7298,7 +7298,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 8563669814287252430}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -7310,7 +7310,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 8563669814287252430}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -8364,7 +8364,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 8563669814287252430}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -8376,7 +8376,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 8563669814287252430}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -9564,7 +9564,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 8563669814287252430}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -9576,7 +9576,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 8563669814287252430}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -15349,7 +15349,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -15361,7 +15361,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -19576,7 +19576,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 8563669814287252430}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -19588,7 +19588,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 8563669814287252430}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -23591,11 +23591,11 @@ RectTransform:
   m_Children:
   - {fileID: 2803379002157223284}
   - {fileID: 373415894489673930}
-  m_Father: {fileID: 5812694467619531828}
+  m_Father: {fileID: 8519206896650299370}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 304.29996, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4166494924733148699
@@ -23655,7 +23655,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -23667,7 +23667,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -26144,6 +26144,81 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!1 &3180545559677930338
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8932065617770592166}
+  - component: {fileID: 4696051530347638048}
+  - component: {fileID: 2483812784187853439}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8932065617770592166
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3180545559677930338}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6261211242065237985}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &4696051530347638048
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3180545559677930338}
+  m_CullTransparentMesh: 1
+--- !u!114 &2483812784187853439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3180545559677930338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: e418c7b149449ad42ba64a015fb22784, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &3183030784077334195
 GameObject:
   m_ObjectHideFlags: 0
@@ -27304,7 +27379,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 8563669814287252430}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -27316,7 +27391,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 8563669814287252430}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -29664,7 +29739,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -29676,7 +29751,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -32116,6 +32191,7 @@ MonoBehaviour:
   - {fileID: 1036222058159963132}
   - {fileID: 8314876661457129461}
   - {fileID: 4976037146347773671}
+  - {fileID: 2973268877427904763}
   castSpell:
     m_PersistentCalls:
       m_Calls: []
@@ -32602,7 +32678,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -32614,7 +32690,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -33748,7 +33824,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -33760,7 +33836,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -34237,6 +34313,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3332390096119331013}
+  - {fileID: 4006242047849989825}
   m_Father: {fileID: 9176573885487965248}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -35024,7 +35101,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 8563669814287252430}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -35036,7 +35113,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 8563669814287252430}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -36551,7 +36628,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 8563669814287252430}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -36563,7 +36640,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 8563669814287252430}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -36774,7 +36851,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -36786,7 +36863,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -40989,7 +41066,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 8563669814287252430}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -41001,7 +41078,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 8563669814287252430}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -44970,7 +45047,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -44982,7 +45059,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -45688,7 +45765,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 8563669814287252430}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -45700,7 +45777,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 8563669814287252430}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -46104,7 +46181,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 8563669814287252430}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -46116,7 +46193,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 8563669814287252430}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -49073,7 +49150,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 8563669814287252430}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -49085,7 +49162,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 8563669814287252430}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -50704,7 +50781,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -50716,7 +50793,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -52139,7 +52216,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 8563669814287252430}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -52151,7 +52228,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 8563669814287252430}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -55484,7 +55561,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 8563669814287252430}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -55496,7 +55573,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 8563669814287252430}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -57984,7 +58061,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -57996,7 +58073,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -61379,7 +61456,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 8563669814287252430}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -61391,7 +61468,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 8563669814287252430}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -62596,6 +62673,161 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
+--- !u!1 &6804938593641704600
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2950059846223545375}
+  - component: {fileID: 8178240816858212586}
+  - component: {fileID: 8470350591868171502}
+  - component: {fileID: 4701738013073778042}
+  m_Layer: 5
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2950059846223545375
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6804938593641704600}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6261211242065237985}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &8178240816858212586
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6804938593641704600}
+  m_CullTransparentMesh: 1
+--- !u!114 &8470350591868171502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6804938593641704600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 29aad055d0367ff48950c5de2c08f61c, type: 2}
+  m_sharedMaterial: {fileID: 7429070075599725389, guid: 29aad055d0367ff48950c5de2c08f61c, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4278190080
+  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 12
+  m_fontSizeBase: 12
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 0
+  m_fontSizeMax: 0
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 0
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4701738013073778042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6804938593641704600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: 20
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &6825519802000080322
 GameObject:
   m_ObjectHideFlags: 0
@@ -63531,7 +63763,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -63543,7 +63775,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -67389,7 +67621,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -67401,7 +67633,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -68222,8 +68454,8 @@ RectTransform:
   - {fileID: 6880604145687403632}
   - {fileID: 9008467070675593293}
   - {fileID: 2432195504047455142}
-  - {fileID: 2865089986469873233}
   - {fileID: 1349745960471913101}
+  - {fileID: 6261211242065237985}
   m_Father: {fileID: 8513840244661768514}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -69719,6 +69951,154 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &7694860494301340942
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6261211242065237985}
+  - component: {fileID: 3243633026122211190}
+  - component: {fileID: 5439852607984660401}
+  - component: {fileID: 2973268877427904763}
+  - component: {fileID: 5115303561083936757}
+  m_Layer: 5
+  m_Name: Restoration
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6261211242065237985
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7694860494301340942}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8932065617770592166}
+  - {fileID: 2950059846223545375}
+  m_Father: {fileID: 205912937459422279}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &3243633026122211190
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7694860494301340942}
+  m_CullTransparentMesh: 1
+--- !u!114 &5439852607984660401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7694860494301340942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: e418c7b149449ad42ba64a015fb22784, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2973268877427904763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7694860494301340942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d890ce47a280cb42a464d03319018b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonImage: {fileID: 2483812784187853439}
+  unknownSprite: {fileID: 21300000, guid: e418c7b149449ad42ba64a015fb22784, type: 3}
+  spellName: {fileID: 8470350591868171502}
+  spellContainer: {fileID: 11400000, guid: 69f4e34e42426ef44913678ded40e9d9, type: 2}
+  spellReady:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1431719406417364080}
+        m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
+        m_MethodName: ResetAllSpellHighlight
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1431719406417364080}
+        m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
+        m_MethodName: SpellRelease
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5115303561083936757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7694860494301340942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 1
+  m_ChildScaleHeight: 1
+  m_ReverseArrangement: 0
 --- !u!1 &7734229058328174933
 GameObject:
   m_ObjectHideFlags: 0
@@ -71654,11 +72034,11 @@ RectTransform:
   m_Children:
   - {fileID: 4439796269555927039}
   - {fileID: 7925215236219265400}
-  m_Father: {fileID: 205912937459422279}
+  m_Father: {fileID: 5812694467619531828}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -304.29996, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3348367118867614939
@@ -71718,7 +72098,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -71730,7 +72110,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -73321,7 +73701,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -73333,7 +73713,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -74718,7 +75098,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 8563669814287252430}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -74730,7 +75110,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 8563669814287252430}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -76018,7 +76398,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -76030,7 +76410,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0
@@ -84231,7 +84611,7 @@ MonoBehaviour:
   spellReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: ResetAllSpellHighlight
         m_Mode: 0
@@ -84243,7 +84623,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5909103326874622109}
+      - m_Target: {fileID: 1431719406417364080}
         m_TargetAssemblyTypeName: SpellPage, Assembly-CSharp
         m_MethodName: SpellRelease
         m_Mode: 0

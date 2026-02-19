@@ -19,3 +19,11 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 40dc111a578d46e4e80613380cb90f4b, type: 3}
   - state: 3
     sprite: {fileID: 21300000, guid: 9f427664620860c438b40ff7cfbd5fa9, type: 3}
+  - state: 1
+    sprite: {fileID: 21300000, guid: 3b180a3a63c2da44cbade1fe107400a9, type: 3}
+  - state: 13
+    sprite: {fileID: 21300000, guid: 7b8226a52202f6b4a9b9494058567f36, type: 3}
+  - state: 9
+    sprite: {fileID: 21300000, guid: 2344e37d2a4ca4549afc38000c1ddb2c, type: 3}
+  - state: 2
+    sprite: {fileID: 21300000, guid: 7d09ff34bb8040f4e93e6ae026595b03, type: 3}

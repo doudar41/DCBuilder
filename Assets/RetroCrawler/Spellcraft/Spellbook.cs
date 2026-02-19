@@ -155,6 +155,7 @@ public class Spellbook : MonoBehaviour
     {
         // Checking is a spell is explore based Light, Waterwalk, Lavawalk etc. and immediately start it as a time based spell.
         // Add it to spellTimeActive dictionary for a timepassed check in TimeLimitSpellCount(int count)
+       // print("cast spell " + spellToCast.spellName);
         int castCost = 0;
         foreach (Spell s in spellToCast.spells)
         {
@@ -424,11 +425,15 @@ public class Spellbook : MonoBehaviour
                 hitTargetEffect.Invoke(spellWaitToRelease);
             }
             battlelogEvent.Invoke(new List<string>()
-                    { GameInstance.party.activeHero.HeroName(), target.GetComponent<IHero>().HeroName(), spellWaitToRelease.spellName }, results);
-
+            { GameInstance.party.activeHero.HeroName(), target.GetComponent<IHero>().HeroName(), spellWaitToRelease.spellName }, results);
         }
+
+
+
         if (target.GetComponent<IEnemy>() != null)
         {
+            if (spellWaitToRelease.OnlyParty) { GameInstance.spellbook.ResultsToBattleLog(new List<string>() { "this spell can be applied only to party " }, null); return; }
+
             IEnemy ienemy = target.GetComponent<IEnemy>();
             if (ienemy.GetEnemyRow() <= spellWaitToRelease.minDistanceToEnemy) // Spell range check
             {

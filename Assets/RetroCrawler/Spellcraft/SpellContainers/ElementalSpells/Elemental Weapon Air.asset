@@ -17,9 +17,9 @@ MonoBehaviour:
     amount: 0
     agroPoints: 0
     manaCost: 10
-    diceRollsNumber: 3
-    diceSides: 8
-    diceBonus: 0
+    diceRollsNumber: 2
+    diceSides: 6
+    diceBonus: 5
     numberOfTurns: 0
     magicType: 3
     changedMainStat: 0
@@ -33,7 +33,7 @@ MonoBehaviour:
   spellIcon: {fileID: 21300000, guid: 6843eefdbf0fdc4449641fa584a2a84a, type: 3}
   AOE: 0
   OnlyEnemies: 0
-  OnlyParty: 0
+  OnlyParty: 1
   gameplaySpell: 0
   battleSpell: 0
   equipableSpell: 0

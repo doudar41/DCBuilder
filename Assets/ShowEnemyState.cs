@@ -53,7 +53,7 @@ public class ShowEnemyState : MonoBehaviour
 
         for (int i = 0; i < turnsLeft.Count; i++)
         {
-            print(turnsLeft[i]+ " - " + gameplayStatuses[i]);
+            //print(turnsLeft[i]+ " - " + gameplayStatuses[i]);
             turnsLeft[i]--;
             if (turnsLeft[i] <= 0)
             {

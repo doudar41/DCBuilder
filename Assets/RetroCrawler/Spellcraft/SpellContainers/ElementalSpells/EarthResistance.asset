@@ -17,9 +17,9 @@ MonoBehaviour:
     amount: 0
     agroPoints: 0
     manaCost: 10
-    diceRollsNumber: 0
-    diceSides: 2
-    diceBonus: 6
+    diceRollsNumber: 2
+    diceSides: 6
+    diceBonus: 5
     numberOfTurns: 0
     magicType: 4
     changedMainStat: 0

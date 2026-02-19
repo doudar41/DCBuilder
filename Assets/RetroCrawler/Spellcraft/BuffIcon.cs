@@ -1,34 +1,59 @@
 
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BuffIcon : MonoBehaviour
 {
     [SerializeField] Image frontImage, backImage;
-    public SpellContainer spellContainer;
-    public Spell spell;
+
+    [SerializeField] SpellEffects spellEffect;
+    [SerializeField] MagicType magicType;
     [SerializeField] Sprite emptySprite;
-    public void SetSpriteToImages(SpellContainer spellactive)
+    List<SpellEffects> spellEffects = new List<SpellEffects>();
+
+
+
+    public SpellEffects GetSpellEffect(out MagicType _magicType)
     {
-        spellContainer = spellactive;
-        frontImage.sprite = spellactive.spellIcon;
-        backImage.sprite = spellactive.spellIcon;
+        _magicType = magicType;
+        return spellEffect;
     }
 
-    public void SetSpriteToImages(Sprite spellSprite, Spell _spell)
+    public bool SetSpriteToImages(SpellContainer spellactive, int timeSpellLasts)
     {
-        spell = _spell;
-        frontImage.sprite = spellSprite;
-        backImage.sprite = spellSprite;
+        spellEffects.Clear();
+        foreach (Spell spell in spellactive.spells)
+        {
+            spellEffects.Add(spell.spellEffect);
+        }
+
+        if (spellEffects.Contains(spellEffect))
+        {
+            if(magicType != MagicType.None)
+            {
+                if ( magicType == spellactive.spells[spellEffects.IndexOf(spellEffect)].magicType)
+                {
+                frontImage.sprite = spellactive.spellIcon;
+                backImage.sprite = spellactive.spellIcon;
+                    return true;
+                }
+            }
+            else
+            {
+                frontImage.sprite = spellactive.spellIcon;
+                backImage.sprite = spellactive.spellIcon;
+                return true;
+            }
+
+        }
+        return false;
     }
-    public SpellContainer GetSpellContainer()
-    {
-        return spellContainer;
-    }
+
 
     public void ClearBuffIcon()
     {
-        spellContainer = null;
+
         frontImage.sprite = emptySprite;
         backImage.sprite = emptySprite;
     }

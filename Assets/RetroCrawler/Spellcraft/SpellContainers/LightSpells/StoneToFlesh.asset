@@ -28,11 +28,12 @@ MonoBehaviour:
     restToBeAbleToCastAgainInTurns: 0
     SpellDescription: 
     skillToCheckInCalculations: 7
-    stateToCure: 5
+    targetGamestate: 0
+    continuousSpell: 0
   spellIcon: {fileID: 21300000, guid: 007b47c5eaf55004e880dc418e73cb8c, type: 3}
   AOE: 0
   OnlyEnemies: 0
-  OnlyParty: 0
+  OnlyParty: 1
   gameplaySpell: 0
   battleSpell: 0
   equipableSpell: 0

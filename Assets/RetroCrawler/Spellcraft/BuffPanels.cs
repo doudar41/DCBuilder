@@ -6,115 +6,93 @@ public class BuffPanels : MonoBehaviour
 {
     [SerializeField] GameObject smallPanel, bigPanel;
     [SerializeField] List<BuffIcon> buffIcons = new List<BuffIcon>();
-    //[SerializeField] List<SpelEffectIcon> spelleffects = new List<SpelEffectIcon>();
+    Dictionary<BuffIcon,int> buffIconsWithTime = new Dictionary<BuffIcon, int>();
 
-   /* Sprite FindSpellEffectIcon(Spell spell)
+    private void Start()
     {
-        foreach(SpelEffectIcon effect in spelleffects)
+        GameInstance.playerController.timeForward += TimeForward;
+        GameInstance.battleManager.battlePassTime += TimeForward;
+    }
+
+    private void OnDestroy()
+    {
+        GameInstance.playerController.timeForward -= TimeForward;
+        GameInstance.battleManager.battlePassTime -= TimeForward;
+    }
+
+    public void AddBuffToList(SpellContainer spellAttached , int timeSpellLasts)
+    {
+
+        foreach (BuffIcon b in buffIcons)
         {
-            if(effect.spellEffect == spell.spellEffect)
-            {
-                if(spell.magicType != MagicType.None)
-                {
-                    if(effect.magicType == spell.magicType)
-                    {
-                        return effect.sprite;
-                    }
-                }
 
-                if(spell.changedMainStat != MainStat.None)
-                {
-                    if(effect.changedMainStat == spell.changedMainStat)
-                    {
-                        return effect.sprite;
-                    }
-                }
-                if (spell.changedDependedStat != DependedStat.None)
-                {
-                    if (effect.changedDependedStat == spell.changedDependedStat)
-                    {
-                        return effect.sprite;
-                    }
-                }
-
-                if(spell.skillStatAdded != SkillsStat.None)
-                {
-                    if(effect.skillStatAdded == spell.skillStatAdded)
-                    {
-                        return effect.sprite;
-                    }
-                }
+            if (!b.SetSpriteToImages(spellAttached, timeSpellLasts)) continue;
+            else
+            {if (!buffIconsWithTime.ContainsKey(b)) buffIconsWithTime.Add(b, timeSpellLasts);
+                else buffIconsWithTime[b] = timeSpellLasts;
             }
 
-
-        }
-        return null;
-    }*/
-
-    public void AddBuffToList(SpellContainer spellAttached)
-    {
-        foreach(BuffIcon b in buffIcons)
-        {
-            if(b.spellContainer == null)
-            {
-               // print("add buff to list " + spellAttached.spellIcon);
-                b.SetSpriteToImages(spellAttached); return;
-            }
         }
     }
 
-
-
-/*    public void AddBuffToList(Spell spell)
+    void TimeForward(int count)
     {
         foreach (BuffIcon b in buffIcons)
         {
-            if (b.spellContainer == null)
+            if (buffIconsWithTime.ContainsKey(b))
             {
-                b.SetSpriteToImages(FindSpellEffectIcon(spell), spell);
-                return;
-            }
-        }
-    }*/
-
-    void SortBuffListAfterRemove(int startIndex)
-    {
-        for(int i = startIndex; i < buffIcons.Count-1; i++)
-        {
-            if (buffIcons[i + 1].spellContainer != null)
-            {
-                buffIcons[i].SetSpriteToImages(buffIcons[i + 1].spellContainer);
-            }
-            else
-            {
-                buffIcons[i].ClearBuffIcon();
-            }
-        }
-    }
-
-    public void RemoveBuffFromList(Spell spell)
-    {
-        for(int i = 0; i < buffIcons.Count; i++)
-        {
-            if (buffIcons[i].spellContainer != null)
-            {
-                if (buffIcons[i].spellContainer.spells.Contains(spell))
+                buffIconsWithTime[b] -= count;
+                if (buffIconsWithTime[b] <= 0)
                 {
-                    buffIcons[i].ClearBuffIcon();
-                    SortBuffListAfterRemove(i);
+                    b.ClearBuffIcon();
+                    buffIconsWithTime.Remove(b);
                 }
             }
-            if (buffIcons[i].spell != null)
+            
+        }
+
+    }
+
+
+    /*
+        void SortBuffListAfterRemove(int startIndex)
+        {
+            for(int i = startIndex; i < buffIcons.Count-1; i++)
             {
-                if(buffIcons[i].spell == spell)
+                if (buffIcons[i + 1].spellContainer != null)
+                {
+                    buffIcons[i].SetSpriteToImages(buffIcons[i + 1].spellContainer);
+                }
+                else
                 {
                     buffIcons[i].ClearBuffIcon();
-                    SortBuffListAfterRemove(i);
                 }
-
             }
         }
-    }
+    */
+    /*    public void RemoveBuffFromList(Spell spell)
+        {
+            for(int i = 0; i < buffIcons.Count; i++)
+            {
+                if (buffIcons[i].spellContainer != null)
+                {
+                    if (buffIcons[i].spellContainer.spells.Contains(spell))
+                    {
+                        buffIcons[i].ClearBuffIcon();
+                        SortBuffListAfterRemove(i);
+                    }
+                }
+                if (buffIcons[i].spell != null)
+                {
+                    if(buffIcons[i].spell == spell)
+                    {
+                        buffIcons[i].ClearBuffIcon();
+                        SortBuffListAfterRemove(i);
+                    }
+
+                }
+            }
+        }*/
 }
 
 

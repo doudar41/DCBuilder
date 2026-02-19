@@ -17,8 +17,8 @@ MonoBehaviour:
     amount: 0
     agroPoints: 0
     manaCost: 20
-    diceRollsNumber: 0
-    diceSides: 3
+    diceRollsNumber: 2
+    diceSides: 5
     diceBonus: 10
     numberOfTurns: 0
     magicType: 6
@@ -28,12 +28,12 @@ MonoBehaviour:
     restToBeAbleToCastAgainInTurns: 0
     SpellDescription: 
     skillToCheckInCalculations: 8
-    stateToCure: 11
+    targetGamestate: 0
     continuousSpell: 0
   spellIcon: {fileID: 21300000, guid: c8b5f17077267844b989de668a0e0f17, type: 3}
-  AOE: 1
+  AOE: 0
   OnlyEnemies: 0
-  OnlyParty: 1
+  OnlyParty: 0
   gameplaySpell: 0
   battleSpell: 0
   equipableSpell: 0
@@ -41,4 +41,4 @@ MonoBehaviour:
   spellName: Dark Bolt
   spellPrice: 1000
   spellLevel: 2
-  animationTriggerName: 
+  animationTriggerName: DarkDamage

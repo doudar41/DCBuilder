@@ -26,8 +26,8 @@ public enum SpellEffects
 {
     PDmg, //Physical Damage
     MDmg, //Magical Damage
-    MSMod,//Main Stat Modify
-    DSMod,//Depended Stat Modify
+    MSMod,//Main Stat Modify         buff
+    DSMod,//Depended Stat Modify     buff
     Recall,
     Mark,
     Paralize, //Modify turn order
@@ -40,11 +40,11 @@ public enum SpellEffects
     ReadPortal, //Map modification
     LightARoom,
     Heal,
-    ElementalResistance,
-    ElementalWeapon,
+    ElementalResistance,    // buff
+    ElementalWeapon, //buff
     LavaWalk,
     Petrify,
-    Immunity,
+    Immunity,  //buff
     Poison,
     LevelUp,
     Burn,
@@ -55,7 +55,9 @@ public enum SpellEffects
     Antidote,
     Createfood,
     CureState,
-    CauseState
+    CauseState,
+    Sleep,
+    Slow
 }
 
 public enum MagicType

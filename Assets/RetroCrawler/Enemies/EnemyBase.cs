@@ -157,7 +157,6 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
     IEnumerator AttackDelay()
     {
         yield return new WaitForSeconds(0.5f);
-        //print("stop attacking enemy");
         GameInstance.battleManager.AttackEnding();
         if(health <= 0)
         {
@@ -207,8 +206,12 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                 continue; 
             }//if evasion is successful and dice is not equal 20 spell is ignored
 
-
-            int damageAmountDiceSumResult = CalculateIncomingDamage(_spell, dice); // calculating damage according to dice rolls
+            if (!appliedPermanentDebuffs.ContainsKey(SpellEffects.CauseState) && _spell.targetGamestate == GameplayStates.Sleep)
+            {
+                changeEnemyState.Invoke(GameplayStates.Slow, false, 0);
+                
+            }
+                int damageAmountDiceSumResult = CalculateIncomingDamage(_spell, dice); // calculating damage according to dice rolls
             
             int diceToCompare = GameInstance.DiceRollingBiggestNumber(_spell.diceRollsNumber, _spell.diceSides); // dice to compare with spell effect application chance
 
@@ -271,47 +274,49 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                     }
                     damageAmountDiceSumResult += spellcaster.GetComponent<IHero>().MagicDamageModifier(_spell.skillToCheckInCalculations);
 
+                    int timeOfSpellAction = GameInstance.DiceRollingWithSkill(true, _spell, spellcaster, EnemyStat.INITIATIVE, 3);
 
                     switch (_spell.changedDependedStat)
                     {
                         case DependedStat.initiative:
-                            currentStats[EnemyStat.INITIATIVE] = new Vector3Int(currentStats[EnemyStat.INITIATIVE].x, Mathf.Clamp(currentStats[EnemyStat.INITIATIVE].x - damageAmountDiceSumResult,0,int.MaxValue), _spell.numberOfTurns);
+                            currentStats[EnemyStat.INITIATIVE] = new Vector3Int(currentStats[EnemyStat.INITIATIVE].x, Mathf.Clamp(currentStats[EnemyStat.INITIATIVE].x - damageAmountDiceSumResult,0,int.MaxValue), timeOfSpellAction);
                             
                             results.Add(new() { msgType = "s", msgString = enemyName + " slowdown, this spell doesn't stuck " });
-                            changeEnemyState.Invoke(GameplayStates.Slow, true, _spell.numberOfTurns);
+                            changeEnemyState.Invoke(GameplayStates.Slow, true, timeOfSpellAction);
                             break;
                         case DependedStat.accuracy:
-                            currentStats[EnemyStat.ACCURACY] = new Vector3Int(currentStats[EnemyStat.ACCURACY].x, Mathf.Clamp( currentStats[EnemyStat.ACCURACY].x - damageAmountDiceSumResult,0,int.MaxValue), _spell.numberOfTurns);
+                            currentStats[EnemyStat.ACCURACY] = new Vector3Int(currentStats[EnemyStat.ACCURACY].x, Mathf.Clamp( currentStats[EnemyStat.ACCURACY].x - damageAmountDiceSumResult,0,int.MaxValue), timeOfSpellAction);
                             results.Add(new() { msgType = "s", msgString = enemyName + " accuracy decreased " });
+
                             break;
                         case DependedStat.defence:
-                            currentStats[EnemyStat.DEFENCE] = new Vector3Int(currentStats[EnemyStat.DEFENCE].x, Mathf.Clamp(currentStats[EnemyStat.DEFENCE].x - damageAmountDiceSumResult, 0, int.MaxValue), _spell.numberOfTurns);
+                            currentStats[EnemyStat.DEFENCE] = new Vector3Int(currentStats[EnemyStat.DEFENCE].x, Mathf.Clamp(currentStats[EnemyStat.DEFENCE].x - damageAmountDiceSumResult, 0, int.MaxValue), timeOfSpellAction);
                             
                             break;
                         case DependedStat.evasion:
-                            currentStats[EnemyStat.EVASION] = new Vector3Int(currentStats[EnemyStat.EVASION].x, Mathf.Clamp(currentStats[EnemyStat.EVASION].x - damageAmountDiceSumResult, 0, int.MaxValue), _spell.numberOfTurns);
+                            currentStats[EnemyStat.EVASION] = new Vector3Int(currentStats[EnemyStat.EVASION].x, Mathf.Clamp(currentStats[EnemyStat.EVASION].x - damageAmountDiceSumResult, 0, int.MaxValue), timeOfSpellAction);
                             break;
                         case DependedStat.FireResistance:
-                            currentStats[EnemyStat.FIRE_RESISTANCE] = new Vector3Int(currentStats[EnemyStat.FIRE_RESISTANCE].x, currentStats[EnemyStat.FIRE_RESISTANCE].x - damageAmountDiceSumResult, _spell.numberOfTurns);
+                            currentStats[EnemyStat.FIRE_RESISTANCE] = new Vector3Int(currentStats[EnemyStat.FIRE_RESISTANCE].x, currentStats[EnemyStat.FIRE_RESISTANCE].x - damageAmountDiceSumResult, timeOfSpellAction);
                             break;
                         case DependedStat.WaterResistance:
-                            currentStats[EnemyStat.WATER_RESISTANCE] = new Vector3Int(currentStats[EnemyStat.WATER_RESISTANCE].x, currentStats[EnemyStat.WATER_RESISTANCE].x - damageAmountDiceSumResult, _spell.numberOfTurns);
+                            currentStats[EnemyStat.WATER_RESISTANCE] = new Vector3Int(currentStats[EnemyStat.WATER_RESISTANCE].x, currentStats[EnemyStat.WATER_RESISTANCE].x - damageAmountDiceSumResult, timeOfSpellAction);
                             break;
                         case DependedStat.EarthResistance:
-                            currentStats[EnemyStat.EARTH_RESISTANCE] = new Vector3Int(currentStats[EnemyStat.EARTH_RESISTANCE].x, currentStats[EnemyStat.EARTH_RESISTANCE].x - damageAmountDiceSumResult, _spell.numberOfTurns);
+                            currentStats[EnemyStat.EARTH_RESISTANCE] = new Vector3Int(currentStats[EnemyStat.EARTH_RESISTANCE].x, currentStats[EnemyStat.EARTH_RESISTANCE].x - damageAmountDiceSumResult, timeOfSpellAction);
                             break;
                         case DependedStat.AirResistance:
-                            currentStats[EnemyStat.AIR_RESISTANCE] = new Vector3Int(currentStats[EnemyStat.AIR_RESISTANCE].x, currentStats[EnemyStat.AIR_RESISTANCE].x - damageAmountDiceSumResult, _spell.numberOfTurns);
+                            currentStats[EnemyStat.AIR_RESISTANCE] = new Vector3Int(currentStats[EnemyStat.AIR_RESISTANCE].x, currentStats[EnemyStat.AIR_RESISTANCE].x - damageAmountDiceSumResult, timeOfSpellAction);
                             break;
                         case DependedStat.DarkResistance:
-                            currentStats[EnemyStat.DARK_RESISTANCE] = new Vector3Int(currentStats[EnemyStat.DARK_RESISTANCE].x, currentStats[EnemyStat.DARK_RESISTANCE].x - damageAmountDiceSumResult, _spell.numberOfTurns);
+                            currentStats[EnemyStat.DARK_RESISTANCE] = new Vector3Int(currentStats[EnemyStat.DARK_RESISTANCE].x, currentStats[EnemyStat.DARK_RESISTANCE].x - damageAmountDiceSumResult, timeOfSpellAction);
                             break;
 
                         case DependedStat.meleeDamage:
-                            currentStats[EnemyStat.MELEE_DAMAGE] = new Vector3Int(currentStats[EnemyStat.MELEE_DAMAGE].x, Mathf.Clamp(currentStats[EnemyStat.MELEE_DAMAGE].x - damageAmountDiceSumResult, 0, int.MaxValue), _spell.numberOfTurns);
+                            currentStats[EnemyStat.MELEE_DAMAGE] = new Vector3Int(currentStats[EnemyStat.MELEE_DAMAGE].x, Mathf.Clamp(currentStats[EnemyStat.MELEE_DAMAGE].x - damageAmountDiceSumResult, 0, int.MaxValue), timeOfSpellAction);
                             break;
                         case DependedStat.rangeDamage:
-                            currentStats[EnemyStat.RANGE_DAMAGE] = new Vector3Int(currentStats[EnemyStat.RANGE_DAMAGE].x, Mathf.Clamp(currentStats[EnemyStat.RANGE_DAMAGE].x - damageAmountDiceSumResult, 0, int.MaxValue), _spell.numberOfTurns);
+                            currentStats[EnemyStat.RANGE_DAMAGE] = new Vector3Int(currentStats[EnemyStat.RANGE_DAMAGE].x, Mathf.Clamp(currentStats[EnemyStat.RANGE_DAMAGE].x - damageAmountDiceSumResult, 0, int.MaxValue), timeOfSpellAction);
                             break;
                             case DependedStat.IceResistance:
                             break;
@@ -378,13 +383,29 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                     float divider = darkPower * 0.1f;
                     spellcaster.GetComponent<IHero>().HealthDecrease(-(int)((float)damageAmountDiceSumResult * divider)); // healing spellcaster by vampirism amount
                     break;
+                case SpellEffects.Sleep:
+                    if (appliedPermanentDebuffs.ContainsKey(SpellEffects.CauseState) && _spell.targetGamestate == GameplayStates.Sleep) continue; // skip freeze effect if enemy has a total immunity to it
+                    if (diceToCompare > _spell.diceSides / 2)
+                    {
+                        appliedPermanentDebuffs.TryAdd(SpellEffects.Sleep, 10000);
+                        playStatusAnimation.Invoke("Sleep");
+                    }
+                    results.Add(new() { msgType = "s", msgString = "Sleep" });
+                    changeEnemyState.Invoke(GameplayStates.Sleep, true, 10000);
+
+                    break;
+
+                case SpellEffects.CauseState:
+                   
+
+                    break;
 
             }
             //results.Add(new() { msgType = "s", msgString = "freeze" });
             if (evaderoll <= attackRoll || dice == 20) hitTargetEffect.Invoke(spellToApply);
         }
 
-        if(!spellToApply.AOE)StartCoroutine(AttackDelay());
+        if (!spellToApply.AOE)StartCoroutine(AttackDelay());
         return results;
     }
 
@@ -578,7 +599,6 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
 
     public int GetInitiativeInBattle()
     {
-        //print(currentStats[EnemyStat.INITIATIVE].y);
         return currentStats[EnemyStat.INITIATIVE].y;
     }
 

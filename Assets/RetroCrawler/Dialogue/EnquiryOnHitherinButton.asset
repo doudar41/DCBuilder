@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uniqueName: 1
   dialogue_phrases:
-  - portraits: {fileID: 21300000, guid: 2494d3a8744c1924a8cf309e7d2a5d0f, type: 3}
+  - portraits: {fileID: 21300000, guid: 5634795d824af9b4fb84d2917b16ee73, type: 3}
     dialogueTexts: Greeti... Oh no
   journalEnter: 
   priorityIndex: 2

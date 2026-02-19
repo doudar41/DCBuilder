@@ -1,6 +1,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -52,7 +53,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     MagicType weaponEnchanced = MagicType.None;
 
-    int poisonDamageRate = 0;
+    int poisonDamageRate = 0, burningRate = 0;
     int skillPoints = 0;
     bool showDamageEffect = false;
     
@@ -71,6 +72,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     private void Start()
     {
         GameInstance.playerController.timeForward += TimePassBy;
+        GameInstance.battleManager.battlePassTime += BattleTimeChanges;
     }
     private void OnDestroy()
     {
@@ -154,11 +156,6 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         return spellsAttached;
     }
 
-    public void AddSpellToSpellAttached(Spell spell, int timesToFinish)
-    {
-        //SingleSpellApply(spell, null, null,null);
-       // spellsAttached.Add(spell, timesToFinish);
-    }
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -190,7 +187,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
             //print("apply spell to hero "+s.spellEffect);
             SingleSpellApply(s, spellToApply, results);
         }
-
+        if (GameInstance.playerController.playerState == PlayerState.Battle) StartCoroutine(AttackDelay());
         return results;
     }
 
@@ -269,7 +266,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                     }
                     if (buffPanels != null)
                     {
-                        if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
+                        if (spellToApply != null) buffPanels.AddBuffToList(spellToApply, diceResult01);
 
                     }
                     
@@ -285,12 +282,6 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 break;
 
             case SpellEffects.Restoration:
-
-
-                foreach (Spell sc in debuffSpells)
-                {
-                    buffPanels.RemoveBuffFromList(sc);
-                }
 
                 foreach (GameplayStates st in System.Enum.GetValues(typeof(GameplayStates)))
                 {
@@ -313,7 +304,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                     else spellsAttached[s] = new Vector3Int(sumdice, dependedStatBonus, 0);
                     if (buffPanels != null)
                     {
-                        if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
+                        if (spellToApply != null) buffPanels.AddBuffToList(spellToApply, sumdice);
 
                     }
                     SetDependedStat(s.changedDependedStat, (sumdice + attacker.GetSkillsStat(s.skillToCheckInCalculations, false) / 3) + GetMaxDependedStat(s.changedDependedStat));
@@ -332,7 +323,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                     if (buffPanels != null)
                     {
                         if (debuffSpells.Contains(s)) debuffSpells.Remove(s);
-                        if (spellToApply != null) buffPanels.RemoveBuffFromList(s);
+                        if (spellToApply != null) buffPanels.AddBuffToList(spellToApply,0);
                     }
                     if (s.targetGamestate == GameplayStates.Poisoned) poisonDamageRate = 0;
 
@@ -349,11 +340,12 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 case SpellEffects.CauseState:
                 if(s.targetGamestate== GameplayStates.MagicMantle)
                 {
+                    int timeOfMantle = GameInstance.DiceRollingWithSkill(true, s, attacker.GetThisHero().gameObject, EnemyStat.INITIATIVE, 3);
                     gameplayStatuses.Add(GameplayStates.MagicMantle);
                     if (buffPanels != null)
                     {
                         if (!debuffSpells.Contains(s)) debuffSpells.Add(s);
-                        if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
+                        if (spellToApply != null) buffPanels.AddBuffToList(spellToApply, timeOfMantle);
                     }
                 }
                 
@@ -368,19 +360,20 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 else spellsAttached[s] = new Vector3Int(numberOfTurnsWeapon, 0, 0);
                 if (buffPanels != null)
                 {
-                    if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
+                    if (spellToApply != null) buffPanels.AddBuffToList(spellToApply, numberOfTurnsWeapon);
 
                 }
                 break;
 
             case SpellEffects.ElementalResistance:
+                print("apply resistance spell");
                 int diceResult = GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides) + attacker.GetSkillsStat(s.skillToCheckInCalculations, false) / 3;
                 int resistance = GameInstance.DiceRollingBiggestNumber(s.diceRollsNumber, s.diceSides) + attacker.GetSkillsStat(s.skillToCheckInCalculations, false) / 3;
                 if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, new Vector3Int(diceResult,resistance,0));
                 else spellsAttached[s] = new Vector3Int(diceResult, resistance, 0);
                 if (buffPanels != null)
                 {
-                    if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
+                    if (spellToApply != null) buffPanels.AddBuffToList(spellToApply, diceResult);
                 }
 
                 break;
@@ -410,11 +403,6 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
             case SpellEffects.Restoration:
 
-
-                foreach (Spell sc in debuffSpells)
-                {
-                    buffPanels.RemoveBuffFromList(sc);
-                }
 
                 foreach (GameplayStates st in System.Enum.GetValues(typeof(GameplayStates)))
                 {
@@ -460,10 +448,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
             case SpellEffects.Antidote:
 
-                foreach (Spell sc in debuffSpells)
-                {
-                    if (sc.spellEffect == SpellEffects.Poison) buffPanels.RemoveBuffFromList(sc);
-                }
+
                 gameplayStatuses.Remove(GameplayStates.Poisoned);
                 poisonDamageRate = 0;
                 if (portraits.GetStatePortrait(GameplayStates.None, out Sprite stateSpriteWell1)) portrait.sprite = stateSpriteWell1;
@@ -478,7 +463,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     public List<ResultMsg> SingleSpellApply(Spell s, SpellContainer spellToApply, List<ResultMsg> results, IEnemy attacker)
     {
-        //print("enemy attacks with spell");
+
         int attackRoll = 0;
         int evaderoll = 0;
         int attackrollbonus = 0;
@@ -622,7 +607,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 else spellsAttached[s] = new Vector3Int(s.numberOfTurns, s.amount, 0);
                 if (buffPanels != null)
                 {
-                    if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
+                    if (spellToApply != null) buffPanels.AddBuffToList(spellToApply, s.numberOfTurns);
                 }
             break;
 
@@ -637,69 +622,16 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 else spellsAttached[s] = new Vector3Int(s.numberOfTurns, -s.amount, 0);
                 if (buffPanels != null)
                 {
-                    if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
+                    if (spellToApply != null) buffPanels.AddBuffToList(spellToApply, s.numberOfTurns);
 
                 }
 
-            break;
-
-            case SpellEffects.Poison:
-                if (!gameplayStatuses.Contains(GameplayStates.Poisoned))
-                {
-                    if (gameplayStatuses.Contains(GameplayStates.MagicMantle))
-                    {
-                        if (GameInstance.DiceRollingBiggestNumber(s.numberOfTurns, s.diceSides) + GetSkillsStat(SkillsStat.DarkMagic) / 5 < s.diceSides / 2)
-                        {
-                            results.Add(new() { msgType = "s", msgString = heroName + " magic mantle protected from " + s.targetGamestate });
-                            break;
-                        }
-
-                    }
-                    poisonDamageRate = pureDamageAmount - GetMaxDependedStat(DependedStat.DarkResistance);
-                    if (applyEffectSpell)
-                    {
-                        gameplayStatuses.Add(GameplayStates.Poisoned);
-                        if (portraits.GetStatePortrait(GameplayStates.Poisoned, out Sprite stateSpritePoisoned)) portrait.sprite = stateSpritePoisoned;
-                        if (buffPanels != null)
-                        {
-                            if (!debuffSpells.Contains(s)) debuffSpells.Add(s);
-                            if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
-
-                        }
-                    }
-                }
-            break;
-
-            case SpellEffects.Petrify:
-                if (!gameplayStatuses.Contains(GameplayStates.Petrified))
-                {
-                    if (gameplayStatuses.Contains(GameplayStates.MagicMantle))
-                    {
-                        if (GameInstance.DiceRollingBiggestNumber(s.numberOfTurns, s.diceSides) + GetSkillsStat(SkillsStat.DarkMagic) / 5 < s.diceSides / 2)
-                        {
-                            results.Add(new() { msgType = "s", msgString = heroName + " magic mantle protected from " + s.targetGamestate });
-                            break;
-                        }
-
-                    }
-                    if (applyEffectSpell)
-                    {
-                        gameplayStatuses.Add(GameplayStates.Petrified);
-                        if (portraits.GetStatePortrait(GameplayStates.Petrified, out Sprite stateSpritePetrified)) portrait.sprite = stateSpritePetrified;
-
-                        if (buffPanels != null)
-                        {
-                            if (!debuffSpells.Contains(s)) debuffSpells.Add(s);
-                            if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
-
-                        }
-                    }
-                }
             break;
 
 
 
             case SpellEffects.CauseState:
+
                 if (!gameplayStatuses.Contains(s.targetGamestate))
                 {
 
@@ -712,54 +644,95 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                         }
 
                     }
+                    int diceResult = GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides) + s.diceBonus;
+                    int resistance = GameInstance.DiceRollingBiggestNumber(s.diceRollsNumber, s.diceSides) + s.diceBonus;
 
                     switch (s.targetGamestate)
                     {
                     case GameplayStates.Burning:
                         if (applyEffectSpell)
                         {
-                                if (gameplayStatuses.Contains(GameplayStates.MagicMantle))
-                                {
-                                    if (GameInstance.DiceRollingBiggestNumber(s.numberOfTurns, s.diceSides) + GetSkillsStat(SkillsStat.DarkMagic) / 5 < s.diceSides / 2)
-                                    {
-                                        results.Add(new() { msgType = "s", msgString = heroName + " magic mantle protected from " + s.targetGamestate });
-                                        break;
-                                    }
 
-                                }
                                 gameplayStatuses.Add(GameplayStates.Burning);
                             if (portraits.GetStatePortrait(GameplayStates.Burning, out Sprite stateSpriteBurning)) portrait.sprite = stateSpriteBurning;
-                            if (buffPanels != null)
-                            {
-                                if (!debuffSpells.Contains(s)) debuffSpells.Add(s);
-                                if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
 
+                                if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, new Vector3Int(diceResult, resistance, 0));
+                                else spellsAttached[s] = new Vector3Int(diceResult, resistance, 0);
                             }
-                        }
                     break;
 
                     case GameplayStates.Frozen:
                         if (applyEffectSpell)
                         {
-                                if (gameplayStatuses.Contains(GameplayStates.MagicMantle))
-                                {
-                                    if (GameInstance.DiceRollingBiggestNumber(s.numberOfTurns, s.diceSides) + GetSkillsStat(SkillsStat.DarkMagic) / 5 < s.diceSides / 2)
-                                    {
-                                        results.Add(new() { msgType = "s", msgString = heroName + " magic mantle protected from " + s.targetGamestate });
-                                        break;
-                                    }
 
-                                }
                                 gameplayStatuses.Add(GameplayStates.Frozen);
                             if (portraits.GetStatePortrait(GameplayStates.Frozen, out Sprite stateSpriteFrozen)) portrait.sprite = stateSpriteFrozen;
-                            if (buffPanels != null)
+
+                                if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, new Vector3Int(diceResult, resistance, 0));
+                                else spellsAttached[s] = new Vector3Int(diceResult, resistance, 0);
+                            }
+                    break;
+
+                    case GameplayStates.Petrified:
+
+                        if (!gameplayStatuses.Contains(GameplayStates.Petrified))
+                        {
+
+                            if (applyEffectSpell)
                             {
-                                if (!debuffSpells.Contains(s)) debuffSpells.Add(s);
-                                if (spellToApply != null) buffPanels.AddBuffToList(spellToApply);
+                                gameplayStatuses.Add(GameplayStates.Petrified);
+                                if (portraits.GetStatePortrait(GameplayStates.Petrified, out Sprite stateSpritePetrified)) portrait.sprite = stateSpritePetrified;
 
                             }
                         }
-                    break;
+
+                        break;
+                        case GameplayStates.Poisoned:
+                            if (!gameplayStatuses.Contains(GameplayStates.Poisoned))
+                            {
+
+                               // poisonDamageRate = pureDamageAmount - GetMaxDependedStat(DependedStat.DarkResistance);
+
+                                if (applyEffectSpell)
+                                {
+                                    gameplayStatuses.Add(GameplayStates.Poisoned);
+                                    if (portraits.GetStatePortrait(GameplayStates.Poisoned, out Sprite stateSpritePoisoned)) portrait.sprite = stateSpritePoisoned;
+
+                                    if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, new Vector3Int(diceResult, resistance, 0));
+                                    else spellsAttached[s] = new Vector3Int(diceResult, resistance, 0);
+                                }
+                            }
+                        break;
+                        case GameplayStates.Sleep:
+                            if (!gameplayStatuses.Contains(GameplayStates.Sleep))
+                            {
+
+
+                                if (applyEffectSpell)
+                                {
+                                    gameplayStatuses.Add(GameplayStates.Sleep);
+                                    if (portraits.GetStatePortrait(GameplayStates.Sleep, out Sprite stateSpriteSleep)) portrait.sprite = stateSpriteSleep;
+                                }
+                            }
+
+                            break;
+
+
+                        case GameplayStates.Blind:
+
+                            if (!gameplayStatuses.Contains(GameplayStates.Blind))
+                            {
+
+                                if (applyEffectSpell)
+                                {
+                                    gameplayStatuses.Add(GameplayStates.Blind);
+                                    if (portraits.GetStatePortrait(GameplayStates.Blind, out Sprite stateSpriteSleep)) portrait.sprite = stateSpriteSleep;
+                                }
+                            }
+                            break;
+
+
+
                     }
                 }
             break;
@@ -768,6 +741,10 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         showDamageEffect = false;
         return results;
     }
+
+
+
+
 
     void ProgressBarChange()
     {
@@ -1172,6 +1149,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         {
             GameInstance.playerController.timeForward -= TimePassBy;
             GameInstance.battleManager.battlePassTime += BattleTimeChanges;
+
         }
         else
         {
@@ -1205,7 +1183,6 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
             {
                 if (GameInstance.party.CheckFoodSupply(1) < 0)
                 {
-                    //print("Check for food" + currentHunger);
                     currentHunger -= 1;
                     if (currentHunger < 0) currentHunger = 0;
                     if (currentHunger <= 0)
@@ -1223,7 +1200,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
             }
         }
 
-        if (gameplayStatuses.Contains(GameplayStates.Poisoned))
+/*        if (gameplayStatuses.Contains(GameplayStates.Poisoned))
         {
             if (currentHealth > 0)
             {
@@ -1232,7 +1209,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 GameInstance.spellbook.ResultsToBattleLog(new() { "" }, new List<ResultMsg>() { new() { msgType = "s", msgString = heroName + " takes " + _poisonDamage.ToString() + " poison damage." } });
 
             }
-        }
+        }*/
 
         if (gameplayStatuses.Contains(GameplayStates.Regenerating))
         {
@@ -1257,7 +1234,19 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
             foreach (KeyValuePair<Spell, Vector3Int> s in spellsAttached)
             {
-                if (spellsAttached[s.Key].x > 0) { listToChange.Add(s.Key); }
+                if (spellsAttached[s.Key].x > 0) 
+                { 
+                    listToChange.Add(s.Key); 
+                    if(s.Key.targetGamestate == GameplayStates.Burning)
+                    {
+                    print("burning damage " + spellsAttached[s.Key].y);
+                        HealthDecrease(Random.Range(0,spellsAttached[s.Key].y)); 
+                    }
+                    if (s.Key.targetGamestate == GameplayStates.Poisoned)
+                    {
+                        HealthDecrease(Random.Range(0, spellsAttached[s.Key].y));
+                    }
+            }
                 else listToDelete.Add(s.Key);
             }
 
@@ -1281,16 +1270,34 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
                         break;
                     case SpellEffects.ElementalResistance:
-                        buffPanels.RemoveBuffFromList(s);
+
 
                         break;
                     case SpellEffects.Heal:
-                    buffPanels.RemoveBuffFromList(s);
+
                     gameplayStatuses.Remove(GameplayStates.Regenerating);
                     break;
+                }
+                
+                if(s.targetGamestate == GameplayStates.Burning)
+                {
+                    gameplayStatuses.Remove(GameplayStates.Burning);
+
+                }
+            if (s.targetGamestate == GameplayStates.Poisoned)
+            {
+                gameplayStatuses.Remove(GameplayStates.Poisoned);
+
             }
-                if (buffPanels != null) buffPanels.RemoveBuffFromList(s);
-                spellsAttached.Remove(s);
+            if (gameplayStatuses.Count == 0)
+                {
+                    if (portraits.GetStatePortrait(GameplayStates.None, out Sprite stateNorm)) portrait.sprite = stateNorm;
+                }
+                else
+                {
+                    if (portraits.GetStatePortrait(gameplayStatuses[gameplayStatuses.Count - 1], out Sprite stateLast)) portrait.sprite = stateLast;
+                }
+            spellsAttached.Remove(s);
             }
         
 
@@ -1325,7 +1332,11 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
     public SpellContainer GetDefaultSpell()
     {
-
+        if(lastSpell == null)
+        {
+            GameInstance.spellbook.ResultsToBattleLog(new() { "" }, new List<ResultMsg>() { new() { msgType = "s", msgString = heroName + " has no spell to cast! " } });
+            return null;
+        }
         return lastSpell;
     }
 
@@ -1420,6 +1431,12 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     public int GetHeroHunger()
     {
         return currentHunger;
+    }
+
+
+    public void AddSpellToSpellAttached(Spell savedspells, int timeToFinish)
+    {
+
     }
 
 }
@@ -1531,20 +1548,20 @@ public enum SkillsStat
 public enum GameplayStates
 {
     None,
-    Frozen,
-    Burning,
-    Poisoned,
+    Frozen,//
+    Burning,//
+    Poisoned,//
     Stunned,
-    Petrified,
+    Petrified,//
     Dead,
     Stoned,
     Paralized,
-    Blind,
-    Regenerating,
-    Confused,
-    MagicMantle,
-    Sleep,
-    Slow
+    Blind,//
+    Regenerating,  
+    Confused,//
+    MagicMantle, 
+    Sleep,//
+    Slow//
 }
 
 [System.Serializable]

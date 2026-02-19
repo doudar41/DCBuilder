@@ -55,7 +55,7 @@ public class BattleManager : MonoBehaviour
 
     //This delegate is send command to opponents counter number instead of normal exploration gametime delegate
     public delegate void BattlePassTime(int count);
-    public BattlePassTime battlePassTime;
+    public event BattlePassTime battlePassTime;
 
 
     // Not used yet
@@ -78,6 +78,8 @@ public class BattleManager : MonoBehaviour
 
     GameObject customBattleObject;
 
+
+
     private void Awake()
     {
         GameInstance.battleManager = this;
@@ -93,14 +95,15 @@ public class BattleManager : MonoBehaviour
         if (!customBattle)
         {
             // This will notify player that Battle begun
-            enemyTurn.Invoke("Battle");
-            GameInstance.party.SetTimerForHeroes(true);
+
+
             //Spawn enemies and add them to allopponents list
             SpawnEnemies(level01Enemies, 2, spawnPointsRaw01, 1);
             SpawnEnemies(level01Enemies, 2, spawnPointsRaw02, 2);
 
         }
-
+        enemyTurn.Invoke("Battle");
+        GameInstance.party.SetTimerForHeroes(true);
 
         //Add heroes to allopponents list
         foreach (Hero h in GameInstance.party.GetHeroList())
@@ -134,8 +137,9 @@ public class BattleManager : MonoBehaviour
     {
         enemyattack =true;
         yield return new WaitForSeconds(0.5f);
-        EnemyAutoAttack();
         enemyattack = false;
+        EnemyAutoAttack();
+
     }
 
 
@@ -215,8 +219,9 @@ public class BattleManager : MonoBehaviour
             GameInstance.playerController.attackAllowed = true;
         }
         //Open UI elements which need for battle 
+        enemyTurn.Invoke("Battle");
         battleStarts.Invoke();
-
+        GameInstance.party.SetTimerForHeroes(true);
         GameInstance.playerController.StartCustomBattle();
         GameInstance.soundManagerInGame.LaunchBattleMusic(BattleGroundEnvironment.STONE);
     }
@@ -258,7 +263,9 @@ public class BattleManager : MonoBehaviour
         }
         //Open UI elements which need for battle 
         battleStarts.Invoke();
+        enemyTurn.Invoke("Battle");
 
+        GameInstance.party.SetTimerForHeroes(true);
         GameInstance.playerController.StartCustomBattle();
         GameInstance.soundManagerInGame.LaunchBattleMusic(iblock.GetBattleGroundEnvironment());
     }
@@ -383,13 +390,14 @@ public class BattleManager : MonoBehaviour
             AttackEnding();
             return;
         }
-
+        SpellContainer enemyspell = new SpellContainer();
         int maxspelldistance =0;
         foreach (SpellContainer spell in attacker.GetEnemyAttackSpell())
         {
             if(spell.minDistanceToEnemy > maxspelldistance)
             {
                 maxspelldistance = spell.minDistanceToEnemy;
+                enemyspell = spell;
             }
         }
 
@@ -404,21 +412,60 @@ public class BattleManager : MonoBehaviour
         attacker.MoveAheadOnAttack();
 
         //Ruun through all opponents, getting IHero interface, if it on gameobject checking for agro and save biggest one to biggestAgro to compare 
-        for (int i =0; i<allOpponents.Count;i++)
+        List<int> heroesToAttack = new List<int>();
+        foreach (Spell _s in enemyspell.spells)
         {
+            if (_s.targetGamestate != GameplayStates.None)
+            {
+                for (int i = 0; i < allOpponents.Count; i++)
+                {
 
-            if (allOpponents[i].GetComponent<IHero>() != null)
+                    if (allOpponents[i].GetComponent<IHero>() != null)
+                    {
+                        bool statecount = false;
+                        List<GameplayStates> a = allOpponents[i].GetComponent<IHero>().GetHeroStatus();
+                        if (a.Count == 0)
+                        {
+                            heroesToAttack.Add(i);
+                            continue;
+                        }
+                        else
+                        {
+
+                            foreach (GameplayStates s in a)
+                            {
+                                if (s == _s.targetGamestate)
+                                {
+                                    statecount = true;
+                                }
+                            }
+                        }
+                        if (!statecount) heroesToAttack.Add(i);
+                    }
+                }
+               if(heroesToAttack.Count !=0) targetIndexInOpponents = heroesToAttack[ Random.Range(0, heroesToAttack.Count - 1)];
+            }
+        }
+
+        if(heroesToAttack.Count == 0)
+        {
+            for (int i = 0; i < allOpponents.Count; i++)
             {
 
-                int a = allOpponents[i].GetComponent<IHero>().GetHeroAgro();
-                if (biggestAgro < a && allOpponents[i].GetComponent<IHero>().GetHeroHealth() > 0)
+                if (allOpponents[i].GetComponent<IHero>() != null)
                 {
-                    //print("opponents " + i + " agro " + biggestAgro);
-                    biggestAgro = a;
-                    targetIndexInOpponents = i;
+
+                    int a = allOpponents[i].GetComponent<IHero>().GetHeroAgro();
+                    if (biggestAgro < a && allOpponents[i].GetComponent<IHero>().GetHeroHealth() > 0)
+                    {
+                        //print("opponents " + i + " agro " + biggestAgro);
+                        biggestAgro = a;
+                        targetIndexInOpponents = i;
+                    }
                 }
             }
         }
+
         //If targetIndexInOpponents -1 there is no one to attack
         if (targetIndexInOpponents > -1) 
         {
@@ -432,7 +479,6 @@ public class BattleManager : MonoBehaviour
             }
             List<ResultMsg> resultMsgs = targetHero.ApplySpellToHero(attacker.enemyAttack(attacker.GetEnemyRow()), quarrySorted[quarrySortedKey]);
             GameInstance.spellbook.ResultsToBattleLog(new List<string> { ""} ,resultMsgs);
-
         }
     }
 
@@ -440,7 +486,7 @@ public class BattleManager : MonoBehaviour
     {
         if (_enemy == null) return false;
         var enemystatus = _enemy.GetEnemyPermanentStatus();
-        if (enemystatus.ContainsKey(SpellEffects.Stone))
+        if (enemystatus.ContainsKey(SpellEffects.Petrify))
         {
             enemyTurn.Invoke(_enemy.GetEnemyName() + " is turned to stone and can't move!");
 
@@ -458,7 +504,12 @@ public class BattleManager : MonoBehaviour
 
             return false;
         }
+        if (enemystatus.ContainsKey(SpellEffects.Sleep))
+        {
+            enemyTurn.Invoke(_enemy.GetEnemyName() + " is frozen and can't move!");
 
+            return false;
+        }
         return true; 
     }
 
@@ -668,7 +719,7 @@ public class BattleManager : MonoBehaviour
 
     void SortingOpponents()
     {
-
+        int enemiesCount = 0;
         List<int> sortList = new List<int>();
 
         foreach(GameObject g in allOpponents)
@@ -679,22 +730,52 @@ public class BattleManager : MonoBehaviour
                 {
                     sortList.Add(g.GetComponent<IBattle>().GetInitiativeInBattle());
                     g.GetComponent<IEnemy>().MoveBackAfterAttack();
-
-
+                    enemiesCount++;
                 }
             }
             if (g.GetComponent<IHero>() != null)
             {
+                if (g.GetComponent<IHero>().GetHeroStatus().Contains(GameplayStates.Petrified) ||
+                    g.GetComponent<IHero>().GetHeroStatus().Contains(GameplayStates.Sleep) ||
+                    g.GetComponent<IHero>().GetHeroStatus().Contains(GameplayStates.Frozen) )
+                {
+                    continue;
+                }
 
                 if (g.GetComponent<IHero>().GetHeroHealth() > 0)
                 {
-                    //print("hero " + g.name);
                     sortList.Add(g.GetComponent<IBattle>().GetInitiativeInBattle());
+
                 }
             }
 
         }
+
+        int rndPlace = GameInstance.DiceRollingBiggestNumber(1, (sortList.Count - 1) * 2);
+        if (rndPlace < sortList.Count)
+        {
+            sortList.Insert(rndPlace, sortList[sortList.Count - 1]);
+        }
+        int delta = enemiesCount / 4;
+        if (delta > 1)
+        {
+            for (int i = 0; i < delta; i++)
+            {
+                foreach (GameObject g in allOpponents)
+                {
+                    if (g.GetComponent<IHero>() != null)
+                    {
+                        if (g.GetComponent<IHero>().GetHeroHealth() > 0)
+                        {
+                            sortList.Add(Random.Range(0, g.GetComponent<IBattle>().GetInitiativeInBattle() - 1));
+                        }
+                    }
+                }
+            }
+        }
+
         sortList.Sort(); sortList.Reverse();
+
         foreach (int i in sortList)
         {
             foreach (GameObject g in allOpponents)

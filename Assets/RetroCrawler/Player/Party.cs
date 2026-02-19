@@ -77,6 +77,7 @@ public class Party : MonoBehaviour
 
     public  void SetTimerForHeroes(bool battleOnOf)
     {
+        print("party timer " + battleOnOf);
         foreach (Hero h in heroes)
         {
             h.SetBattleTimeOnOff(battleOnOf);

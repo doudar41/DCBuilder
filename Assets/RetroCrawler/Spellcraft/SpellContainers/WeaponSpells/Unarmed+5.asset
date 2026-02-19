@@ -28,12 +28,14 @@ MonoBehaviour:
     restToBeAbleToCastAgainInTurns: 0
     SpellDescription: 
     skillToCheckInCalculations: 1
+    targetGamestate: 0
+    continuousSpell: 0
   spellIcon: {fileID: 21300000, guid: de7e670f0b1dbf34495fa558ecc96e85, type: 3}
   AOE: 0
   OnlyEnemies: 0
   OnlyParty: 0
   gameplaySpell: 0
-  battleSpell: 1
+  battleSpell: 0
   equipableSpell: 0
   minDistanceToEnemy: 1
   spellName: Unarmed strike

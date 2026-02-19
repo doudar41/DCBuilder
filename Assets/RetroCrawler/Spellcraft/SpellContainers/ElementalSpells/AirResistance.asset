@@ -19,7 +19,7 @@ MonoBehaviour:
     manaCost: 10
     diceRollsNumber: 2
     diceSides: 6
-    diceBonus: 0
+    diceBonus: 5
     numberOfTurns: 0
     magicType: 3
     changedMainStat: 0

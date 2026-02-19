@@ -33,7 +33,7 @@ MonoBehaviour:
   spellIcon: {fileID: 21300000, guid: becebaea4f947c14ba4472482c7f3d8c, type: 3}
   AOE: 0
   OnlyEnemies: 0
-  OnlyParty: 0
+  OnlyParty: 1
   gameplaySpell: 0
   battleSpell: 1
   equipableSpell: 0
