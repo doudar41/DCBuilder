@@ -15,15 +15,26 @@ MonoBehaviour:
   portraits:
   - state: 0
     sprite: {fileID: 21300000, guid: 5a62180fa4f12ff43875538c7a89bbff, type: 3}
+    animationState: []
   - state: 5
     sprite: {fileID: 21300000, guid: ec391ce4c5b13164eada2b1be5f738e4, type: 3}
+    animationState: []
   - state: 3
     sprite: {fileID: 21300000, guid: 0367d677d707f1f4ebb6c7e7d15c9c8b, type: 3}
+    animationState: []
   - state: 1
     sprite: {fileID: 21300000, guid: ed72c229ea21d244a851357a384878e2, type: 3}
+    animationState: []
   - state: 13
     sprite: {fileID: 21300000, guid: bef64c471bb73d9439edb2bf747f1d10, type: 3}
+    animationState: []
   - state: 9
     sprite: {fileID: 21300000, guid: 2344e37d2a4ca4549afc38000c1ddb2c, type: 3}
+    animationState: []
   - state: 2
     sprite: {fileID: 21300000, guid: 24676ab76fca8eb458b8f4cb6dd55ca6, type: 3}
+    animationState:
+    - {fileID: 21300000, guid: f39e734b9b35e5541a34b1d2b4b70999, type: 3}
+    - {fileID: 21300000, guid: e0ada84a269e6154b8648d4051efdbd7, type: 3}
+    - {fileID: 21300000, guid: 2db30f2c34bfc4b499e65ee120ad2fff, type: 3}
+    - {fileID: 21300000, guid: eba7c7612f420bf4c8600de34f31e39e, type: 3}

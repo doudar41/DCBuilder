@@ -16,7 +16,8 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 {
 
     [SerializeField] string heroName = "";
-    [SerializeField] Image portrait; 
+    [SerializeField] Image portrait;
+    [SerializeField] animateUIImage portraitOverlayAnimation;
     [SerializeField] Sprite deadSprite; // The same for all players
     [SerializeField] PortraitContainer portraits; // Each hero can have a picture representing state their in, poisoned, stunned etc.
     [SerializeField] List<Spell> debuffSpells; //List of debuff spells which removed by restoration spell
@@ -366,9 +367,11 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 break;
 
             case SpellEffects.ElementalResistance:
-                print("apply resistance spell");
+
                 int diceResult = GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides) + attacker.GetSkillsStat(s.skillToCheckInCalculations, false) / 3;
                 int resistance = GameInstance.DiceRollingBiggestNumber(s.diceRollsNumber, s.diceSides) + attacker.GetSkillsStat(s.skillToCheckInCalculations, false) / 3;
+
+                print("apply resistance spell "+resistance);
                 if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, new Vector3Int(diceResult,resistance,0));
                 else spellsAttached[s] = new Vector3Int(diceResult, resistance, 0);
                 if (buffPanels != null)
@@ -451,9 +454,9 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
                 gameplayStatuses.Remove(GameplayStates.Poisoned);
                 poisonDamageRate = 0;
+
                 if (portraits.GetStatePortrait(GameplayStates.None, out Sprite stateSpriteWell1)) portrait.sprite = stateSpriteWell1;
                 results.Add(new() { msgType = "s", msgString = heroName + " cured poison" });
-
                 break;
         }
         hitTargetEffect.Invoke(spellToApply);
@@ -654,11 +657,18 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                         {
 
                                 gameplayStatuses.Add(GameplayStates.Burning);
-                            if (portraits.GetStatePortrait(GameplayStates.Burning, out Sprite stateSpriteBurning)) portrait.sprite = stateSpriteBurning;
-
+                                if (portraits.IsAnimatedState(GameplayStates.Burning, out List<Sprite> listSprites))
+                                {
+                                    portraitOverlayAnimation.FillSpriteList("Burning",listSprites);
+                                    portraitOverlayAnimation.StartFXAnimation("Burning");
+                                }
+                                else
+                                {
+                                    if (portraits.GetStatePortrait(GameplayStates.Burning, out Sprite stateSpriteBurning)) portrait.sprite = stateSpriteBurning;
+                                }
                                 if (!spellsAttached.ContainsKey(s)) spellsAttached.Add(s, new Vector3Int(diceResult, resistance, 0));
                                 else spellsAttached[s] = new Vector3Int(diceResult, resistance, 0);
-                            }
+                        }
                     break;
 
                     case GameplayStates.Frozen:
@@ -850,6 +860,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         if (dependedStatsDefault.Count == 0) return 0;
         if (!dependedStatsDefault.ContainsKey(dependedStat)) return 0;
         int statInt = dependedStatsDefault[dependedStat];
+        if (dependedStat == DependedStat.meleeDamage || dependedStat == DependedStat.rangeDamage) print("base stat " + dependedStat + " " + statInt);
         switch (dependedStat)
         {
             case DependedStat.maxHealth:
@@ -879,20 +890,13 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
             case DependedStat.Hunger:
                 statInt += (GetMainStat(MainStat.Survival) / 5) * 100; //Max hunger resistance depends on survival stat
                 break;
-            case DependedStat.evasion:
-                break;
-            case DependedStat.WaterResistance:
-                break;
-            case DependedStat.EarthResistance:
-                break;
-            case DependedStat.AirResistance:
-                break;
-            case DependedStat.DarkResistance:
-                break;
+
             case DependedStat.meleeDamage:
                 if (GetHeroWeight() < GetMaxDependedStat(DependedStat.CarryingCapacity))
-                {
+                {                    
+                    //print ("melee damage stat increased by main stat and skill " + statInt +" "+ (GetMainStat(MainStat.Strength) / 5)+" "+ GetSkillsStat(GetWeaponType()));
                     statInt += (GetMainStat(MainStat.Strength) / 5) + GetSkillsStat(GetWeaponType());
+
                 }
                 break;
             case DependedStat.rangeDamage:
@@ -902,10 +906,11 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 }
                 break;
         }
-
+       if(dependedStat == DependedStat.meleeDamage || dependedStat == DependedStat.rangeDamage  ) print("modified stat " + dependedStat + " " + statInt);
 
         foreach (KeyValuePair<ItemType, SpellContainer> k in equipmentSpells)
         {
+            int x = statInt;
             foreach (Spell s in k.Value.spells)
             {
 
@@ -913,16 +918,24 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 {
                     statInt += s.amount;
                 }
+
             }
+            if (statInt != x) print("depended stat " + dependedStat + " changed by spell " + statInt + " - " + k.Value.spellName);
         }
 
 
         foreach (KeyValuePair<Spell, Vector3Int> s in spellsAttached)
         {
+            //print("depended stat before spell  " + dependedStat + " " + statInt);
+            int x = statInt;
+
+
             if (s.Key.changedDependedStat == dependedStat)
             {
                 if(s.Value.y != 0) statInt += s.Value.y;
+
             }
+             if(statInt != x) print("depended stat " + dependedStat + " changed by spell " + statInt + " - " + s.Key.spellEffect);
         }
 
         return Mathf.Clamp(statInt,0,int.MaxValue);
@@ -938,6 +951,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     public int GetSkillsStat(SkillsStat skillStat, bool pureStat = false)
     {
         if (dependedStatsDefault.Count == 0) return 0;
+        if (skillStat == SkillsStat.None) return 0;
         skillsStatsCurrent.TryGetValue(skillStat, out int st);
         int statInt = 0;
         statInt += st;
@@ -1133,7 +1147,10 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     public SkillsStat GetWeaponType()
     {
         if(!equipmentWithGUID.ContainsKey(ItemType.WEAPON)) return SkillsStat.None;
-        if (equipmentWithGUID[ItemType.WEAPON] != null) return GameInstance.dataBase.GetItemFromBaseByIndex(equipmentWithGUID[ItemType.WEAPON].container).weaponType;
+        if (equipmentWithGUID[ItemType.WEAPON] != null) 
+        { 
+            return GameInstance.dataBase.GetItemFromBaseByIndex(equipmentWithGUID[ItemType.WEAPON].container).weaponType; 
+        }
         return SkillsStat.None;
     }
 
@@ -1277,12 +1294,22 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
                     gameplayStatuses.Remove(GameplayStates.Regenerating);
                     break;
-                }
+                    case SpellEffects.CauseState:
+                    print("remove state " + s.targetGamestate);
+                    if (s.targetGamestate == GameplayStates.Burning)
+                    {
+                        gameplayStatuses.Remove(GameplayStates.Burning);
+                        portraitOverlayAnimation.StopFXAnimation();
+                        print("burning removed");
+                        }
+
+                    break;
+                    }
                 
                 if(s.targetGamestate == GameplayStates.Burning)
                 {
                     gameplayStatuses.Remove(GameplayStates.Burning);
-
+                    portraitOverlayAnimation.StopFXAnimation();
                 }
             if (s.targetGamestate == GameplayStates.Poisoned)
             {
@@ -1291,8 +1318,12 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
             }
             if (gameplayStatuses.Count == 0)
                 {
-                    if (portraits.GetStatePortrait(GameplayStates.None, out Sprite stateNorm)) portrait.sprite = stateNorm;
-                }
+                   if(currentHealth>0) if (portraits.GetStatePortrait(GameplayStates.None, out Sprite stateNorm)) portrait.sprite = stateNorm;
+                    else
+                    {
+                        portrait.sprite = deadSprite;
+                    }
+            }
                 else
                 {
                     if (portraits.GetStatePortrait(gameplayStatuses[gameplayStatuses.Count - 1], out Sprite stateLast)) portrait.sprite = stateLast;

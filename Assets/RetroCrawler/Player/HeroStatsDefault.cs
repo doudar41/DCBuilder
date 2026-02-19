@@ -31,6 +31,7 @@ public static class HeroStatsDefault
         { DependedStat.AirResistance, 0},
         { DependedStat.EarthResistance, 0},
         { DependedStat.WaterResistance, 0},
+        { DependedStat.IceResistance, 0},
         { DependedStat.DarkResistance, 0},
 
         { DependedStat.CarryingCapacity, 40},

@@ -69,7 +69,9 @@ public class PlayerStats : MonoBehaviour
             if(dependedStatsUIText.GetValue(k.Key) != null)
             dependedStatsUIText.GetValue(k.Key).text = k.Value.ToString();
             //if (k.Key == DependedStat.meleeDamage) print("show melee "+GameInstance.party.activeHero.GetMaxDependedStat(k.Key));
-
+       
+                //print("show depended  "+ k.Key + " - " + GameInstance.party.activeHero.GetMaxDependedStat(k.Key));
+            
         }
         //print("equipment weight "+GameInstance.inventory.GetCurrentHeroWeight() + " hero eqquipment capacity "+ GameInstance.party.activeHero.GetDependedStat(DependedStat.CarryingCapacity));
         carryingWeight.value = GameInstance.inventory.GetCurrentHeroWeight();

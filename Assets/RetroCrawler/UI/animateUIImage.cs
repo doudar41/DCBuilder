@@ -14,7 +14,7 @@ public class animateUIImage : MonoBehaviour
     [SerializeField] Sprite emptySpell;
     Dictionary<string, List<Sprite>> savedSpriteLists  = new Dictionary<string, List<Sprite>>();
     string currentName;
-
+    bool stopAnimation = false;
     private void Start()
     {
         
@@ -61,11 +61,15 @@ public class animateUIImage : MonoBehaviour
     {
         if(!savedSpriteLists.ContainsKey((string)effectName)) return;
         StartCoroutine(AnimateSavedFX(effectName));
+        stopAnimation = false;
     }
 
     public void StopFXAnimation()
     {
+        stopAnimation = true;
         StopCoroutine(AnimateSavedFX(currentName));
+        if (emptySpell != null) uiImage.sprite = emptySpell;
+
     }
 
     IEnumerator AnimateSavedFX(string nameFX)
@@ -76,11 +80,11 @@ public class animateUIImage : MonoBehaviour
             uiImage.sprite = savedSpriteLists[nameFX][i];
             yield return new WaitForSeconds(frameRate);
         }
-        if (emptySpell != null) uiImage.sprite = emptySpell;
-        if (!playOnce)
+        if (!playOnce && !stopAnimation)
         {
             StartFXAnimation(nameFX);
         }
+        if (playOnce || stopAnimation) { if (emptySpell != null) uiImage.sprite = emptySpell; }
         yield return null;
 
     }
