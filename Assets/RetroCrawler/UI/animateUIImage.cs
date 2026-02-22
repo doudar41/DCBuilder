@@ -10,14 +10,19 @@ public class animateUIImage : MonoBehaviour
     [SerializeField] Image uiImage;
     [SerializeField] List<Sprite> sprites;
     [SerializeField] float frameRate = 0.1f;
-    [SerializeField] bool playOnce = false;
+    [SerializeField] bool playOnce = false, startOnEnable = false;
     [SerializeField] Sprite emptySpell;
     Dictionary<string, List<Sprite>> savedSpriteLists  = new Dictionary<string, List<Sprite>>();
     string currentName;
     bool stopAnimation = false;
     private void Start()
     {
-        
+
+    }
+
+    private void OnEnable()
+    {
+        if (startOnEnable) StartAnimation();
     }
 
     public void StartAnimation()

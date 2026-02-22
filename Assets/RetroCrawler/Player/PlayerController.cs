@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Events;
 using UnityEngine.Tilemaps;
 using OldCode;
-
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -1007,10 +1007,12 @@ public class PlayerController : MonoBehaviour
                     // check for level exit interface, save tranfer point on another level to save file  load target level
                     return false;
                 case InteractablesEnum.PORTAL:
-                    OnBlockPlacement portalDest =  wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<IBlock>().GetPortalPoint();
 
-                    transform.position = portalDest.gameObject.transform.position;
-                    currentposition = portalDest.GetBlockCoordinate(); return false;
+                    OnBlockPlacement portalDest =  wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<IBlock>().GetPortalPoint();
+                    transform.position = new Vector3( portalDest.gameObject.transform.position.x, transform.position.y, portalDest.gameObject.transform.position.z);
+                    currentposition = portalDest.GetBlockCoordinate(); 
+                    
+                    return false;
 
                 case InteractablesEnum.LADDER:
                     // move player to another level of a tilemap
@@ -1065,6 +1067,27 @@ public class PlayerController : MonoBehaviour
         }
         return true;
     }
+
+
+    public void TeleportToMarkDestination(MarkSavedLocation mark)
+    {
+        if (GameInstance.markSavedLocations == null) return;
+        if (mark.levelName != SceneManager.GetActiveScene().name)
+        {
+            GameInstance.nextLevelPosition = mark.position;
+            GameInstance.nextLevelRotation = mark.direction;
+            GameInstance.LoadNextLevel(mark.levelName);  
+        }
+        else
+        {
+            transform.position = new Vector3(wallsAccess[mark.position].GetLocation().x, transform.position.y, wallsAccess[mark.position].GetLocation().z);
+            currentposition = mark.position;
+            currentforwardDirection = mark.direction;
+            RotateToCardinalLocation();
+        }
+
+    }
+
 
 
     public void InputEnable(bool onOff)

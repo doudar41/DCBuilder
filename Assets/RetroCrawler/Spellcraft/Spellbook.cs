@@ -40,6 +40,7 @@ public class Spellbook : MonoBehaviour
     public UnityEvent<SpellContainer> hitTargetEffect;
 
     [SerializeField] SoundID messageToLog;
+    [SerializeField] MarkRecallMenu markRecallMenu;
 
     private void Awake()
     {
@@ -174,10 +175,12 @@ public class Spellbook : MonoBehaviour
             {
                 switch (s.spellEffect)
                 {
-                    case SpellEffects.Recall:
+                    case SpellEffects.Mark:
                         if (GameInstance.playerController.playerState != PlayerState.Battle) print("recall mark");
                         //Get list of marked coordinates from active hero trasfer to this coordinates 
-                        break;
+                        markRecallMenu.OpenMarkRecall();
+
+                        return;
                     case SpellEffects.WizardEye:
                         // open special signs on map
                         if (spellTimeActive.ContainsKey(s)) break;

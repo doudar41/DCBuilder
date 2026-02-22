@@ -28,6 +28,25 @@ MonoBehaviour:
     restToBeAbleToCastAgainInTurns: 0
     SpellDescription: 
     skillToCheckInCalculations: 9
+    targetGamestate: 0
+    continuousSpell: 0
+  - spellEffect: 31
+    amount: 0
+    agroPoints: 1
+    manaCost: 0
+    diceRollsNumber: 2
+    diceSides: 6
+    diceBonus: 1
+    numberOfTurns: 0
+    magicType: 6
+    changedMainStat: 0
+    changedDependedStat: 0
+    skillStatAdded: 0
+    restToBeAbleToCastAgainInTurns: 0
+    SpellDescription: 
+    skillToCheckInCalculations: 8
+    targetGamestate: 3
+    continuousSpell: 0
   spellIcon: {fileID: 21300000, guid: de7e670f0b1dbf34495fa558ecc96e85, type: 3}
   AOE: 0
   OnlyEnemies: 0

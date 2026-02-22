@@ -26,9 +26,10 @@ public class BuffPanels : MonoBehaviour
         foreach (BuffIcon b in buffIcons)
         {
 
-            if (!b.SetSpriteToImages(spellAttached, timeSpellLasts)) continue;
+            if (!b.SetSpriteToImages(spellAttached, timeSpellLasts)) {  continue; }
             else
-            {if (!buffIconsWithTime.ContainsKey(b)) buffIconsWithTime.Add(b, timeSpellLasts);
+            {
+                if (!buffIconsWithTime.ContainsKey(b)) buffIconsWithTime.Add(b, timeSpellLasts);
                 else buffIconsWithTime[b] = timeSpellLasts;
             }
 

@@ -23,7 +23,7 @@ MonoBehaviour:
   weaponType: 0
   twoHanded: 0
   price: 1000
-  itemDescription: Learn Remove all bad states
+  itemDescription: Learn how to remove Blind, Poison, Slow, Confuse
   itemLevel: 0
   keyType: 0
   journalEntry: 

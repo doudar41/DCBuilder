@@ -91,6 +91,9 @@ public static class GameInstance
     //Chest and doors
     static SaveOptionsData saveOptionsData = new SaveOptionsData();
 
+    public static List<MarkSavedLocation> markSavedLocations = new List<MarkSavedLocation>();
+
+
     public static void ClearAllInstantSavedData()
     {
         equipmentHeroesSavedWithGUID.Clear();
@@ -315,6 +318,25 @@ public static class GameInstance
         soundManagerInGame.StopCurrentMusic();
         SceneManager.LoadScene(levelName, LoadSceneMode.Single);
 
+    }
+
+
+    public static void SetMarkLocation(Vector3Int coordinates, CardinalDirections cardinalDirection, string levelName)
+    {
+        MarkSavedLocation mark = new MarkSavedLocation();
+        mark.position = coordinates;
+        mark.levelName = levelName;
+        mark.direction = cardinalDirection;
+
+        if (markSavedLocations.Count <= 0) markSavedLocations.Add(mark);
+        else markSavedLocations[0] = mark;
+    }
+
+
+    public static MarkSavedLocation GetMarkLocation()
+    {
+        if (markSavedLocations.Count > 0) return markSavedLocations[0];
+        else return null;
     }
 
 
@@ -1028,4 +1050,13 @@ public class SavedSpellsAttached
     public int heroID;
     public List<Spell> spell = new List<Spell>();
     public List<int> timesToFinish = new List<int>(); // if -1 means infinite
+}
+
+
+[System.Serializable]
+public class MarkSavedLocation
+{
+    public string levelName;
+    public Vector3Int position;
+    public CardinalDirections direction;
 }

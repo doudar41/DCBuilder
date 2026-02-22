@@ -41,4 +41,4 @@ MonoBehaviour:
   spellName: Restoration
   spellPrice: 10
   spellLevel: 1
-  animationTriggerName: Restore
+  animationTriggerName: Heal

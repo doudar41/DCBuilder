@@ -1,9 +1,9 @@
-using Ami.BroAudio;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using static UnityEngine.Rendering.DebugUI.Table;
+
 
 
 
@@ -121,11 +121,23 @@ public class BattleManager : MonoBehaviour
         //Check if the first member of a quarry is enemy
         if (IfActiveOpponentIsEnemy())
         {
-            StartCoroutine(EnemyAttackDelay());
+            if (quarrySorted[quarrySortedKey].GetComponent<IEnemy>().GetEnemyPermanentStatus().ContainsKey(GameplayStates.Confused))
+            {
+                ConfusedAutoAttack();
+            }
+            else
+            {
+                StartCoroutine(EnemyAttackDelay());
+            }
+
         }
         else
         {
-            GameInstance.playerController.attackAllowed = true;
+            if (quarrySorted[quarrySortedKey].GetComponent<IHero>().GetHeroStatus().Contains(GameplayStates.Confused))
+            {
+                ConfusedAutoAttack();
+            }
+            else GameInstance.playerController.attackAllowed = true;
         }
         //Open UI elements which need for battle 
         battleStarts.Invoke();
@@ -139,7 +151,6 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         enemyattack = false;
         EnemyAutoAttack();
-
     }
 
 
@@ -212,11 +223,23 @@ public class BattleManager : MonoBehaviour
         //Check if the first member of a quarry is enemy
         if (IfActiveOpponentIsEnemy())
         {
-            StartCoroutine(EnemyAttackDelay());
+            if (quarrySorted[quarrySortedKey].GetComponent<IEnemy>().GetEnemyPermanentStatus().ContainsKey(GameplayStates.Confused))
+            {
+                ConfusedAutoAttack();
+            }
+            else
+            {
+                StartCoroutine(EnemyAttackDelay());
+            }
+
         }
         else
         {
-            GameInstance.playerController.attackAllowed = true;
+            if(quarrySorted[quarrySortedKey].GetComponent<IHero>().GetHeroStatus().Contains(GameplayStates.Confused))
+            {
+                ConfusedAutoAttack();
+            }
+            else GameInstance.playerController.attackAllowed = true;
         }
         //Open UI elements which need for battle 
         enemyTurn.Invoke("Battle");
@@ -259,6 +282,12 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
+            if (quarrySorted[quarrySortedKey].GetComponent<IHero>().GetHeroStatus().Contains(GameplayStates.Confused))
+            {
+                print("attack aomatically anyone");
+                //
+            }
+
             GameInstance.playerController.attackAllowed = true;
         }
         //Open UI elements which need for battle 
@@ -419,19 +448,17 @@ public class BattleManager : MonoBehaviour
             {
                 for (int i = 0; i < allOpponents.Count; i++)
                 {
-
                     if (allOpponents[i].GetComponent<IHero>() != null)
                     {
                         bool statecount = false;
                         List<GameplayStates> a = allOpponents[i].GetComponent<IHero>().GetHeroStatus();
                         if (a.Count == 0)
                         {
-                            heroesToAttack.Add(i);
+                            if(allOpponents[i].GetComponent<IHero>().GetHeroHealth()>0) heroesToAttack.Add(i);
                             continue;
                         }
                         else
                         {
-
                             foreach (GameplayStates s in a)
                             {
                                 if (s == _s.targetGamestate)
@@ -440,7 +467,7 @@ public class BattleManager : MonoBehaviour
                                 }
                             }
                         }
-                        if (!statecount) heroesToAttack.Add(i);
+                        if (!statecount && allOpponents[i].GetComponent<IHero>().GetHeroHealth() > 0) heroesToAttack.Add(i);
                     }
                 }
                if(heroesToAttack.Count !=0) targetIndexInOpponents = heroesToAttack[ Random.Range(0, heroesToAttack.Count - 1)];
@@ -451,14 +478,11 @@ public class BattleManager : MonoBehaviour
         {
             for (int i = 0; i < allOpponents.Count; i++)
             {
-
                 if (allOpponents[i].GetComponent<IHero>() != null)
                 {
-
                     int a = allOpponents[i].GetComponent<IHero>().GetHeroAgro();
                     if (biggestAgro < a && allOpponents[i].GetComponent<IHero>().GetHeroHealth() > 0)
                     {
-                        //print("opponents " + i + " agro " + biggestAgro);
                         biggestAgro = a;
                         targetIndexInOpponents = i;
                     }
@@ -473,7 +497,7 @@ public class BattleManager : MonoBehaviour
             //Apply attack spell from enemy to chosen hero
             if(attacker.enemyAttack(attacker.GetEnemyRow()) == null)
             {
-                GameInstance.spellbook.ResultsToBattleLog(new List<string> { attacker.GetEnemyName()+"Out of range " }, null);
+                GameInstance.spellbook.ResultsToBattleLog(new List<string> { attacker.GetEnemyName() + "Out of range " }, null);
                 GameInstance.battleManager.AttackEnding();
                 return;
             }
@@ -482,37 +506,159 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+
+
+
+    void ConfusedAutoAttack()
+    {
+
+        print("Confused attack");
+
+        GameInstance.spellbook.ResultsToBattleLog(new List<string> { " Confused attack " }, null);
+        SpellContainer spellToCast = new SpellContainer();
+        if (quarrySorted[quarrySortedKey].GetComponent<IEnemy>() != null)
+        {
+            IEnemy attacker = quarrySorted[quarrySortedKey].GetComponent<IEnemy>();
+
+            if (!CheckEnemyState(attacker)) { AttackEnding(); return; }
+
+            if (attacker.GetCurrentStatValue(EnemyStat.INITIATIVE) <= 0) { AttackEnding(); return; }
+
+            // Notify player that it's a enemy turn
+            enemyTurn.Invoke("Confused Enemy ATTACKS!!!!");
+
+            if (attacker.GetEnemyHealth() <= 0)
+            {
+                AttackEnding();
+                return;
+            }
+
+            SpellContainer enemyspell = new SpellContainer();
+            int maxspelldistance = 0;
+            foreach (SpellContainer spell in attacker.GetEnemyAttackSpell())
+            {
+                if (spell.minDistanceToEnemy > maxspelldistance)
+                {
+                    maxspelldistance = spell.minDistanceToEnemy;
+                    enemyspell = spell;
+                }
+            }
+
+            if (maxspelldistance < attacker.GetEnemyRow())
+            {
+                // Enemy can't reach any hero to attack
+                //enemyTurn.Invoke(attacker.GetEnemyName() + " can't reach any hero to attack!");
+                AttackEnding();
+                return;
+            }
+            //Play animation of moving forward
+            attacker.MoveAheadOnAttack();
+
+            //Ruun through all opponents, getting IHero interface, if it on gameobject checking for agro and save biggest one to biggestAgro to compare 
+            targetIndexInOpponents = Random.Range(0, allOpponents.Count - 1);
+
+            //If targetIndexInOpponents -1 there is no one to attack
+            if (targetIndexInOpponents > -1)
+            {
+                if (allOpponents[targetIndexInOpponents].GetComponent<IHero>() != null)
+                {
+                    IHero targetHero = allOpponents[targetIndexInOpponents].GetComponent<IHero>();
+                    if (attacker.enemyAttack(attacker.GetEnemyRow()) == null)
+                    {
+                        GameInstance.spellbook.ResultsToBattleLog(new List<string> { attacker.GetEnemyName() + "Out of range " }, null);
+                        GameInstance.battleManager.AttackEnding();
+                        return;
+                    }
+                    List<ResultMsg> resultMsgs = targetHero.ApplySpellToHero(attacker.enemyAttack(attacker.GetEnemyRow()), quarrySorted[quarrySortedKey]);
+                    GameInstance.spellbook.ResultsToBattleLog(new List<string> { "" }, resultMsgs);
+                }
+                if (allOpponents[targetIndexInOpponents].GetComponent<IEnemy>() != null)
+                {
+
+                    IEnemy _enemy = allOpponents[targetIndexInOpponents].GetComponent<IEnemy>();
+                    List<ResultMsg> resultMsgs = _enemy.ApplySpellToEnemyByEnemy(attacker.enemyAttack(attacker.GetEnemyRow()), quarrySorted[quarrySortedKey]);
+                    GameInstance.spellbook.ResultsToBattleLog(new List<string> { "" }, resultMsgs);
+                }
+
+            }
+
+        }
+
+        if (quarrySorted[quarrySortedKey].GetComponent<IHero>() != null)
+        {
+            List<SpellContainer> spellContainers = quarrySorted[quarrySortedKey].GetComponent<IHero>().GetActiveHeroSpellbook();
+            spellContainers.Add(quarrySorted[quarrySortedKey].GetComponent<IHero>().GetWeaponSpell());
+            spellToCast = spellContainers[Random.Range(0, spellContainers.Count-1)];
+            
+            
+            enemyTurn.Invoke("Confused Hero ATTACKS!!!!");
+
+            IHero _hero = quarrySorted[quarrySortedKey].GetComponent<IHero>();
+            if (_hero.GetHeroHealth() <= 0)
+            {
+                AttackEnding();
+                return;
+            }
+
+            SpellContainer enemyspell = new SpellContainer();
+
+
+            //Ruun through all opponents, getting IHero interface, if it on gameobject checking for agro and save biggest one to biggestAgro to compare 
+            targetIndexInOpponents = Random.Range(0, allOpponents.Count - 1);
+
+            //If targetIndexInOpponents -1 there is no one to attack
+            if (targetIndexInOpponents > -1)
+            {
+                if (allOpponents[targetIndexInOpponents].GetComponent<IHero>() != null)
+                {
+                    IHero targetHero = allOpponents[targetIndexInOpponents].GetComponent<IHero>();
+
+                    List<ResultMsg> resultMsgs = targetHero.ApplySpellToHero(spellToCast, quarrySorted[quarrySortedKey]);
+                    GameInstance.spellbook.ResultsToBattleLog(new List<string> { "" }, resultMsgs);
+                }
+                if (allOpponents[targetIndexInOpponents].GetComponent<IEnemy>() != null)
+                {
+
+                    IEnemy _enemy = allOpponents[targetIndexInOpponents].GetComponent<IEnemy>();
+                    List<ResultMsg> resultMsgs = _enemy.ApplySpellToEnemy(spellToCast, quarrySorted[quarrySortedKey]);
+                    GameInstance.spellbook.ResultsToBattleLog(new List<string> { "" }, resultMsgs);
+                }
+
+            }
+        }
+
+
+    }
+
+
+
+
+
     public bool CheckEnemyState(IEnemy _enemy)
     {
         if (_enemy == null) return false;
         var enemystatus = _enemy.GetEnemyPermanentStatus();
-        if (enemystatus.ContainsKey(SpellEffects.Petrify))
+        if (enemystatus.ContainsKey(GameplayStates.Petrified))
         {
             enemyTurn.Invoke(_enemy.GetEnemyName() + " is turned to stone and can't move!");
 
             return false;
         }
-        if (enemystatus.ContainsKey(SpellEffects.Paralize))
-        {
-            enemyTurn.Invoke(_enemy.GetEnemyName() + " is paralyzed and can't move!");
 
-            return false;
-        }
-        if (enemystatus.ContainsKey(SpellEffects.Freeze))
+        if (enemystatus.ContainsKey(GameplayStates.Frozen))
         {
             enemyTurn.Invoke(_enemy.GetEnemyName() + " is frozen and can't move!");
 
             return false;
         }
-        if (enemystatus.ContainsKey(SpellEffects.Sleep))
+        if (enemystatus.ContainsKey(GameplayStates.Sleep))
         {
-            enemyTurn.Invoke(_enemy.GetEnemyName() + " is frozen and can't move!");
+            enemyTurn.Invoke(_enemy.GetEnemyName() + " sleepy ");
 
             return false;
         }
         return true; 
     }
-
 
     /// Checking if gameobject has IEnemy interface
     bool IfActiveOpponentIsEnemy()
@@ -521,7 +667,6 @@ public class BattleManager : MonoBehaviour
         if (quarrySorted[quarrySortedKey].GetComponent<IEnemy>() != null) return true;
         else return false;
     }
-
 
     //Make an enemiy list
     public List<IEnemy> GetEnemies()
@@ -532,7 +677,7 @@ public class BattleManager : MonoBehaviour
         {
             if(g.GetComponent<IEnemy>() != null)
             {
-                if(g.GetComponent<IEnemy>().GetEnemyHealth()>0 && !g.GetComponent<IEnemy>().GetEnemyPermanentStatus().ContainsKey( SpellEffects.Stone))
+                if(g.GetComponent<IEnemy>().GetEnemyHealth()>0 && !CheckEnemyState(g.GetComponent<IEnemy>()))
 
                 enemiesList.Add(g.GetComponent<IEnemy>());
             }
@@ -540,7 +685,6 @@ public class BattleManager : MonoBehaviour
 
         return enemiesList;
     }
-
 
     //This method close a current turn and start next
 
@@ -582,18 +726,29 @@ public class BattleManager : MonoBehaviour
                     quarrySortedKey = i; break;
                 }
             }
-
         }
 
         // Choose between enemy or player turn
         if (IfActiveOpponentIsEnemy())
         {
-           StartCoroutine(EnemyAttackDelay());
-            return;
+            if (quarrySorted[quarrySortedKey].GetComponent<IEnemy>().GetEnemyPermanentStatus().ContainsKey(GameplayStates.Confused))
+            {
+                ConfusedAutoAttack();
+            }
+            else
+            {
+                StartCoroutine(EnemyAttackDelay());
+            }
+
         }
         else
         {
-            GameInstance.playerController.attackAllowed = true;
+            print("hero is confused " + quarrySorted[quarrySortedKey].GetComponent<IHero>().GetHeroStatus().Contains(GameplayStates.Confused));
+            if (quarrySorted[quarrySortedKey].GetComponent<IHero>().GetHeroStatus().Contains(GameplayStates.Confused))
+            {
+                ConfusedAutoAttack();
+            }
+            else GameInstance.playerController.attackAllowed = true;
         }
         targetIndexInOpponents = -1;
         enemyTurn.Invoke("");
@@ -636,11 +791,27 @@ public class BattleManager : MonoBehaviour
 
         if (IfActiveOpponentIsEnemy())
         {
-            StartCoroutine(EnemyAttackDelay());
+            if (quarrySorted[quarrySortedKey].GetComponent<IEnemy>().GetEnemyPermanentStatus().ContainsKey(GameplayStates.Confused))
+            {
+                ConfusedAutoAttack();
+            }
+            else
+            {
+                StartCoroutine(EnemyAttackDelay());
+            }
+
         }
         else
         {
-            GameInstance.playerController.attackAllowed = true;
+            if (quarrySorted[quarrySortedKey].GetComponent<IHero>().GetHeroStatus().Contains(GameplayStates.Confused))
+            {
+                ConfusedAutoAttack();
+            }
+            else
+            {
+                GameInstance.playerController.attackAllowed = true;
+            }
+
         }
     }
 
@@ -699,9 +870,7 @@ public class BattleManager : MonoBehaviour
             else if(g.GetComponent<IEnemy>() != null)
             {
                 enemyHealth += g.GetComponent<IEnemy>().GetEnemyHealth();
-                if (g.GetComponent<IEnemy>().GetEnemyPermanentStatus().ContainsKey(SpellEffects.Stone)) unabledEnemies++;
-                if (g.GetComponent<IEnemy>().GetEnemyPermanentStatus().ContainsKey(SpellEffects.Paralize)) unabledEnemies++;
-                if (g.GetComponent<IEnemy>().GetEnemyPermanentStatus().ContainsKey(SpellEffects.Freeze)) unabledEnemies++;
+                if (!CheckEnemyState( g.GetComponent<IEnemy>())) unabledEnemies++;
                 if (g.GetComponent<IEnemy>().GetCurrentStatValue(EnemyStat.INITIATIVE) < 0) unabledEnemies++;
                 enemyCount++;
             }
@@ -711,7 +880,6 @@ public class BattleManager : MonoBehaviour
         if (heroesHealth <= 0) return 2;
         if(unabledHeroes == 4) return 2;
         if(unabledEnemies == enemyCount) return 1;
-
 
         return 0;
     }
@@ -748,7 +916,6 @@ public class BattleManager : MonoBehaviour
 
                 }
             }
-
         }
 
         int rndPlace = GameInstance.DiceRollingBiggestNumber(1, (sortList.Count - 1) * 2);

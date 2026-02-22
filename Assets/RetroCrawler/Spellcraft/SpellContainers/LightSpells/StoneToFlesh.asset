@@ -28,7 +28,7 @@ MonoBehaviour:
     restToBeAbleToCastAgainInTurns: 0
     SpellDescription: 
     skillToCheckInCalculations: 7
-    targetGamestate: 0
+    targetGamestate: 5
     continuousSpell: 0
   spellIcon: {fileID: 21300000, guid: 007b47c5eaf55004e880dc418e73cb8c, type: 3}
   AOE: 0

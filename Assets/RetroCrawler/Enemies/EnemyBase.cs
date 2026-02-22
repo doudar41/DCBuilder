@@ -39,7 +39,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
     [SerializeField] List<SpellEffects> spellEffectImmunityList = new List<SpellEffects>();
 
 
-    Dictionary<SpellEffects,int> appliedPermanentDebuffs= new Dictionary<SpellEffects, int>();
+    Dictionary<GameplayStates,Vector3Int> appliedPermanentDebuffs= new Dictionary<GameplayStates, Vector3Int>();
 
     int healthStarted;
 
@@ -179,7 +179,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
         {
             attackrollbonus = hero.GetMaxDependedStat(DependedStat.accuracy);  // agillity modifier + endurance modifier of attacker
         }
-
+        if (hero.GetHeroStatus().Contains(GameplayStates.Blind)) { attackrollbonus = -5; }
 
         foreach (Spell _spell in spellToApply.spells)
         {
@@ -192,6 +192,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
 
             int dice = GameInstance.DiceRollingBiggestNumber(1, 20); //attackroll and evaderoll random generation
             attackRoll = dice + attackrollbonus;
+            if (attackRoll <= 0) attackRoll = 1;
             evaderoll = GameInstance.DiceRollingBiggestNumber(1, 20) + currentStats[EnemyStat.EVASION].y;
 
             results.Add(new() { msgType = "s", msgString = "AR "+ _spell.spellEffect});
@@ -206,13 +207,13 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                 continue; 
             }//if evasion is successful and dice is not equal 20 spell is ignored
 
-            if (!appliedPermanentDebuffs.ContainsKey(SpellEffects.CauseState) && _spell.targetGamestate == GameplayStates.Sleep)
+            if (!appliedPermanentDebuffs.ContainsKey(GameplayStates.Sleep) )
             {
-                changeEnemyState.Invoke(GameplayStates.Slow, false, 0);
-                
+                appliedPermanentDebuffs.Remove(GameplayStates.Sleep);
+                changeEnemyState.Invoke(GameplayStates.Sleep, false, 0);
             }
-                int damageAmountDiceSumResult = CalculateIncomingDamage(_spell, dice); // calculating damage according to dice rolls
-            
+
+            int damageAmountDiceSumResult = CalculateIncomingDamage(_spell, dice); // calculating damage according to dice rolls
             int diceToCompare = GameInstance.DiceRollingBiggestNumber(_spell.diceRollsNumber, _spell.diceSides); // dice to compare with spell effect application chance
 
 
@@ -325,57 +326,6 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                     break;
 
 
-                case SpellEffects.Petrify:
-                    if(spellEffectImmunityList.Contains(SpellEffects.Petrify)) continue; // skip stone effect if enemy has a total immunity to it
-                    diceToCompare += Mathf.Clamp(spellcaster.GetComponent<IHero>().GetSkillsStat(SkillsStat.ElementalMagic, false) / 10, 0, _spell.diceSides); // adding bonus to stone chance from elemental magic skill 
-                    if ( diceToCompare == _spell.diceSides)
-                    {
-                        appliedPermanentDebuffs.TryAdd(SpellEffects.Petrify, 0);
-                        if (enemySprites.GetStatePortrait(GameplayStates.Stoned, out Sprite stateSpriteStoned)) enemyFace.sprite = stateSpriteStoned;
-                    }
-                    break;
-
-                case SpellEffects.Paralize:
-                    if (spellEffectImmunityList.Contains(SpellEffects.Paralize)) continue; // skip paralize effect if enemy has a total immunity to it
-                    if ( diceToCompare == _spell.diceSides)
-                    {
-                        appliedPermanentDebuffs.TryAdd(SpellEffects.Paralize, 0);
-                        if (enemySprites.GetStatePortrait(GameplayStates.Paralized, out Sprite stateSpriteParalized)) enemyFace.sprite = stateSpriteParalized;
-                    }
-                    break;
-
-
-                case SpellEffects.Poison:
-                    if (spellEffectImmunityList.Contains(SpellEffects.Poison)) continue; // skip poison effect if enemy has a total immunity to it
-                    if (diceToCompare > _spell.diceSides / 2)
-                    {
-                        appliedPermanentDebuffs.TryAdd(SpellEffects.Poison, damageAmountDiceSumResult);
-                        if (enemySprites.GetStatePortrait(GameplayStates.Poisoned, out Sprite stateSpritePetrified)) enemyFace.sprite = stateSpritePetrified;
-                        playStatusAnimation.Invoke("Poisoned");
-                    }
-
-                    break;
-
-                case SpellEffects.Burn:
-                    if (spellEffectImmunityList.Contains(SpellEffects.Burn)) continue; // skip burn effect if enemy has a total immunity to it
-                    if (diceToCompare > _spell.diceSides / 2)
-                    {
-
-                        appliedPermanentDebuffs.TryAdd(SpellEffects.Burn, damageAmountDiceSumResult);
-                        playStatusAnimation.Invoke("BurnStatus");
-                    }
-                    results.Add(new() { msgType="s", msgString = "burn"});
-                    break;
-
-                case SpellEffects.Freeze:
-                    if (spellEffectImmunityList.Contains(SpellEffects.Freeze)) continue; // skip freeze effect if enemy has a total immunity to it
-                    if (diceToCompare > _spell.diceSides / 2)
-                {
-                    appliedPermanentDebuffs.TryAdd(SpellEffects.Freeze, 0);
-                        playStatusAnimation.Invoke("Freeze");
-                    }
-                    results.Add(new() { msgType = "s", msgString = "freeze" });
-                    break;
                 case SpellEffects.Vampirism:
                     if (spellEffectImmunityList.Contains(SpellEffects.Vampirism)) continue; // skip vampirism effect if enemy has a total immunity to it
                     HealthDamage(damageAmountDiceSumResult);
@@ -383,20 +333,88 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                     float divider = darkPower * 0.1f;
                     spellcaster.GetComponent<IHero>().HealthDecrease(-(int)((float)damageAmountDiceSumResult * divider)); // healing spellcaster by vampirism amount
                     break;
-                case SpellEffects.Sleep:
-                    if (appliedPermanentDebuffs.ContainsKey(SpellEffects.CauseState) && _spell.targetGamestate == GameplayStates.Sleep) continue; // skip freeze effect if enemy has a total immunity to it
-                    if (diceToCompare > _spell.diceSides / 2)
-                    {
-                        appliedPermanentDebuffs.TryAdd(SpellEffects.Sleep, 10000);
-                        playStatusAnimation.Invoke("Sleep");
-                    }
-                    results.Add(new() { msgType = "s", msgString = "Sleep" });
-                    changeEnemyState.Invoke(GameplayStates.Sleep, true, 10000);
 
-                    break;
 
                 case SpellEffects.CauseState:
-                   
+
+                    switch (_spell.targetGamestate)
+                    {
+
+                        case GameplayStates.Frozen:
+                            if (spellEffectImmunityList.Contains(SpellEffects.Freeze)) continue; // skip freeze effect if enemy has a total immunity to it
+                            if (diceToCompare > _spell.diceSides / 2)
+                            {
+                                appliedPermanentDebuffs.TryAdd(GameplayStates.Frozen, new Vector3Int(0,0,0));
+                                playStatusAnimation.Invoke("Freeze");
+                            }
+                            results.Add(new() { msgType = "s", msgString = "freeze" });
+
+
+                            break;
+                        case GameplayStates.Burning:
+                            if (spellEffectImmunityList.Contains(SpellEffects.Burn)) continue; // skip burn effect if enemy has a total immunity to it
+                            if (diceToCompare > _spell.diceSides / 2)
+                            {
+                                appliedPermanentDebuffs.TryAdd(GameplayStates.Burning, new Vector3Int (0,damageAmountDiceSumResult,0));
+                                playStatusAnimation.Invoke("BurnStatus");
+                            }
+                            results.Add(new() { msgType = "s", msgString = "burn" });
+
+                            break;
+                        case GameplayStates.Poisoned:
+                            if (spellEffectImmunityList.Contains(SpellEffects.Poison)) continue; // skip poison effect if enemy has a total immunity to it
+                            if (diceToCompare > _spell.diceSides / 2)
+                            {
+                                appliedPermanentDebuffs.TryAdd(GameplayStates.Poisoned, new Vector3Int(0, damageAmountDiceSumResult,0));
+                                if (enemySprites.GetStatePortrait(GameplayStates.Poisoned, out Sprite stateSpritePetrified)) enemyFace.sprite = stateSpritePetrified;
+                                playStatusAnimation.Invoke("Poisoned");
+                            }
+                            break;
+
+                        case GameplayStates.Petrified:
+                            if (spellEffectImmunityList.Contains(SpellEffects.Petrify)) continue; // skip stone effect if enemy has a total immunity to it
+                            diceToCompare += Mathf.Clamp(spellcaster.GetComponent<IHero>().GetSkillsStat(SkillsStat.ElementalMagic, false) / 10, 0, _spell.diceSides); // adding bonus to stone chance from elemental magic skill 
+                            if (diceToCompare == _spell.diceSides)
+                            {
+                                appliedPermanentDebuffs.TryAdd(GameplayStates.Petrified, new Vector3Int(0,0,0));
+                                if (enemySprites.GetStatePortrait(GameplayStates.Stoned, out Sprite stateSpriteStoned)) enemyFace.sprite = stateSpriteStoned;
+                            }
+                            break;
+
+                        case GameplayStates.Blind:
+                            if (diceToCompare > _spell.diceSides / 2)
+                            {
+                                appliedPermanentDebuffs.TryAdd(GameplayStates.Blind, new Vector3Int(0, 0, 0));
+                                playStatusAnimation.Invoke("Blind");
+                            }
+                            results.Add(new() { msgType = "s", msgString = "Blind" });
+                            changeEnemyState.Invoke(GameplayStates.Blind, true, 10000);
+                            break;
+
+                        case GameplayStates.Confused:
+                            break;
+
+                        case GameplayStates.Sleep:
+                            if (diceToCompare > _spell.diceSides / 2)
+                            {
+                                appliedPermanentDebuffs.TryAdd(GameplayStates.Sleep, new Vector3Int(0,0,0));
+                                playStatusAnimation.Invoke("Sleep");
+                            }
+                            results.Add(new() { msgType = "s", msgString = "Sleep" });
+                            changeEnemyState.Invoke(GameplayStates.Sleep, true, 10000);
+                            break;
+                        case GameplayStates.Slow:
+                            if (diceToCompare > _spell.diceSides / 2)
+                            {
+                                int SlowSpellAction = GameInstance.DiceRollingWithSkill(true, _spell, spellcaster, EnemyStat.INITIATIVE, 3);
+                                currentStats[EnemyStat.INITIATIVE] = new Vector3Int(currentStats[EnemyStat.INITIATIVE].x, Mathf.Clamp(currentStats[EnemyStat.INITIATIVE].x - damageAmountDiceSumResult, 1, int.MaxValue), SlowSpellAction);
+                                appliedPermanentDebuffs.TryAdd(GameplayStates.Slow, new Vector3Int(0, 0, 0));
+                                playStatusAnimation.Invoke("Slow");
+                            }
+                            results.Add(new() { msgType = "s", msgString = "Slow" });
+                            changeEnemyState.Invoke(GameplayStates.Slow, true, 10000);
+                            break;
+                    }
 
                     break;
 
@@ -408,6 +426,270 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
         if (!spellToApply.AOE)StartCoroutine(AttackDelay());
         return results;
     }
+
+
+    public List<ResultMsg> ApplySpellToEnemyByEnemy(SpellContainer spellToApply, GameObject spellcaster) // applying spell to enemy and calculating damage and effects
+    {
+        if (spellToApply == null) { if (!spellToApply.AOE) StartCoroutine(AttackDelay()); return null; }
+        List<ResultMsg> results = new List<ResultMsg>();
+        int attackRoll = 0;
+        int attackrollbonus = 0, evaderoll = 0;
+
+        IEnemy _enemy = spellcaster.GetComponent<IEnemy>();
+
+        if (_enemy != null)
+        {
+            attackrollbonus = _enemy.GetCurrentStatValue(EnemyStat.ACCURACY);  // agillity modifier + endurance modifier of attacker
+        }
+        if (_enemy.GetEnemyPermanentStatus().ContainsKey(GameplayStates.Blind)) { attackrollbonus = -5; }
+
+        foreach (Spell _spell in spellToApply.spells)
+        {
+
+            if (magicTypeImmunityList.Contains(_spell.magicType)) // skip magic attack if enemy has a total immunity to it 
+            {
+                hitTargetEffect.Invoke(immunityspell); // Event for showing immunity animation
+                continue;
+            }
+
+            int dice = GameInstance.DiceRollingBiggestNumber(1, 20); //attackroll and evaderoll random generation
+            attackRoll = dice + attackrollbonus;
+            if (attackRoll <= 0) attackRoll = 1;
+            evaderoll = GameInstance.DiceRollingBiggestNumber(1, 20) + currentStats[EnemyStat.EVASION].y;
+
+            results.Add(new() { msgType = "s", msgString = "AR " + _spell.spellEffect });
+            results.Add(new() { msgType = "i", msgInt = attackRoll });
+
+            results.Add(new() { msgType = "s", msgString = "/" });
+            results.Add(new() { msgType = "i", msgInt = evaderoll });  // attackroll and evaderoll added to list to be used in the battle log
+
+            if (evaderoll > attackRoll)
+            {
+                results.Add(new() { msgType = "s", msgString = "missed" });
+                continue;
+            }//if evasion is successful and dice is not equal 20 spell is ignored
+
+            if (!appliedPermanentDebuffs.ContainsKey(GameplayStates.Sleep))
+            {
+                appliedPermanentDebuffs.Remove(GameplayStates.Sleep);
+                changeEnemyState.Invoke(GameplayStates.Sleep, false, 0);
+            }
+
+            int damageAmountDiceSumResult = CalculateIncomingDamage(_spell, dice); // calculating damage according to dice rolls
+            int diceToCompare = GameInstance.DiceRollingBiggestNumber(_spell.diceRollsNumber, _spell.diceSides); // dice to compare with spell effect application chance
+
+
+            switch (_spell.spellEffect) //spellEffects is enum used to list all spell effects 
+            {
+                case SpellEffects.PDmg: // Most weapon damage calculation
+
+                    // Rolling dices according with stored in a spell scriptable object numbers + make it second time if dice is equal 20
+
+                    if (spellToApply.minDistanceToEnemy > 1) //Add bonus to a range or melee attack
+                    {
+                        if (rowIndex > 1)
+                        {
+                            damageAmountDiceSumResult += _enemy.GetCurrentStatValue(EnemyStat.RANGE_DAMAGE);// if enemy is in the back rows range damage is used
+                        }
+                        else
+                        {
+                            damageAmountDiceSumResult -= _enemy.GetCurrentStatValue(EnemyStat.RANGE_DAMAGE);// if enemy is in the front row range damage is subtracted from total damage
+                            if (damageAmountDiceSumResult < 0) damageAmountDiceSumResult = 0;
+                        }
+                    }
+                    else
+                    {
+                        damageAmountDiceSumResult += _enemy.GetCurrentStatValue(EnemyStat.MELEE_DAMAGE); // if enemy is in the front row melee damage is used, Spellbook preventing from using melee spells on back rows enemies
+                    }
+
+                    // If weapon damage was change to a elemental checking if enemy has an immunity to it
+
+                    if (magicTypeImmunityList.Contains(spellcaster.GetComponent<IHero>().GetWeaponMagicType()))
+                    {
+                        hitTargetEffect.Invoke(immunityspell); // Event for showing immunity animation
+                        continue;
+                    }
+
+                    // If weapon enchanced with element all damage become an elemental damage
+                    damageAmountDiceSumResult += GameInstance.DiceRollingBiggestNumber(1, spellcaster.GetComponent<IHero>().GetSkillsStat(_spell.skillToCheckInCalculations, false));
+
+                    damageAmountDiceSumResult = ApplyMagicResistanceToWeapon(spellcaster, damageAmountDiceSumResult);
+                    damageAmountDiceSumResult = Mathf.Clamp(damageAmountDiceSumResult, 0, int.MaxValue); // making sure that damage amount is not negative after applying resistance
+
+                    results.Add(new() { msgType = "s", msgString = enemyName + " damaged " });
+                    results.Add(new() { msgType = "i", msgInt = damageAmountDiceSumResult }); // adding final damage amount to the results list
+                    HealthDamage(damageAmountDiceSumResult); // applying damage to enemy health
+                    spellcaster.GetComponent<IHero>().RecordSkillUsed(_spell.skillToCheckInCalculations);
+                    break;
+
+                case SpellEffects.MDmg:
+
+                    damageAmountDiceSumResult = MagicDamageApply(spellcaster, _spell, damageAmountDiceSumResult);
+                    results.Add(new() { msgType = "i", msgInt = damageAmountDiceSumResult });
+                    spellcaster.GetComponent<IHero>().RecordSkillUsed(_spell.skillToCheckInCalculations);
+                    break;
+
+                case SpellEffects.DSMod: // if spell is modifying depended stat of enemy (ex. accuracy, evasion, resistances etc.)
+
+                    if (damageAmountDiceSumResult < (_spell.diceRollsNumber * _spell.diceSides) / 2)
+                    {
+                        continue; // if rolled damage is less than half of maximum possible damage debuff is not applied
+                    }
+                    damageAmountDiceSumResult += spellcaster.GetComponent<IHero>().MagicDamageModifier(_spell.skillToCheckInCalculations);
+
+                    int timeOfSpellAction = GameInstance.DiceRollingWithSkill(true, _spell, spellcaster, EnemyStat.INITIATIVE, 3);
+
+                    switch (_spell.changedDependedStat)
+                    {
+                        case DependedStat.initiative:
+                            currentStats[EnemyStat.INITIATIVE] = new Vector3Int(currentStats[EnemyStat.INITIATIVE].x, Mathf.Clamp(currentStats[EnemyStat.INITIATIVE].x - damageAmountDiceSumResult, 0, int.MaxValue), timeOfSpellAction);
+
+                            results.Add(new() { msgType = "s", msgString = enemyName + " slowdown, this spell doesn't stuck " });
+                            changeEnemyState.Invoke(GameplayStates.Slow, true, timeOfSpellAction);
+                            break;
+                        case DependedStat.accuracy:
+                            currentStats[EnemyStat.ACCURACY] = new Vector3Int(currentStats[EnemyStat.ACCURACY].x, Mathf.Clamp(currentStats[EnemyStat.ACCURACY].x - damageAmountDiceSumResult, 0, int.MaxValue), timeOfSpellAction);
+                            results.Add(new() { msgType = "s", msgString = enemyName + " accuracy decreased " });
+
+                            break;
+                        case DependedStat.defence:
+                            currentStats[EnemyStat.DEFENCE] = new Vector3Int(currentStats[EnemyStat.DEFENCE].x, Mathf.Clamp(currentStats[EnemyStat.DEFENCE].x - damageAmountDiceSumResult, 0, int.MaxValue), timeOfSpellAction);
+
+                            break;
+                        case DependedStat.evasion:
+                            currentStats[EnemyStat.EVASION] = new Vector3Int(currentStats[EnemyStat.EVASION].x, Mathf.Clamp(currentStats[EnemyStat.EVASION].x - damageAmountDiceSumResult, 0, int.MaxValue), timeOfSpellAction);
+                            break;
+                        case DependedStat.FireResistance:
+                            currentStats[EnemyStat.FIRE_RESISTANCE] = new Vector3Int(currentStats[EnemyStat.FIRE_RESISTANCE].x, currentStats[EnemyStat.FIRE_RESISTANCE].x - damageAmountDiceSumResult, timeOfSpellAction);
+                            break;
+                        case DependedStat.WaterResistance:
+                            currentStats[EnemyStat.WATER_RESISTANCE] = new Vector3Int(currentStats[EnemyStat.WATER_RESISTANCE].x, currentStats[EnemyStat.WATER_RESISTANCE].x - damageAmountDiceSumResult, timeOfSpellAction);
+                            break;
+                        case DependedStat.EarthResistance:
+                            currentStats[EnemyStat.EARTH_RESISTANCE] = new Vector3Int(currentStats[EnemyStat.EARTH_RESISTANCE].x, currentStats[EnemyStat.EARTH_RESISTANCE].x - damageAmountDiceSumResult, timeOfSpellAction);
+                            break;
+                        case DependedStat.AirResistance:
+                            currentStats[EnemyStat.AIR_RESISTANCE] = new Vector3Int(currentStats[EnemyStat.AIR_RESISTANCE].x, currentStats[EnemyStat.AIR_RESISTANCE].x - damageAmountDiceSumResult, timeOfSpellAction);
+                            break;
+                        case DependedStat.DarkResistance:
+                            currentStats[EnemyStat.DARK_RESISTANCE] = new Vector3Int(currentStats[EnemyStat.DARK_RESISTANCE].x, currentStats[EnemyStat.DARK_RESISTANCE].x - damageAmountDiceSumResult, timeOfSpellAction);
+                            break;
+
+                        case DependedStat.meleeDamage:
+                            currentStats[EnemyStat.MELEE_DAMAGE] = new Vector3Int(currentStats[EnemyStat.MELEE_DAMAGE].x, Mathf.Clamp(currentStats[EnemyStat.MELEE_DAMAGE].x - damageAmountDiceSumResult, 0, int.MaxValue), timeOfSpellAction);
+                            break;
+                        case DependedStat.rangeDamage:
+                            currentStats[EnemyStat.RANGE_DAMAGE] = new Vector3Int(currentStats[EnemyStat.RANGE_DAMAGE].x, Mathf.Clamp(currentStats[EnemyStat.RANGE_DAMAGE].x - damageAmountDiceSumResult, 0, int.MaxValue), timeOfSpellAction);
+                            break;
+                        case DependedStat.IceResistance:
+                            break;
+                    }
+
+                    break;
+
+
+                case SpellEffects.Vampirism:
+                    if (spellEffectImmunityList.Contains(SpellEffects.Vampirism)) continue; // skip vampirism effect if enemy has a total immunity to it
+                    HealthDamage(damageAmountDiceSumResult);
+                    float darkPower = (float)spellcaster.GetComponent<IHero>().GetSkillsStat(SkillsStat.DarkMagic, false) / 5;
+                    float divider = darkPower * 0.1f;
+                    spellcaster.GetComponent<IHero>().HealthDecrease(-(int)((float)damageAmountDiceSumResult * divider)); // healing spellcaster by vampirism amount
+                    break;
+
+
+                case SpellEffects.CauseState:
+
+                    switch (_spell.targetGamestate)
+                    {
+
+                        case GameplayStates.Frozen:
+                            if (spellEffectImmunityList.Contains(SpellEffects.Freeze)) continue; // skip freeze effect if enemy has a total immunity to it
+                            if (diceToCompare > _spell.diceSides / 2)
+                            {
+                                appliedPermanentDebuffs.TryAdd(GameplayStates.Frozen, new Vector3Int(0, 0, 0));
+                                playStatusAnimation.Invoke("Freeze");
+                            }
+                            results.Add(new() { msgType = "s", msgString = "freeze" });
+
+
+                            break;
+                        case GameplayStates.Burning:
+                            if (spellEffectImmunityList.Contains(SpellEffects.Burn)) continue; // skip burn effect if enemy has a total immunity to it
+                            if (diceToCompare > _spell.diceSides / 2)
+                            {
+                                appliedPermanentDebuffs.TryAdd(GameplayStates.Burning, new Vector3Int(0, damageAmountDiceSumResult, 0));
+                                playStatusAnimation.Invoke("BurnStatus");
+                            }
+                            results.Add(new() { msgType = "s", msgString = "burn" });
+
+                            break;
+                        case GameplayStates.Poisoned:
+                            if (spellEffectImmunityList.Contains(SpellEffects.Poison)) continue; // skip poison effect if enemy has a total immunity to it
+                            if (diceToCompare > _spell.diceSides / 2)
+                            {
+                                appliedPermanentDebuffs.TryAdd(GameplayStates.Poisoned, new Vector3Int(0, damageAmountDiceSumResult, 0));
+                                if (enemySprites.GetStatePortrait(GameplayStates.Poisoned, out Sprite stateSpritePetrified)) enemyFace.sprite = stateSpritePetrified;
+                                playStatusAnimation.Invoke("Poisoned");
+                            }
+                            break;
+
+                        case GameplayStates.Petrified:
+                            if (spellEffectImmunityList.Contains(SpellEffects.Petrify)) continue; // skip stone effect if enemy has a total immunity to it
+                            diceToCompare += Mathf.Clamp(spellcaster.GetComponent<IHero>().GetSkillsStat(SkillsStat.ElementalMagic, false) / 10, 0, _spell.diceSides); // adding bonus to stone chance from elemental magic skill 
+                            if (diceToCompare == _spell.diceSides)
+                            {
+                                appliedPermanentDebuffs.TryAdd(GameplayStates.Petrified, new Vector3Int(0, 0, 0));
+                                if (enemySprites.GetStatePortrait(GameplayStates.Stoned, out Sprite stateSpriteStoned)) enemyFace.sprite = stateSpriteStoned;
+                            }
+                            break;
+
+                        case GameplayStates.Blind:
+                            if (diceToCompare > _spell.diceSides / 2)
+                            {
+                                appliedPermanentDebuffs.TryAdd(GameplayStates.Blind, new Vector3Int(0, 0, 0));
+                                playStatusAnimation.Invoke("Blind");
+                            }
+                            results.Add(new() { msgType = "s", msgString = "Blind" });
+                            changeEnemyState.Invoke(GameplayStates.Blind, true, 10000);
+                            break;
+
+                        case GameplayStates.Confused:
+                            break;
+
+                        case GameplayStates.Sleep:
+                            if (diceToCompare > _spell.diceSides / 2)
+                            {
+                                appliedPermanentDebuffs.TryAdd(GameplayStates.Sleep, new Vector3Int(0, 0, 0));
+                                playStatusAnimation.Invoke("Sleep");
+                            }
+                            results.Add(new() { msgType = "s", msgString = "Sleep" });
+                            changeEnemyState.Invoke(GameplayStates.Sleep, true, 10000);
+                            break;
+                        case GameplayStates.Slow:
+                            if (diceToCompare > _spell.diceSides / 2)
+                            {
+                                int SlowSpellAction = GameInstance.DiceRollingWithSkill(true, _spell, spellcaster, EnemyStat.INITIATIVE, 3);
+                                currentStats[EnemyStat.INITIATIVE] = new Vector3Int(currentStats[EnemyStat.INITIATIVE].x, Mathf.Clamp(currentStats[EnemyStat.INITIATIVE].x - damageAmountDiceSumResult, 1, int.MaxValue), SlowSpellAction);
+                                appliedPermanentDebuffs.TryAdd(GameplayStates.Slow, new Vector3Int(0, 0, 0));
+                                playStatusAnimation.Invoke("Slow");
+                            }
+                            results.Add(new() { msgType = "s", msgString = "Slow" });
+                            changeEnemyState.Invoke(GameplayStates.Slow, true, 10000);
+                            break;
+                    }
+
+                    break;
+
+            }
+            //results.Add(new() { msgType = "s", msgString = "freeze" });
+            if (evaderoll <= attackRoll || dice == 20) hitTargetEffect.Invoke(spellToApply);
+        }
+
+        if (!spellToApply.AOE) StartCoroutine(AttackDelay());
+        return results;
+    }
+
+
 
     private int MagicDamageApply(GameObject spellcaster,  Spell _spell, int damageAmountDiceSumResult)
     {
@@ -460,23 +742,23 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                 break;
             case MagicType.Fire:
                 amount = CompareElementalSkillAndResistance(amount, elementalSkill, EnemyStat.FIRE_RESISTANCE);
-                if(appliedPermanentDebuffs.ContainsKey(SpellEffects.Freeze))
+                if(appliedPermanentDebuffs.ContainsKey(GameplayStates.Frozen))
                 {
-                    appliedPermanentDebuffs.Remove(SpellEffects.Freeze); // removing freeze debuff if fire spell is applied
+                    appliedPermanentDebuffs.Remove(GameplayStates.Frozen); // removing freeze debuff if fire spell is applied
                     playStatusAnimation.Invoke("Idle");
                 }
                 break;
             case MagicType.Water:
                 amount = CompareElementalSkillAndResistance(amount, elementalSkill, EnemyStat.WATER_RESISTANCE);
-                if (appliedPermanentDebuffs.ContainsKey(SpellEffects.Burn))
+                if (appliedPermanentDebuffs.ContainsKey(GameplayStates.Burning))
                 {
-                    appliedPermanentDebuffs.Remove(SpellEffects.Burn); // removing freeze debuff if fire spell is applied
+                    appliedPermanentDebuffs.Remove(GameplayStates.Burning); // removing freeze debuff if fire spell is applied
                     playStatusAnimation.Invoke("Idle");
                 }
                 break;
             case MagicType.Air:
                 amount = CompareElementalSkillAndResistance(amount, elementalSkill, EnemyStat.AIR_RESISTANCE);
-                if (appliedPermanentDebuffs.ContainsKey(SpellEffects.Freeze))
+                if (appliedPermanentDebuffs.ContainsKey(GameplayStates.Frozen))
                 {
                     //appliedPermanentDebuffs.Remove(SpellEffects.Freeze); // removing freeze debuff if fire spell is applied
                     MagicDamageApply(spellcaster,  _spell, GameInstance.DiceRollingSum(_spell.diceRollsNumber, _spell.diceSides));
@@ -493,9 +775,9 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                 break;
             case MagicType.Ice:
                 amount = CompareElementalSkillAndResistance(amount, elementalSkill, EnemyStat.ICE_RESISTANCE);
-                if (appliedPermanentDebuffs.ContainsKey(SpellEffects.Burn))
+                if (appliedPermanentDebuffs.ContainsKey(GameplayStates.Burning))
                 {
-                    appliedPermanentDebuffs.Remove(SpellEffects.Burn); // removing freeze debuff if fire spell is applied
+                    appliedPermanentDebuffs.Remove(GameplayStates.Burning); // removing freeze debuff if fire spell is applied
                     playStatusAnimation.Invoke("Idle");
                 }
                 break;
@@ -633,7 +915,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
         return currentStats[EnemyStat.ACCURACY].y;
     }
 
-    public Dictionary<SpellEffects,int> GetEnemyPermanentStatus()
+    public Dictionary<GameplayStates,Vector3Int> GetEnemyPermanentStatus()
     {
         return appliedPermanentDebuffs;
     }
@@ -644,9 +926,6 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
         
         foreach(EnemyStat es in System.Enum.GetValues(typeof(EnemyStat)))
         {
-
-
-
             if (currentStats.ContainsKey(es) && currentStats[es].z > 0)
             {  
                 print("battle time passes " + currentStats[EnemyStat.INITIATIVE].y);
@@ -664,15 +943,13 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
             }
         }
         
-        if(appliedPermanentDebuffs.ContainsKey(SpellEffects.Poison))
+        if(appliedPermanentDebuffs.ContainsKey(GameplayStates.Poisoned))
         {
-            HealthDamage(appliedPermanentDebuffs[SpellEffects.Poison]);
+            HealthDamage(appliedPermanentDebuffs[GameplayStates.Poisoned].y);
         }
-        if (appliedPermanentDebuffs.ContainsKey(SpellEffects.Burn))
+        if (appliedPermanentDebuffs.ContainsKey(GameplayStates.Burning))
         {
-            //print("burnig amount  " + appliedPermanentDebuffs[SpellEffects.Burn]);
-            HealthDamage(appliedPermanentDebuffs[SpellEffects.Burn]);
-
+            HealthDamage(appliedPermanentDebuffs[GameplayStates.Burning].y);
         }
         if (health <= 0)
         {
@@ -730,6 +1007,8 @@ public interface IEnemy
     public string GetEnemyName();
     public SpellContainer enemyAttack(int distanceToHero);
     public List<ResultMsg> ApplySpellToEnemy(SpellContainer spellToApply, GameObject spellcaster);
+
+    public List<ResultMsg> ApplySpellToEnemyByEnemy(SpellContainer spellToApply, GameObject spellcaster);
     public List<int> CheckForPlaceMatch(List<int> listToCheck);
 
     public int GetEnemySize();
@@ -737,7 +1016,7 @@ public interface IEnemy
     public int GetEnemyHealth();
     public void SetTransform(GameObject spawnPlace);
     public int GetEnemyAccuracy();
-    public Dictionary<SpellEffects,int> GetEnemyPermanentStatus();
+    public Dictionary<GameplayStates,Vector3Int> GetEnemyPermanentStatus();
     public int GetCurrentStatValue(EnemyStat enemyStat);
     public void MoveAheadOnAttack();
     public void MoveBackAfterAttack();

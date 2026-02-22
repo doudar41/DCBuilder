@@ -52,6 +52,7 @@ public class DayNightChange : MonoBehaviour
             RenderSettings.ambientLight = Color.black;
             RenderSettings.fogColor = RenderSettings.ambientLight;
             RenderSettings.fogDensity = 0.18f; 
+            GameInstance.progress -= OnProgressChanged;
             return; 
         }
 
@@ -128,7 +129,11 @@ public class DayNightChange : MonoBehaviour
                     print(propName);
                 }*/
 
-        if (isDungeon) { return; }
+        if (isDungeon) {
+
+
+            return; 
+        }
 
         RenderSettings.skybox.SetFloat("_Rotation", _count%360);
         StartCoroutine(SmoothSkyRotation(GameInstance.GetTimeFlow(), 10));
@@ -187,6 +192,8 @@ public class DayNightChange : MonoBehaviour
         }
 
     }
+
+
 
 
 
