@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
 using Ami.BroAudio;
+using System.Linq;
 
 public class Inventory : MonoBehaviour
 {
@@ -155,6 +156,7 @@ public class Inventory : MonoBehaviour
     public void FindEmptySlotAndPutItem(HeroInventoryItem itemScriptableTemp, int stackamount, bool noSound = true)
     {
         bool itemAdded = false;
+        int countSlots = 0;
         ItemSlot[] slots = slotsParent.GetComponentsInChildren<ItemSlot>();
         foreach(ItemSlot i in slots)
         {
@@ -167,13 +169,24 @@ public class Inventory : MonoBehaviour
                         GameInstance.soundManagerInGame.ProtectedPlay(itemDatabase[itemScriptableTemp.container].inventorySound); 
                     }
                     itemAdded = true;
+
+                    if( slots.Count() - countSlots == 5)
+                    {
+                        for(int j = 0; j < 5; j++)
+                        {
+                            GameObject _slot = Instantiate(slotPrefab, slotsParent.transform);
+                            _slot.GetComponent<ItemSlot>().Init();
+                        }
+                    }
                     break;
                 }
             }
+            countSlots++;
         }
         if(itemAdded == false)
         {
             GameObject _slot = Instantiate(slotPrefab, slotsParent.transform);
+            _slot.GetComponent<ItemSlot>().Init();
             if (_slot.GetComponent<ItemSlot>().AddItemInSlot(itemScriptableTemp, stackamount))
             {
                 if (!noSound)

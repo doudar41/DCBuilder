@@ -57,7 +57,9 @@ public enum SpellEffects
     CureState,
     CauseState,
     Sleep,
-    Slow
+    Slow,
+    Mana
+
 }
 
 public enum MagicType

@@ -30,6 +30,6 @@ MonoBehaviour:
   dialogueKeys: 
   stackable: 0
   inventorySound:
-    ID: 0
-    _sourceAsset: {fileID: 0}
+    ID: 1073741867
+    _sourceAsset: {fileID: 11400000, guid: c8de76388f9abcd4bb0eb83ce9ddee6a, type: 2}
     <DebugObject>k__BackingField: {fileID: 0}

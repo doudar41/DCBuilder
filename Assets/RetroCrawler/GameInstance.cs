@@ -41,7 +41,7 @@ public static class GameInstance
     public static CheckWeight checkWeight;
 
     public delegate bool GetInventoryItem();
-    public static GetInventoryItem getInventoryItem;
+    public static GetInventoryItem GetInventoryItemDelegate;
 
     public static bool loadingLevel = false, levelChange = false;
 
@@ -295,7 +295,7 @@ public static class GameInstance
 
         if (party != null) party.SaveEquipment();
         inventoryItemsSaved.Clear();
-        getInventoryItem();
+        GetInventoryItemDelegate();
         foreach(visitedBlock v in playerController.GetVisitedBlocksCooordinates())
         {
             if(!visitedBlocks.Contains(v)) visitedBlocks.Add(v);

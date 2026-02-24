@@ -677,7 +677,7 @@ public class BattleManager : MonoBehaviour
         {
             if(g.GetComponent<IEnemy>() != null)
             {
-                if(g.GetComponent<IEnemy>().GetEnemyHealth()>0 && !CheckEnemyState(g.GetComponent<IEnemy>()))
+                if(g.GetComponent<IEnemy>().GetEnemyHealth()>0 && CheckEnemyState(g.GetComponent<IEnemy>()))
 
                 enemiesList.Add(g.GetComponent<IEnemy>());
             }
@@ -825,11 +825,13 @@ public class BattleManager : MonoBehaviour
         {
             if (e.GetEnemyRow() == 1)
             {
+                print("row 1 has " + e.GetEnemyName());
                 row1.Add(e);
             }
         }
         if (row1.Count == 0)
         {
+            print("row 1 is empty");
             foreach (IEnemy e in enemies)
             {
                 if (e.GetEnemyRow() == 2)
@@ -844,7 +846,7 @@ public class BattleManager : MonoBehaviour
                 }
             }
         }
-
+        print("row 1 has " + row1.Count);
 
     }
 
@@ -867,7 +869,7 @@ public class BattleManager : MonoBehaviour
                 heroesHealth += g.GetComponent<IHero>().GetHeroHealth();
                 if (g.GetComponent<IHero>().GetHeroStatus().Contains(GameplayStates.Stoned)) unabledHeroes++;
             }
-            else if(g.GetComponent<IEnemy>() != null)
+            if(g.GetComponent<IEnemy>() != null)
             {
                 enemyHealth += g.GetComponent<IEnemy>().GetEnemyHealth();
                 if (!CheckEnemyState( g.GetComponent<IEnemy>())) unabledEnemies++;

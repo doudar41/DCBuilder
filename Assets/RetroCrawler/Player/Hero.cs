@@ -635,6 +635,11 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                     break;
 
                 }
+            case SpellEffects.Mana:
+
+                currentMana += GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides) + s.amount;
+                    if (currentMana > GetMaxDependedStat(DependedStat.maxMana)) currentMana = GetMaxDependedStat(DependedStat.maxMana);
+                break;
         }
         hitTargetEffect.Invoke(spellToApply);
         return results;

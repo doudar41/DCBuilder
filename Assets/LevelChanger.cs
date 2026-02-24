@@ -8,6 +8,7 @@ public class LevelChanger : MonoBehaviour
 
     [SerializeField] List<LevelGraphic> levelGraphicsList = new List<LevelGraphic>();
     [SerializeField] CameraOrder cameraOrder;
+    [SerializeField] MarkRecallMenu markRecallMenu;
     Dictionary<string, GameObject> levelGraficDictionary = new Dictionary<string, GameObject>();
     string levelNameSaved = string.Empty;
 
@@ -26,7 +27,9 @@ public class LevelChanger : MonoBehaviour
 
     public void OpenLevelEntranceGraphics(string levelName)
     {
+        markRecallMenu.CancelMarkRecall();
         cameraOrder.ShopWithoutBattlelog();
+        GameInstance.playerController.shopIsOpened = true;
         GameObject levelGraphic;
         levelNameSaved = levelName;
         if (levelGraficDictionary.ContainsKey(levelName)) { levelGraphic = levelGraficDictionary[levelName]; }
@@ -54,6 +57,7 @@ public class LevelChanger : MonoBehaviour
         levelNameSaved = string.Empty;
         GameInstance.playerController.InputEnable(true);
         GameInstance.soundManagerInGame.UnDuckExploreMusicSwitchToAmbience();
+        GameInstance.playerController.shopIsOpened = false;
     }
 
 }

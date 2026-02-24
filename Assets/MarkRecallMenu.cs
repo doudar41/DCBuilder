@@ -68,6 +68,11 @@ public class MarkRecallMenu : MonoBehaviour
     }
 
 
-
+    public void CancelMarkRecall()
+    {
+        markRecallMenuPanel.SetActive(false);
+        cameraOrder.BattleLogWithGameplay();
+        GameInstance.playerController.MenuOpened(false);
+    }
 
 }

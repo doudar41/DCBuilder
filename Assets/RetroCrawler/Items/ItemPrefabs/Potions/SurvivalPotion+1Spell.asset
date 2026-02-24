@@ -28,6 +28,8 @@ MonoBehaviour:
     restToBeAbleToCastAgainInTurns: 0
     SpellDescription: 
     skillToCheckInCalculations: 0
+    targetGamestate: 0
+    continuousSpell: 0
   spellIcon: {fileID: 0}
   AOE: 0
   OnlyEnemies: 0

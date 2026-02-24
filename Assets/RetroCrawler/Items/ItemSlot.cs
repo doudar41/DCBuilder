@@ -16,17 +16,22 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
     [SerializeField]
     TextMeshProUGUI amountText;
     [SerializeField] GameObject describePrefab;
-    GameObject describeInstance;
 
 
     private void Awake()
     {
-        GameInstance.getInventoryItem += SaveInventoryItemsToGameInstance;
+       Init();
     }
+
+    public void Init()
+    {
+        GameInstance.GetInventoryItemDelegate += SaveInventoryItemsToGameInstance;
+    }
+
 
     private void OnDestroy()
     {
-        GameInstance.getInventoryItem -= SaveInventoryItemsToGameInstance;
+        GameInstance.GetInventoryItemDelegate -= SaveInventoryItemsToGameInstance;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -44,30 +49,33 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
             {
                 if (stackAmount > 1)
                 {
+                    GameInstance.soundManagerInGame.ProtectedPlay(GameInstance.inventory.GetHeroItemScriptableByIndex(inventoryItem.container).inventorySound);
                     stackAmount--;
                     inventoryItem.stackAmount = stackAmount;
                     List<ResultMsg> results = GameInstance.party.activeHero.ApplySpellToHero(GameInstance.dataBase.GetItemFromBaseByIndex( inventoryItem.container).spellContainer);
                     amountText.text = stackAmount.ToString();
                     GameInstance.spellbook.battlelogEvent.Invoke(new List<string>() { },results);
-                    GameInstance.soundManagerInGame.ProtectedPlay(GameInstance.inventory.GetHeroItemScriptableByIndex(inventoryItem.container).inventorySound);
+                    
                 }
                 else
                 {
+                    GameInstance.soundManagerInGame.ProtectedPlay(GameInstance.inventory.GetHeroItemScriptableByIndex(inventoryItem.container).inventorySound);
                     List<ResultMsg> results = GameInstance.party.activeHero.ApplySpellToHero(GameInstance.dataBase.GetItemFromBaseByIndex(inventoryItem.container).spellContainer);
                     stackAmount = 0;
                     inventoryItem = null;
                     itemAvatar.sprite = emptySlotSprite;
                     amountText.text = stackAmount.ToString();
                     GameInstance.spellbook.battlelogEvent.Invoke(new List<string>() { }, results);
-
+                    
                 }
+                
                 return;
             }
             if (inventoryItem.itemType == ItemType.QUEST)
             {
                 ItemScriptableContainer item =  GameInstance.dataBase.GetItemFromBaseByIndex(inventoryItem.container);
-                if (item.journalEntry!="")
-               GameInstance.gameJournal.AddEntryToJournal(item.journalEntry);
+                GameInstance.soundManagerInGame.ProtectedPlay(GameInstance.inventory.GetHeroItemScriptableByIndex(inventoryItem.container).inventorySound);
+                if (item.journalEntry!="") GameInstance.gameJournal.AddEntryToJournal(item.journalEntry);
 
                 foreach(UniqueDialogueName un in item.dialogueKeys)
                 {
@@ -76,6 +84,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
                         GameInstance.party.currentUniqueDialogueNames.Add(un);
                     }
                 }
+                
                 RemoveItem();
                 return;
             }
@@ -84,9 +93,13 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
                 if(GameInstance.party.activeHero.GetActiveHeroSpellbook().Contains(GameInstance.dataBase.GetItemFromBaseByIndex(inventoryItem.container).spellContainer)) return;
 
                 GameInstance.party.activeHero.GetActiveHeroSpellbook().Add(GameInstance.dataBase.GetItemFromBaseByIndex(inventoryItem.container).spellContainer);
+
+                GameInstance.soundManagerInGame.ProtectedPlay(GameInstance.inventory.GetHeroItemScriptableByIndex(inventoryItem.container).inventorySound);
                 RemoveItem();
                 return;
             }
+            
+
         }
 
         if (clickCount == 1)
@@ -186,7 +199,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
 
     bool SaveInventoryItemsToGameInstance()
     {
-        
+        print("saving items to game instance");
         if (inventoryItem != null)
         {
             inventoryItem.stackAmount = stackAmount;

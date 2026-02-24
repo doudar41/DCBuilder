@@ -16,7 +16,7 @@ public class SoundManagerInGame : MonoBehaviour
     [SerializeField] List<SoundID> footstepSounds = new List<SoundID>();
     [SerializeField] SoundID startingMusic = default;
     [SerializeField] SoundRoom soundroom;
-    RoomSpaces currentRoomspace;
+    RoomSpaces currentRoomspace = RoomSpaces.None;
 
 #if BroAudio_InitManually
         public static void Init()
@@ -36,7 +36,11 @@ public class SoundManagerInGame : MonoBehaviour
     private void Start()
     {
 
-       // print("start playing "+startingMusic);
+        foreach (ExploreMusicFromEnvironment emfe in exploreMusicFromEnvironments)
+        {
+           BroAudio.Stop( emfe.exploreMusicID); 
+        }
+        // print("start playing "+startingMusic);
         BroAudio.Play(startingMusic);
         currentExploreMusic = startingMusic;
 
@@ -44,6 +48,7 @@ public class SoundManagerInGame : MonoBehaviour
 
     private void OnDestroy()
     {
+        print("destroying sound manager, stopping music");
         BroAudio.Stop(battleMusic);
         BroAudio.Stop(currentExploreMusic);
     }
@@ -67,12 +72,14 @@ public class SoundManagerInGame : MonoBehaviour
 
     public void DuckExploreMusicSwitchToAmbience(RoomSpaces roomSpace)
     {
+        if (roomSpace == RoomSpaces.None) return;
         currentRoomspace = roomSpace;
         BroAudio.SetVolume(currentExploreMusic, 0.2f, 0.5f);
         soundroom.SwitchSoundRoom(roomSpace, true);
     }
     public void UnDuckExploreMusicSwitchToAmbience()
     {
+        if (currentRoomspace == RoomSpaces.None) return;
         BroAudio.SetVolume(currentExploreMusic, 1f, 0.5f);
         soundroom.SwitchSoundRoom(currentRoomspace, false);
     }

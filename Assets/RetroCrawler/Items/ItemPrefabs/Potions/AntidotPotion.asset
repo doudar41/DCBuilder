@@ -29,3 +29,7 @@ MonoBehaviour:
   journalEntry: 
   dialogueKeys: 
   stackable: 1
+  inventorySound:
+    ID: 1073741886
+    _sourceAsset: {fileID: 11400000, guid: c8de76388f9abcd4bb0eb83ce9ddee6a, type: 2}
+    <DebugObject>k__BackingField: {fileID: 0}

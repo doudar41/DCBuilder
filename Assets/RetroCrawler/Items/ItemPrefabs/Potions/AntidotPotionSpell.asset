@@ -28,6 +28,8 @@ MonoBehaviour:
     restToBeAbleToCastAgainInTurns: 0
     SpellDescription: Remove Poison State
     skillToCheckInCalculations: 0
+    targetGamestate: 0
+    continuousSpell: 0
   spellIcon: {fileID: 0}
   AOE: 0
   OnlyEnemies: 0
@@ -39,4 +41,4 @@ MonoBehaviour:
   spellName: Small Hel Potion
   spellPrice: 10
   spellLevel: 0
-  animationTriggerName: 
+  animationTriggerName: Heal
