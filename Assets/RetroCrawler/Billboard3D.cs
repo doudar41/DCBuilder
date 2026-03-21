@@ -11,7 +11,7 @@ public class Billboard3D : MonoBehaviour
     int currentAngle = -1;
     [SerializeField] CardinalDirections direction;
     [SerializeField] BoxCollider col;
-
+    bool animationPlaying = false;
     private void Start()
     {
         switch (direction)
@@ -43,17 +43,14 @@ public class Billboard3D : MonoBehaviour
                     col.size = _bo;
                 }
                 angleMod = 5;
-
                 break;
         }
-
-
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (animationPlaying) return;
         if (Vector3.Distance(this.transform.position, GameInstance.playerController.gameObject.transform.position) > 15) return;
         rotationHead.transform.LookAt(new Vector3(GameInstance.playerController.gameObject.transform.position.x, rotationHead.transform.position.y, GameInstance.playerController.gameObject.transform.position.z));
         float realangle = rotationHead.transform.rotation.eulerAngles.y;
@@ -74,7 +71,10 @@ public class Billboard3D : MonoBehaviour
 
     }
 
-
+    public void AnimationPlaying(bool onOff)
+    {
+        animationPlaying = onOff;
+    }
     public void ReplaceSprite( List<Sprite> _sprites)
     {
         //print("change sprites");
