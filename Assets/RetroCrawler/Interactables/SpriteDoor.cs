@@ -109,4 +109,19 @@ public class SpriteDoor : MonoBehaviour, IDoor, IInteractables
         carringCapacity = 0;
         return 0;
     }
+
+    public void OpenDoor(int index, GameObject _switch)
+    {
+
+    }
+
+    public void CloseDoor(int index, GameObject _switch)
+    {
+
+    }
+
+    public string GetGUID()
+    {
+        return "";
+    }
 }

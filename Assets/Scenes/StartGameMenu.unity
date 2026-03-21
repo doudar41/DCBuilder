@@ -8293,7 +8293,7 @@ MonoBehaviour:
   spellsChosen04:
   - {fileID: 11400000, guid: 930e4a4577b775d4b9373907d7f2b357, type: 2}
   - {fileID: 11400000, guid: 88fb39f7054ce0240ab603a03a19416a, type: 2}
-  startingUniqueDialogueNames: 15000000140000000f00000011000000080000001200000006000000
+  startingUniqueDialogueNames: 15000000140000000f0000001100000008000000120000000600000017000000
   mainTheme:
     ID: 268435461
     _sourceAsset: {fileID: 11400000, guid: a4dbd3420acce304ea11a0f5b982f3e9, type: 2}
@@ -17230,7 +17230,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1466824085
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17246,10 +17246,10 @@ RectTransform:
   - {fileID: 2024536978}
   m_Father: {fileID: 970130630}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 150.92885, y: -34.22016}
+  m_SizeDelta: {x: 291.8577, y: 58.44032}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1466824086
 MonoBehaviour:

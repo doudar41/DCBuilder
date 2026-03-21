@@ -8,7 +8,7 @@ public interface IInteractables {
     public List<InteractablesEnum> WhatIsIt();
     public int GetWeight(out int carringCapacity);
 
-
+    public string GetGUID();
 }
 public enum InteractablesEnum
 {

@@ -89,7 +89,7 @@ public class ItemShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         heroInventoryItem.stackAmount = 1;
         heroInventoryItem.positionReplaced = Vector3.zero;
         heroInventoryItem.level = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
-        GameInstance.inventory.FindEmptySlotAndPutItem(heroInventoryItem, 1, false);
+        GameInstance.inventory.AddToInventoryItems(heroInventoryItem, 1);
     }
 
     void SellItemFromSlot(ItemScriptableContainer item)

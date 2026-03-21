@@ -3,14 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+
+
+[RequireComponent(typeof(BoxCollider))]
 public class SingleSwitch : MonoBehaviour, IInteractables, IPointerClickHandler
 {
     System.Guid _guid;
 
     [SerializeField] string GUIDString;
     [SerializeField] GameObject doorTarget;
-    [SerializeField] SpriteRenderer renderer;
+    [SerializeField] SpriteRenderer _renderer;
     [SerializeField] Sprite openSprite, closeSprite;
+    [SerializeField] int lockIndex;
+    [SerializeField] bool complexLock = false;
+    [SerializeField] List<Sprite> openSprites, closeSprites;
+    [SerializeField]Billboard3D billboard3D;
+    bool isOn = false;
+
 
     private void OnValidate()
     {
@@ -23,6 +32,7 @@ public class SingleSwitch : MonoBehaviour, IInteractables, IPointerClickHandler
     private void Awake()
     {
         GameInstance.initItems += Init;
+        billboard3D = GetComponent<Billboard3D>();
     }
     private void OnDestroy()
     {
@@ -35,6 +45,7 @@ public class SingleSwitch : MonoBehaviour, IInteractables, IPointerClickHandler
 
     void Init()
     {
+        if (complexLock) return;
         if (GameInstance.savedItemsState.ContainsKey(GUIDString))
         {
 
@@ -43,15 +54,18 @@ public class SingleSwitch : MonoBehaviour, IInteractables, IPointerClickHandler
             if (GameInstance.savedItemsState[GUIDString] == SavedState.Opened)
             {
                 idoor.OpenDoor();
-                renderer.sprite = openSprite;
+                idoor.OpenDoor(lockIndex, this.gameObject);
+               if(openSprites.Count ==0) _renderer.sprite = openSprite;
+                else billboard3D.ReplaceSprite(openSprites);
 
             }
             if (GameInstance.savedItemsState[GUIDString] == SavedState.Closed)
             {
                 idoor.CloseDoor();
-                renderer.sprite = closeSprite;
+                idoor.OpenDoor(lockIndex, this.gameObject);
+                if (openSprites.Count == 0) _renderer.sprite = closeSprite;
+                else billboard3D.ReplaceSprite(closeSprites);
             }
-
         }
     }
 
@@ -59,20 +73,63 @@ public class SingleSwitch : MonoBehaviour, IInteractables, IPointerClickHandler
     {
         if (doorTarget.GetComponent<IDoor>() == null) return;
         IDoor idoor = doorTarget.GetComponent<IDoor>();
-        if (!idoor.isOpen())
+        if (!complexLock)
         {
-            idoor.OpenDoor();
-            renderer.sprite = openSprite;
-            GameInstance.SaveItemState(GUIDString, SavedState.Opened, null);
+            if (!idoor.isOpen())
+            {
+                idoor.OpenDoor();
+                if (openSprites.Count == 0) _renderer.sprite = openSprite;
+                else billboard3D.ReplaceSprite(openSprites);
+                GameInstance.SaveItemState(GUIDString, SavedState.Opened, null);
+            }
+            else
+            {
+                idoor.CloseDoor();
+                if (closeSprites.Count == 0) _renderer.sprite = closeSprite;
+                else billboard3D.ReplaceSprite(closeSprites);
+                GameInstance.SaveItemState(GUIDString, SavedState.Closed, null);
+            }
         }
         else
         {
-            idoor.CloseDoor();
-            renderer.sprite = closeSprite;
-            GameInstance.SaveItemState(GUIDString, SavedState.Closed,  null);
+            if (!isOn)
+            {
+                idoor.OpenDoor(lockIndex, this.gameObject );
+                if (openSprites.Count == 0) _renderer.sprite = openSprite;
+                else billboard3D.ReplaceSprite(openSprites);
+                isOn = true;
+            }
+            else
+            {
+                idoor.CloseDoor(lockIndex, this.gameObject);
+                if (closeSprites.Count == 0) _renderer.sprite = closeSprite;
+                else billboard3D.ReplaceSprite(closeSprites);
+                isOn = false;
+            }
         }
 
     }
+
+    public void ResetSwitch()
+    {
+        print("autoreset");
+        StartCoroutine(DelaySwitch());
+    }
+
+
+    IEnumerator DelaySwitch() {         
+        yield return new WaitForSeconds(0.1f);
+        if (closeSprites.Count == 0) _renderer.sprite = closeSprite;
+        else billboard3D.ReplaceSprite(closeSprites);
+        isOn = false;
+    }
+    /*    private void Update()
+        {
+            if(complexLock && !isOn)
+            {
+                _renderer.sprite = closeSprite;
+            }
+        }*/
 
     public List<InteractablesEnum> WhatIsIt()
     {
@@ -92,6 +149,11 @@ public class SingleSwitch : MonoBehaviour, IInteractables, IPointerClickHandler
         //print(Vector3.Distance(GameInstance.playerController.gameObject.transform.position, transform.position));
         if (Vector3.Distance(GameInstance.playerController.gameObject.transform.position, transform.position) > 5) return;
         ToggleSwitch();
+    }
+
+    public string GetGUID()
+    {
+       return GUIDString;
     }
 }
 

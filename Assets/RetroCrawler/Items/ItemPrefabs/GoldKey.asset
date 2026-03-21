@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemType: 19
   itemName: Gold Key
-  texture2DMouse: {fileID: 2800000, guid: c082e072de22bf44899cf1ef65cce930, type: 3}
-  InventorySprite: {fileID: 21300000, guid: 1f9508c6a4f5bfb44a27f1884c3cab85, type: 3}
+  texture2DMouse: {fileID: 2800000, guid: c3906e95679fdc3489ad2db7bd93377d, type: 3}
+  InventorySprite: {fileID: 21300000, guid: 80a9eb1702b7cca46a3ae323c8431f1a, type: 3}
   worldSprite: {fileID: 21300000, guid: b342b46071880184e83d7a6cfe424e0d, type: 3}
   prefab: {fileID: 2885720944578253258, guid: 8d9d8dff4ff37864b927089ea7ba6597, type: 3}
   weight: 0
@@ -26,3 +26,10 @@ MonoBehaviour:
   itemDescription: 
   itemLevel: 0
   keyType: 2
+  journalEntry: 
+  dialogueKeys: 
+  stackable: 0
+  inventorySound:
+    ID: 0
+    _sourceAsset: {fileID: 0}
+    <DebugObject>k__BackingField: {fileID: 0}

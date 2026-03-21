@@ -23,8 +23,13 @@ MonoBehaviour:
   weaponType: 0
   twoHanded: 0
   price: 0
-  itemDescription: Rock
+  itemDescription: 'Rock 20 '
   itemLevel: 0
   keyType: 0
   journalEntry: 
   dialogueKeys: 
+  stackable: 0
+  inventorySound:
+    ID: 0
+    _sourceAsset: {fileID: 0}
+    <DebugObject>k__BackingField: {fileID: 0}

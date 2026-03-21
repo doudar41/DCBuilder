@@ -1,6 +1,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -77,7 +78,7 @@ public class BattleManager : MonoBehaviour
     List<int> listOfTheDead = new List<int>();
 
     GameObject customBattleObject;
-
+    [SerializeField] int row01RandomRange = 2, row02RandomRange = 2, row03RandomRange = 2; 
 
 
     private void Awake()
@@ -98,8 +99,8 @@ public class BattleManager : MonoBehaviour
 
 
             //Spawn enemies and add them to allopponents list
-            SpawnEnemies(level01Enemies, 2, spawnPointsRaw01, 1);
-            SpawnEnemies(level01Enemies, 2, spawnPointsRaw02, 2);
+            SpawnEnemies(level01Enemies, row01RandomRange, spawnPointsRaw01, 1);
+            SpawnEnemies(level01Enemies, row02RandomRange, spawnPointsRaw02, 2);
 
         }
         enemyTurn.Invoke("Battle");
@@ -181,13 +182,13 @@ public class BattleManager : MonoBehaviour
         //Add enemies
         if(_level01Enemies != null)
         {
-            SpawnEnemies(_level01Enemies, 2, spawnPointsRaw01, 1);
-            SpawnEnemies(_level01Enemies, 2, spawnPointsRaw02, 2);
+            SpawnEnemies(level01Enemies, row01RandomRange, spawnPointsRaw01, 1);
+            SpawnEnemies(level01Enemies, row02RandomRange, spawnPointsRaw02, 2);
         }
         else
         {
-            SpawnEnemies(level01Enemies, 2, spawnPointsRaw01, 1);
-            SpawnEnemies(level01Enemies, 2, spawnPointsRaw02, 2);
+            SpawnEnemies(level01Enemies, row01RandomRange, spawnPointsRaw01, 1);
+            SpawnEnemies(level01Enemies, row02RandomRange, spawnPointsRaw02, 2);
         }
 
         BattleStart();
@@ -432,6 +433,7 @@ public class BattleManager : MonoBehaviour
 
         if(maxspelldistance < attacker.GetEnemyRow())
         {
+            print("enemy is to far to attack");
             // Enemy can't reach any hero to attack
             //enemyTurn.Invoke(attacker.GetEnemyName() + " can't reach any hero to attack!");
             AttackEnding();
@@ -522,7 +524,7 @@ public class BattleManager : MonoBehaviour
 
             if (!CheckEnemyState(attacker)) { AttackEnding(); return; }
 
-            if (attacker.GetCurrentStatValue(EnemyStat.INITIATIVE) <= 0) { AttackEnding(); return; }
+            if (attacker.GetCurrentStatValue(EnemyStat.INITIATIVE) <= 0) { print("lack of initiative"); AttackEnding(); return; }
 
             // Notify player that it's a enemy turn
             enemyTurn.Invoke("Confused Enemy ATTACKS!!!!");
@@ -815,7 +817,11 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-
+    public bool IfThisOpponentHero()
+    {
+        
+        return quarrySorted[quarrySortedKey].GetComponent<IHero>() != null;
+    }
     //Checking for empty row in enemy formation
     public void CheckForEmptyRow()
     {
@@ -919,7 +925,7 @@ public class BattleManager : MonoBehaviour
                 }
             }
         }
-
+/*
         int rndPlace = GameInstance.DiceRollingBiggestNumber(1, (sortList.Count - 1) * 2);
         if (rndPlace < sortList.Count)
         {
@@ -942,7 +948,7 @@ public class BattleManager : MonoBehaviour
                 }
             }
         }
-
+*/
         sortList.Sort(); sortList.Reverse();
 
         foreach (int i in sortList)
@@ -1004,7 +1010,7 @@ public class BattleManager : MonoBehaviour
                     GameInstance.party.GemGoes(-gems);
                     foreach(HeroInventoryItem item in items)
                     {
-                        GameInstance.inventory.FindEmptySlotAndPutItem(item, item.stackAmount);
+                        GameInstance.inventory.AddToInventoryItems(item, item.stackAmount);
                     }
 
                     toErase.Add(i);
@@ -1048,7 +1054,7 @@ public class BattleManager : MonoBehaviour
     
     public void ReceiveAttackInput()
     {
-
+        if (enemyattack) { return; }
         //battleInputDelay = true;
         if (quarrySorted[quarrySortedKey] == null)
         {
@@ -1059,6 +1065,7 @@ public class BattleManager : MonoBehaviour
             return; 
         }
         //print("switch hero" + quarrySorted[quarrySortedKey].GetComponent<IHero>().HeroName());
+
         IHero attacker = quarrySorted[quarrySortedKey].GetComponent<IHero>();
         GameInstance.spellbook.CastSpell(attacker.GetWeaponSpell());
     }

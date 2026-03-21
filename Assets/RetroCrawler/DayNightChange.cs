@@ -1,6 +1,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -30,6 +31,11 @@ public class DayNightChange : MonoBehaviour
         transitionCount = dayNightTransitionTextures.Count-1;
     }
 
+    void OnDestroy()
+    {
+        GameInstance.progress -= OnProgressChanged;
+    }
+
     void ChangeTimeFlow()
     {
         GameInstance.ChangeTimeFlow(timeframe);
@@ -52,7 +58,7 @@ public class DayNightChange : MonoBehaviour
             RenderSettings.ambientLight = Color.black;
             RenderSettings.fogColor = RenderSettings.ambientLight;
             RenderSettings.fogDensity = 0.18f; 
-            GameInstance.progress -= OnProgressChanged;
+
             return; 
         }
 
@@ -93,6 +99,7 @@ public class DayNightChange : MonoBehaviour
 
 
         DayChange(countdown);
+
         if (GameInstance.GetNormalTime()[1] % 24 >= 6 && GameInstance.GetNormalTime()[1] % 24 < 19)
         {
             isDay = true;
@@ -202,10 +209,7 @@ public class DayNightChange : MonoBehaviour
         RenderSettings.fogDensity = den;
     }
 
-    void OnDestroy()
-    {
-        GameInstance.progress -= OnProgressChanged;
-    }
+
 
     IEnumerator SmoothSkyRotation(float timeFlow, int division)
     {

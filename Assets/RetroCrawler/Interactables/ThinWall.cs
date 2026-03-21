@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class ThinWall : MonoBehaviour,  IInteractables
 {
-
+    public string GetGUID()
+    {
+        return "";
+    }
 
     public int GetWeight(out int carringCapacity)
     {

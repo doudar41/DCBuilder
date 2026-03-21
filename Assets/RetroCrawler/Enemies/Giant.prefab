@@ -52,7 +52,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 12660f2ea480d6f4a94fb238e123c558, type: 2}
+  - {fileID: 2100000, guid: 4116225f3f58ba94bb9607e7b32d67b4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: -1079111731
   m_SortingLayer: 1
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 1dff50fde7628a34c86b9ab6fc72b216, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e3469a6f147f5f8479009db50c455254, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -429,7 +429,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7787e521da7cc5c47892f60961c61a20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 6029699653813042023}
   emptySprite: {fileID: 21300000, guid: e418c7b149449ad42ba64a015fb22784, type: 3}
   animator: {fileID: 2197761959840711600}
 --- !u!1 &4673620098085389259
@@ -858,8 +858,8 @@ MonoBehaviour:
     _sourceAsset: {fileID: 11400000, guid: b57e0d2f91771b34d8c0a49ba7faee85, type: 2}
     <DebugObject>k__BackingField: {fileID: 8822468640820191240}
   dieSound:
-    ID: 0
-    _sourceAsset: {fileID: 0}
+    ID: 1073741883
+    _sourceAsset: {fileID: 11400000, guid: dbc6c79b4f17ac74aa04749a7917aa73, type: 2}
     <DebugObject>k__BackingField: {fileID: 8822468640820191240}
   experienceReward: 30
   itemScriptableContainers:
@@ -887,8 +887,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.2, y: 0.3, z: 0.01}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.47, y: 0.45, z: 0.01}
+  m_Center: {x: 0, y: 0.06, z: 0}
 --- !u!1001 &1734981952509468751
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -948,7 +948,7 @@ PrefabInstance:
     - target: {fileID: 5457851509101828904, guid: 5ab70878558e1654ba2112a2523aff48, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1167827266, guid: 9de2bea759b2f5b458db25f44372d0d6, type: 3}
+      objectReference: {fileID: 21300000, guid: e418c7b149449ad42ba64a015fb22784, type: 3}
     - target: {fileID: 5457851509101828904, guid: 5ab70878558e1654ba2112a2523aff48, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
@@ -965,6 +965,11 @@ PrefabInstance:
 --- !u!95 &2197761959840711600 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 473968947228992511, guid: 5ab70878558e1654ba2112a2523aff48, type: 3}
+  m_PrefabInstance: {fileID: 1734981952509468751}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &6029699653813042023 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5457851509101828904, guid: 5ab70878558e1654ba2112a2523aff48, type: 3}
   m_PrefabInstance: {fileID: 1734981952509468751}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &6613483068188442903 stripped

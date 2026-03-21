@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
+public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
 
     int stackAmount = 1;
@@ -25,13 +25,13 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
 
     public void Init()
     {
-        GameInstance.GetInventoryItemDelegate += SaveInventoryItemsToGameInstance;
+        //GameInstance.GetInventoryItemDelegate += SaveInventoryItemsToGameInstance;
     }
 
 
     private void OnDestroy()
     {
-        GameInstance.GetInventoryItemDelegate -= SaveInventoryItemsToGameInstance;
+       // GameInstance.GetInventoryItemDelegate -= SaveInventoryItemsToGameInstance;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -48,17 +48,19 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
             if (inventoryItem.itemType == ItemType.CONSUMABLE)
             {
                 if (stackAmount > 1)
-                {
+                {   
+                    GameInstance.inventory.RemoveFromInventory(inventoryItem, 1);
                     GameInstance.soundManagerInGame.ProtectedPlay(GameInstance.inventory.GetHeroItemScriptableByIndex(inventoryItem.container).inventorySound);
                     stackAmount--;
                     inventoryItem.stackAmount = stackAmount;
                     List<ResultMsg> results = GameInstance.party.activeHero.ApplySpellToHero(GameInstance.dataBase.GetItemFromBaseByIndex( inventoryItem.container).spellContainer);
                     amountText.text = stackAmount.ToString();
                     GameInstance.spellbook.battlelogEvent.Invoke(new List<string>() { },results);
-                    
+
                 }
                 else
                 {
+                    GameInstance.inventory.RemoveFromInventory(inventoryItem, 1);
                     GameInstance.soundManagerInGame.ProtectedPlay(GameInstance.inventory.GetHeroItemScriptableByIndex(inventoryItem.container).inventorySound);
                     List<ResultMsg> results = GameInstance.party.activeHero.ApplySpellToHero(GameInstance.dataBase.GetItemFromBaseByIndex(inventoryItem.container).spellContainer);
                     stackAmount = 0;
@@ -66,7 +68,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
                     itemAvatar.sprite = emptySlotSprite;
                     amountText.text = stackAmount.ToString();
                     GameInstance.spellbook.battlelogEvent.Invoke(new List<string>() { }, results);
-                    
+
                 }
                 
                 return;
@@ -108,7 +110,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
             {
                 HeroInventoryItem slotStruct = GameInstance.playerController.GetItemFromCursor();
                 inventoryItem = slotStruct;
-
+                GameInstance.inventory.AddToInventoryItems(inventoryItem, slotStruct.stackAmount );
                 if (inventoryItem != null)
                 {
                     if (slotStruct.stackAmount > 1)
@@ -131,6 +133,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
                         if (slotStruct.stackable)
                         {
                             stackAmount += slotStruct.stackAmount;
+                            GameInstance.inventory.AddToInventoryItems(slotStruct, slotStruct.stackAmount);
                         }
                         else
                         {
@@ -143,9 +146,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
                         GameInstance.playerController.SetPlayerCursorBusy(inventoryItem);
                         if (slotStruct.stackAmount > 1)
                         {
-                            stackAmount = slotStruct.stackAmount;
+                            stackAmount = slotStruct.stackAmount; GameInstance.inventory.AddToInventoryItems(slotStruct, slotStruct.stackAmount);
                         }
-                        else stackAmount = 1;
+                        else { GameInstance.inventory.AddToInventoryItems(slotStruct, 1); stackAmount = 1; }
                         inventoryItem = slotStruct;
                         itemAvatar.sprite = GameInstance.dataBase.GetItemFromBaseByIndex(inventoryItem.container).InventorySprite;
                         amountText.text = stackAmount.ToString();
@@ -160,7 +163,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
                 {
                    // print("one item left");
                 GameInstance.playerController.SetPlayerCursorBusy(inventoryItem);
+                GameInstance.inventory.RemoveFromInventory(inventoryItem, stackAmount);
                 stackAmount = 0;
+
                 inventoryItem = null;
                 itemAvatar.sprite = emptySlotSprite;
                 amountText.text = stackAmount.ToString();
@@ -221,6 +226,15 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
 
     public void RemoveItem()
     {
+        GameInstance.inventory.RemoveFromInventory(inventoryItem, 1);
+        stackAmount = 0;
+        inventoryItem = null;
+        itemAvatar.sprite = emptySlotSprite;
+        amountText.text = stackAmount.ToString();
+    }
+
+    public void RemoveItemFromSlotOnly()
+    {
         stackAmount = 0;
         inventoryItem = null;
         itemAvatar.sprite = emptySlotSprite;
@@ -256,27 +270,100 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
             {
                 textDesc.color = Color.green;
                 string spellTexts = "";
-                foreach (Spell s in itemToDesc.spellContainer.spells)
+                if (itemToDesc.spellContainer != null)
                 {
-                    spellTexts += ". " + s.SpellDescription;
+                    foreach (Spell s in itemToDesc.spellContainer.spells)
+                    {
+                        spellTexts += ". " + s.SpellDescription;
+                    }
                 }
-                textDesc.text = itemToDesc.itemDescription + spellTexts + ". " + "Price: " + ((int)(itemToDesc.price)).ToString();
+                textDesc.text = itemToDesc.itemDescription + spellTexts + " " + "Price: " + ((int)(itemToDesc.price)).ToString() + " " + "Weight - " + itemToDesc.weight.ToString();
                 GameInstance.SaveIdentifiedItems(inventoryItem);
             }
             if (GameInstance.CheckIfItemIdentified(inventoryItem.container))
             {
                 textDesc.color = Color.green;
                 string spellTexts = "";
-                foreach (Spell s in itemToDesc.spellContainer.spells)
+                if (itemToDesc.spellContainer != null)
                 {
-                    spellTexts += ". " + s.SpellDescription;
+                    foreach (Spell s in itemToDesc.spellContainer.spells)
+                    {
+                        spellTexts += ". " + s.SpellDescription;
+                    }
                 }
-                textDesc.text = itemToDesc.itemDescription + spellTexts + ". " + "Price: " + ((int)(itemToDesc.price)).ToString();
+                textDesc.text = itemToDesc.itemDescription + spellTexts + " " + "Price: " + ((int)(itemToDesc.price)).ToString()+" " + "Weight - "+itemToDesc.weight.ToString();
             }
         }
     }
 
     public void OnPointerUp(PointerEventData eventData)
+    {
+        if (!GameInstance.spellbook.IdentifyModeActive()) { return; }
+        TextMeshProUGUI textDesc = GameInstance.inventory.GetDescriptionTab().GetComponentInChildren<TextMeshProUGUI>();
+        if (textDesc != null)
+        {
+            textDesc.text = string.Empty;
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (!GameInstance.spellbook.IdentifyModeActive()) { return; }
+        if (inventoryItem == null) return;
+        /*        if (describeInstance == null) describeInstance = Instantiate(describePrefab, Get);
+                else describeInstance.SetActive(true);
+
+                describeInstance.gameObject.SetActive(true);*/
+        // describeInstance.GetComponent<RectTransform>().localPosition = gameObject.GetComponent<RectTransform>().localPosition+(new Vector3(1,-1,0)*15);
+
+        TextMeshProUGUI textDesc = GameInstance.inventory.GetDescriptionTab().GetComponentInChildren<TextMeshProUGUI>();
+
+        // print(describeInstance.transform.position.x + " " + describeInstance.transform.position.y);
+
+
+        if (textDesc != null)
+        {
+            ItemScriptableContainer itemToDesc = GameInstance.inventory.GetHeroItemScriptableByIndex(inventoryItem.container);
+
+            if (itemToDesc.itemLevel > GameInstance.party.activeHero.GetSkillsStat(SkillsStat.Identify, false) / 3)
+            {
+                print(GameInstance.party.activeHero.GetSkillsStat(SkillsStat.Identify, false));
+                textDesc.color = Color.red;
+                textDesc.text = "\n." + " Can't identify   " + "\n.";
+
+            }
+            else
+            {
+                textDesc.color = Color.green;
+                string spellTexts = "";
+                if(itemToDesc.spellContainer != null)
+                {
+                    foreach (Spell s in itemToDesc.spellContainer.spells)
+                    {
+                        spellTexts += ". " + s.SpellDescription;
+                    }
+                }
+
+                textDesc.text = itemToDesc.itemDescription + spellTexts + " " + "Price: " + ((int)(itemToDesc.price)).ToString() + " " + "Weight - " + itemToDesc.weight.ToString();
+                GameInstance.SaveIdentifiedItems(inventoryItem);
+            }
+            if (GameInstance.CheckIfItemIdentified(inventoryItem.container))
+            {
+                textDesc.color = Color.green;
+                string spellTexts = "";
+                if (itemToDesc.spellContainer != null)
+                {
+                    foreach (Spell s in itemToDesc.spellContainer.spells)
+                    {
+                        spellTexts += ". " + s.SpellDescription;
+                    }
+                }
+                textDesc.text = itemToDesc.itemDescription + spellTexts + " " + "Price: " + ((int)(itemToDesc.price)).ToString() + " " + "Weight - " + itemToDesc.weight.ToString();
+            }
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
     {
         if (!GameInstance.spellbook.IdentifyModeActive()) { return; }
         TextMeshProUGUI textDesc = GameInstance.inventory.GetDescriptionTab().GetComponentInChildren<TextMeshProUGUI>();

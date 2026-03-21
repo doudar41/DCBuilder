@@ -59,5 +59,7 @@ public enum UniqueDialogueName //Party would have current list of dialogue names
     MeetDukeFirstDeny,
     MetDukeAllow,
     EnterTheTownGameStart,
-    Tutorial01
+    Tutorial01,
+    OpenCaveDoor,
+    PortalToTown
 }

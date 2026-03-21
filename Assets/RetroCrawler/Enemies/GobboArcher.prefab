@@ -1257,6 +1257,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  changeEnemyState:
+    m_PersistentCalls:
+      m_Calls: []
   immunityspell: {fileID: 0}
   upFrontSound:
     ID: 1073741839
@@ -1265,6 +1268,10 @@ MonoBehaviour:
   attackSound:
     ID: 1073741850
     _sourceAsset: {fileID: 11400000, guid: b57e0d2f91771b34d8c0a49ba7faee85, type: 2}
+    <DebugObject>k__BackingField: {fileID: 8822468640820191240}
+  dieSound:
+    ID: 0
+    _sourceAsset: {fileID: 0}
     <DebugObject>k__BackingField: {fileID: 8822468640820191240}
   experienceReward: 30
   itemScriptableContainers:

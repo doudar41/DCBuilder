@@ -160,6 +160,7 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables, IPointerClickHand
 
     public void RemoveFromTheWorld()
     {
+        print("check for removing rock");
         foreach (InteractablesEnum inter in GameInstance.playerController.GetIIteractableInterfaces(transform.position))
         {
             if (inter == InteractablesEnum.WEIGHTPLATE)
@@ -168,6 +169,7 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables, IPointerClickHand
                 {
                     GameInstance.playerController.GetBlockInterface(transform.position).AddWeightToBlock(-itemScriptableLocal.weight);
                 }
+                return;
             }
         }
 
@@ -279,6 +281,9 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables, IPointerClickHand
 
         GameInstance.playerController.GetInterfaceFromItem(gameObject);
     }
+
+
+    
 }
 
 
@@ -333,9 +338,20 @@ public enum ItemType
     LOOT,
     Upgrades,
     Key,
-    LEARNINGSCROLL
-
+    LEARNINGSCROLL,
+    None
 }
+[System.Serializable]
+public enum SortingItemType
+{
+    NONE =0,
+    WEAPON =1,
+    ARMOUR =2,
+    CONSUMABLE =3,
+    QUEST=4,
+    KEY=5
+}
+
 
 public enum WeaponType
 {

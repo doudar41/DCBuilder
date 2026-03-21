@@ -277,6 +277,12 @@ public static class GameInstance
         partyLevel = party.GetPartyLevel();
         savedTimeToEncounter = playerController.GetCountdownToEncounter();
         partyFood = party.CheckFoodSupply(0);
+        currentUniqueDialogueNames.Clear();
+        foreach(UniqueDialogueName diag in party.currentUniqueDialogueNames)
+        {
+            currentUniqueDialogueNames.Add(diag);
+        }
+
 
         if (!levelsVisited.Contains(SceneManager.GetActiveScene().name)) levelsVisited.Add(SceneManager.GetActiveScene().name);
         heroesCurrentData.Clear();

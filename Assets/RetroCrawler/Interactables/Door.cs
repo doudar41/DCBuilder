@@ -12,6 +12,7 @@ public class Door : MonoBehaviour, IDoor, IInteractables
     float blockHeight = 1;
     [SerializeField]
     AnimationCurve curveDoor;
+    [SerializeField] GameObject doorL,doorR;
 
     float clampYMin, clampYMax;
 
@@ -61,19 +62,22 @@ public class Door : MonoBehaviour, IDoor, IInteractables
     {
 
         busy = true;
-        float starty = transform.position.y;
+        float startL = doorL.transform.position.x;
+        float startR = doorR.transform.position.x;
         float currentPoint = 0;
         while (currentPoint < 1)
         {
             if (startPoint <= 0)
             {
-                transform.position = new Vector3(transform.position.x, 
-                    Mathf.Clamp(starty + blockHeight* curveDoor.Evaluate( currentPoint),clampYMin,clampYMax), transform.position.z);
+                doorL.transform.position = new Vector3(Mathf.Clamp(startL - blockHeight * curveDoor.Evaluate(currentPoint), clampYMin, clampYMax), doorL.transform.position.y,
+                     doorL.transform.position.z);
             }
             else
             {
-                transform.position = new Vector3(transform.position.x, 
-                    Mathf.Clamp(starty - blockHeight * curveDoor.Evaluate(currentPoint), clampYMin, clampYMax), transform.position.z);
+                doorL.transform.position = new Vector3(Mathf.Clamp(startL - blockHeight * curveDoor.Evaluate(currentPoint), clampYMin, clampYMax), doorL.transform.position.y,
+                     doorL.transform.position.z);
+                doorR.transform.position = new Vector3(Mathf.Clamp(startR + blockHeight * curveDoor.Evaluate(currentPoint), clampYMin, clampYMax), doorL.transform.position.y,
+                doorL.transform.position.z);
                 //print("start corouting" + currentPoint);
             }
 
@@ -97,6 +101,20 @@ public class Door : MonoBehaviour, IDoor, IInteractables
     {
         
     }
+
+    public void OpenDoor(int index, GameObject _switch)
+    {
+    }
+
+    public void CloseDoor(int index, GameObject _switch)
+    {
+
+    }
+
+    public string GetGUID()
+    {
+        return "";
+    }
 }
 
 
@@ -105,6 +123,7 @@ public interface IDoor
 {
     public bool isOpen();
     public void OpenDoor();
-    public void CloseDoor();
+    public void OpenDoor(int index, GameObject _switch);
+    public void CloseDoor(); public void CloseDoor(int index, GameObject _switch);
     public void WeightDoor(int weightTarget, int weightAmount);
 }

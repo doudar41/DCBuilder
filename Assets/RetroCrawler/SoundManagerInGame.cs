@@ -119,8 +119,10 @@ public class SoundManagerInGame : MonoBehaviour
 
     public void PlayFootsteps(GroundType groundType)
     {
-        if (GameInstance.playerController.GetBattleGroundEnvironment() == BattleGroundEnvironment.NONE) return;
-
+        if (GameInstance.playerController.GetBattleGroundEnvironment() == BattleGroundEnvironment.NONE)
+        {
+            BroAudio.Play(footstepSounds[0]); return; }
+        print("sound of ground "+ GameInstance.playerController.GetBattleGroundEnvironment());
         ChangeExploreMusicOnBattleGround(GameInstance.playerController.GetBattleGroundEnvironment());
         switch (groundType)
         {
@@ -130,6 +132,7 @@ public class SoundManagerInGame : MonoBehaviour
             case GroundType.Sand:
                 break;
             case GroundType.Dirt:
+                BroAudio.Play(footstepSounds[0]);
                 break;
             case GroundType.Snow:
                 break;
@@ -137,8 +140,7 @@ public class SoundManagerInGame : MonoBehaviour
                 break;
             case GroundType.Water:
                 break;
-            case GroundType.None:
-                break;
+
         }
     }
 

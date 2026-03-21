@@ -1,8 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
 
 namespace OldCode
 {
@@ -19,6 +16,7 @@ namespace OldCode
         public float MinimumIntensityDifference = 0.15f;
         public float MaximumIntensityDifference = 1.5f;
 
+        [SerializeField] bool isDungeon = false;
         // Target framerate for flicker
         public float FrameRate = 12.0f;
 
@@ -27,14 +25,17 @@ namespace OldCode
 
         bool isNight = true;
 
+        [SerializeField] bool nightDepended = true;
+
         private void Awake()
         {
-            GameInstance.progress += DayNightChange;
+           if(nightDepended) GameInstance.progress += DayNightChange;
+            else isNight = true;
         }
 
         private void OnDestroy()
         {
-            GameInstance.progress -= DayNightChange;
+            if (nightDepended) GameInstance.progress -= DayNightChange;
         }
 
         // Start is called before the first frame update
@@ -61,6 +62,8 @@ namespace OldCode
         // Call the flicker separately since we want parameters
         void FlickerAway()
         {
+            if (isDungeon) { FlickerLight(ShadingSteps, 1); return; }
+
             if (isNight) 
             {
                 FlickerLight(ShadingSteps, 1);

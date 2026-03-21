@@ -26,9 +26,9 @@ MonoBehaviour:
   dialogueButtons: []
   namesToDeleteFromBlock: 0b000000
   namesToDeleteFromParty: 0b000000
-  deleteDialogue: 1
+  deleteDialogue: 0
   lastButtonText: Back To Duke
   namesAddToParty: 0c000000
   itemsAddToParty: []
   goldAmount: 0
-  experiencePoints: 200
+  experiencePoints: 2000

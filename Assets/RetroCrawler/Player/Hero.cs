@@ -1,7 +1,6 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -640,6 +639,20 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 currentMana += GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides) + s.amount;
                     if (currentMana > GetMaxDependedStat(DependedStat.maxMana)) currentMana = GetMaxDependedStat(DependedStat.maxMana);
                 break;
+            case SpellEffects.PDmg:
+                int pureDamageAmount = GameInstance.DiceRollingBiggestNumber(s.diceRollsNumber, s.diceSides);
+
+
+                int physicalDamage = pureDamageAmount - GetMaxDependedStat(DependedStat.defence);
+                results.Add(new() { msgType = "s", msgString = " damage " + pureDamageAmount + " vs. defence " + GetMaxDependedStat(DependedStat.defence) });
+
+                results.Add(new() { msgType = "s", msgString = heroName + " damage " });
+                results.Add(new() { msgType = "i", msgInt = physicalDamage }); // adding final damage amount to the results list
+                if (physicalDamage < 0) physicalDamage = 0;
+                HealthDecrease(physicalDamage);
+
+
+                break;
         }
         hitTargetEffect.Invoke(spellToApply);
         return results;
@@ -1157,7 +1170,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
         if (dependedStatsDefault.Count == 0) return 0;
         if (!dependedStatsDefault.ContainsKey(dependedStat)) return 0;
         int statInt = dependedStatsDefault[dependedStat];
-        if (dependedStat == DependedStat.meleeDamage || dependedStat == DependedStat.rangeDamage) print("base stat " + dependedStat + " " + statInt);
+        //if (dependedStat == DependedStat.meleeDamage || dependedStat == DependedStat.rangeDamage) print("base stat " + dependedStat + " " + statInt);
         switch (dependedStat)
         {
             case DependedStat.maxHealth:

@@ -415,7 +415,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 2347178705110088755}
+  - {fileID: 976944771392245689}
   m_Father: {fileID: 3513055057959963386}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1907540620975975541
@@ -484,7 +484,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 1907540620975975541}
   emptySprite: {fileID: 21300000, guid: e418c7b149449ad42ba64a015fb22784, type: 3}
-  animator: {fileID: 7337790463349390996}
+  animator: {fileID: 5244728754885905694}
 --- !u!1 &4673620098085389259
 GameObject:
   m_ObjectHideFlags: 0
@@ -907,12 +907,12 @@ MonoBehaviour:
     _sourceAsset: {fileID: 11400000, guid: b57e0d2f91771b34d8c0a49ba7faee85, type: 2}
     <DebugObject>k__BackingField: {fileID: 8822468640820191240}
   attackSound:
-    ID: 1073741850
-    _sourceAsset: {fileID: 11400000, guid: b57e0d2f91771b34d8c0a49ba7faee85, type: 2}
+    ID: 1073741888
+    _sourceAsset: {fileID: 11400000, guid: dbc6c79b4f17ac74aa04749a7917aa73, type: 2}
     <DebugObject>k__BackingField: {fileID: 8822468640820191240}
   dieSound:
-    ID: 0
-    _sourceAsset: {fileID: 0}
+    ID: 1073741888
+    _sourceAsset: {fileID: 11400000, guid: dbc6c79b4f17ac74aa04749a7917aa73, type: 2}
     <DebugObject>k__BackingField: {fileID: 8822468640820191240}
   experienceReward: 10
   itemScriptableContainers: []
@@ -1014,7 +1014,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5768381439413115982, guid: 886a83b2fd5963049acfa4d3d0a4b2af, type: 3}
   m_PrefabInstance: {fileID: 2900671595423295734}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &7153670811811192171
+--- !u!1001 &5646077132018167521
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1062,30 +1062,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5457851509101828904, guid: 5ab70878558e1654ba2112a2523aff48, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8440027620216714310, guid: 5ab70878558e1654ba2112a2523aff48, type: 3}
       propertyPath: m_Name
       value: DamageAnimations
-      objectReference: {fileID: 0}
-    - target: {fileID: 8440027620216714310, guid: 5ab70878558e1654ba2112a2523aff48, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ab70878558e1654ba2112a2523aff48, type: 3}
---- !u!4 &2347178705110088755 stripped
+--- !u!4 &976944771392245689 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4887578960166429016, guid: 5ab70878558e1654ba2112a2523aff48, type: 3}
-  m_PrefabInstance: {fileID: 7153670811811192171}
+  m_PrefabInstance: {fileID: 5646077132018167521}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &7337790463349390996 stripped
+--- !u!95 &5244728754885905694 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 473968947228992511, guid: 5ab70878558e1654ba2112a2523aff48, type: 3}
-  m_PrefabInstance: {fileID: 7153670811811192171}
+  m_PrefabInstance: {fileID: 5646077132018167521}
   m_PrefabAsset: {fileID: 0}

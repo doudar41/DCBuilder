@@ -27,6 +27,7 @@ public class DialoguePanel : MonoBehaviour
 
     public UnityEvent<UniqueDialogueName> deleteDialogueOption;
     public UnityEvent<List<string>, List<ResultMsg>> textToLog;
+    
 
     private void Awake()
     {
@@ -80,7 +81,7 @@ public class DialoguePanel : MonoBehaviour
 
             foreach (ItemScriptableContainer item in dialogue.itemsAddToParty)
             {
-                GameInstance.inventory.FindEmptySlotAndPutItem( GameInstance.dataBase.HeroInventoryFromITemScriptable(item), 1, false);
+                GameInstance.inventory.AddToInventoryItems( GameInstance.dataBase.HeroInventoryFromITemScriptable(item), 1);
             }
 
             GameInstance.party.MoneyGoes(-dialogue.goldAmount);

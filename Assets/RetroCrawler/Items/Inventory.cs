@@ -1,10 +1,10 @@
 using Ami.BroAudio;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.Events;
-using TMPro;
-using Ami.BroAudio;
-using System.Linq;
 
 public class Inventory : MonoBehaviour
 {
@@ -17,6 +17,15 @@ public class Inventory : MonoBehaviour
     [SerializeField]    SoundID openInventory = default;
     Dictionary<KeyType, TextMeshProUGUI> keyTexts = new Dictionary<KeyType, TextMeshProUGUI>();
     Dictionary<int, ItemScriptableContainer> itemDatabase = new Dictionary<int, ItemScriptableContainer>();
+    List<HeroInventoryItem> inventoryItems = new List<HeroInventoryItem>();
+    SortingItemType sortingType = SortingItemType.NONE;
+    Dictionary<SortingItemType, List<ItemType>> sortingGroups = new Dictionary<SortingItemType, List<ItemType>>()
+    { { SortingItemType.WEAPON, new List<ItemType>(){ ItemType.WEAPON } },
+    { SortingItemType.ARMOUR, new List<ItemType>(){ ItemType.TORSO_ARMOR, ItemType.HELM, ItemType.GLOVES, ItemType.AMULET, ItemType.BOOT, ItemType.BELT,
+     ItemType.SHIELD, ItemType.RING} },
+    { SortingItemType.CONSUMABLE, new List<ItemType>(){ ItemType.CONSUMABLE, ItemType.LEARNINGSCROLL} },
+    { SortingItemType.KEY, new List<ItemType>(){ ItemType.Key } },
+    { SortingItemType.QUEST, new List<ItemType>(){ ItemType.QUEST, ItemType.LOOT } }};
 
     public UnityEvent<int> sendWeight;
     public UnityEvent enableInventory;
@@ -30,8 +39,25 @@ public class Inventory : MonoBehaviour
     {
         GameInstance.inventory = this;
         keyTexts.Add(KeyType.IronKey, keyAmountsText[0]);
-        keyTexts.Add(KeyType.RedKey, keyAmountsText[1]); 
+        keyTexts.Add(KeyType.BronzeKey, keyAmountsText[1]); 
         keyTexts.Add(KeyType.GoldKey, keyAmountsText[2]);
+        GameInstance.GetInventoryItemDelegate += SaveInventoryItemsToGameInstance;
+    }
+    private void OnDestroy()
+    {
+        GameInstance.GetInventoryItemDelegate -= SaveInventoryItemsToGameInstance;
+    }
+
+
+    bool SaveInventoryItemsToGameInstance()
+    {
+        foreach(HeroInventoryItem hi in  inventoryItems)
+        {
+         GameInstance.AddInventoryItem(hi);
+
+        }
+
+        return true;
     }
 
     public void EnableInventory(bool switchInventory)
@@ -46,6 +72,7 @@ public class Inventory : MonoBehaviour
         if (switchInventory) enableInventory.Invoke();
         isInventoryOpened = switchInventory;
         inventorySwitcher.SetActive(switchInventory);
+        ShowSortedInventory();
         descriptionTab.SetActive(switchInventory);
         paperDoll.SetActive(switchInventory);
         if (switchInventory)
@@ -61,6 +88,7 @@ public class Inventory : MonoBehaviour
             }
         }
     }
+
     public Transform GetDescriptionTab()
     {
         return descriptionTab.transform;
@@ -151,14 +179,67 @@ public class Inventory : MonoBehaviour
         return weight;
     }
 
+    public void AddToInventoryItems(HeroInventoryItem itemScriptableTemp, int stackamount)
+    {
+        if (inventoryItems.Contains(itemScriptableTemp)) { inventoryItems[inventoryItems.IndexOf(itemScriptableTemp)].stackAmount += 1; return; }
+        else itemScriptableTemp.stackAmount = stackamount;
+        inventoryItems.Add(itemScriptableTemp);
+    }
 
+
+    public void RemoveFromInventory(HeroInventoryItem itemToRemove, int amount)
+    {
+        if(itemToRemove.stackAmount > amount)
+        {
+            itemToRemove.stackAmount -= amount;
+        }
+        else
+        {
+            inventoryItems.Remove(itemToRemove);
+        }
+
+    }
+    public void ShowSortedInventory()
+    {
+        ItemSlot[] slots = slotsParent.GetComponentsInChildren<ItemSlot>();
+        foreach (ItemSlot i in slots)
+        {
+            i.RemoveItemFromSlotOnly();
+        }
+        foreach (HeroInventoryItem inventoryItem in inventoryItems) 
+        { 
+            if(sortingType == SortingItemType.NONE)
+            {
+                FindEmptySlotAndPutItem(inventoryItem, inventoryItem.stackAmount, true);
+            }
+            else
+            {
+                if (sortingGroups[sortingType].Contains(inventoryItem.itemType))
+                {
+
+                    FindEmptySlotAndPutItem(inventoryItem, inventoryItem.stackAmount, true);
+                }
+
+            }
+
+        }
+    }
+
+    public void SetSortingType(int index)
+    {
+        sortingType = (SortingItemType)index;
+        //print((SortingItemType)index);
+        ShowSortedInventory();
+    }
 
     public void FindEmptySlotAndPutItem(HeroInventoryItem itemScriptableTemp, int stackamount, bool noSound = true)
     {
         bool itemAdded = false;
         int countSlots = 0;
         ItemSlot[] slots = slotsParent.GetComponentsInChildren<ItemSlot>();
-        foreach(ItemSlot i in slots)
+
+
+        foreach (ItemSlot i in slots)
         {
             if (i.IsEmpty())
             {
@@ -286,7 +367,7 @@ public struct ItemSlotStruct
 
 public enum KeyType
 {
-    RedKey,
+    BronzeKey,
     IronKey,
     GoldKey
 }

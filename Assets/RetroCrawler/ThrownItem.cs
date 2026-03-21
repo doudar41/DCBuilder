@@ -29,7 +29,7 @@ public class ThrownItem : MonoBehaviour
             }
             else
                 {
-                if (once) { GameInstance.inventory.FindEmptySlotAndPutItem(item, stackAmount); once = false; }
+                if (once) { GameInstance.inventory.AddToInventoryItems(item, stackAmount); once = false; }
                 Destroy(gameObject.transform.parent.gameObject, 2f);
                 }
 
@@ -51,7 +51,7 @@ public class ThrownItem : MonoBehaviour
             {
                 if (once)
                 {
-                    GameInstance.inventory.FindEmptySlotAndPutItem(item, stackAmount);
+                    GameInstance.inventory.AddToInventoryItems(item, stackAmount);
                     once = false;
                 }
 

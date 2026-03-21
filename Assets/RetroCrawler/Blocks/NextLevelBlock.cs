@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class NextLevelBlock : MonoBehaviour, IInteractables
 {
+    public string GetGUID()
+    {
+        return "";
+    }
+
     public int GetWeight(out int carringCapacity)
     {
         carringCapacity = 0;

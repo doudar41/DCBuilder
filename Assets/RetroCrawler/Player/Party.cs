@@ -425,4 +425,32 @@ public class Party : MonoBehaviour
         return newskillsSave;
     }
 
+    public void TrapDamage(SpellContainer _spell, int trapComplexity, bool allParty)
+    {
+        if (allParty) {
+            int damage = 0;
+            foreach (Hero hero in heroes) 
+            { 
+                int _skill = hero.GetSkillsStat(SkillsStat.SpotSecret, false);
+                if (_skill <= trapComplexity)
+                {
+                    hero.ApplySpellToHero(_spell);
+                }
+            }
+        }
+        else
+        {
+            Hero hero = heroes[UnityEngine.Random.Range(0, heroes.Count)];
+            int _skill = hero.GetSkillsStat(SkillsStat.SpotSecret, false);
+            if (_skill <= trapComplexity)
+            {
+                hero.ApplySpellToHero(_spell);
+            }
+        }
+
+
+    }
+
+
+
 }

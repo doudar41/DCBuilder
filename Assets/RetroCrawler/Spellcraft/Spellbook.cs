@@ -305,6 +305,7 @@ public class Spellbook : MonoBehaviour
         }
         else
         {
+            print("add listener to mouse click");
             spellWaitToRelease = spellToCast;
             spellTargetEvent.AddListener(GetGameObjectTarget);
             SpellCharged = true;

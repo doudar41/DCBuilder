@@ -45,7 +45,7 @@ public class LoadLevelOrder : MonoBehaviour
         foreach(HeroInventoryItem h in GameInstance.inventoryItemsSaved)
         {
             //print(GameInstance.inventoryItemsSaved.Count);
-            GameInstance.inventory.FindEmptySlotAndPutItem(h, h.stackAmount);
+            GameInstance.inventory.AddToInventoryItems(h, h.stackAmount);
         }
 
         GameInstance.playerController.InitWallAccess();

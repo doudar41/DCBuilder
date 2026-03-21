@@ -25,6 +25,16 @@ public class CaveWallDoor : MonoBehaviour, IDoor, IInteractables
         BroAudio.Play(doorSound, transform);
     }
 
+    public void CloseDoor(int index, GameObject _switch)
+    {
+
+    }
+
+    public string GetGUID()
+    {
+        return "";
+    }
+
     public int GetWeight(out int carringCapacity)
     {
         carringCapacity = 0;
@@ -46,6 +56,11 @@ public class CaveWallDoor : MonoBehaviour, IDoor, IInteractables
         doorAnimator.CrossFade("OpenCaveDoor", openSpeed);
         doorAnimator.speed = openSpeed;
         BroAudio.Play(doorSound, transform);
+    }
+
+    public void OpenDoor(int index, GameObject _switch)
+    {
+
     }
 
     public void WeightDoor(int weightTarget, int weightAmount)

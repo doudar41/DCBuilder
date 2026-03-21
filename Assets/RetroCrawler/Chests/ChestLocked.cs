@@ -9,11 +9,11 @@ public class ChestLocked : MonoBehaviour, IPointerClickHandler, IChestLocked
 {
     System.Guid _guid;
     [SerializeField] string GUIDString = "";
-
+    [SerializeField] bool stackamountOverride = false;
     [SerializeField] List<ItemScriptableContainer> thingsInsideChest = new List<ItemScriptableContainer>();
     [SerializeField] List<int> stackAmounts = new List<int>();
     List<HeroInventoryItem> inventoryInsideChest = new List<HeroInventoryItem>();
-    [SerializeField] bool isOpen = true;
+    [SerializeField] bool _isOpen = true;
     [SerializeField] List<Sprite> openAnimation = new List<Sprite>();
     [SerializeField] List<Sprite> openMimic= new List<Sprite>();
     [SerializeField] SpriteRenderer chestPicture;
@@ -23,6 +23,10 @@ public class ChestLocked : MonoBehaviour, IPointerClickHandler, IChestLocked
     [SerializeField] bool isMimic = false;
     [SerializeField] Collider chestCollider;
     [SerializeField] GameObject mimicPlace;
+    [SerializeField] Sprite emptySprite;
+
+    [SerializeField] List<Sprite> closedSprites, openSprites;
+    Billboard3D billboard;
     bool battle = false;
     public void OnValidate()
     {
@@ -31,24 +35,21 @@ public class ChestLocked : MonoBehaviour, IPointerClickHandler, IChestLocked
             _guid = System.Guid.NewGuid();
             GUIDString = _guid.ToString();
         }
-        stackAmounts.Clear();
-        for (int i = 0; i < thingsInsideChest.Count; i++)
+        if (!stackamountOverride)
         {
+            stackAmounts.Clear();
+            for (int i = 0; i < thingsInsideChest.Count; i++)
+            {
 
-            stackAmounts.Add(1);
+                stackAmounts.Add(1);
+            }
         }
+        billboard = GetComponent<Billboard3D>();
     }
-
-
-
 
     private void Awake()
     {
-
         GameInstance.initItems += Init;
-
-        
-
     }
     private void OnDestroy()
     {
@@ -60,7 +61,6 @@ public class ChestLocked : MonoBehaviour, IPointerClickHandler, IChestLocked
     {
         if (thingsInsideChest.Count != stackAmounts.Count)
         {
-            print("Things and amounts list counts should be equal");
             return;
         }
 
@@ -118,8 +118,6 @@ public class ChestLocked : MonoBehaviour, IPointerClickHandler, IChestLocked
         if(isMimic)
         {
             MimicBattle();
-
-
             return;
         }
         if (Vector3.Distance(GameInstance.playerController.gameObject.transform.position, transform.position) > 7) return;
@@ -128,32 +126,59 @@ public class ChestLocked : MonoBehaviour, IPointerClickHandler, IChestLocked
 
     public void OpenChest()
     {
-        if (isOpen)
+        if (_isOpen)
         {
+            print("Chest is open ");
             foreach (HeroInventoryItem item in inventoryInsideChest)
             {
-                GameInstance.inventory.FindEmptySlotAndPutItem(item, item.stackAmount, false);
+                GameInstance.inventory.AddToInventoryItems(item, item.stackAmount);
                 GameInstance.spellbook.BattleLogMessage(new List<string>() { "item added " + GameInstance.dataBase.GetItemFromBaseByIndex(item.container).itemName }, null);
             }
             StartCoroutine(AnimateOpen());
             inventoryInsideChest.Clear();
             GameInstance.SaveItemState(GUIDString, SavedState.Opened);
+            BroAudio.Play(openSound, transform);
         }
         else
         {
-            if (GameInstance.inventory.UseKey(keyType))
+            /*            if (GameInstance.inventory.UseKey(keyType))
+                        {
+                            foreach (HeroInventoryItem item in inventoryInsideChest)
+                            {
+                                GameInstance.inventory.FindEmptySlotAndPutItem(item, item.stackAmount,false);
+                                GameInstance.spellbook.BattleLogMessage(new List<string>() { "item added " + GameInstance.dataBase.GetItemFromBaseByIndex(item.container).itemName }, null);
+                            }
+                            StartCoroutine(AnimateOpen());
+                            inventoryInsideChest.Clear();
+                            GameInstance.SaveItemState(GUIDString, SavedState.Opened);
+                        }*/
+
+            HeroInventoryItem key = GameInstance.playerController.GetItemFromCursor();
+            if (key == null) return;
+
+
+            if (GameInstance.dataBase.GetItemFromBaseByIndex(key.container).keyType == keyType)
             {
                 foreach (HeroInventoryItem item in inventoryInsideChest)
                 {
-                    GameInstance.inventory.FindEmptySlotAndPutItem(item, item.stackAmount,false);
+                    GameInstance.inventory.AddToInventoryItems(item, item.stackAmount);
                     GameInstance.spellbook.BattleLogMessage(new List<string>() { "item added " + GameInstance.dataBase.GetItemFromBaseByIndex(item.container).itemName }, null);
                 }
                 StartCoroutine(AnimateOpen());
                 inventoryInsideChest.Clear();
                 GameInstance.SaveItemState(GUIDString, SavedState.Opened);
+                BroAudio.Play(openSound, transform);
             }
+            
+            else
+            {
+                GameInstance.spellbook.BattleLogMessage(new List<string>() { " you need " + keyType + " key" }, null);
+                GameInstance.playerController.SetPlayerCursorBusy(key);
+            }
+
+            BroAudio.Play(openSound, transform);
         }
-        BroAudio.Play(openSound,transform);
+
     }
 
 
@@ -163,7 +188,7 @@ public class ChestLocked : MonoBehaviour, IPointerClickHandler, IChestLocked
         chestPicture.enabled = true;
         foreach (HeroInventoryItem item in inventoryInsideChest)
             {
-                GameInstance.inventory.FindEmptySlotAndPutItem(item, item.stackAmount, false);
+                GameInstance.inventory.AddToInventoryItems(item, item.stackAmount);
                 GameInstance.spellbook.BattleLogMessage(new List<string>() { "item added " + GameInstance.dataBase.GetItemFromBaseByIndex(item.container).itemName }, null);
             }
             StartCoroutine(AnimateOpenMimic());
@@ -180,7 +205,7 @@ public class ChestLocked : MonoBehaviour, IPointerClickHandler, IChestLocked
             chestPicture.sprite = s;
             yield return new WaitForSeconds(0.2f);
         }
-
+        billboard.ReplaceSprite(openSprites);
         yield return null;
     }   
     IEnumerator AnimateOpenMimic()
@@ -194,9 +219,9 @@ public class ChestLocked : MonoBehaviour, IPointerClickHandler, IChestLocked
         yield return null;
     }
 
-    public bool IsLocked()
+    public bool IsOpen()
     {
-        return !isOpen;
+        return _isOpen;
     }
 
     public KeyType GetKeyType()
@@ -209,6 +234,6 @@ public class ChestLocked : MonoBehaviour, IPointerClickHandler, IChestLocked
 public interface IChestLocked
 {
     public KeyType GetKeyType();
-    public bool IsLocked();
+    public bool IsOpen();
     public void OpenChest();
 }

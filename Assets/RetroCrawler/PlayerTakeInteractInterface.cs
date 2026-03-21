@@ -58,7 +58,7 @@ public class PlayerTakeInteractInterface : MonoBehaviour
                         Debug.Log("Player triggered a pickable item.");
                         IItem iitem = other.GetComponent<IItem>();
                         HeroInventoryItem item = other.GetComponent<IItem>().WhatItem();
-                        GameInstance.inventory.FindEmptySlotAndPutItem(item, item.stackAmount, false);
+                        GameInstance.inventory.AddToInventoryItems(item, item.stackAmount);
                         _collider.enabled = false;
                         iitem.RemoveFromTheWorld();
 
@@ -66,6 +66,7 @@ public class PlayerTakeInteractInterface : MonoBehaviour
 
                     case InteractablesEnum.SWITCH:
                         Debug.Log("Player triggered a switch item.");
+                        if(other.gameObject.GetComponent<ISwitch>() !=null)
                         other.gameObject.GetComponent<ISwitch>().ToggleSwitch();
                         break;
 
@@ -78,7 +79,8 @@ public class PlayerTakeInteractInterface : MonoBehaviour
 
         if(other.gameObject.TryGetComponent<IChestLocked>(out IChestLocked chest))
         {
-            Debug.Log("Chest found");
+            Debug.Log("Chest found " + chest.IsOpen());
+
             chest.OpenChest();
             // Implement logic for enemy encounter
         }

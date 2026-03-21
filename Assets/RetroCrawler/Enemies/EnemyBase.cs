@@ -843,24 +843,27 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (GameInstance.playerController.playerState == PlayerState.Explore) return;
+        if (GameInstance.playerController.playerState != PlayerState.Battle) return;
+        //if (GameInstance.playerController.playerState == PlayerState.Explore) return;
         if (health <= 0) return;
         if (outlineRenderer != null)
         {
             enemyFace.gameObject.SetActive(false);
             outlineRenderer.gameObject.SetActive(true);
         }
+        if(GameInstance.battleManager.IfThisOpponentHero()){ GameInstance.playerController.ReceiveAttackInput(); }//if active queue is hero then ReceiveAttackInput
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if(GameInstance.playerController.playerState != PlayerState.Battle) return;
         if (health <= 0) return;
         if (outlineRenderer != null)
         {
             outlineRenderer.gameObject.SetActive(false);
             enemyFace.gameObject.SetActive(true);
         }
-
+        if (GameInstance.battleManager.IfThisOpponentHero()) { print("releasing spell "); GameInstance.playerController.ReleaseSpellWithoutCasting(); }
     }
 
 

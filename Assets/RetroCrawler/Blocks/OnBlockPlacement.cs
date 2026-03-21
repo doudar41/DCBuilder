@@ -34,6 +34,8 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
     [SerializeField] int goldAmount = 0, gemsAmount = 0;
     [SerializeField] GameObject characterSprite;
     [SerializeField] List<GameObject> interactableObjectsInBlock = new List<GameObject>();
+    [SerializeField] GameObject trapLauncher;
+
 
 
     public List<GameObject> InteractableObjectsInBlock { get; }
@@ -331,7 +333,7 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
             blockInteractables.Remove(InteractablesEnum.CUSTOMBATTLEINPLACE);
         foreach (ItemScriptableContainer item in afterBattleLoot)
         {
-            GameInstance.inventory.FindEmptySlotAndPutItem(GameInstance.dataBase.HeroInventoryFromITemScriptable(item), 1);
+            GameInstance.inventory.AddToInventoryItems(GameInstance.dataBase.HeroInventoryFromITemScriptable(item), 1);
         }
         foreach(KeyToLocks keys in afterBattleKeys)
         {
@@ -374,10 +376,27 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
         return battleGroundEnvironment;
     }
 
-/*    public List<GameObject> InteractableObjectsInBlock()
+    public string GetGUID()
     {
-        return interactableObjectsInBlock;
-    }*/
+        return "";
+    }
+
+    public int GetDialogueOptionCount()
+    {
+        return dialogues.Count;
+    }
+
+    /*    public List<GameObject> InteractableObjectsInBlock()
+        {
+            return interactableObjectsInBlock;
+        }*/
+
+    public void LaunchTrap()
+    {
+        trapLauncher.GetComponent<Trap>().TriggerTrap();
+    }
+
+
 }
 
 
@@ -422,6 +441,8 @@ public interface IBlock
     public BattleGroundEnvironment GetBattleGroundEnvironment();
 
     public List<GameObject> InteractableObjectsInBlock { get; }
+
+    public void LaunchTrap();
 }
 
 
@@ -430,4 +451,5 @@ public interface IDialogue
     public List<UniqueDialogueName> RunDialogue();
     public void DeleteDialogueOption(UniqueDialogueName uniqueDialogueName);
     public void DeleteDialogue();
+    public int GetDialogueOptionCount();
 }

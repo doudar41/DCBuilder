@@ -41,6 +41,11 @@ public class DialogueKeyBlock : MonoBehaviour, IInteractables, DialogueKey
         GetComponent<BoxCollider>().enabled = false;
         return uniqueDialogueName;
     }
+
+    public string GetGUID()
+    {
+        return "";
+    }
 }
 
 

@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] bool noEncounter = false;
     [SerializeField] Tilemap moveTilemap;
     [SerializeField] TorchFlicker torchlight;
 
@@ -64,7 +65,7 @@ public class PlayerController : MonoBehaviour
     bool cursorHoveringUI = false;
     //string currentCursorGUID = "";
 
-    [SerializeField]bool noEncounter = false;
+
     int countdownToEncounter = 22;
     public Vector2Int rangeOfEnCounter = new Vector2Int(15,25);
     public UnityEvent<int> EnCounter;
@@ -255,6 +256,24 @@ public class PlayerController : MonoBehaviour
         attackAllowed = false;
     }
 
+    public void ReceiveAttackInput()
+    {
+        print("pointer on enemy");
+        if (playerState != PlayerState.Battle) return;
+        if (!attackAllowed) return;
+        //if (cursorHoveringUI) return; //??
+        //if (GameInstance.battleManager.battleInputDelay) { context.action.Reset(); return; }
+
+        if (!GameInstance.spellbook.SpellWaiting())
+        {
+            print("battlemanager receive attack input");
+            GameInstance.battleManager.ReceiveAttackInput();
+        }
+
+        attackAllowed = false;
+    }
+
+
     public void ReceiveLastSpellInput(InputAction.CallbackContext context)
     {
         if(GameInstance.party.activeHero.GetThisHero().GetDefaultSpell() != null)
@@ -271,11 +290,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void ReleaseSpellWithoutCasting(InputAction.CallbackContext context)
+    void ReleaseSpellWithoutCasting(InputAction.CallbackContext context)
     {
         if (cursorHoveringUI) return;
         GameInstance.spellbook.ReleaseSpellWithoutCasting();
+        attackAllowed = true;
     }
+
+    public void ReleaseSpellWithoutCasting()
+    {        
+        if (cursorHoveringUI) return;
+        GameInstance.spellbook.ReleaseSpellWithoutCasting();
+        attackAllowed = true;
+
+    }
+
 
     public bool IsCursorBusy()
     {
@@ -746,6 +775,7 @@ public class PlayerController : MonoBehaviour
         if (cursorBusy)
         {
             if(playerState == PlayerState.Battle) return;
+            if (cursorItemScriptable.itemType == ItemType.Key) return;
             if(cursorHoveringUI && hoverPortraitIndex >0)
             {
                equipmentSlot _slot = GameInstance.inventory.FindEquipmentSlotOfType(cursorItemScriptable.itemType);
@@ -816,6 +846,19 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void CreateItemInWorld(HeroInventoryItem _item )
+    {
+        GameObject item = Instantiate(itemModelPrefab, dropItemPosition);
+
+        IItem iItem = item.GetComponent<IItem>();
+        iItem.ChangeGUID();
+        iItem.SetPrefab(GameInstance.dataBase.GetItemFromBaseByIndex(_item.container));
+        iItem.SetItemsAmount(stackAmountCursor);
+        iItem.PlaceCreatedItem(dropItemPosition.position);
+        iItem.RemoveFromParent();
+    }
+
+
     public void ThrowToTheWorld(Transform spawnPoint, float screenPosition)
     {
         if (screenPosition <= 500)
@@ -855,11 +898,11 @@ public class PlayerController : MonoBehaviour
     public void SetPlayerCursorBusy(HeroInventoryItem heroInventoryItem)
     {
        // print("set cursor busy " + heroInventoryItem.itemType);
-        if (GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).itemType == ItemType.Key)
+/*        if (GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).itemType == ItemType.Key)
         {
             GameInstance.inventory.SaveKeyToList(GameInstance.dataBase.GetItemFromBaseByIndex(heroInventoryItem.container).keyType);
             return;
-        }
+        }*/
 
         heroInventoryItem.heroIndex = -1;
         cursorItemScriptable = heroInventoryItem;
@@ -1018,7 +1061,8 @@ public class PlayerController : MonoBehaviour
                     // move player to another level of a tilemap
                     break;
                 case InteractablesEnum.TRAP:
-                    // get trap interface 
+                    wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<IBlock>().LaunchTrap(); 
+                    
                     break;
 
                 case InteractablesEnum.WALL:
@@ -1035,6 +1079,10 @@ public class PlayerController : MonoBehaviour
                     else return false;
                 case InteractablesEnum.DIALOGUE:
                     textblock = wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<IDialogue>();
+                    if (textblock.GetDialogueOptionCount() == 0)
+                    {
+                        return false;
+                    }
                     GameInstance.dialoguePanel.SetIDialogue(textblock);
                     dialogueIsOpened = true;
                     GameInstance.dialoguePanel.ActivateFirstDialogue();
@@ -1087,7 +1135,6 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-
 
 
     public void InputEnable(bool onOff)
