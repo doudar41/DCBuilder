@@ -152170,6 +152170,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9070674012345560183, guid: d68cb7605ae8f2e478c3dba0ce97a382, type: 3}
+      propertyPath: cameraOrder
+      value: 
+      objectReference: {fileID: 1248379967}
+    - target: {fileID: 9070674012345560183, guid: d68cb7605ae8f2e478c3dba0ce97a382, type: 3}
+      propertyPath: restCampAnimation
+      value: 
+      objectReference: {fileID: 1248379968}
     - target: {fileID: 9110855640729727568, guid: d68cb7605ae8f2e478c3dba0ce97a382, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -152257,6 +152265,22 @@ PrefabInstance:
 --- !u!1 &1248379966 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4210495371999129779, guid: d68cb7605ae8f2e478c3dba0ce97a382, type: 3}
+  m_PrefabInstance: {fileID: 1248379965}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1248379967 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7101054404723408432, guid: d68cb7605ae8f2e478c3dba0ce97a382, type: 3}
+  m_PrefabInstance: {fileID: 1248379965}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cd3f5a643c68a44db57f6fcdf4aa8a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1248379968 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8079147594898619900, guid: d68cb7605ae8f2e478c3dba0ce97a382, type: 3}
   m_PrefabInstance: {fileID: 1248379965}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1248390698

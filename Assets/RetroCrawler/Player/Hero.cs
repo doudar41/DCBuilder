@@ -624,7 +624,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                 break;
 
             case SpellEffects.CureState:
-                {
+                
 
                     gameplayStatuses.Remove(s.targetGamestate);
                     spellsAttached.Remove(s);
@@ -632,8 +632,16 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
                     UpdatePortraitState();
                     results.Add(new() { msgType = "s", msgString = heroName + " cured state " + s.targetGamestate });
                     break;
+            case SpellEffects.CauseState:
 
-                }
+
+                gameplayStatuses.Add(s.targetGamestate);
+                spellsAttached.Add(s,new Vector3Int(s.amount,0,0));
+                debuffPanel.AddDebuffIcon(s.targetGamestate, true);
+                UpdatePortraitState();
+                results.Add(new() { msgType = "s", msgString = heroName + " cured state " + s.targetGamestate });
+                break;
+
             case SpellEffects.Mana:
                 print("get max mana number "+currentMana +" - "+ GetMaxDependedStat(DependedStat.maxMana));
                 int manaroll = GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides) + s.amount;

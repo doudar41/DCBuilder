@@ -24,6 +24,7 @@ public class Party : MonoBehaviour
     [SerializeField] int experienceToNextLevel = 100;
     [SerializeField] float experienceCoeficient = 1.3f;
     [SerializeField] SoundID moneyGoesSound, gemsGoesSound;
+    [SerializeField] SpellContainer wakeUpSpell;
     int currentexp = 0;
     int timeToLevelUp = 0;
 
@@ -476,6 +477,16 @@ public class Party : MonoBehaviour
 
     }
 
-
+    public void PartyAfterFullRest()
+    {
+        foreach (Hero hero in heroes)
+        {
+            if (hero.GetHeroHealth() <= 0) continue;
+            if (hero.GetHeroStatus().Contains(GameplayStates.Petrified) || hero.GetHeroStatus().Contains(GameplayStates.Stoned)) continue;
+            hero.HealthDecrease(-hero.GetMaxDependedStat(DependedStat.maxHealth));
+            hero.ManaDecrease(-hero.GetMaxDependedStat(DependedStat.maxMana));
+            hero.ApplySpellToHero(wakeUpSpell);
+        }
+    }
 
 }

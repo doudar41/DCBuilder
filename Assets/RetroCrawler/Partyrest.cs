@@ -9,6 +9,7 @@ public class Partyrest : MonoBehaviour
     [SerializeField] GameObject restCampAnimation;
     [SerializeField] int restHours = 8;
     [SerializeField] int survivalThreshold = 10;
+    [SerializeField] SpellContainer sleepSpell;
     int maxSurvival = 4; //example value
     int currentHour = 0;
     [SerializeField] CameraOrder cameraOrder;
@@ -32,7 +33,16 @@ public class Partyrest : MonoBehaviour
         GameInstance.dayNightChange.ChangeTimeFlow(0.001f);
         restCampAnimation.SetActive(true);
         restCampAnimation.GetComponent<animateUIImage>().StartAnimation();
+        foreach (Hero hero in GameInstance.party.GetPartyMembers())
+        {
+            if (hero.GetHeroHealth() > 0)
+            {
+                hero.ApplySpellToHero(sleepSpell);
+            }
+        }
         cameraOrder.ShopWithoutBattlelog();
+
+
     }
 
     public void SetSurvivalThreshhold(int amount)
@@ -57,7 +67,7 @@ public class Partyrest : MonoBehaviour
                 restCampAnimation.SetActive(false);
                 IBlock iblock = GameInstance.playerController.GetBlockInterface(GameInstance.playerController.gameObject.transform.position);
                 GameInstance.battleManager.CustomBattleStart(null, iblock, iblock.GetBattleGroundEnvironment());
-            cameraOrder.BattleLogWithGameplay();
+                cameraOrder.BattleLogWithGameplay();
             }
         }
         if (hour == (timestamp + 8)%24)
@@ -68,6 +78,7 @@ public class Partyrest : MonoBehaviour
             restCampAnimation.GetComponent<animateUIImage>().StopAnimation();
             restCampAnimation.SetActive(false);
             cameraOrder.BattleLogWithGameplay();
+            GameInstance.party.PartyAfterFullRest();
         }
     }
 
