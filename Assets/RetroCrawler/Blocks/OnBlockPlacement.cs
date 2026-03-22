@@ -343,6 +343,10 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
         {
            if (!GameInstance.party.currentUniqueDialogueNames.Contains(un)) GameInstance.party.currentUniqueDialogueNames.Add(un);
         }
+        foreach (UniqueDialogueName un in afterBattleDialogueRemoveFromParty)
+        {
+            if (GameInstance.party.currentUniqueDialogueNames.Contains(un)) GameInstance.party.currentUniqueDialogueNames.Remove(un);
+        }
         GameInstance.party.MoneyGoes(-goldAmount);
         GameInstance.party.GemGoes(-gemsAmount);
         //

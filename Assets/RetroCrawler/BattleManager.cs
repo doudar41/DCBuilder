@@ -182,8 +182,8 @@ public class BattleManager : MonoBehaviour
         //Add enemies
         if(_level01Enemies != null)
         {
-            SpawnEnemies(level01Enemies, row01RandomRange, spawnPointsRaw01, 1);
-            SpawnEnemies(level01Enemies, row02RandomRange, spawnPointsRaw02, 2);
+            SpawnEnemies(_level01Enemies, row01RandomRange, spawnPointsRaw01, 1);
+            SpawnEnemies(_level01Enemies, row02RandomRange, spawnPointsRaw02, 2);
         }
         else
         {

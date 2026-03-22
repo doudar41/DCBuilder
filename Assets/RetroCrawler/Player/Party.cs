@@ -107,7 +107,9 @@ public class Party : MonoBehaviour
     public void SetActiveHero(Hero hero)
     {
         if (GameInstance.spellbook.SpellWaiting()) return;
-        if(hero == null)
+        //if (GameInstance.playerController.playerState == PlayerState.Battle && GameInstance.spellbook.IsSpellBookOpened()) return;
+        if (GameInstance.playerController.playerState == PlayerState.Battle && !GameInstance.inventory.IsOpen()) return;
+        if (hero == null)
         {
             hero = heroes[0];
         }
@@ -124,6 +126,29 @@ public class Party : MonoBehaviour
             else h.MakeHeroActive(false);
         }
     }
+
+
+    void SetActiveBattleHero(Hero hero)
+    {
+        if (hero == null)
+        {
+            hero = heroes[0];
+        }
+        foreach (Hero h in heroes)
+        {
+            if (hero == h)
+            {
+                h.MakeHeroActive(true);
+                activeHero = h.GetComponent<IHero>();
+                GameInstance.spellbook.GetPagesReady();
+                GameInstance.inventory.GetEquipmentFromHero(activeHero.GetHeroEquipment());
+                RefreshUI.Invoke();
+                SwitchHeroTraining.Invoke();
+            }
+            else h.MakeHeroActive(false);
+        }
+    }
+
 
     public void GetItemFromEquipmentSlot(HeroInventoryItem heroInventoryItem, ItemType itemType)
     {
@@ -180,7 +205,7 @@ public class Party : MonoBehaviour
         {
             if (heroes[i] == hero)
             {
-                SetActiveHero(hero);
+                SetActiveBattleHero(hero);
             }
         }
     }

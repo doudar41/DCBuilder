@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5631367264909181132
 Transform:
   m_ObjectHideFlags: 0
@@ -1363,6 +1363,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  changeEnemyState:
+    m_PersistentCalls:
+      m_Calls: []
   immunityspell: {fileID: 0}
   upFrontSound:
     ID: 1073741839
@@ -1371,6 +1374,10 @@ MonoBehaviour:
   attackSound:
     ID: 1073741859
     _sourceAsset: {fileID: 11400000, guid: dbc6c79b4f17ac74aa04749a7917aa73, type: 2}
+    <DebugObject>k__BackingField: {fileID: 8822468640820191240}
+  dieSound:
+    ID: 0
+    _sourceAsset: {fileID: 0}
     <DebugObject>k__BackingField: {fileID: 8822468640820191240}
   experienceReward: 50
   itemScriptableContainers: []

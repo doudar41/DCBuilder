@@ -201,12 +201,13 @@ public class ChestLocked : MonoBehaviour, IPointerClickHandler, IChestLocked
     IEnumerator AnimateOpen()
     {
         billboard.ReplaceSprite(openSprites);
+        billboard.AnimationPlaying(true);
         foreach (Sprite s in openAnimation)
         {
             chestPicture.sprite = s;
             yield return new WaitForSeconds(0.2f);
         }
-
+        billboard.AnimationPlaying(false);
         yield return null;
     }   
     IEnumerator AnimateOpenMimic()

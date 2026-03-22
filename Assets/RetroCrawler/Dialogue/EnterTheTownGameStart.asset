@@ -15,9 +15,11 @@ MonoBehaviour:
   uniqueName: 20
   dialogue_phrases:
   - portraits: {fileID: 21300000, guid: 9dc5abcbf07c4604698d63aa6d4907d2, type: 3}
-    dialogueTexts: Hail and well met! It is our duty to welcome all newcomers to
+    dialogueTexts: 'Hail and well met! It is our duty to welcome all newcomers to
       the city of DeathKeep! Are you here for the royal decree? If so, this missive
-      is for you. Please see the Duke at our local in, The Wavering Hag, our inn
+      is for you. '
+  - portraits: {fileID: 21300000, guid: 9dc5abcbf07c4604698d63aa6d4907d2, type: 3}
+    dialogueTexts: Please see the Duke at our local in, The Wavering Hag, our inn
       just left of these here gates behind me. We urge that you do not wander the
       city at night and head straight for the inn for resting and provisions.
   journalEnter: 

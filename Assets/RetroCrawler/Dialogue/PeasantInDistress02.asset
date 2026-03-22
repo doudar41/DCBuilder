@@ -17,7 +17,7 @@ MonoBehaviour:
   - portraits: {fileID: 21300000, guid: 8ecf89858bb2fc9409087ca1b9d7b991, type: 3}
     dialogueTexts: Any luck of getting rid of snakes?
   journalEnter: 
-  priorityIndex: 2
+  priorityIndex: 1
   dialogueButtons: []
   namesToDeleteFromBlock: 
   namesToDeleteFromParty: 

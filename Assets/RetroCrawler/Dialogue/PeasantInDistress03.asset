@@ -17,7 +17,7 @@ MonoBehaviour:
   - portraits: {fileID: 21300000, guid: 8ecf89858bb2fc9409087ca1b9d7b991, type: 3}
     dialogueTexts: Oh, thank you. Here is some money I can share
   journalEnter: 
-  priorityIndex: 1
+  priorityIndex: 2
   dialogueButtons: []
   namesToDeleteFromBlock: 08000000090000000a000000
   namesToDeleteFromParty: 08000000090000000a000000

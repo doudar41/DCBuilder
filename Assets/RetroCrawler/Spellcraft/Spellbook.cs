@@ -38,9 +38,12 @@ public class Spellbook : MonoBehaviour
     public UnityEvent<GameObject> spellTargetEvent;
     public UnityEvent<List<string>, List<ResultMsg>> battlelogEvent;
     public UnityEvent<SpellContainer> hitTargetEffect;
+    public UnityAction spellbookOpened;
 
     [SerializeField] SoundID messageToLog;
     [SerializeField] MarkRecallMenu markRecallMenu;
+    bool isSpellBookOpened = false;
+    bool spellFromSpellbook = false;
 
     private void Awake()
     {
@@ -77,7 +80,27 @@ public class Spellbook : MonoBehaviour
         if (active) spellSchoolScripts[lastOpenedPage].OpenSpellPage(true);
         else CloseSpellbook();
         if (objectToClose[lastOpenedPage].GetComponent<SpellPageButton>() != null) objectToClose[lastOpenedPage].GetComponent<SpellPageButton>().CheckedPage();
+        if (GameInstance.playerController.playerState == PlayerState.Battle) { spellbookOpened.Invoke(); }
+
+        isSpellBookOpened = true;
     }
+
+
+    public bool IsSpellBookOpened()
+    {
+        return isSpellBookOpened;
+    }
+
+    public void SetSpellFromSpellBook(bool isSpellbookSpell)
+    {
+        spellFromSpellbook = isSpellbookSpell;
+    }
+
+    public bool IsSpellFromSpellbook()
+    {
+        return spellFromSpellbook;
+    }
+
 
 
     public void CloseSpellbook() // Close spellbook interface, switch off toggle and allows player to move
@@ -92,7 +115,7 @@ public class Spellbook : MonoBehaviour
         }
         spellbookSwitch.isOn = false;
         GameInstance.playerController.ExitHover();
-
+        isSpellBookOpened = false;
     }
 
     public void GetPagesReady() //Check spells available for a specific player and on and off them on spell pages
@@ -235,7 +258,7 @@ public class Spellbook : MonoBehaviour
             }
 
             CloseSpellbook();
-
+            GameInstance.spellbook.SetSpellFromSpellBook(false);
             return;
         }
         // If it spell is not one of the exploration spells (gameplay spell) check for AOE spell 
@@ -301,6 +324,7 @@ public class Spellbook : MonoBehaviour
                 GameInstance.party.activeHero.ManaDecrease(s.manaCost);
             }
             // if (GameInstance.playerController.playerState == PlayerState.Battle) StartCoroutine(AttackDelay());
+            GameInstance.spellbook.SetSpellFromSpellBook(false);
             return;
         }
         else
@@ -464,6 +488,7 @@ public class Spellbook : MonoBehaviour
         spellTargetEvent.RemoveAllListeners();
         spellWaitToRelease = null;
         GameInstance.SetMouseCursor(cursorNormal, new Vector2(0,0));
+        GameInstance.spellbook.SetSpellFromSpellBook(false);
     }
 
 

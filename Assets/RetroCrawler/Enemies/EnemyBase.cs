@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using Ami.BroAudio;
 
-public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IBattle
+public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IBattle, IPointerMoveHandler
 {
     [SerializeField] string enemyName;
     [SerializeField] int rowIndex;
@@ -59,7 +59,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
 
     Vector3 savedPosition;
 
-
+    bool pointerOnEnemy = false;
 
     private void Awake()
     {
@@ -76,13 +76,30 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
         outlineRenderer.color = Color.clear;
         healthStarted = health;
         GameInstance.battleManager.battlePassTime += Timepassed;
+        GameInstance.spellbook.spellbookOpened += ResetAttackCursor;
+    }
 
+    void ResetAttackCursor()
+    {
+        print("attack cursor reset");
+        if (GameInstance.spellbook.IsSpellFromSpellbook()) return;
+        if (GameInstance.playerController.playerState != PlayerState.Battle) return;
+
+        if (health <= 0) return;
+        if (outlineRenderer != null)
+        {
+            outlineRenderer.gameObject.SetActive(false);
+            enemyFace.gameObject.SetActive(true);
+        }
+        if (GameInstance.battleManager.IfThisOpponentHero()) { print("releasing spell "); GameInstance.playerController.ReleaseSpellWithoutCasting(); }
+        pointerOnEnemy = false;
     }
 
     private void OnDestroy()
     {
         StopAllCoroutines();
         GameInstance.battleManager.battlePassTime -= Timepassed;
+        GameInstance.spellbook.spellbookOpened -= ResetAttackCursor;
     }
 
     public int HealthDamage(int amount)
@@ -163,7 +180,21 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
             SetEnemyRowAndPlace(-1, new List<int> { });
             if(gameObject!=null) GameInstance.battleManager.RemoveDeadEnemy(gameObject);
         }
-
+        if (pointerOnEnemy)
+        {
+            if (GameInstance.playerController.playerState != PlayerState.Battle) yield return null;
+            //if (GameInstance.playerController.playerState == PlayerState.Explore) return;
+            if (health <= 0) yield return null;
+            if (outlineRenderer != null)
+            {
+                enemyFace.gameObject.SetActive(false);
+                outlineRenderer.gameObject.SetActive(true);
+            }
+            if (GameInstance.battleManager.IfThisOpponentHero())
+            {
+                GameInstance.playerController.ReceiveAttackInput();
+            }
+        }
     }
 
     public List<ResultMsg> ApplySpellToEnemy(SpellContainer spellToApply, GameObject spellcaster) // applying spell to enemy and calculating damage and effects
@@ -851,7 +882,9 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
             enemyFace.gameObject.SetActive(false);
             outlineRenderer.gameObject.SetActive(true);
         }
-        if(GameInstance.battleManager.IfThisOpponentHero()){ GameInstance.playerController.ReceiveAttackInput(); }//if active queue is hero then ReceiveAttackInput
+        if (GameInstance.spellbook.IsSpellFromSpellbook()) return;
+        if (GameInstance.battleManager.IfThisOpponentHero()){ GameInstance.playerController.ReceiveAttackInput(); }//if active queue is hero then ReceiveAttackInput
+        pointerOnEnemy = true;
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -863,7 +896,9 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
             outlineRenderer.gameObject.SetActive(false);
             enemyFace.gameObject.SetActive(true);
         }
+        if (GameInstance.spellbook.IsSpellFromSpellbook()) return;
         if (GameInstance.battleManager.IfThisOpponentHero()) { print("releasing spell "); GameInstance.playerController.ReleaseSpellWithoutCasting(); }
+        pointerOnEnemy = false;
     }
 
 
@@ -997,6 +1032,14 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
         }
 
 
+    }
+
+    public void OnPointerMove(PointerEventData eventData)
+    {
+        if (GameInstance.playerController.playerState != PlayerState.Battle) return;
+
+        if (GameInstance.spellbook.IsSpellFromSpellbook()) return;
+        if (GameInstance.battleManager.IfThisOpponentHero()) { GameInstance.playerController.ReceiveAttackInput(); }
     }
 }
 
