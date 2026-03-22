@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2880734402118146417}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -412.5, y: 2.5, z: 270.18}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 1
@@ -52,10 +52,11 @@ MonoBehaviour:
   rotationHead: {fileID: 8242955443853023037}
   angleSprites:
   - {fileID: 21300000, guid: c2f3f4cda6704cb4280ff822de324592, type: 3}
-  - {fileID: 21300000, guid: a749d66e68d5cac4197bdd95d9f66970, type: 3}
-  - {fileID: 21300000, guid: c2f3f4cda6704cb4280ff822de324592, type: 3}
   - {fileID: 21300000, guid: 3f393dbc072c30347b744f2317af0e36, type: 3}
-  angleMod: 0
+  - {fileID: 21300000, guid: c2f3f4cda6704cb4280ff822de324592, type: 3}
+  - {fileID: 21300000, guid: a749d66e68d5cac4197bdd95d9f66970, type: 3}
+  direction: 0
+  col: {fileID: 0}
 --- !u!114 &5157338999620583950
 MonoBehaviour:
   m_ObjectHideFlags: 0

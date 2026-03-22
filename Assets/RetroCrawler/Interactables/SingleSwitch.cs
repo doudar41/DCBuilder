@@ -1,3 +1,4 @@
+using Ami.BroAudio;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,7 @@ public class SingleSwitch : MonoBehaviour, IInteractables, IPointerClickHandler
     [SerializeField] bool complexLock = false;
     [SerializeField] List<Sprite> openSprites, closeSprites;
     [SerializeField]Billboard3D billboard3D;
+    [SerializeField] SoundID switchsound = default;
     bool isOn = false;
 
 
@@ -73,6 +75,7 @@ public class SingleSwitch : MonoBehaviour, IInteractables, IPointerClickHandler
     {
         if (doorTarget.GetComponent<IDoor>() == null) return;
         IDoor idoor = doorTarget.GetComponent<IDoor>();
+        GameInstance.soundManagerInGame.ProtectedPlay(switchsound);
         if (!complexLock)
         {
             if (!idoor.isOpen())

@@ -85699,6 +85699,10 @@ MonoBehaviour:
   openSprites: []
   closeSprites: []
   billboard3D: {fileID: 0}
+  switchsound:
+    ID: 0
+    _sourceAsset: {fileID: 0}
+    <DebugObject>k__BackingField: {fileID: 0}
 --- !u!4 &726794480
 Transform:
   m_ObjectHideFlags: 0
@@ -149998,6 +150002,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1803666549224702722, guid: d68cb7605ae8f2e478c3dba0ce97a382, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1822021024923827143, guid: d68cb7605ae8f2e478c3dba0ce97a382, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -165598,6 +165606,10 @@ PrefabInstance:
       propertyPath: openSprites.Array.data[3]
       value: 
       objectReference: {fileID: 21300000, guid: 5c8ee44c9dabf9f4ca1bc761c5117f43, type: 3}
+    - target: {fileID: 9031877850250922499, guid: d3faf203e1ac9554c8846276860e1266, type: 3}
+      propertyPath: switchsound.<DebugObject>k__BackingField
+      value: 
+      objectReference: {fileID: 281917642}
     m_RemovedComponents:
     - {fileID: 388578766017801240, guid: d3faf203e1ac9554c8846276860e1266, type: 3}
     m_RemovedGameObjects: []
@@ -288992,6 +289004,10 @@ PrefabInstance:
       propertyPath: openSprites.Array.data[3]
       value: 
       objectReference: {fileID: 21300000, guid: 5c8ee44c9dabf9f4ca1bc761c5117f43, type: 3}
+    - target: {fileID: 9031877850250922499, guid: d3faf203e1ac9554c8846276860e1266, type: 3}
+      propertyPath: switchsound.<DebugObject>k__BackingField
+      value: 
+      objectReference: {fileID: 281917642}
     m_RemovedComponents:
     - {fileID: 388578766017801240, guid: d3faf203e1ac9554c8846276860e1266, type: 3}
     m_RemovedGameObjects: []

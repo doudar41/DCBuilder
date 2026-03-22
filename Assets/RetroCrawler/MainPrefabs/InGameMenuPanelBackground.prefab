@@ -8576,6 +8576,7 @@ MonoBehaviour:
   restCampAnimation: {fileID: 0}
   restHours: 8
   survivalThreshold: 10
+  sleepSpell: {fileID: 0}
   cameraOrder: {fileID: 0}
 --- !u!1 &5272131352132648362
 GameObject:
@@ -10350,7 +10351,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5446649407877299554
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13890,6 +13891,7 @@ MonoBehaviour:
   restCampAnimation: {fileID: 0}
   restHours: 8
   survivalThreshold: 10
+  sleepSpell: {fileID: 0}
   cameraOrder: {fileID: 0}
 --- !u!1 &8347052692872863904
 GameObject:

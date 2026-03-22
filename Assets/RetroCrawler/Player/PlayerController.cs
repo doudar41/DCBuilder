@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour
         _input.CrawlerStandart.Move.performed += MovementUpdate;
         _input.CrawlerStandart.Turn.performed += TurnAround;
         _input.CrawlerStandart.Inventory.started += OpenCloseInventory;
-        _input.CrawlerStandart.Attack.started += ReceiveAttackInput;
+        //_input.CrawlerStandart.Attack.started += ReceiveAttackInput;
         _input.CrawlerStandart.LastSpell.started += ReceiveLastSpellInput;
         _input.CrawlerStandart.Cancel.started += ReleaseSpellWithoutCasting;
         _input.CrawlerStandart.TakeInteract.started += TakeInteract;
@@ -133,7 +133,7 @@ public class PlayerController : MonoBehaviour
         _input.CrawlerStandart.Move.performed -= MovementUpdate;
         _input.CrawlerStandart.Turn.performed -= TurnAround;
         _input.CrawlerStandart.Inventory.started -= OpenCloseInventory;
-        _input.CrawlerStandart.Attack.started -= ReceiveAttackInput;
+        //_input.CrawlerStandart.Attack.started -= ReceiveAttackInput;
         _input.CrawlerStandart.LastSpell.started -= ReceiveLastSpellInput;
         _input.CrawlerStandart.Cancel.started -= ReleaseSpellWithoutCasting;
         _input.CrawlerStandart.TakeInteract.started -= TakeInteract;

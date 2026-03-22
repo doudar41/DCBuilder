@@ -15,7 +15,7 @@ MonoBehaviour:
   StereoPan: 0
   DopplerLevel: 1.31
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 100
   HasLowPassFilter: 0
   LowpassLevelCustomCurve:
     serializedVersion: 2

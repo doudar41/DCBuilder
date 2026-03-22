@@ -226,15 +226,33 @@ MonoBehaviour:
   - {fileID: 1610237006281886305}
   - {fileID: 6564294231414720348}
   - {fileID: 5666604491482176531}
-  position: {x: 0, y: 1, z: 0}
+  blockPosition: {x: 0, y: 0, z: 0}
   blockParent: {fileID: 8366709231384417842}
   blockInteractables: 0d000000
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 4558963116978265803}
+  ceiling: {fileID: 0}
   groundType: 0
   nextLevelPosition: {x: 0, y: 0, z: 0}
   nextLevelDirection: 0
   nextLevelName: 
+  shopIndex: 0
+  weightPlate: {fileID: 0}
+  dialogues: 
+  enemyList: []
+  battleGroundEnvironment: 0
+  afterBattleLoot: []
+  afterBattleDialogue: 
+  afterBattleDialogueRemoveFromParty: 
+  goldAmount: 0
+  gemsAmount: 0
+  characterSprite: {fileID: 0}
+  interactableObjectsInBlock: []
+  trapLauncher: {fileID: 0}
+  overideWalls: 0
+  wallsOverided: 00000000
+  wallsVisibilityOverided: 00000000
+  enemyInPlace: []
 --- !u!1 &1610237006281886305
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,7 +549,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4eacc80d2d4f3e6449ade6c0cba36615, type: 2}
+  - {fileID: 2100000, guid: f43c22e682721df47ae5a27b996435b3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

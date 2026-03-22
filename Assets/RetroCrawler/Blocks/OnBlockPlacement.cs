@@ -36,8 +36,6 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
     [SerializeField] List<GameObject> interactableObjectsInBlock = new List<GameObject>();
     [SerializeField] GameObject trapLauncher;
 
-
-
     public List<GameObject> InteractableObjectsInBlock { get; }
     int blockLevel = 0;
 
@@ -61,6 +59,9 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
                 }
             }
         }
+
+
+       //if(mapView !=null) { if (mapView.material != mapMaterieal) mapView.material = mapMaterieal; }
     }
 
 

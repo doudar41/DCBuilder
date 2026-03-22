@@ -140,7 +140,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a1d2bca5f40fb7748b68028beb8b8167, type: 3}
   - {fileID: 21300000, guid: 9bbc578f78fc2c64fb432a2626be2435, type: 3}
   - {fileID: 21300000, guid: a26d0bef96eb66248b0054212f5ff49f, type: 3}
-  angleMod: 0
+  direction: 0
+  col: {fileID: 0}
 --- !u!65 &8887576243037326412
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -192,6 +193,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9bbc578f78fc2c64fb432a2626be2435, type: 3}
   - {fileID: 21300000, guid: a26d0bef96eb66248b0054212f5ff49f, type: 3}
   billboard3D: {fileID: 0}
+  switchsound:
+    ID: 1073741889
+    _sourceAsset: {fileID: 11400000, guid: e22af860bc15bad4e9543cbd6ff27264, type: 2}
+    <DebugObject>k__BackingField: {fileID: 7081040912469503106}
 --- !u!212 &388578766017801240
 SpriteRenderer:
   m_ObjectHideFlags: 0

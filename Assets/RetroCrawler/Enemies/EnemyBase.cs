@@ -120,6 +120,7 @@ public class EnemyBase : MonoBehaviour, IEnemy, IPointerClickHandler, IPointerEn
                 enemyFace.sprite = deadSprite;
                 GameInstance.soundManagerInGame.ProtectedPlay(dieSound);
             }
+            ResetAttackCursor();
         }
         return health;
     }
