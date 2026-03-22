@@ -86,6 +86,11 @@ public class Inventory : MonoBehaviour
             {
                 BroAudio.Play(openInventory).SetVelocity(1);
             }
+            if (GameInstance.playerController.playerState == PlayerState.Battle)
+            {
+                GameInstance.battleManager.ResetActiveHero();
+            }        
+        
         }
     }
 

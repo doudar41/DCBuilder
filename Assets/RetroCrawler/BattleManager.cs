@@ -782,6 +782,12 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    public void ResetActiveHero()
+    {
+        SetActiveHero();
+    }
+
+
     //End round nullifies quarry key resorting opponents check for empty row in enemy formation, if yes move enemies closer to player
 
     public void EndOfRound()

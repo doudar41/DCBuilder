@@ -21,7 +21,7 @@ MonoBehaviour:
     diceSides: 12
     diceBonus: 0
     numberOfTurns: 0
-    magicType: 0
+    magicType: 5
     changedMainStat: 0
     changedDependedStat: 0
     skillStatAdded: 0

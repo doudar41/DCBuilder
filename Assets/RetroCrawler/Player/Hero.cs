@@ -635,9 +635,12 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
 
                 }
             case SpellEffects.Mana:
-
-                currentMana += GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides) + s.amount;
+                print("get max mana number "+currentMana +" - "+ GetMaxDependedStat(DependedStat.maxMana));
+                int manaroll = GameInstance.DiceRollingSum(s.diceRollsNumber, s.diceSides) + s.amount;
+                currentMana += manaroll;
                     if (currentMana > GetMaxDependedStat(DependedStat.maxMana)) currentMana = GetMaxDependedStat(DependedStat.maxMana);
+                ProgressBarChange();
+                results.Add(new() { msgType = "s", msgString = heroName + " mana increased " + manaroll });
                 break;
             case SpellEffects.PDmg:
                 int pureDamageAmount = GameInstance.DiceRollingBiggestNumber(s.diceRollsNumber, s.diceSides);
@@ -1069,6 +1072,7 @@ public class Hero : MonoBehaviour, IPointerClickHandler, IHero, IBattle
     void ProgressBarChange()
     {
         healthSlider.ProgressBarFill((float)currentHealth / (float)GetMaxDependedStat(DependedStat.maxHealth));
+        manaSlider.ProgressBarFill((float)currentMana / (float)GetMaxDependedStat(DependedStat.maxMana));
     }
 
     IEnumerator AttackDelay()

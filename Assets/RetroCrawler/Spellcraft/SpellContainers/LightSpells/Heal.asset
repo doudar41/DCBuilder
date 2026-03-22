@@ -16,7 +16,7 @@ MonoBehaviour:
   - spellEffect: 15
     amount: 0
     agroPoints: 0
-    manaCost: 0
+    manaCost: 10
     diceRollsNumber: 2
     diceSides: 12
     diceBonus: 0
