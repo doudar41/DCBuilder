@@ -20,6 +20,7 @@ public static class GameInstance
     public static GameJournal gameJournal;
     public static SoundManagerInGame soundManagerInGame;
     public static DayNightChange dayNightChange;
+    public static mapCoverManager mapTileMap;
 
     static Texture2D cursorTargetGraphics, cursorNormal;
     static CursorMode cursorMode = CursorMode.Auto;
@@ -883,6 +884,8 @@ public class SaveOptionsData
     public float musicVolume = 1.0f;
     public float sfxVolume = 1.0f;
     public float uiVolume = 1.0f;
+    public float moveSpeed = 0.16f;
+    public float rotationSpeed = 0.2f;
 
     public SaveOptionsData GetThis() { return this; }
 }

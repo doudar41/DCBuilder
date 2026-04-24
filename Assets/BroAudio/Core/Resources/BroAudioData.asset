@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6ab9a5469d53d54097f703211bd8369, type: 3}
   m_Name: BroAudioData
   m_EditorClassIdentifier: 
-  _version: 2.2.1
+  _version: 2.2.2
   _assets:
   - {fileID: 11400000, guid: b57e0d2f91771b34d8c0a49ba7faee85, type: 2}
   - {fileID: 11400000, guid: 98f8a163b95d1dc47860941d0474f386, type: 2}
@@ -25,3 +25,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c8de76388f9abcd4bb0eb83ce9ddee6a, type: 2}
   - {fileID: 11400000, guid: 4760e6f67797d0d4f825506d4790a2df, type: 2}
   - {fileID: 11400000, guid: e22af860bc15bad4e9543cbd6ff27264, type: 2}
+  - {fileID: 11400000, guid: 6ae8d9cb032bc1c40a8f7d4bd78c9337, type: 2}

@@ -138,10 +138,10 @@ public class MultipleSwitch : MonoBehaviour, IDoor
             if (lockOrder.Contains(index)) { lockOrder.Remove(index);}
             if (lockOrder.Count >= switchesToActivate)
             {
-                doorScript.OpenDoor();
-                isOpened = true;
-                GameInstance.spellbook.BattleLogMessage(new List<string>() { "Door opened" }, null);
-                GameInstance.SaveItemState(GUIDString, SavedState.Opened, null);
+                doorScript.CloseDoor();
+                isOpened = false;
+                GameInstance.spellbook.BattleLogMessage(new List<string>() { "Door closed" }, null);
+                GameInstance.SaveItemState(GUIDString, SavedState.Closed, null);
                 return;
             }
             isOpened = false;

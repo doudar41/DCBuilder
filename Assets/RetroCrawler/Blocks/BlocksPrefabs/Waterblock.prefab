@@ -685,10 +685,14 @@ MonoBehaviour:
   afterBattleDialogue: 
   afterBattleDialogueRemoveFromParty: 
   goldAmount: 0
+  gemsAmount: 0
   characterSprite: {fileID: 0}
   interactableObjectsInBlock: []
+  trapLauncher: {fileID: 0}
   overideWalls: 0
   wallsOverided: 00000000
+  wallsVisibilityOverided: 00000000
+  enemyInPlace: []
 --- !u!1 &7665905285942165095
 GameObject:
   m_ObjectHideFlags: 0
@@ -913,7 +917,11 @@ MonoBehaviour:
   afterBattleDialogue: 
   afterBattleDialogueRemoveFromParty: 
   goldAmount: 0
+  gemsAmount: 0
   characterSprite: {fileID: 0}
   interactableObjectsInBlock: []
+  trapLauncher: {fileID: 0}
   overideWalls: 0
   wallsOverided: 00000000
+  wallsVisibilityOverided: 00000000
+  enemyInPlace: []

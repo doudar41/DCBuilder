@@ -23,7 +23,7 @@ MonoBehaviour:
   weaponType: 0
   twoHanded: 0
   price: 100
-  itemDescription: Leather boots +2
+  itemDescription: Leather Gloves +2
   itemLevel: 1
   keyType: 0
   journalEntry: 

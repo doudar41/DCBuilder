@@ -1197,6 +1197,7 @@ MonoBehaviour:
   blockInteractables: 
   portalDestination: {fileID: 0}
   mapGraphics: {fileID: 6875184470371475370}
+  ceiling: {fileID: 0}
   groundType: 0
   nextLevelPosition: {x: 0, y: 0, z: 0}
   nextLevelDirection: 0
@@ -1208,6 +1209,13 @@ MonoBehaviour:
   battleGroundEnvironment: 0
   afterBattleLoot: []
   afterBattleDialogue: 
+  afterBattleDialogueRemoveFromParty: 
   goldAmount: 0
+  gemsAmount: 0
   characterSprite: {fileID: 0}
   interactableObjectsInBlock: []
+  trapLauncher: {fileID: 0}
+  overideWalls: 0
+  wallsOverided: 00000000
+  wallsVisibilityOverided: 00000000
+  enemyInPlace: []

@@ -18,7 +18,7 @@
                     "name": "Turn",
                     "type": "Value",
                     "id": "6f44d8df-a0b8-42fe-8d8b-2a6189c5d726",
-                    "expectedControlType": "",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -263,9 +263,9 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "1D Axis",
+                    "name": "2D Vector",
                     "id": "6e8f7601-7d7f-4359-893d-ce66da22eef2",
-                    "path": "1DAxis",
+                    "path": "2DVector",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -274,56 +274,23 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "negative",
-                    "id": "482a6055-a037-43c4-9c76-ac7e9c8fd4fd",
+                    "name": "Left",
+                    "id": "cf50c4e0-f35b-45f1-91d0-31e416a917e4",
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard",
+                    "groups": "",
                     "action": "Turn",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "positive",
-                    "id": "51914b74-bb39-4208-9550-cf0dbaa17487",
+                    "name": "Right",
+                    "id": "6fc4aea2-e73f-4685-8495-37dc68deaa9a",
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard",
-                    "action": "Turn",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "1D Axis",
-                    "id": "d54873ad-036e-4834-ae25-211b04dde659",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
                     "groups": "",
-                    "action": "Turn",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "9b99c851-fafd-4379-98fc-aa2506415167",
-                    "path": "<Keyboard>/numpad7",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard",
-                    "action": "Turn",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "310f9f4c-234f-468a-bb7a-7c40e126e4dd",
-                    "path": "<Keyboard>/numpad9",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard",
                     "action": "Turn",
                     "isComposite": false,
                     "isPartOfComposite": true

@@ -28,6 +28,27 @@ public class GameMenuToggle : MonoBehaviour
         GameInstance.playerController.MenuOpened(true);
     }
 
+    public void SwitchToSprite(int index)
+    {
+        if (GameInstance.playerController.shopIsOpened)
+        {
+            return;
+        }
+        if (index<0)
+        {
+            group.SetAllTogglesOff();
+            panelImage.sprite = gameMenuSprites[5];
+            cameraOrder.BattleLogWithGameplay();
+            GameInstance.playerController.MenuOpened(false);
+
+            return;
+        }
+
+        panelImage.sprite = gameMenuSprites[index];
+        cameraOrder.ShopWithoutBattlelog();
+        GameInstance.playerController.MenuOpened(true);
+    }
+
 
     public void MoveCamUpFront()
     {

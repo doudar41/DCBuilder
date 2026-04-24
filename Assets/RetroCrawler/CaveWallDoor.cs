@@ -58,6 +58,10 @@ public class CaveWallDoor : MonoBehaviour, IDoor, IInteractables
         BroAudio.Play(doorSound, transform);
     }
 
+
+
+
+
     public void OpenDoor(int index, GameObject _switch)
     {
 

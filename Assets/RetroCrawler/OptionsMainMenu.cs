@@ -25,6 +25,8 @@ public class OptionsMainMenu : MonoBehaviour
             musicSlider.value = saveOptions.musicVolume;
             sfxSlider.value = saveOptions.sfxVolume;
             uiSlider.value = saveOptions.uiVolume;
+
+
         }
         this.gameObject.SetActive(false);
         BroAudio.Play(mainTheme, 0.5f);
@@ -46,12 +48,25 @@ public class OptionsMainMenu : MonoBehaviour
         BroAudio.SetVolume(uiType, vol);
     }
 
+    public void ChangePlayerMovementSpeed(float speed)
+    {
+        GameInstance.playerController.SetPlayerSpeed(speed);
+    }
+
+    public void ChangePlayerRotationSpeed(float speed)
+    {
+        GameInstance.playerController.SetPlayerRotationSpeed(speed);
+    }
+
+
     public void BackToMainMenu()
     {
         SaveOptionsData newOptionsData = new SaveOptionsData();
         newOptionsData.musicVolume = musicVol;
         newOptionsData.sfxVolume = sfxVol;
-        newOptionsData.uiVolume = uiVol; 
+        newOptionsData.uiVolume = uiVol;
+        newOptionsData.moveSpeed = GameInstance.playerController.GetPlayerSpeed();
+        newOptionsData.rotationSpeed = GameInstance.playerController.GetPlayerRotationSpeed();
         GameInstance.OptionsDataSaver(newOptionsData);
 
         this.gameObject.SetActive(false);

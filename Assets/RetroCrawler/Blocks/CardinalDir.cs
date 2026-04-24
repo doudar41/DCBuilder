@@ -60,7 +60,33 @@ public static class CardinalDir
         }
         return v;
     }
+    public static Vector3Int GetNewPoint(CardinalDirections currentdir, Vector3 startWorldPosition, Tilemap tilemap)
+    {
+        Vector3 v = new Vector3();
+        Vector3Int dir = new Vector3Int(int.MaxValue, int.MaxValue, int.MaxValue);
+        Vector3Int startPosition = tilemap.WorldToCell(startWorldPosition);
 
+        switch (currentdir)
+        {
+            case CardinalDirections.EAST:
+                dir = new Vector3Int(startPosition.x + 1, startPosition.y);
+                v = tilemap.GetCellCenterWorld(dir);
+                break;
+            case CardinalDirections.SOUTH:
+                dir = new Vector3Int(startPosition.x, startPosition.y - 1);
+                v = tilemap.GetCellCenterWorld(dir);
+                break;
+            case CardinalDirections.WEST:
+                dir = new Vector3Int(startPosition.x - 1, startPosition.y);
+                v = tilemap.GetCellCenterWorld(dir);
+                break;
+            case CardinalDirections.NORTH:
+                dir = new Vector3Int(startPosition.x, startPosition.y + 1);
+                v = tilemap.GetCellCenterWorld(dir);
+                break;
+        }
+        return dir;
+    }
 
     public static CardinalDirections GetRightDir(CardinalDirections dir)
     {

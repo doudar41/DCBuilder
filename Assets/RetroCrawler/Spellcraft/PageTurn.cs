@@ -11,7 +11,11 @@ public class PageTurn : MonoBehaviour
     [SerializeField] float animDelay =0.2f;
 
     int currentPagesIndex = 0;
-
+    private void OnEnable()
+    {
+        currentPagesIndex = 0;
+        Pages[currentPagesIndex].transform.SetSiblingIndex(Pages.Count - 1);
+    }
     public void TurnPageRight()
     {
         currentPagesIndex = Mathf.Clamp(currentPagesIndex + 1, 0, Pages.Count - 1);
@@ -27,7 +31,7 @@ public class PageTurn : MonoBehaviour
     public void FlipPagesStart(bool side)
     {
         if (!gameObject.activeSelf) return;
-        print("object is active");
+        //print("object is active");
         StartCoroutine(FlipPages(side));
     }
 

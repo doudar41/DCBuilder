@@ -25,6 +25,6 @@ MonoBehaviour:
   AlwaysPlayMusicAsBGM: 0
   DefaultBGMTransition: 4
   DefaultBGMTransitionTime: 2
-  DefaultChainedPlayModeLoop: 2
+  DefaultChainedPlayModeLoop: 1
   DefaultChainedPlayModeTransitionTime: 0.1
   GlobalPlaybackGroup: {fileID: 11400000, guid: aaa9a015a9d342d4c965fa461ce5d5d7, type: 2}

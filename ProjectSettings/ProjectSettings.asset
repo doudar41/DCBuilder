@@ -172,7 +172,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.DefaultCompany.DungeonBuilder
-    Standalone: com.DefaultCompany.DungeonBuilder
+    Standalone: com.Questionably-Sane.Chaoskeep--Death-Crusaders
   buildNumber:
     Standalone: 0
     VisionOS: 0

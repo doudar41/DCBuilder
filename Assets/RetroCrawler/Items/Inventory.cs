@@ -2,9 +2,9 @@ using Ami.BroAudio;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
@@ -15,6 +15,8 @@ public class Inventory : MonoBehaviour
     [SerializeField]    GameObject inventorySwitcher, paperDoll, descriptionTab;
     [SerializeField]    List<TextMeshProUGUI> keyAmountsText = new List<TextMeshProUGUI>();
     [SerializeField]    SoundID openInventory = default;
+    [SerializeField]    CameraOrder cameraOrder;
+
     Dictionary<KeyType, TextMeshProUGUI> keyTexts = new Dictionary<KeyType, TextMeshProUGUI>();
     Dictionary<int, ItemScriptableContainer> itemDatabase = new Dictionary<int, ItemScriptableContainer>();
     List<HeroInventoryItem> inventoryItems = new List<HeroInventoryItem>();
@@ -31,7 +33,7 @@ public class Inventory : MonoBehaviour
     public UnityEvent enableInventory;
 
     bool isInventoryOpened = false;
-
+    ToggleGroup sortingGroup;
     List<KeyToLocks> playersKeys = new List<KeyToLocks>();
 
 
@@ -42,6 +44,8 @@ public class Inventory : MonoBehaviour
         keyTexts.Add(KeyType.BronzeKey, keyAmountsText[1]); 
         keyTexts.Add(KeyType.GoldKey, keyAmountsText[2]);
         GameInstance.GetInventoryItemDelegate += SaveInventoryItemsToGameInstance;
+        sortingGroup = inventorySwitcher.GetComponentInChildren<ToggleGroup>();
+
     }
     private void OnDestroy()
     {
@@ -62,6 +66,7 @@ public class Inventory : MonoBehaviour
 
     public void EnableInventory(bool switchInventory)
     {
+
         if (GameInstance.playerController.shopIsOpened)
         {
             paperDoll.SetActive(false);
@@ -69,16 +74,20 @@ public class Inventory : MonoBehaviour
             descriptionTab.SetActive(false);
             return;
         }
+
         if (switchInventory) enableInventory.Invoke();
-        isInventoryOpened = switchInventory;
+
         inventorySwitcher.SetActive(switchInventory);
-        ShowSortedInventory();
+
+        //ShowSortedInventory();
         descriptionTab.SetActive(switchInventory);
         paperDoll.SetActive(switchInventory);
         if (switchInventory)
         {
             if (openInventory != default) { BroAudio.Play(openInventory).SetVelocity(0); }
-
+            sortingGroup.SetAllTogglesOff();
+            SetSortingType(0);
+            isInventoryOpened = switchInventory;
         }
         else
         {
@@ -89,9 +98,10 @@ public class Inventory : MonoBehaviour
             if (GameInstance.playerController.playerState == PlayerState.Battle)
             {
                 GameInstance.battleManager.ResetActiveHero();
-            }        
-        
+            }
+            isInventoryOpened = switchInventory;
         }
+
     }
 
     public Transform GetDescriptionTab()
@@ -109,8 +119,12 @@ public class Inventory : MonoBehaviour
     {
 
         enableInventory.AddListener(GameInstance.party.heroEquipmentToInventory);
+        sortingGroup.gameObject.SetActive(true);
+        sortingGroup.SetAllTogglesOff();
+        SetSortingType(0);
         inventorySwitcher.SetActive(false);
         descriptionTab.SetActive(false);
+
     }
 
     public void GetEquipmentFromHero(Dictionary<ItemType,HeroInventoryItem> equipmentList)

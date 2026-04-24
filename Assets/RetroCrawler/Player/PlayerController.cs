@@ -1,17 +1,20 @@
+using OldCode;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.Events;
-using UnityEngine.Tilemaps;
-using OldCode;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.Splines;
+using UnityEngine.Tilemaps;
+
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] bool noEncounter = false;
     [SerializeField] Tilemap moveTilemap;
     [SerializeField] TorchFlicker torchlight;
+    [SerializeField] GameMenuToggle gameMenuToggle;
 
     Vector3Int startposition;
     Vector3Int currentposition;
@@ -20,11 +23,26 @@ public class PlayerController : MonoBehaviour
     CardinalDirections currentforwardDirection;
     Dictionary<Vector3Int, OnBlockPlacement> wallsAccess = new Dictionary<Vector3Int, OnBlockPlacement>();
 
+    [Header("New Movement Variables")]
+    [SerializeField] GameObject nextPositionMarker;
+    [SerializeField] bool noSmoothMovement = true;
+    bool isMarkerMoves = false;
+    Vector3Int nextPosition;
+
+    List<Vector3Int> recordedPath = new List<Vector3Int>();
+    [SerializeField] GameObject cameraFollow;
+    [SerializeField] float movementRefreshRate = 0.16f;
+    [SerializeField] float rotationMultiplyer = 0.2278787f;
+    bool isPlayerRotating = false;
+    int keypresseddirection = 0;
+    bool stayPressedOnce = false;
+    int inputSum = 0;
+
     public UnityEvent noWay, turnAround, portalTransfer;
     public UnityEvent<GroundType> stepSound;
     public UnityEvent<CardinalDirections> cardinalDirectionToUI;
 
-    List<visitedBlock> visitedBlocks = new  List<visitedBlock>();
+    List<visitedBlock> visitedBlocks = new List<visitedBlock>();
 
     public PlayerState playerState = PlayerState.Explore;
 
@@ -39,14 +57,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float blockSize = 1;
     [SerializeField]
-    [Range(0.5f, 3f)]
-    float walkSpeed = 1.86f;
 
-    [SerializeField]
-    [Range(0.5f, 3f)]
-    float rotationSpeed = 1.68f;
 
-    [SerializeField]
     [Range(0.001f, 1.0f)]
     float couroutingDelayinSec = 0.437f;
 
@@ -67,15 +79,15 @@ public class PlayerController : MonoBehaviour
 
 
     int countdownToEncounter = 22;
-    public Vector2Int rangeOfEnCounter = new Vector2Int(15,25);
+    public Vector2Int rangeOfEnCounter = new Vector2Int(15, 25);
     public UnityEvent<int> EnCounter;
 
 
     Vector3 beforeBattleTransformPos;
-    public Quaternion beforeBattleTransformRot; 
+    public Quaternion beforeBattleTransformRot;
 
     float intensivity = 0.1f;
-    bool lightBusy =false;
+    bool lightBusy = false;
 
     public bool waterWalk = false, lavaWalk = false;
 
@@ -84,14 +96,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LevelChanger levelChanger;
     public bool shopIsOpened = false;
     public bool dialogueIsOpened = false;
-    UniqueDialogueName startingDialogueName;
     IDialogue textblock;
     public bool attackAllowed = false;
 
     bool menuOpened = false;
 
     [SerializeField] PlayerTakeInteractInterface takeInteractInterface;
-    Dictionary<Vector3Int,BattleGroundEnvironment> groundValues = new Dictionary<Vector3Int, BattleGroundEnvironment>();
+    Dictionary<Vector3Int, BattleGroundEnvironment> groundValues = new Dictionary<Vector3Int, BattleGroundEnvironment>();
 
     [SerializeField] GameObject splinePrefab;
 
@@ -101,12 +112,18 @@ public class PlayerController : MonoBehaviour
 
     IBlock weightPlateIBllock = null;
 
+    Queue<MovementType> movementQueue = new Queue<MovementType>();
+    Vector3 futureDestination = Vector3.zero;
     private void Awake()
     {
         GameInstance.playerController = this;
+
+        cameraFollow.GetComponent<CameraSmoothFollow>().enabled = false;
     }
 
 
+
+    public UnityAction InitComplete;
     private void RegisteringKeys()
     {
         Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
@@ -114,10 +131,7 @@ public class PlayerController : MonoBehaviour
         _input = new DungeonInputs();
         _input.Enable();
 
-        _input.CrawlerStandart.Move.performed += MovementUpdate;
-        _input.CrawlerStandart.Turn.performed += TurnAround;
         _input.CrawlerStandart.Inventory.started += OpenCloseInventory;
-        //_input.CrawlerStandart.Attack.started += ReceiveAttackInput;
         _input.CrawlerStandart.LastSpell.started += ReceiveLastSpellInput;
         _input.CrawlerStandart.Cancel.started += ReleaseSpellWithoutCasting;
         _input.CrawlerStandart.TakeInteract.started += TakeInteract;
@@ -125,22 +139,188 @@ public class PlayerController : MonoBehaviour
 
         if (!noEncounter) countdownToEncounter = Random.Range(rangeOfEnCounter.x, rangeOfEnCounter.y);
 
-        //GameInstance.progress += TimeEvents;
     }
 
     private void OnDestroy()
-    { 
-        _input.CrawlerStandart.Move.performed -= MovementUpdate;
-        _input.CrawlerStandart.Turn.performed -= TurnAround;
+    {
+
         _input.CrawlerStandart.Inventory.started -= OpenCloseInventory;
-        //_input.CrawlerStandart.Attack.started -= ReceiveAttackInput;
         _input.CrawlerStandart.LastSpell.started -= ReceiveLastSpellInput;
         _input.CrawlerStandart.Cancel.started -= ReleaseSpellWithoutCasting;
         _input.CrawlerStandart.TakeInteract.started -= TakeInteract;
         leftMouse.action.started -= MouseRaycast;
-        //GameInstance.progress -= TimeEvents;
         _input.Disable();
     }
+
+
+    void Update()
+    {
+        if(playerState == PlayerState.Battle) return;
+
+
+        Vector2 moveVector2 = new Vector2(Mathf.RoundToInt(_input.CrawlerStandart.Move.ReadValue<Vector2>().x), Mathf.RoundToInt(_input.CrawlerStandart.Move.ReadValue<Vector2>().y));
+
+        int _inputSum = (int)moveVector2.x+(int)moveVector2.y;
+        if (inputSum != _inputSum)
+        {
+            inputSum = _inputSum;
+            stayPressedOnce = false;
+        }
+        if (Mathf.Abs(moveVector2.x) != Mathf.Abs(moveVector2.y))
+        {
+            if(_input.CrawlerStandart.Move.IsPressed())
+            {
+                int _keypresseddirection = -1;
+                if (Mathf.Abs(moveVector2.x) == 1) _keypresseddirection = 1;
+                if (Mathf.Abs(moveVector2.y) == 1) _keypresseddirection = 0;
+                if (keypresseddirection != _keypresseddirection)
+                {
+                    keypresseddirection = _keypresseddirection;
+/*                    recordedPath.Clear();
+                    StopCoroutine(MoveAlongPath(recordedPath, Vector2.zero));*/
+                }
+            }
+            else
+            {
+                keypresseddirection = -1;
+                stayPressedOnce = false;
+            }
+        }
+        else
+        {
+            if (_input.CrawlerStandart.Move.IsPressed() && !stayPressedOnce)
+            {
+                print("change course");
+                stayPressedOnce = true;
+                if (keypresseddirection == 0) keypresseddirection = 1;
+                else if (keypresseddirection == 1) keypresseddirection = 0;
+            }
+            if (!_input.CrawlerStandart.Move.IsPressed())
+            {
+                keypresseddirection = -1;
+                stayPressedOnce = false;
+            }
+
+        }
+
+        if (keypresseddirection == 0)
+        {
+            if (moveVector2.y == 1 && !isMarkerMoves) { StartCoroutine(MoveNextMarker(0, moveVector2)); return; }
+            if (moveVector2.y == -1 && !isMarkerMoves) { StartCoroutine(MoveNextMarker(2, moveVector2)); return; }
+        }
+        if(keypresseddirection == 1)
+        {
+            if (moveVector2.x == 1 && !isMarkerMoves) { StartCoroutine(MoveNextMarker(1, moveVector2)); return; }
+            if (moveVector2.x == -1 && !isMarkerMoves) { StartCoroutine(MoveNextMarker(3, moveVector2)); return; }
+        }
+
+        if (Mathf.Abs(moveVector2.x) ==0 && Mathf.Abs(moveVector2.y)==0)
+        {
+            keypresseddirection = -1;
+            stayPressedOnce = false;
+        }
+
+
+            float turnVector = Mathf.RoundToInt(_input.CrawlerStandart.Turn.ReadValue<Vector2>().x);
+        if (Mathf.Abs(turnVector) > 0)
+        {
+            if (!isPlayerRotating) StartCoroutine(CameraRotation(turnVector));
+        }
+    }
+   
+
+
+    IEnumerator MoveNextMarker(int _dir, Vector2 moveVector2)
+    {
+        //print("get input for marker move");
+        isMarkerMoves = true;
+
+        int dirMod = _dir;
+        Vector2Int moveVectorInt = new Vector2Int((int)moveVector2.x, (int)moveVector2.y);
+
+        //print("checking marker move to "+ dirMod +" - current direction int "+ (int)currentforwardDirection);
+        if (keypresseddirection == 0 && (dirMod == 1 || dirMod == 3))
+        {
+            yield break;
+        }
+        if (keypresseddirection == 1 && (dirMod == 0 || dirMod == 2))
+        {
+            yield break;
+        }
+        
+        if (!currentWallBlock.IfWallOpened((CardinalDirections)((dirMod + (int)currentforwardDirection) % 4))) { noWay.Invoke(); isMarkerMoves = false; yield break; }
+        //print("walls are opened");
+        //print(" checking direction " + (CardinalDirections)((dirMod + (int)currentforwardDirection) % 4));
+        if (!RaycastOnMovement(CardinalDir.GetForwardVectorFromDirection((CardinalDirections)((dirMod + (int)currentforwardDirection) % 4)))) { isMarkerMoves = false; yield break; }
+        //print("raycast is clear");
+        if (shopIsOpened) { isMarkerMoves = false; yield break; }
+
+        if (dialogueIsOpened) { isMarkerMoves = false; yield break; }
+        //print("no menu is opened");
+        Vector3 v = CardinalDir.GetNewPoint((CardinalDirections)((dirMod + (int)currentforwardDirection) % 4), currentposition, moveTilemap);
+        if (!CheckBlockInterfaces(v)) { isMarkerMoves = false; yield break; }
+        //print("no block interfaces");
+        if (cameraFollow.GetComponent<CameraSmoothFollow>().enabled == false) cameraFollow.GetComponent<CameraSmoothFollow>().enabled = true;
+
+        CheckForEncounter();
+        TimeEvents(timeEventCounter);
+        timeForward(timeEventCounter);
+
+        if (CheckIfMarkerCanMoveToBlock((dirMod + (int)currentforwardDirection) % 4, nextPosition, out Vector3Int _newPosition))
+        {
+            nextPosition = _newPosition;
+            Vector3 _npos = moveTilemap.GetCellCenterWorld(nextPosition);
+            nextPositionMarker.transform.position = new Vector3(_npos.x, transform.position.y, _npos.z);
+            transform.position = new Vector3(_npos.x, transform.position.y, _npos.z);
+            currentposition = nextPosition;
+            currentWallBlock = wallsAccess[currentposition];
+        }
+        yield return new WaitForSeconds(movementRefreshRate);
+
+
+/*        foreach (OnBlockPlacement block in currentWallBlock.CheckForNeighbors(moveTilemap))
+        {
+            if (block == null) continue;
+            block.ShowOnMap(true);
+            visitedBlock newblock = new visitedBlock();
+            newblock.coordinates = block.GetBlockCoordinate();
+            newblock.level = GameInstance.GetLevelName();
+            if (!visitedBlocks.Contains(newblock)) visitedBlocks.Add(newblock);
+
+        }*/
+        visitedBlock newblock2;
+        newblock2.coordinates = currentWallBlock.GetBlockCoordinate();
+        newblock2.level = GameInstance.GetLevelName();
+        //print("current block coordinate " + currentWallBlock.GetBlockCoordinate());
+        currentWallBlock.ShowOnMap(true);
+
+        isMarkerMoves = false;
+        yield return null;
+    }
+
+    IEnumerator CameraRotation(float turnVector)
+    {
+
+        currentforwardDirection = (CardinalDirections)(((int)currentforwardDirection + (turnVector == 1 ? 1 : turnVector == -1 ? -1 : 0) + 4) % 4);
+
+        isPlayerRotating = true;
+        recordedPath.Clear();
+        //StopCoroutine(MoveAlongPath(recordedPath, Vector2.zero));
+        float rotationDuration = 0;
+        float startAngle = cameraFollow.transform.rotation.eulerAngles.y;
+        while (rotationDuration < rotationMultiplyer)
+        {
+            if (turnVector > 0) cameraFollow.transform.rotation = Quaternion.Euler(0, Mathf.LerpAngle(startAngle, CardinalDir.GetRotationYForCardinal(currentforwardDirection), walkCurve.Evaluate(rotationDuration / rotationMultiplyer)), 0);
+            else cameraFollow.transform.rotation = Quaternion.Euler(0, Mathf.LerpAngle(startAngle, CardinalDir.GetRotationYForCardinal(currentforwardDirection), walkCurve.Evaluate(rotationDuration / rotationMultiplyer)), 0);
+            yield return new WaitForSeconds((rotationMultiplyer) / 10);
+            rotationDuration += (rotationMultiplyer) / 10;
+        }
+        cameraFollow.transform.rotation = Quaternion.Euler(new Vector3(0, CardinalDir.GetRotationYForCardinal(currentforwardDirection), 0 ));
+        isPlayerRotating = false;
+
+        cardinalDirectionToUI.Invoke(currentforwardDirection);
+    }
+
 
     public void InitWallAccess()
     {
@@ -152,15 +332,15 @@ public class PlayerController : MonoBehaviour
             if (!wallsAccess.ContainsKey(w.blockPosition)) { wallsAccess.Add(w.blockPosition, w); }
         }
 
-        if(walls.Length != wallsAccess.Count)
+        if (walls.Length != wallsAccess.Count)
         {
             //print("map blocks positions are broken");
             wallsAccess.Clear();
             foreach (OnBlockPlacement w in walls)
             {
                 w.InitPosition(moveTilemap);
-                if (!wallsAccess.ContainsKey(w.blockPosition)) 
-                { 
+                if (!wallsAccess.ContainsKey(w.blockPosition))
+                {
                     wallsAccess.Add(w.blockPosition, w);
                     groundValues.Add(w.blockPosition, w.GetBattleGroundEnvironment());
                 }
@@ -170,9 +350,9 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-           // print("blocks quantity checked");
+            // print("blocks quantity checked");
         }
-       
+
     }
 
     public OnBlockPlacement GetBlockByCoordinatesOnStart(Vector3Int coords)
@@ -194,6 +374,7 @@ public class PlayerController : MonoBehaviour
             currentposition = wallsAccess[moveTilemap.WorldToCell(transform.position)].GetBlockCoordinate();
             GameInstance.levelChange = false;
             currentWallBlock = wallsAccess[moveTilemap.WorldToCell(transform.position)];
+
         }
         else
         {
@@ -201,6 +382,11 @@ public class PlayerController : MonoBehaviour
         }
         currentWallBlock.ShowOnMap(true);
         RegisteringKeys();
+        print("Start position in cell "+ moveTilemap.WorldToCell(transform.position));
+        nextPositionMarker.transform.position = transform.position;
+        nextPosition = moveTilemap.WorldToCell(transform.position);
+        cameraFollow.transform.position = new Vector3(transform.position.x, cameraFollow.transform.position.y, transform.position.z);
+
     }
 
     public List<visitedBlock> GetVisitedBlocksCooordinates()
@@ -213,25 +399,12 @@ public class PlayerController : MonoBehaviour
         GetComponentInChildren<DayNightChange>().ChangeTimeFlow(multiplier);
     }
 
-    public void ToggleStepSpeed(bool onOff)
-    {
-        if (onOff)
-        {
-            walkSpeed = 3.0f;
-            rotationSpeed = 3f;
-        }
-        else
-        {
-            walkSpeed = 1.86f;
-            rotationSpeed = 1.68f;
-        }
-    }
 
 
     public void LightARoom(float amount)
     {
-        if (amount>0)
-        torchlight.isOn = true;
+        if (amount > 0)
+            torchlight.isOn = true;
         else torchlight.isOn = false;
     }
 
@@ -241,7 +414,7 @@ public class PlayerController : MonoBehaviour
         return torchlight.isOn;
     }
 
-
+/*
     void ReceiveAttackInput(InputAction.CallbackContext context)
     {
         if (playerState != PlayerState.Battle) return;
@@ -249,13 +422,13 @@ public class PlayerController : MonoBehaviour
         //if (cursorHoveringUI) return; //??
         //if (GameInstance.battleManager.battleInputDelay) { context.action.Reset(); return; }
 
-        if (!GameInstance.spellbook.SpellWaiting()) 
-        { 
-             GameInstance.battleManager.ReceiveAttackInput();
+        if (!GameInstance.spellbook.SpellWaiting())
+        {
+            GameInstance.battleManager.ReceiveAttackInput();
         }
         attackAllowed = false;
     }
-
+*/
     public void ReceiveAttackInput()
     {
         print("pointer on enemy");
@@ -276,7 +449,7 @@ public class PlayerController : MonoBehaviour
 
     public void ReceiveLastSpellInput(InputAction.CallbackContext context)
     {
-        if(GameInstance.party.activeHero.GetThisHero().GetDefaultSpell() != null)
+        if (GameInstance.party.activeHero.GetThisHero().GetDefaultSpell() != null)
         {
             GameInstance.spellbook.CastSpell(GameInstance.party.activeHero.GetThisHero().GetDefaultSpell());
         }
@@ -298,7 +471,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void ReleaseSpellWithoutCasting()
-    {        
+    {
         if (cursorHoveringUI) return;
         GameInstance.spellbook.ReleaseSpellWithoutCasting();
         attackAllowed = true;
@@ -311,29 +484,42 @@ public class PlayerController : MonoBehaviour
         return cursorBusy;
     }
 
-    public void OpenInventoryWithUIButton()
+    public void OpenCloseInventoryWithUIButton(bool onOff)
     {
-        if (GameInstance.inventory.gameObject.activeSelf)
+        if (shopIsOpened) return;
+        //if (cursorHoveringUI) return;
+        if (!onOff)
         {
-            GameInstance.inventory.gameObject.SetActive(false);
-            ExitHover();
-        }
-        else
-        {
-            GameInstance.inventory.gameObject.SetActive(true);
-        }
-    }
-    void OpenCloseInventory(InputAction.CallbackContext context)
-    {
-        if (cursorHoveringUI) return;
-        if (GameInstance.inventory.IsOpen())
-        {
+            gameMenuToggle.SwitchToSprite(-1);
             GameInstance.inventory.EnableInventory(false);
             ExitHover();
+
         }
         else
         {
+
+            /*            GameInstance.inventory.EnableInventory(true);
+                        gameMenuToggle.SwitchToSprite(2);*/
+        }
+    }
+
+
+    void OpenCloseInventory(InputAction.CallbackContext context)
+    {
+        if (shopIsOpened) return;
+        //if (cursorHoveringUI) return;
+        if (GameInstance.inventory.IsOpen())
+        {
+            gameMenuToggle.SwitchToSprite(-1);
+            GameInstance.inventory.EnableInventory(false);
+            ExitHover();
+
+        }
+        else
+        {
+
             GameInstance.inventory.EnableInventory(true);
+            gameMenuToggle.SwitchToSprite(2);
         }
     }
 
@@ -355,7 +541,9 @@ public class PlayerController : MonoBehaviour
         currentWallBlock = wallsAccess[currentposition];
         RotateToCardinalLocation();
         //print("Initializing controller and launching music");
-       // GameInstance.soundManager.ChangeExploreMusicOnBattleGround(GameInstance.playerController.GetBattleGroundEnvironment());
+        // GameInstance.soundManager.ChangeExploreMusicOnBattleGround(GameInstance.playerController.GetBattleGroundEnvironment());
+        cameraFollow.transform.position = new Vector3(transform.position.x, cameraFollow.transform.position.y, transform.position.z);
+        cameraFollow.GetComponent<CameraSmoothFollow>().enabled = true;
     }
 
     void OpenBlocksForMap(List<Vector3Int> blocksVisited)
@@ -372,54 +560,7 @@ public class PlayerController : MonoBehaviour
         menuOpened = onOff;
     }
 
-    void MovementUpdate(InputAction.CallbackContext context)
-    {
 
-        if (playerState == PlayerState.Battle) { /*print("battle state");*/ return; }   
-        if (menuOpened) {  return; }
-        //GameInstance.savedInt++;
-        MovementUpdateFuther(context.ReadValue<Vector2>());
-
-    }
-
-    void TurnAround(InputAction.CallbackContext context)
-    {
-        if (menuOpened) { return; }
-        if (playerState == PlayerState.Battle) { /*print("battle state");*/ return; }
-        TurnAroundFloat(context.ReadValue<float>());
-    }
-
-    void TurnAroundFloat(float moveInput)
-    {
-        if (playerState == PlayerState.Battle) { /*print("battle state");*/ return; }
-        if (moveInput > 0)
-        {
-            TurnRight();
-        }
-        if (moveInput < 0)
-        {
-            TurnLeft();
-        }
-    }
-
-    public void MoveForwardGrahic()
-    {
-        MovementUpdateFuther(Vector2.up);
-    }
-    public void MoveBackwardGrahic()
-    {
-        MovementUpdateFuther(Vector2.down);
-    }
-
-    public void MoveStrafeLeft()
-    {
-        MovementUpdateFuther(Vector2.left);
-    }
-
-    public void MoveStrafeRight()
-    {
-        MovementUpdateFuther(Vector2.right);
-    }
 
 
     public void SetEncounter(bool onOff)
@@ -450,7 +591,7 @@ public class PlayerController : MonoBehaviour
         countdownToEncounter = value;
     }
 
-    void MovementUpdateFuther(Vector2 moveInput)
+    private void CheckForEncounter()
     {
         if (!noEncounter)
         {
@@ -464,35 +605,11 @@ public class PlayerController : MonoBehaviour
                 //Look for free block near 
                 playerState = PlayerState.Battle;
                 busyWalking = false;
-                GameInstance.battleManager.CustomBattleStart(null, currentWallBlock,currentWallBlock.GetBattleGroundEnvironment());
+                GameInstance.battleManager.CustomBattleStart(null, currentWallBlock, currentWallBlock.GetBattleGroundEnvironment());
                 countdownToEncounter = Random.Range(rangeOfEnCounter.x, rangeOfEnCounter.y);
                 EnCounter.Invoke(countdownToEncounter);
+
             }
-        }
-
-        TimeEvents(timeEventCounter);
-        timeForward(timeEventCounter);
-        if (playerState == PlayerState.Battle) { /*print("battle state");*/ return; }
-        //if (!lightBusy) StartCoroutine(LightFlickering());
-
-        if (moveInput.y > 0)
-        {
-            MoveForward();
-        }
-
-        if (moveInput.y < 0)
-        {
-            MoveBackward();
-        }
-
-        if (moveInput.x > 0)
-        {
-            StrafeRight();
-        }
-
-        if (moveInput.x < 0)
-        {
-            StrafeLeft();
         }
     }
 
@@ -500,6 +617,7 @@ public class PlayerController : MonoBehaviour
     {
         beforeBattleTransformPos = gameObject.transform.position;
         beforeBattleTransformRot = gameObject.transform.rotation;
+
         //Look for free block near 
         playerState = PlayerState.Battle;
         busyWalking = false;
@@ -507,6 +625,24 @@ public class PlayerController : MonoBehaviour
         countdownToEncounter = Random.Range(rangeOfEnCounter.x, rangeOfEnCounter.y);
     }
 
+
+    public void ResetCameraFollowState(bool reset)
+    {
+        if (reset)
+        {
+
+            cameraFollow.gameObject.transform.position = new Vector3(transform.position.x, cameraFollow.transform.position.y, transform.position.z);
+            cameraFollow.gameObject.transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
+            cameraFollow.gameObject.GetComponent<CameraSmoothFollow>().enabled = true;
+        }
+        else
+        {
+            cameraFollow.gameObject.GetComponent<CameraSmoothFollow>().enabled = false;
+            cameraFollow.gameObject.transform.position = new Vector3(transform.position.x, cameraFollow.transform.position.y, transform.position.z);
+            cameraFollow.gameObject.transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
+
+        }
+    }
 
     public void StartCustomBattle(Transform inPlace)
     {
@@ -531,82 +667,9 @@ public class PlayerController : MonoBehaviour
 
 
         gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, y , 0));
+        cameraFollow.transform.position = new Vector3(transform.position.x, cameraFollow.transform.position.y, transform.position.z);
+        cameraFollow.gameObject.GetComponent<CameraSmoothFollow>().enabled = true;
     }
-
-    public void MoveForward()
-    {
-        if (!currentWallBlock.IfWallOpened(currentforwardDirection)) { noWay.Invoke(); return; }
-        if (!RaycastOnMovement(Vector3.forward)) return;
-
-        if (busyWalking) return;
-        if (shopIsOpened) return;        
-        if (dialogueIsOpened) return;
-        Vector3 v = CardinalDir.GetNewPoint(currentforwardDirection, currentposition, moveTilemap);
-        if (!CheckBlockInterfaces(v)) return;
-        //print("Passed all checks");
-        stepSound.Invoke(currentGroundType);
-        StartCoroutine(SmoothWalk(currentforwardDirection, v));
-    }
-
-    public void MoveBackward()
-    {
-        if (!currentWallBlock.IfWallOpened(CardinalDir.GetOpposite(currentforwardDirection))) return;
-        if (!RaycastOnMovement(Vector3.back)) return;
-        if (busyWalking) return;
-        if (shopIsOpened) return;
-        if (dialogueIsOpened) return;
-        var v = CardinalDir.GetNewPoint(CardinalDir.GetOpposite(currentforwardDirection), currentposition, moveTilemap);
-        if (!CheckBlockInterfaces(v)) return;
-        stepSound.Invoke(currentGroundType);
-        StartCoroutine(SmoothWalk(CardinalDir.GetOpposite(currentforwardDirection), v));
-    }
-
-    public void StrafeRight()
-    {
-        if (!currentWallBlock.IfWallOpened(CardinalDir.GetRightDir(currentforwardDirection))) return;
-        if (!RaycastOnMovement(Vector3.right)) return;
-        if (busyWalking) return;
-        if (shopIsOpened) return;
-        if (dialogueIsOpened) return;
-        var v = CardinalDir.GetNewPoint(CardinalDir.GetRightDir(currentforwardDirection), currentposition, moveTilemap);
-        if (!CheckBlockInterfaces(v)) return;
-        stepSound.Invoke(currentGroundType);
-        StartCoroutine(SmoothWalk(CardinalDir.GetRightDir(currentforwardDirection), v));
-
-    }
-
-    public void StrafeLeft()
-    {
-        if (!currentWallBlock.IfWallOpened(CardinalDir.GetOpposite(CardinalDir.GetRightDir(currentforwardDirection)))) return;
-        if (!RaycastOnMovement(Vector3.left)) return;
-        if (busyWalking) return;
-        if (shopIsOpened) return;
-        if (dialogueIsOpened) return;
-        var v = CardinalDir.GetNewPoint(CardinalDir.GetOpposite(CardinalDir.GetRightDir(currentforwardDirection)), currentposition, moveTilemap);
-        if (!CheckBlockInterfaces(v)) return;
-        stepSound.Invoke(currentGroundType);
-        StartCoroutine(SmoothWalk(CardinalDir.GetOpposite(CardinalDir.GetRightDir(currentforwardDirection)), v));
-    }
-
-    public void TurnRight()
-    {
-        if (playerState == PlayerState.Battle) { /*print("battle state");*/ return; }
-        if (busyWalking) return;
-        if (shopIsOpened) return;
-        if (dialogueIsOpened) return;
-        turnAround.Invoke();
-        StartCoroutine(SmoothRotation(90));
-    }
-    public void TurnLeft()
-    {
-        if (playerState == PlayerState.Battle) { /*print("battle state");*/ return; }
-        if (busyWalking) return;
-        if (shopIsOpened) return;
-        if (dialogueIsOpened) return;
-        turnAround.Invoke();
-        StartCoroutine(SmoothRotation(-90));
-    }
-
 
     public Vector3Int GetCurrentPosition()
     {
@@ -616,105 +679,6 @@ public class PlayerController : MonoBehaviour
     public CardinalDirections GetCurrentDirection()
     {
         return currentforwardDirection;
-    }
-
-    IEnumerator SmoothWalk(CardinalDirections dir, Vector3 targetDestination)
-    {
-        float currentpoint = 0;
-        float startX = transform.position.x, startZ = transform.position.z;
-
-        busyWalking = true;
-        while (currentpoint < 1 && playerState == PlayerState.Explore)
-        {
-            switch (dir)
-            {
-                case CardinalDirections.NORTH:
-                    transform.position = new Vector3(transform.position.x, transform.position.y, startZ + blockSize * walkCurve.Evaluate(currentpoint));
-
-                    break;
-                case CardinalDirections.EAST:
-                    transform.position = new Vector3(startX + blockSize * walkCurve.Evaluate(currentpoint), transform.position.y, transform.position.z);
-                    break;
-                case CardinalDirections.SOUTH:
-                    transform.position = new Vector3(transform.position.x, transform.position.y, startZ - blockSize * walkCurve.Evaluate(currentpoint));
-                    break;
-                case CardinalDirections.WEST:
-                    transform.position = new Vector3(startX - blockSize * walkCurve.Evaluate(currentpoint), transform.position.y, transform.position.z);
-
-                    break;
-            }
-            yield return new WaitForSeconds(couroutingDelayinSec * Time.deltaTime);
-            
-            currentpoint += walkSpeed * Time.deltaTime;
-
-        }
-
-        transform.position = new Vector3(targetDestination.x, transform.position.y, targetDestination.z);
-        currentposition = moveTilemap.WorldToCell(transform.position);
-        currentWallBlock = wallsAccess[currentposition];
-        currentGroundType = currentWallBlock.GetGroundType();
-        busyWalking = false;
-        if (_input.CrawlerStandart.Move.ReadValue<Vector2>() != Vector2.zero)
-        {
-
-            MovementUpdateFuther(_input.CrawlerStandart.Move.ReadValue<Vector2>());
-        }
-        if (_input.CrawlerStandart.Turn.ReadValue<float>() != 0)
-        {
-            TurnAroundFloat(_input.CrawlerStandart.Turn.ReadValue<float>());
-        }
-
-        foreach(OnBlockPlacement block in currentWallBlock.CheckForNeighbors(moveTilemap))
-        {
-            if (block == null) continue;
-            block.ShowOnMap(true);
-            visitedBlock newblock = new visitedBlock();
-            newblock.coordinates = block.GetBlockCoordinate();
-            newblock.level = GameInstance.GetLevelName();
-            if (!visitedBlocks.Contains(newblock)) visitedBlocks.Add(newblock);
-            //print(newblock.level + " " + newblock.coordinates);
-        }
-        visitedBlock newblock2;
-        newblock2.coordinates = currentWallBlock.GetBlockCoordinate();
-        newblock2.level = GameInstance.GetLevelName();
-        currentWallBlock.ShowOnMap(true);
-    }
-
-
-
-
-    IEnumerator SmoothRotation(float angle)
-    {
-        float currentpoint = 0;
-        float startY = transform.rotation.eulerAngles.y;
-        busyWalking = true;
-        if (Mathf.Abs(angle) == 90)
-        {
-            if (angle > 0) currentforwardDirection = CardinalDir.SetDirectionRight(currentforwardDirection);
-            else currentforwardDirection = CardinalDir.GetOpposite(CardinalDir.SetDirectionRight(currentforwardDirection));
-        }
-        cardinalDirectionToUI.Invoke(currentforwardDirection);
-        while (currentpoint < 1 && playerState == PlayerState.Explore)
-        {
-            transform.rotation = Quaternion.Euler(0, startY + angle * rotationCurve.Evaluate(currentpoint), 0);
-            yield return new WaitForSeconds(couroutingDelayinSec * Time.deltaTime);
-            currentpoint += rotationSpeed * Time.deltaTime;
-        }
-
-
-
-        transform.rotation = Quaternion.Euler(0, startY + angle, 0);
-
-
-        busyWalking = false;
-        if (_input.CrawlerStandart.Turn.ReadValue<float>() != 0)
-        {
-            TurnAroundFloat(_input.CrawlerStandart.Turn.ReadValue<float>());
-        }
-        if (_input.CrawlerStandart.Move.ReadValue<Vector2>() != Vector2.zero)
-        {
-            MovementUpdateFuther(_input.CrawlerStandart.Move.ReadValue<Vector2>());
-        }
     }
 
     void RotateToCardinalLocation()
@@ -760,7 +724,6 @@ public class PlayerController : MonoBehaviour
         if (wallsAccess.TryGetValue(moveTilemap.WorldToCell(position), out OnBlockPlacement block)) { return block; }
         return null;
     }
-
 
     void MouseRaycast(InputAction.CallbackContext obj)
     {
@@ -932,7 +895,7 @@ public class PlayerController : MonoBehaviour
                     {
                         case InteractablesEnum.ENEMY:
                             // Custom Enemy Spawn
-
+                            break;
                         case InteractablesEnum.DOOR:
                             IDoor door = hit.collider.GetComponent<IDoor>();
                             print("Door is " + door.isOpen());
@@ -993,27 +956,6 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    GameObject CheckBlockInteractables(Vector3 v) 
-    {
-        IBlock iblock;
-        if (wallsAccess.ContainsKey(moveTilemap.WorldToCell(v)))
-        { iblock = wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<IBlock>(); }
-        else return null;
-
-        foreach (GameObject g in iblock.InteractableObjectsInBlock)
-        {
-            if (g != null)
-            {
-
-                print("found interactable " + g.name);
-            }
-        }
-
-
-        return null;
-    }
-
-
     bool CheckBlockInterfaces(Vector3 v)
     {
         IInteractables iInteractable;
@@ -1021,8 +963,6 @@ public class PlayerController : MonoBehaviour
         { iInteractable = wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<IInteractables>(); }
         else return false;
         List<InteractablesEnum> interactableList = iInteractable.WhatIsIt();
-
-
 
         foreach (InteractablesEnum i in interactableList)
         {
@@ -1072,9 +1012,6 @@ public class PlayerController : MonoBehaviour
                     shopIsOpened = true;
                     chooseShop.ChooseShopOfType( wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<OnBlockPlacement>().GetShopIndex());
 
-
-
-
                     if (interactableList.Contains(InteractablesEnum.DIALOGUE)) break;
                     else return false;
                 case InteractablesEnum.DIALOGUE:
@@ -1090,6 +1027,7 @@ public class PlayerController : MonoBehaviour
                 case InteractablesEnum.CUSTOMBATTLE:
                     print("start custom battle");
                     wallsAccess[moveTilemap.WorldToCell(v)].GetComponent<IBlock>().SetCustomBattle();
+                    playerState = PlayerState.Battle;
                     return false;
 
                 case InteractablesEnum.CUSTOMBATTLEINPLACE:
@@ -1143,7 +1081,6 @@ public class PlayerController : MonoBehaviour
        if(onOff) _input.Enable();
     }
 
-
     public void SetPlayerState(PlayerState state)
     {
         playerState = state;
@@ -1183,21 +1120,7 @@ public class PlayerController : MonoBehaviour
         //print("hover off  " + cursorHoveringUI + " cursor busy " + cursorBusy);
     }
 
-/*    IEnumerator LightFlickering()
-    {
-        lightBusy = true;
-        //Vector3 pos = torchlight.gameObject.transform.position;
-        for (int i = 0; i < 10; i++)
-        {
-            torchlight.intensity = intensivity + Random.Range(0.1f, 0.2f);
-            torchlight.colorTemperature = Random.Range(0.1f, 0.5f);
-            torchlight.range = Random.Range(9, 10);
-            torchlight.gameObject.transform.position = transform.position + new Vector3(Random.Range(0.1f, 0.6f), Random.Range(0.1f, 0.6f), Random.Range(0.1f, 0.6f));
-            yield return new WaitForSeconds(0.2f);
-        }
-        torchlight.gameObject.transform.position =  transform.position;
-        lightBusy = false;
-    }*/
+
 
     void TimeEvents(int count)
     {
@@ -1225,17 +1148,79 @@ public class PlayerController : MonoBehaviour
         timeEventCounter++;
     }
 
-
-
     void TakeInteract(InputAction.CallbackContext context)
     {
         if (cursorHoveringUI) return;
         if (shopIsOpened) { return; }
-        //print("pressing Space to interact");
         CheckBlockInterfaces(CardinalDir.GetNewPoint(currentforwardDirection, currentposition, moveTilemap));
         RaycastOnMovement(Vector3.forward);
         takeInteractInterface.SwitchOnCollider();
 
+    }
+
+    public Vector3 GetVector3PosFromBlock(Vector3Int _pos)
+    {
+        if (wallsAccess.ContainsKey(_pos))
+        {
+            return wallsAccess[_pos].gameObject.transform.position;
+        }
+
+        return _pos;
+    }
+
+    public bool CheckIfMarkerCanMoveToBlock(int dir, Vector3Int _currentposition, out Vector3Int newPosition)
+    {
+        newPosition = _currentposition;
+
+        Vector3[] directions = new Vector3[]
+        {
+            Vector3.forward,
+            Vector3.right,
+            Vector3.back,
+            Vector3.left
+        };
+
+        Vector3 forward = nextPositionMarker.transform.TransformDirection(directions[dir]) * 5;
+        Debug.DrawRay(nextPositionMarker.transform.position, forward, Color.red, 10, false);
+ 
+        newPosition = _currentposition + new Vector3Int((int)directions[dir].x, (int)directions[dir].z, 0);
+        return true;
+    }
+
+    public bool CheckForBlockAvailable(Vector3Int pos)
+    {
+        if (wallsAccess.ContainsKey(pos))
+        {
+            return true;
+        }
+        else return true;
+    }
+
+    public Tilemap GetMovementTilemap() 
+    {         
+        return moveTilemap;
+    }
+
+
+    public float GetPlayerSpeed()
+    {
+        return movementRefreshRate;
+    }
+
+    public float GetPlayerRotationSpeed()
+    {
+        return rotationMultiplyer;
+    }
+
+    public void SetPlayerSpeed(float speed)
+    {
+        movementRefreshRate = speed;
+        //cameraFollow.GetComponent<CameraSmoothFollow>().SetCameraSpeed(speed);
+    }
+
+    public void SetPlayerRotationSpeed(float speed)
+    {
+        rotationMultiplyer = speed;
     }
 
 }
@@ -1255,4 +1240,14 @@ public enum PlayerState
     Explore,
     Battle,
     MenuOpened
+}
+
+public enum MovementType
+{
+    Forward,
+    Backward,
+    StrafeLeft,
+    StrafeRight,
+    TurnLeft,
+    TurnRight
 }

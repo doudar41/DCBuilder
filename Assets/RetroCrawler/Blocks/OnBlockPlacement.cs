@@ -60,8 +60,7 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
             }
         }
 
-
-       //if(mapView !=null) { if (mapView.material != mapMaterieal) mapView.material = mapMaterieal; }
+        //if(mapView !=null) { if (mapView.material != mapMaterieal) mapView.material = mapMaterieal; }
     }
 
 
@@ -69,6 +68,8 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
     {
         GameInstance.initItems += BlockInit;
         if(ceiling !=null)ceiling.SetActive(true);
+
+        if (mapGraphics != null) mapGraphics.SetActive(false);
     }
 
     private void OnDestroy()
@@ -244,8 +245,11 @@ public class OnBlockPlacement : MonoBehaviour, IBlock, IInteractables, IDialogue
 
     public void ShowOnMap(bool active)
     {
-        if(mapGraphics != null)
-        mapGraphics.SetActive(active);
+/*        if(mapGraphics != null)
+        mapGraphics.SetActive(active);*/
+
+        GameInstance.mapTileMap.SetTileDiscovered(blockPosition);
+
     }
 
     public GroundType GetGroundType()

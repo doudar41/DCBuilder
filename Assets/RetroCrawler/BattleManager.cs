@@ -174,10 +174,11 @@ public class BattleManager : MonoBehaviour
 
         battleGroundGraphics.SetBattleGround(battleGroundEnvironment);
         GameInstance.soundManagerInGame.LaunchBattleMusic(battleGroundEnvironment);
-        GameInstance.playerController.StartCustomBattle();
+
         enemyTurn.Invoke("Battle");
         //StopCoroutine(GameInstance.TimeStep());
         GameInstance.party.SetTimerForHeroes(true);
+
         //Add enemies
         if(_level01Enemies != null)
         {
@@ -189,7 +190,7 @@ public class BattleManager : MonoBehaviour
             SpawnEnemies(level01Enemies, row01RandomRange, spawnPointsRaw01, 1);
             SpawnEnemies(level01Enemies, row02RandomRange, spawnPointsRaw02, 2);
         }
-
+        GameInstance.playerController.StartCustomBattle();
         BattleStart();
     }
 
@@ -395,6 +396,7 @@ public class BattleManager : MonoBehaviour
         GameInstance.playerController.beforeBattleTransformRot = GameInstance.playerController.gameObject.transform.rotation;
         GameInstance.playerController.transform.position = playerBattlePlace.position;
         GameInstance.playerController.transform.rotation = playerBattlePlace.rotation;
+        GameInstance.playerController.ResetCameraFollowState(false);
     }
 
     void EnemyAutoAttack()
