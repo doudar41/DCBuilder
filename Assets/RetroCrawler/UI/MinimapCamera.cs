@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class MinimapCamera : MonoBehaviour
+public class MinimapCamera : MonoBehaviour, IDragHandler
 {
     [SerializeField] Camera cam;
-    [SerializeField] Transform player;
-    [SerializeField]float y, clampLow, clampHigh, snapValue;
+    [SerializeField] float y, clampLow, clampHigh, snapValue;
+    [SerializeField] bool followPlayer = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,11 +17,17 @@ public class MinimapCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        cam.orthographicSize = y;
+        if (followPlayer) CenteredOnPlayer();
+    }
+
+    public void CenteredOnPlayer()
+    {
         if (GameInstance.playerController == null) return;
         if (GameInstance.playerController.playerState != PlayerState.Battle)
         {
-            transform.position = new Vector3(player.position.x, transform.position.y, player.position.z);
-            cam.orthographicSize = y; 
+            cam.transform.position = new Vector3(GameInstance.playerController.transform.position.x, cam.transform.position.y, GameInstance.playerController.transform.position.z);
+
         }
     }
 
@@ -28,5 +35,12 @@ public class MinimapCamera : MonoBehaviour
     {
         if (higher) y = Mathf.Clamp(y + snapValue, clampLow, clampHigh);
         if (!higher) y = Mathf.Clamp(y - snapValue, clampLow, clampHigh);
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+
+        Vector3 delta = new Vector3(eventData.delta.x, 0, eventData.delta.y);
+        cam.transform.position -= delta * (y / 1000f);
     }
 }

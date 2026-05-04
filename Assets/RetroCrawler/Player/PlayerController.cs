@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Tilemap moveTilemap;
     [SerializeField] TorchFlicker torchlight;
     [SerializeField] GameMenuToggle gameMenuToggle;
+    [SerializeField]
+    FogOfWarTexture fogOfWarTexture;
 
     Vector3Int startposition;
     Vector3Int currentposition;
@@ -33,6 +35,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject cameraFollow;
     [SerializeField] float movementRefreshRate = 0.16f;
     [SerializeField] float rotationMultiplyer = 0.2278787f;
+    [SerializeField] Transform mapArrow;
     bool isPlayerRotating = false;
     int keypresseddirection = 0;
     bool stayPressedOnce = false;
@@ -292,8 +295,8 @@ public class PlayerController : MonoBehaviour
         newblock2.coordinates = currentWallBlock.GetBlockCoordinate();
         newblock2.level = GameInstance.GetLevelName();
         //print("current block coordinate " + currentWallBlock.GetBlockCoordinate());
-        currentWallBlock.ShowOnMap(true);
-
+        //currentWallBlock.ShowOnMap(true);
+        fogOfWarTexture.UpdateVisibility(transform.position);
         isMarkerMoves = false;
         yield return null;
     }
@@ -317,7 +320,7 @@ public class PlayerController : MonoBehaviour
         }
         cameraFollow.transform.rotation = Quaternion.Euler(new Vector3(0, CardinalDir.GetRotationYForCardinal(currentforwardDirection), 0 ));
         isPlayerRotating = false;
-
+        mapArrow.rotation = Quaternion.Euler(90, CardinalDir.GetRotationYForCardinal(currentforwardDirection), 0);
         cardinalDirectionToUI.Invoke(currentforwardDirection);
     }
 
@@ -380,13 +383,13 @@ public class PlayerController : MonoBehaviour
         {
             NewGamePlayerStruct();
         }
-        currentWallBlock.ShowOnMap(true);
+        //currentWallBlock.ShowOnMap(true);
         RegisteringKeys();
         print("Start position in cell "+ moveTilemap.WorldToCell(transform.position));
         nextPositionMarker.transform.position = transform.position;
         nextPosition = moveTilemap.WorldToCell(transform.position);
         cameraFollow.transform.position = new Vector3(transform.position.x, cameraFollow.transform.position.y, transform.position.z);
-
+        fogOfWarTexture.UpdateVisibility(transform.position);
     }
 
     public List<visitedBlock> GetVisitedBlocksCooordinates()

@@ -20,8 +20,8 @@ TagManager:
   - Blocks
   - Environment
   - NPC
-  - 
-  - 
+  - Map01
+  - Map02
   - 
   - 
   - 
@@ -47,4 +47,7 @@ TagManager:
     locked: 0
   - name: Behind01
     uniqueID: 4031762071
+    locked: 0
+  - name: FogOfWar
+    uniqueID: 1299111023
     locked: 0

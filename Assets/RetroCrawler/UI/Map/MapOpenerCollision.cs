@@ -23,5 +23,4 @@ public class MapOpenerCollision : MonoBehaviour
         }
     }
 
-
 }

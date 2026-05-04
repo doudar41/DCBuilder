@@ -24,6 +24,8 @@ public class ChestLocked : MonoBehaviour, IPointerClickHandler, IChestLocked
     [SerializeField] Collider chestCollider;
     [SerializeField] GameObject mimicPlace;
     [SerializeField] Sprite emptySprite;
+    [SerializeField] Sprite mapSpriteOpened;
+    [SerializeField] SpriteRenderer mapSpriteRenderer;
 
     [SerializeField] List<Sprite> closedSprites, openSprites;
     Billboard3D billboard;
@@ -141,17 +143,6 @@ public class ChestLocked : MonoBehaviour, IPointerClickHandler, IChestLocked
         }
         else
         {
-            /*            if (GameInstance.inventory.UseKey(keyType))
-                        {
-                            foreach (HeroInventoryItem item in inventoryInsideChest)
-                            {
-                                GameInstance.inventory.FindEmptySlotAndPutItem(item, item.stackAmount,false);
-                                GameInstance.spellbook.BattleLogMessage(new List<string>() { "item added " + GameInstance.dataBase.GetItemFromBaseByIndex(item.container).itemName }, null);
-                            }
-                            StartCoroutine(AnimateOpen());
-                            inventoryInsideChest.Clear();
-                            GameInstance.SaveItemState(GUIDString, SavedState.Opened);
-                        }*/
 
             HeroInventoryItem key = GameInstance.playerController.GetItemFromCursor();
             if (key == null) return;
@@ -178,7 +169,10 @@ public class ChestLocked : MonoBehaviour, IPointerClickHandler, IChestLocked
 
             BroAudio.Play(openSound, transform);
         }
-
+        if(_isOpen)         
+        {
+            if(!isMimic)mapSpriteRenderer.sprite = mapSpriteOpened;
+        }
     }
 
 
@@ -194,6 +188,7 @@ public class ChestLocked : MonoBehaviour, IPointerClickHandler, IChestLocked
             StartCoroutine(AnimateOpenMimic());
             inventoryInsideChest.Clear();
             GameInstance.SaveItemState(GUIDString, SavedState.Opened);
+        mapSpriteRenderer.sprite = openMimic[openMimic.Count-1];
 
     }
 
