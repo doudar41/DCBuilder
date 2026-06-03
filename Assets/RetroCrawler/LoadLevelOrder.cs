@@ -93,7 +93,13 @@ public class LoadLevelOrder : MonoBehaviour
         GameInstance.dayNightChange.isDungeon = isDungeonLevel;
         GameInstance.dayNightChange.InitDayNightShift();
         StartCoroutine(GameInstance.TimeStep());
-
-
+        StartCoroutine(CameraDelay());
     }
+
+    IEnumerator CameraDelay()
+    {
+        yield return new WaitForSeconds(0.1f);
+        Camera.main.transform.GetComponent<CameraSmoothFollow>().ResetCameraSpeed();
+    }
+
 }

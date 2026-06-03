@@ -26,7 +26,7 @@ public class MinimapCamera : MonoBehaviour, IDragHandler
         if (GameInstance.playerController == null) return;
         if (GameInstance.playerController.playerState != PlayerState.Battle)
         {
-            cam.transform.position = new Vector3(GameInstance.playerController.transform.position.x, cam.transform.position.y, GameInstance.playerController.transform.position.z);
+            cam.transform.position = new Vector3(Camera.main.transform.position.x, cam.transform.position.y, Camera.main.transform.position.z);
 
         }
     }

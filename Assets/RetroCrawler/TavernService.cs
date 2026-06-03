@@ -43,13 +43,22 @@ public class TavernService : MonoBehaviour
         
         if (GameInstance.party.SellBuyMoneyCheck(rentForRoom) >= 0)
         {
+            cameraOrder.BattleLogWithGameplay();
             restAnimation.SetActive(true);
             restAnimation.GetComponent<animateUIImage>().StartAnimation();
+            restAnimation.GetComponent<animateUIImage>().onAnimationEnd.AddListener(OnRestEnd);
             GameInstance.dayNightChange.ChangeTimeFlow(0.001f);
             GameInstance.party.AddSomeFood(0);
             GameInstance.party.MoneyGoes(rentForRoom);
             GetPlayersCoins();
         }
+    }
+
+    void OnRestEnd()
+    {
+        cameraOrder.ShopWithoutBattlelog();
+        restAnimation.SetActive(false);
+
     }
 
     public void ShowTavernOffer(string offer)

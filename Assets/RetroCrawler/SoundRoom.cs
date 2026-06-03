@@ -136,6 +136,7 @@ public enum RoomSpaces
     LightShop,
     DarkShop,
     KingsCastle,
-    CaveEntrance
+    CaveEntrance,
+    TrainingGrounds
 
 }

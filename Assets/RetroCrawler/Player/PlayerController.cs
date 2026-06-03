@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.Splines;
 using UnityEngine.Tilemaps;
+using UnityEngine.Windows;
 
 
 public class PlayerController : MonoBehaviour
@@ -113,10 +114,16 @@ public class PlayerController : MonoBehaviour
     public delegate void TimeEventDelegate(int timeCounter);
     public event TimeEventDelegate timeForward;
 
+    public delegate void RightClickEventDelegate(Vector3 mousePos);
+    public event RightClickEventDelegate rightClickEvent;
+
     IBlock weightPlateIBllock = null;
 
     Queue<MovementType> movementQueue = new Queue<MovementType>();
     Vector3 futureDestination = Vector3.zero;
+
+    GameObject _enemy = null;
+
     private void Awake()
     {
         GameInstance.playerController = this;
@@ -138,11 +145,64 @@ public class PlayerController : MonoBehaviour
         _input.CrawlerStandart.LastSpell.started += ReceiveLastSpellInput;
         _input.CrawlerStandart.Cancel.started += ReleaseSpellWithoutCasting;
         _input.CrawlerStandart.TakeInteract.started += TakeInteract;
+        _input.CrawlerStandart.Attack.started += WeaponAttack;
+        _input.CrawlerStandart.Attack.canceled += AutoAttackEnds;
         leftMouse.action.started += MouseRaycast;
+        _input.CrawlerUI.RightClick.started += MouseRightClickStarted;
+        _input.CrawlerUI.RightClick.canceled += MouseRightClickCanceled;
 
         if (!noEncounter) countdownToEncounter = Random.Range(rangeOfEnCounter.x, rangeOfEnCounter.y);
 
     }
+
+    private void AutoAttackEnds(InputAction.CallbackContext context)
+    {
+        if (playerState != PlayerState.Battle) return;
+        GameInstance.battleManager.ReceiveAutoAttackInput(false);
+        
+    }
+
+    private void MouseRightClickCanceled(InputAction.CallbackContext obj)
+    {
+        GameInstance.spawnTipWindow.CloseTipWindow();
+    }
+
+    private void MouseRightClickStarted(InputAction.CallbackContext context)
+    {
+        rightClickEvent.Invoke(GetMousePositionOnScreen());
+        GameInstance.spawnTipWindow.OpenTipWindow( GetMousePositionOnScreen());
+    }
+
+    private void WeaponAttack(InputAction.CallbackContext context)
+    {
+        
+        if (playerState != PlayerState.Battle) return;
+        //print("is attack allowed "+attackAllowed);
+        //if (!attackAllowed) return;
+        if (!GameInstance.spellbook.SpellWaiting())
+        {
+            print("battlemanager receive attack input");
+            GameInstance.battleManager.ReceiveAutoAttackInput(true);
+        }
+        else
+        {
+           // print(GameInstance.battleManager.GetCurrentTarget());
+            if (_enemy != null) GameInstance.spellbook.GetGameObjectTarget(_enemy);
+            GameInstance.battleManager.ReceiveAutoAttackInput(true);
+        }
+    }
+
+    public void SetTargetObject(GameObject enemy)
+    {
+        _enemy = enemy;
+        GameInstance.battleManager.SetEnemyTargetIndex(enemy);
+    }
+
+    public GameObject EnemyObject()
+    {
+        return _enemy;
+    }
+
 
     private void OnDestroy()
     {
@@ -151,7 +211,12 @@ public class PlayerController : MonoBehaviour
         _input.CrawlerStandart.LastSpell.started -= ReceiveLastSpellInput;
         _input.CrawlerStandart.Cancel.started -= ReleaseSpellWithoutCasting;
         _input.CrawlerStandart.TakeInteract.started -= TakeInteract;
+        _input.CrawlerStandart.Attack.started -= WeaponAttack;
         leftMouse.action.started -= MouseRaycast;
+        _input.CrawlerUI.RightClick.started -= MouseRightClickStarted;
+        _input.CrawlerStandart.Attack.canceled -= AutoAttackEnds;
+        _input.CrawlerUI.RightClick.started -= MouseRightClickStarted;
+        _input.CrawlerUI.RightClick.canceled -= MouseRightClickCanceled;
         _input.Disable();
     }
 
@@ -159,6 +224,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if(playerState == PlayerState.Battle) return;
+        if(menuOpened) return;
 
 
         Vector2 moveVector2 = new Vector2(Mathf.RoundToInt(_input.CrawlerStandart.Move.ReadValue<Vector2>().x), Mathf.RoundToInt(_input.CrawlerStandart.Move.ReadValue<Vector2>().y));
@@ -179,8 +245,6 @@ public class PlayerController : MonoBehaviour
                 if (keypresseddirection != _keypresseddirection)
                 {
                     keypresseddirection = _keypresseddirection;
-/*                    recordedPath.Clear();
-                    StopCoroutine(MoveAlongPath(recordedPath, Vector2.zero));*/
                 }
             }
             else
@@ -193,7 +257,6 @@ public class PlayerController : MonoBehaviour
         {
             if (_input.CrawlerStandart.Move.IsPressed() && !stayPressedOnce)
             {
-                print("change course");
                 stayPressedOnce = true;
                 if (keypresseddirection == 0) keypresseddirection = 1;
                 else if (keypresseddirection == 1) keypresseddirection = 0;
@@ -390,6 +453,7 @@ public class PlayerController : MonoBehaviour
         nextPosition = moveTilemap.WorldToCell(transform.position);
         cameraFollow.transform.position = new Vector3(transform.position.x, cameraFollow.transform.position.y, transform.position.z);
         fogOfWarTexture.UpdateVisibility(transform.position);
+
     }
 
     public List<visitedBlock> GetVisitedBlocksCooordinates()
@@ -417,38 +481,19 @@ public class PlayerController : MonoBehaviour
         return torchlight.isOn;
     }
 
-/*
-    void ReceiveAttackInput(InputAction.CallbackContext context)
-    {
-        if (playerState != PlayerState.Battle) return;
-        if (!attackAllowed) return;
-        //if (cursorHoveringUI) return; //??
-        //if (GameInstance.battleManager.battleInputDelay) { context.action.Reset(); return; }
-
-        if (!GameInstance.spellbook.SpellWaiting())
-        {
-            GameInstance.battleManager.ReceiveAttackInput();
-        }
-        attackAllowed = false;
-    }
-*/
     public void ReceiveAttackInput()
     {
-        print("pointer on enemy");
         if (playerState != PlayerState.Battle) return;
         if (!attackAllowed) return;
-        //if (cursorHoveringUI) return; //??
-        //if (GameInstance.battleManager.battleInputDelay) { context.action.Reset(); return; }
 
         if (!GameInstance.spellbook.SpellWaiting())
         {
-            print("battlemanager receive attack input");
-            GameInstance.battleManager.ReceiveAttackInput();
+
+            GameInstance.battleManager.ReceiveAttackInput(_enemy);
         }
 
         attackAllowed = false;
     }
-
 
     public void ReceiveLastSpellInput(InputAction.CallbackContext context)
     {
@@ -549,21 +594,16 @@ public class PlayerController : MonoBehaviour
         cameraFollow.GetComponent<CameraSmoothFollow>().enabled = true;
     }
 
-    void OpenBlocksForMap(List<Vector3Int> blocksVisited)
-    {
-        foreach (Vector3Int b in blocksVisited)
-        {
-            if (wallsAccess.TryGetValue(b, out OnBlockPlacement block)) block.ShowOnMap(true);
-        }
-    }
-
 
     public void MenuOpened(bool onOff)
     {
         menuOpened = onOff;
     }
 
-
+    public bool IsMenuOpened()
+    {
+        return menuOpened;
+    }
 
 
     public void SetEncounter(bool onOff)
@@ -689,32 +729,32 @@ public class PlayerController : MonoBehaviour
         currentforwardDirection = CardinalDirections.NORTH;
         if (transform.rotation.eulerAngles.y != 0)
         {
-            float YAngle = transform.rotation.eulerAngles.y % 360;
+            float YAngle = cameraFollow.transform.rotation.eulerAngles.y % 360;
 
 
             if (YAngle > 0 && YAngle <= 45)
             {
-                transform.rotation = Quaternion.Euler(0, 0, 0);
+                cameraFollow.transform.rotation = Quaternion.Euler(0, 0, 0);
                 cardinalDirectionToUI.Invoke(currentforwardDirection);
                 return;
             }
             if (YAngle > 45 && YAngle <= 135)
             {
-                transform.rotation = Quaternion.Euler(0, 90, 0);
+                cameraFollow.transform.rotation = Quaternion.Euler(0, 90, 0);
                 currentforwardDirection = CardinalDirections.EAST;
                 cardinalDirectionToUI.Invoke(currentforwardDirection);
                 return;
             }
             if (YAngle > 135 && YAngle <= 225)
             {
-                transform.rotation = Quaternion.Euler(0, 180, 0);
+                cameraFollow.transform.rotation = Quaternion.Euler(0, 180, 0);
                 currentforwardDirection = CardinalDirections.SOUTH;
                 cardinalDirectionToUI.Invoke(currentforwardDirection);
                 return;
             }
             if (YAngle > 225 && YAngle <= 325)
             {
-                transform.rotation = Quaternion.Euler(0, 270, 0);
+                cameraFollow.transform.rotation = Quaternion.Euler(0, 270, 0);
                 currentforwardDirection = CardinalDirections.WEST;
                 cardinalDirectionToUI.Invoke(currentforwardDirection);
                 return;
@@ -735,7 +775,6 @@ public class PlayerController : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(currentMouse.position.ReadValue().x, currentMouse.position.ReadValue().y, 0));
         if (cursorHoveringUI)
         {
-            
             return;
         }
         if (cursorBusy)
@@ -1060,7 +1099,9 @@ public class PlayerController : MonoBehaviour
 
     public void TeleportToMarkDestination(MarkSavedLocation mark)
     {
+
         if (GameInstance.markSavedLocations == null) return;
+
         if (mark.levelName != SceneManager.GetActiveScene().name)
         {
             GameInstance.nextLevelPosition = mark.position;
@@ -1069,14 +1110,25 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            transform.position = new Vector3(wallsAccess[mark.position].GetLocation().x, transform.position.y, wallsAccess[mark.position].GetLocation().z);
-            currentposition = mark.position;
-            currentforwardDirection = mark.direction;
-            RotateToCardinalLocation();
+            cameraFollow.GetComponent<CameraSmoothFollow>().SetCameraSpeed(50);
+            nextPosition = mark.position;
+            Vector3 _npos = moveTilemap.GetCellCenterWorld(nextPosition);
+            nextPositionMarker.transform.position = new Vector3(_npos.x, transform.position.y, _npos.z);
+            transform.position = new Vector3(_npos.x, transform.position.y, _npos.z);
+            currentposition = nextPosition;
+            currentWallBlock = wallsAccess[currentposition];
+            cameraFollow.GetComponent<CameraSmoothFollow>().ResetCameraSpeed();
         }
 
     }
 
+
+
+
+    public Vector2 GetMousePositionOnScreen()
+    {
+        return currentMouse.position.ReadValue();
+    }
 
     public void InputEnable(bool onOff)
     {

@@ -103,6 +103,15 @@ MonoBehaviour:
   _renderer: {fileID: 1342651849385958565}
   openSprite: {fileID: 21300000, guid: b45556755cf188940b5e891b901d5ffb, type: 3}
   closeSprite: {fileID: 21300000, guid: b45556755cf188940b5e891b901d5ffb, type: 3}
+  lockIndex: 0
+  complexLock: 0
+  openSprites: []
+  closeSprites: []
+  billboard3D: {fileID: 0}
+  switchsound:
+    ID: 0
+    _sourceAsset: {fileID: 0}
+    <DebugObject>k__BackingField: {fileID: 4220959670553475279}
 --- !u!65 &5620718842328870288
 BoxCollider:
   m_ObjectHideFlags: 0

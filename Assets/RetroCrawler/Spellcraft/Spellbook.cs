@@ -175,7 +175,7 @@ public class Spellbook : MonoBehaviour
         return spellWaitToRelease != null;
     }
 
-    public void CastSpell(SpellContainer spellToCast)
+    public void CastSpell(SpellContainer spellToCast, GameObject target = null)
     {
         // Checking is a spell is explore based Light, Waterwalk, Lavawalk etc. and immediately start it as a time based spell.
         // Add it to spellTimeActive dictionary for a timepassed check in TimeLimitSpellCount(int count)
@@ -282,9 +282,9 @@ public class Spellbook : MonoBehaviour
 
                 if (GameInstance.playerController.playerState == PlayerState.Battle)
                 {
-                    if (spellToCast.spellName == "Missile Shower") 
+                    if (spellToCast.spellName == "Missile Shower")
                     { meteorShower.Play(); GameInstance.soundManagerInGame.ProtectedPlay(meteorShowerSound); }
-                    if (spellToCast.spellName == "Thunder") 
+                    if (spellToCast.spellName == "Thunder")
                     { thunderstorm.Play(); GameInstance.soundManagerInGame.ProtectedPlay(thunderSound); }
                     if (spellToCast.spellName == "Tidalwave")
                     {
@@ -292,7 +292,7 @@ public class Spellbook : MonoBehaviour
                         var waves = tidalwave.GetComponentsInChildren<Animator>();
                         foreach (Animator a in waves)
                         {
-                            a.Play("IdleVFX"); 
+                            a.Play("IdleVFX");
                             a.CrossFade("IdleVFX", 0.1f);
                         }
                         GameInstance.soundManagerInGame.ProtectedPlay(tidalwaveSound);
@@ -329,12 +329,23 @@ public class Spellbook : MonoBehaviour
         }
         else
         {
-            print("add listener to mouse click");
+            
+            if (target == null) 
+            { 
+            print("No target selected for spell");
             spellWaitToRelease = spellToCast;
             spellTargetEvent.AddListener(GetGameObjectTarget);
             SpellCharged = true;
-            GameInstance.SetMouseCursor(cursorTargetGraphics, new Vector2(0,0));
-            CloseSpellbook();
+            GameInstance.SetMouseCursor(cursorTargetGraphics, new Vector2(0, 0));
+            CloseSpellbook(); 
+            }
+            else 
+            {
+                spellWaitToRelease = spellToCast;
+                SpellCharged = true;
+                if (GameInstance.battleManager.ISAutoAttack()) GetGameObjectTarget(target);
+
+            }
 
         }
         if (GameInstance.playerController.playerState == PlayerState.Battle)
@@ -346,6 +357,14 @@ public class Spellbook : MonoBehaviour
         }
     }
 
+    public void SetCursorToAttack(bool isAttack) // Set attack cursor when player choose spell from battle menu
+    {
+        if(GameInstance.playerController.playerState != PlayerState.Battle) return;
+        if(isAttack) GameInstance.SetMouseCursor(cursorTargetGraphics, new Vector2(0, 0));
+        else GameInstance.SetMouseCursor(cursorNormal, new Vector2(0, 0));
+    }
+
+
     public void SaveContinousSpells() //This method saves exploration time based spells to GameInstance to be loaded on different level or from the save file
     {
         SavedSpellsAttached savedSpellsAttached = new SavedSpellsAttached();
@@ -353,7 +372,6 @@ public class Spellbook : MonoBehaviour
         {
             savedSpellsAttached.spell.Add(s.Key);
             savedSpellsAttached.timesToFinish.Add(s.Value);
-            //print("save continous spells " + s.Key.spellEffect+"/"+s.Value);
         }
         GameInstance.spellsFromSpellbook.Add(savedSpellsAttached);
     }

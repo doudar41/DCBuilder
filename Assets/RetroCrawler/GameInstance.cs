@@ -21,6 +21,7 @@ public static class GameInstance
     public static SoundManagerInGame soundManagerInGame;
     public static DayNightChange dayNightChange;
     public static mapCoverManager mapTileMap;
+    public static SpawnTipWindow spawnTipWindow;
 
     static Texture2D cursorTargetGraphics, cursorNormal;
     static CursorMode cursorMode = CursorMode.Auto;

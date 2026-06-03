@@ -1,9 +1,9 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class animateUIImage : MonoBehaviour
 {
@@ -15,6 +15,9 @@ public class animateUIImage : MonoBehaviour
     Dictionary<string, List<Sprite>> savedSpriteLists  = new Dictionary<string, List<Sprite>>();
     string currentName;
     bool stopAnimation = false;
+
+    public UnityEvent onAnimationEnd;
+
     private void Start()
     {
 
@@ -46,6 +49,7 @@ public class animateUIImage : MonoBehaviour
         {
             StartCoroutine(AnimateImage());
         }
+        if (playOnce) onAnimationEnd.Invoke();
         yield return null;
 
     }

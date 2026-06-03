@@ -6,9 +6,19 @@ using UnityEngine;
 public class CameraSmoothFollow : MonoBehaviour
 {
     [SerializeField] Transform target;
-    [SerializeField] float smoothSpeed = 1f;
+    [SerializeField] float smoothSpeedDefault = 1f;
     [SerializeField] Vector3 offset = Vector3.zero;
     float lastpositionX, lastpositionZ;
+    [SerializeField]float smoothSpeed;
+    private void Awake()
+    {
+        smoothSpeed = 50;
+    }
+
+    private void Start()
+    {
+        transform.position = target.position + offset;
+    }
 
     private void FixedUpdate()
     {
@@ -26,15 +36,21 @@ public class CameraSmoothFollow : MonoBehaviour
             Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
             
             transform.position = smoothedPosition;
-
-
         }
     }
-
-  
 
     public void SetCameraSpeed(float speed)
     {
         smoothSpeed = speed;
+    }
+
+    public void SetCameraSpeedDefault(float speed)
+    {
+        smoothSpeedDefault = speed;
+    }
+
+    public void ResetCameraSpeed()
+    {
+        smoothSpeed = smoothSpeedDefault;
     }
 }

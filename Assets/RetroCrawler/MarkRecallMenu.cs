@@ -11,7 +11,7 @@ public class MarkRecallMenu : MonoBehaviour
     public void OpenMarkRecall()
     {
         GameInstance.spellbook.CloseSpellbook();
-        cameraOrder.ShopWithoutBattlelog();
+        cameraOrder.BattleLogWithGameplay();
         markRecallMenuPanel.SetActive(true);
         GameInstance.playerController.MenuOpened(true);
         animateUIImage.StartAnimation();
@@ -50,6 +50,7 @@ public class MarkRecallMenu : MonoBehaviour
 
     public MarkSavedLocation GetMarkLocation()
     {
+
         if (GameInstance.playerController.GetPlayerState() == PlayerState.Battle)
         {
             markRecallMenuPanel.SetActive(false);
@@ -63,7 +64,7 @@ public class MarkRecallMenu : MonoBehaviour
         markRecallMenuPanel.SetActive(false);
         cameraOrder.BattleLogWithGameplay();
         GameInstance.playerController.MenuOpened(false);
-
+       
         return GameInstance.GetMarkLocation();
     }
 

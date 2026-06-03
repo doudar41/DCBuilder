@@ -1,5 +1,4 @@
-using System;
-using System.Collections;
+
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -34,6 +33,8 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables, IPointerClickHand
     [SerializeField] PhysicMaterial frictionMaterial;
     [SerializeField] TextMeshPro itemNameInEditor;
     [SerializeField] SpriteRenderer itemIconInEditor;
+    [SerializeField] SpriteRenderer mapIcon;
+    [SerializeField] Sprite weaponMapIcon, armourMapIcon, consumableMapIcon, questMapIcon, keyMapIcon;
 
     public void OnValidate()
     {
@@ -49,6 +50,7 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables, IPointerClickHand
             itemIconInEditor.sprite = itemScriptableLocal.InventorySprite;
             if(!itemScriptableLocal.stackable) stackAmount = 1;
         }
+
     }
 
     private void OnEnable()
@@ -154,6 +156,71 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables, IPointerClickHand
         createdItem.container = GameInstance.dataBase.GetItemIndexFromDataBase(itemScriptableLocal);
         createdItem.level = GameInstance.GetLevelName();
 
+        switch (createdItem.itemType)
+        {
+            case ItemType.WEAPON:
+                mapIcon.sprite = weaponMapIcon;
+                break;
+            case ItemType.AMMUNITION:
+                mapIcon.sprite = consumableMapIcon;
+                break;
+            case ItemType.TORSO_ARMOR:
+                mapIcon.sprite = armourMapIcon;
+                break;
+            case ItemType.HELM:
+                mapIcon.sprite = armourMapIcon;
+                break;
+            case ItemType.GLOVES:
+                mapIcon.sprite = armourMapIcon;
+                break;
+            case ItemType.AMULET:
+                mapIcon.sprite = armourMapIcon;
+                break;
+            case ItemType.BOOT:
+                mapIcon.sprite = armourMapIcon;
+                break;
+            case ItemType.BELT:
+                mapIcon.sprite = armourMapIcon;
+                break;
+            case ItemType.SHIELD:
+                mapIcon.sprite = armourMapIcon;
+                break;
+            case ItemType.RING:
+                mapIcon.sprite = armourMapIcon;
+                break;
+            case ItemType.RING2:
+                mapIcon.sprite = armourMapIcon;
+                break;
+            case ItemType.RING3:
+                mapIcon.sprite = armourMapIcon;
+                break;
+            case ItemType.RING4:
+                mapIcon.sprite = armourMapIcon;
+                break;
+            case ItemType.RING5:
+                mapIcon.sprite = armourMapIcon;
+                break;
+            case ItemType.RING6:
+                mapIcon.sprite = armourMapIcon;
+                break;
+            case ItemType.CONSUMABLE:
+                mapIcon.sprite = consumableMapIcon;
+                break;
+            case ItemType.QUEST:
+                mapIcon.sprite = questMapIcon;
+                break;
+            case ItemType.LOOT:
+                break;
+            case ItemType.Upgrades:
+                break;
+            case ItemType.Key:
+                mapIcon.sprite = keyMapIcon;
+                break;
+            case ItemType.LEARNINGSCROLL:
+                mapIcon.sprite = consumableMapIcon;
+                break;
+
+        }
         return createdItem;
     }
 
@@ -218,7 +285,6 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables, IPointerClickHand
             {
                 if (inter == InteractablesEnum.WEIGHTPLATE)
                 {
-                    print("weight plate");
                     if (GameInstance.playerController.GetBlockInterface(transform.position) != null)
                     {
                         GameInstance.playerController.GetBlockInterface(transform.position).AddWeightToBlock(itemScriptableLocal.weight);
@@ -231,6 +297,72 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables, IPointerClickHand
             itemNameInEditor.gameObject.SetActive(false);
             itemIconInEditor.gameObject.SetActive(false);
         }
+/*
+        switch (heroInventoryLocalItem.itemType)
+        {
+            case ItemType.WEAPON:
+                mapIcon.sprite = weaponMapIcon;
+                break;
+            case ItemType.AMMUNITION:
+                mapIcon.sprite = consumableMapIcon;
+                break;
+            case ItemType.TORSO_ARMOR:
+                mapIcon.sprite = armourMapIcon;
+                break;
+            case ItemType.HELM:
+                mapIcon.sprite = armourMapIcon;
+                break;
+            case ItemType.GLOVES:
+                mapIcon.sprite = armourMapIcon;
+                break;
+            case ItemType.AMULET:
+                mapIcon.sprite = armourMapIcon;
+                break;
+            case ItemType.BOOT:
+                mapIcon.sprite = armourMapIcon;
+                break;
+            case ItemType.BELT:
+                mapIcon.sprite = armourMapIcon;
+                break;
+            case ItemType.SHIELD:
+                mapIcon.sprite = armourMapIcon;
+                break;
+            case ItemType.RING:
+                mapIcon.sprite = armourMapIcon;
+                break;
+            case ItemType.RING2:
+                mapIcon.sprite = armourMapIcon;
+                break;
+            case ItemType.RING3:
+                mapIcon.sprite = armourMapIcon;
+                break;
+            case ItemType.RING4:
+                mapIcon.sprite = armourMapIcon;
+                break;
+            case ItemType.RING5:
+                mapIcon.sprite = armourMapIcon;
+                break;
+            case ItemType.RING6:
+                mapIcon.sprite = armourMapIcon;
+                break;
+            case ItemType.CONSUMABLE:
+                mapIcon.sprite = consumableMapIcon;
+                break;
+            case ItemType.QUEST:
+                mapIcon.sprite = questMapIcon;
+                break;
+            case ItemType.LOOT:
+                break;
+            case ItemType.Upgrades:
+                break;
+            case ItemType.Key:
+                mapIcon.sprite = keyMapIcon;
+                break;
+            case ItemType.LEARNINGSCROLL:
+                mapIcon.sprite = consumableMapIcon;
+                break;
+
+        }*/
     }
 
     public void SetPrefab(ItemScriptableContainer itemScriptable)
@@ -283,7 +415,7 @@ public class ItemModel : MonoBehaviour, IItem, IInteractables, IPointerClickHand
     }
 
 
-    
+
 }
 
 

@@ -53,7 +53,7 @@ public class OptionsMenu : MonoBehaviour
     {
         if (onOff)
         {
-            cameraOrder.ShopWithoutBattlelog();
+            //cameraOrder.ShopWithoutBattlelog();
             mainMenu.SetActive(true);
         }
         else

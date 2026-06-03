@@ -28,7 +28,7 @@ public class LevelChanger : MonoBehaviour
     public void OpenLevelEntranceGraphics(string levelName)
     {
         markRecallMenu.CancelMarkRecall();
-        cameraOrder.ShopWithoutBattlelog();
+        cameraOrder.BattleLogWithGameplay();
         GameInstance.playerController.shopIsOpened = true;
         GameObject levelGraphic;
         levelNameSaved = levelName;

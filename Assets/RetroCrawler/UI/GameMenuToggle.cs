@@ -54,4 +54,11 @@ public class GameMenuToggle : MonoBehaviour
     {
         cameraOrder.ShopWithoutBattlelog();
     }
+
+    public void Reset()
+    {
+        group.SetAllTogglesOff();
+        SwitchToSprite();
+    }
+
 }

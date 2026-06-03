@@ -1,4 +1,5 @@
 using Ami.BroAudio;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -16,11 +17,27 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
     [SerializeField]
     TextMeshProUGUI amountText;
     [SerializeField] GameObject describePrefab;
-
+    bool hover = false;
 
     private void Awake()
     {
        Init();
+        
+    }
+
+    private void Start()
+    {
+        GameInstance.playerController.rightClickEvent += OnRightClick;
+    }
+
+    private void OnRightClick(Vector3 mousePos)
+    {
+        if (!GameInstance.spellbook.IdentifyModeActive())
+        {
+
+            return;
+        }
+        if (hover && inventoryItem !=null) GameInstance.spawnTipWindow.FillTextField(inventoryItem);
     }
 
     public void Init()
@@ -31,7 +48,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
 
     private void OnDestroy()
     {
-       // GameInstance.GetInventoryItemDelegate -= SaveInventoryItemsToGameInstance;
+        GameInstance.playerController.rightClickEvent -= OnRightClick;
+        // GameInstance.GetInventoryItemDelegate -= SaveInventoryItemsToGameInstance;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -39,12 +57,17 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
         //print(eventData.button + " "+ eventData.clickCount);
         int clickCount = eventData.clickCount;
 
-        if (GameInstance.spellbook.IdentifyModeActive()) { return; }
+        if (GameInstance.spellbook.IdentifyModeActive()) 
+        {
+            
+            return;
+        }
 
         if (eventData.button == PointerEventData.InputButton.Right)
         {
             if (inventoryItem == null) 
             { print("no more clicking"); return; }
+
             if (inventoryItem.itemType == ItemType.CONSUMABLE)
             {
                 if (stackAmount > 1)
@@ -104,7 +127,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
 
         }
 
-        if (clickCount == 1)
+        if (clickCount == 1 && eventData.button == PointerEventData.InputButton.Left)
         {
            if (IsEmpty())
             {
@@ -260,6 +283,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
         {
             ItemScriptableContainer itemToDesc = GameInstance.inventory.GetHeroItemScriptableByIndex(inventoryItem.container);
 
+                        GameInstance.spawnTipWindow.FillTextField(inventoryItem);
+
             if(itemToDesc.itemLevel > GameInstance.party.activeHero.GetSkillsStat(SkillsStat.Identify, false)/3)
             {
                 textDesc.color = Color.red;
@@ -308,6 +333,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        hover = true;
         if (!GameInstance.spellbook.IdentifyModeActive()) { return; }
         if (inventoryItem == null) return;
         /*        if (describeInstance == null) describeInstance = Instantiate(describePrefab, Get);
@@ -324,6 +350,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
         if (textDesc != null)
         {
             ItemScriptableContainer itemToDesc = GameInstance.inventory.GetHeroItemScriptableByIndex(inventoryItem.container);
+
+            //GameInstance.spawnTipWindow.FillTextField(inventoryItem);
+
 
             if (itemToDesc.itemLevel > GameInstance.party.activeHero.GetSkillsStat(SkillsStat.Identify, false) / 3)
             {
@@ -347,6 +376,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
                 textDesc.text = itemToDesc.itemDescription + spellTexts + " " + "Price: " + ((int)(itemToDesc.price)).ToString() + " " + "Weight - " + itemToDesc.weight.ToString();
                 GameInstance.SaveIdentifiedItems(inventoryItem);
             }
+
+
             if (GameInstance.CheckIfItemIdentified(inventoryItem.container))
             {
                 textDesc.color = Color.green;
@@ -365,11 +396,14 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        hover = false;
         if (!GameInstance.spellbook.IdentifyModeActive()) { return; }
         TextMeshProUGUI textDesc = GameInstance.inventory.GetDescriptionTab().GetComponentInChildren<TextMeshProUGUI>();
         if (textDesc != null)
         {
             textDesc.text = string.Empty;
+            //GameInstance.spawnTipWindow.FillTextField("");
+           // GameInstance.spawnTipWindow.CloseTipWindow ();
         }
     }
 }

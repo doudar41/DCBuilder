@@ -57,6 +57,9 @@ public class BattleManager : MonoBehaviour
     public delegate void BattlePassTime(int count);
     public event BattlePassTime battlePassTime;
 
+    public delegate void turnEndCursor();
+    public event turnEndCursor turnEndCursorEvent;
+
 
     // Not used yet
     [SerializeField] List<ItemScriptableContainer> listRandomLoot = new List<ItemScriptableContainer>();
@@ -68,7 +71,7 @@ public class BattleManager : MonoBehaviour
     //if it's scripted battle
     bool customBattle = false;
     bool enemyattack = false;
-
+    bool autoattack = false;
 
     // Block responsible for calling a custom battle
     IBlock customBattleBlock;
@@ -133,11 +136,19 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
+            
+
             if (quarrySorted[quarrySortedKey].GetComponent<IHero>().GetHeroStatus().Contains(GameplayStates.Confused))
             {
                 ConfusedAutoAttack();
             }
-            else GameInstance.playerController.attackAllowed = true;
+            else 
+            {
+
+                GameInstance.playerController.attackAllowed = true;
+                if (autoattack) AutoBattleKeyPressed(GameInstance.playerController.EnemyObject());
+                //check if attack button is pressed
+            }
         }
         //Open UI elements which need for battle 
         battleStarts.Invoke();
@@ -390,6 +401,7 @@ public class BattleManager : MonoBehaviour
     }
 
 
+
     IEnumerator RecheckPositionRotation()
     {
         yield return new WaitForSeconds(0.3f);
@@ -510,6 +522,42 @@ public class BattleManager : MonoBehaviour
     }
 
 
+    void AutoBattleKeyPressed(GameObject target)
+    {
+        List<SpellContainer> spellContainers = quarrySorted[quarrySortedKey].GetComponent<IHero>().GetActiveHeroSpellbook();
+        SpellContainer weapon =  quarrySorted[quarrySortedKey].GetComponent<IHero>().GetWeaponSpell();
+        print(allOpponents.Count + " opponents");
+        IHero _hero = quarrySorted[quarrySortedKey].GetComponent<IHero>();
+        if (_hero.GetHeroHealth() <= 0)
+        {
+            AttackEnding();
+            return;
+        }
+
+        if (target !=null)
+        {
+
+            ReceiveAttackInput(target);
+            return;
+        }
+
+        for (int i= 0;i < allOpponents.Count;i++)
+        {
+            print("auto attack " + allOpponents[i].name + " " + autoattack);
+            if (allOpponents[i].GetComponent<IEnemy>() != null)
+            {
+                int h = allOpponents[i].GetComponent<IEnemy>().GetEnemyHealth();
+                if (h > 0)
+                {
+                    
+                    targetIndexInOpponents = i;
+                    ReceiveAttackInput(allOpponents[i]);
+                    return;
+                }
+            }
+        }
+
+    }
 
 
     void ConfusedAutoAttack()
@@ -634,7 +682,7 @@ public class BattleManager : MonoBehaviour
     }
 
 
-
+    
 
 
     public bool CheckEnemyState(IEnemy _enemy)
@@ -698,7 +746,7 @@ public class BattleManager : MonoBehaviour
         battlePassTime(actionCounter);
         //Next element in quarrySorted objects key
         quarrySortedKey++;
-
+        turnEndCursorEvent?.Invoke();
 
         //Check if current key exist 
         if (quarrySorted.ContainsKey(quarrySortedKey))
@@ -751,7 +799,11 @@ public class BattleManager : MonoBehaviour
             {
                 ConfusedAutoAttack();
             }
-            else GameInstance.playerController.attackAllowed = true;
+            else
+            { 
+                GameInstance.playerController.attackAllowed = true;
+                if (autoattack) AutoBattleKeyPressed(GameInstance.playerController.EnemyObject());
+            }
         }
         targetIndexInOpponents = -1;
         enemyTurn.Invoke("");
@@ -826,7 +878,7 @@ public class BattleManager : MonoBehaviour
 
     public bool IfThisOpponentHero()
     {
-        
+        if(!quarrySorted.ContainsKey(quarrySortedKey)) return false;
         return quarrySorted[quarrySortedKey].GetComponent<IHero>() != null;
     }
     //Checking for empty row in enemy formation
@@ -1059,22 +1111,85 @@ public class BattleManager : MonoBehaviour
         //_defeatedList.ClearList();
     }
     
-    public void ReceiveAttackInput()
+    public void FindNextEnemyTarget()
     {
+        foreach(KeyValuePair<int, GameObject> enemy in quarrySorted)
+        {
+            if (enemy.Value.GetComponent<IEnemy>() != null)
+            {
+                if (enemy.Value.GetComponent<IEnemy>().GetEnemyHealth() > 0)
+                {
+                    targetIndexInOpponents = allOpponents.IndexOf(enemy.Value);
+                    return;
+                }
+            }
+        }
+
+    }
+
+
+
+    public void ReceiveAutoAttackInput(bool auto)
+    {
+        autoattack = auto;
+
+        if (quarrySorted[quarrySortedKey].GetComponent<IHero>() == null) return;
+
+        if (autoattack) { AutoBattleKeyPressed(GameInstance.playerController.EnemyObject()); }
+    }
+
+    public GameObject GetCurrentTarget()
+    {
+        if (targetIndexInOpponents > -1 && allOpponents.Count > targetIndexInOpponents)
+        {
+            return allOpponents[targetIndexInOpponents];
+        }
+        return null;
+    }
+
+    public void ReceiveAttackInput(GameObject target)
+    {
+
         if (enemyattack) { return; }
         //battleInputDelay = true;
         if (quarrySorted[quarrySortedKey] == null)
         {
             return;
         }
-        if (quarrySorted[quarrySortedKey].GetComponent<IHero>() == null) 
+        if (quarrySorted[quarrySortedKey].GetComponent<IHero>() == null)
         {
-            return; 
+            return;
         }
-        //print("switch hero" + quarrySorted[quarrySortedKey].GetComponent<IHero>().HeroName());
+        print("switch hero" + quarrySorted[quarrySortedKey].GetComponent<IHero>().HeroName());
 
         IHero attacker = quarrySorted[quarrySortedKey].GetComponent<IHero>();
-        GameInstance.spellbook.CastSpell(attacker.GetWeaponSpell());
+
+        GameInstance.playerController.attackAllowed = true;
+        if (target!=null) GameInstance.spellbook.CastSpell(attacker.GetWeaponSpell(), target);
+        else GameInstance.spellbook.CastSpell(attacker.GetWeaponSpell(), null);
+
+    }
+
+
+
+
+
+    public void SetEnemyTargetIndex(GameObject enemyObject)
+    {
+        for (int i = 0; i < allOpponents.Count; i++)
+        {
+            if (allOpponents[i] == enemyObject)
+            {
+                targetIndexInOpponents = i;
+                print("Enemy target index set to: " + targetIndexInOpponents);
+                return;
+            }
+        }
+    }
+
+    public bool ISAutoAttack()
+    {
+        return autoattack;
     }
 
     public void RemoveDeadEnemy(GameObject g)

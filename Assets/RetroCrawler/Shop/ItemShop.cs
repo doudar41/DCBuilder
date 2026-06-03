@@ -55,7 +55,7 @@ public class ItemShop : MonoBehaviour
             heroesCoinsText[i].text = money[i].ToString();
         }
         sellItemIndexStart = 0;
-        ReadItemsToSEll();
+        ReadItemsToSell();
         textOfShopState.text = "Buy";
         shopInsides.SetActive(false);
         buyButton.SetActive(true);
@@ -97,12 +97,12 @@ public class ItemShop : MonoBehaviour
                 itemsForSale.Add(itemToSell);
             }
         }
-        ReadItemsToSEll();
+        ReadItemsToSell();
         arrowsItems[0].SetActive(false);
         arrowsItems[1].SetActive(false);
     }
 
-    public void ReadItemsToSEll()
+    public void ReadItemsToSell()
     {
         ClearSlots();
         if (itemsForSale.Count == 0)
@@ -131,7 +131,7 @@ public class ItemShop : MonoBehaviour
 
         itemsForSale.Remove(item);
         //print("item sold" + itemsForSale.Count);
-        ReadItemsToSEll();
+        ReadItemsToSell();
     }
 
     public void ItemBought(ItemScriptableContainer item)
@@ -298,7 +298,7 @@ public class ItemShop : MonoBehaviour
     public void SwitchToSellToPlayer()
     {
 
-        ReadItemsToSEll();
+        ReadItemsToSell();
         textOfShopState.text = "Buy";
         arrowsItems[0].SetActive(false);
         arrowsItems[1].SetActive(false);

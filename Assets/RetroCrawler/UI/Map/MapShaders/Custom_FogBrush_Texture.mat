@@ -31,6 +31,6 @@ Material:
     m_Floats:
     - _Opacity: 1
     m_Colors:
-    - _Center: {r: 0.5525, g: 0.4525, b: 0, a: 0}
+    - _Center: {r: 0.5475, g: 0.4675, b: 0, a: 0}
     - _Size: {r: 0.05, g: 0.05, b: 0, a: 0}
   m_BuildTextureStacks: []
